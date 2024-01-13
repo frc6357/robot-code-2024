@@ -1,0 +1,6 @@
+{
+    "drive"         : true,
+    "arm"           : true,
+    "intake"        : true,
+    "vision"        : true
+}
