@@ -14,11 +14,18 @@ about: "<!-- short description of the feature -->"
 
 ---
 
-**Describe what the feature will do.**
-<!-- A clear and concise description of what the problem is. Ex. I'm always frustrated when [...] -->
+# New Feature
 
-**Describe how you plan to implement the feature.**
+
+## **Description**
+<!-- A clear and concise description of what problem is being solved by this ticket. -->
+
+
+## **Implementation Plan**
+
+**Affected Subsystem(s):** <!-- List the subsystems that will be impacted by this change.>
 <!-- A clear and concise description of what you want to happen. -->
 
-**Additional context**
+
+## **Additional context**
 <!-- Add any other context or screenshots about the feature request here. -->
