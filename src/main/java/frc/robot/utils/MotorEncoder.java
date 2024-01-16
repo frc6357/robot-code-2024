@@ -1,6 +1,6 @@
 package frc.robot.utils;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 /**
  * This is a wrapper class used to make the Falcom500 (TalonFX) CAN encoders provide the
@@ -12,12 +12,12 @@ public class MotorEncoder
     /**
      * The underlying motor for this MotorEncoder.
      */
-    private WPI_TalonFX underlyingMotor;
+    private TalonFX underlyingMotor;
 
     /**
-     * Indicates the number of meters per pulse provided by the encoder.
+     * Indicates the number of meters per rotation.
      */
-    private double metersPerPulse;
+    private double metersPerRotation;
 
     /**
      * Indicates the last position at which the resetEncoder() method was called.
@@ -25,7 +25,7 @@ public class MotorEncoder
     private double lastPositionResetValue = 0.0;
 
     /**
-     * The factor used to calculate the pulse count (and invert the count if necessary).
+     * The factor used to invert the count if necessary.
      */
     private double inversionFactor;
 
@@ -35,40 +35,39 @@ public class MotorEncoder
      * 
      * @param selectedMotorEncoder
      *            The motor used to provide the base information for this MotorEncoder
-     * @param metersPerPulse
-     *            The distance that the wheel moves with each pulse from the motor
+     * @param metersPerRotation
+     *            The distance that the wheel moves with each rotation from the motor
      * @param isInverted
-     *            Indicates whether or not the motor is inverted (and if so will invert
-     *            the pulse count as needed for the calculations)
+     *            Indicates whether or not the motor is inverted
      */
-    public MotorEncoder(WPI_TalonFX selectedMotorEncoder, double metersPerPulse, boolean isInverted)
+    public MotorEncoder(TalonFX selectedMotorEncoder, double metersPerRotation, boolean isInverted)
     {
         underlyingMotor = selectedMotorEncoder;
-        this.metersPerPulse = metersPerPulse;
+        this.metersPerRotation = metersPerRotation;
         inversionFactor = isInverted ? -1 : 1;
     }
 
     /**
-     * Calculates the position of the motor in pulses using the current position,
+     * Calculates the position of the motor in rotations using the current position,
      * inversion, and the last motor position reset.
      * 
-     * @return The current position of the motor in pulses
+     * @return The current position of the motor in rotations
      */
-    public double getPositionPulses()
+    public double getPositionRotations()
     {
-        return (underlyingMotor.getSelectedSensorPosition() - lastPositionResetValue)
+        return (underlyingMotor.getPosition().getValue() - lastPositionResetValue)
             * inversionFactor;
     }
 
     /**
-     * Calculates the velocity of the motor in pulses using the inversion, and the last
+     * Calculates the velocity of the motor in rot/sec using the inversion, and the last
      * motor position reset.
      * 
-     * @return The current velocity of the motor in pulses per 100ms
+     * @return The current velocity of the motor in rotations per second
      */
-    public double getVelocityPulses()
+    public double getVelocityRotations()
     {
-        return underlyingMotor.getSelectedSensorVelocity() * inversionFactor;
+        return underlyingMotor.getVelocity().getValue() * inversionFactor;
     }
 
     /**
@@ -79,7 +78,7 @@ public class MotorEncoder
      */
     public double getPositionMeters()
     {
-        return getPositionPulses() * metersPerPulse;
+        return getPositionRotations() * metersPerRotation;
     }
 
     /**
@@ -90,8 +89,7 @@ public class MotorEncoder
      */
     public double getVelocityMetersPerSecond()
     {
-        // Multiplies by ten to convert from m/100ms to m/sec
-        return getVelocityPulses() * metersPerPulse * 10;
+        return getVelocityRotations() * metersPerRotation;
     }
 
     /**
@@ -99,18 +97,18 @@ public class MotorEncoder
      */
     public void resetEncoder()
     {
-        lastPositionResetValue = underlyingMotor.getSelectedSensorPosition();
+        lastPositionResetValue = underlyingMotor.getPosition().getValue();
     }
 
     /**
-     * Sets the distance in meters that is given for each pulse to calculate position and
+     * Sets the distance in meters that is given for each rotation to calculate position and
      * velocity speed in meters.
      * 
-     * @param metersPerPulse
-     *            The given meters that should be used per pulse
+     * @param metersPerRotation
+     *            The given meters that should be used per rotation
      */
-    public void setMetersPerPulse(double metersPerPulse)
+    public void setMetersPerRotation(double metersPerRotation)
     {
-        this.metersPerPulse = metersPerPulse;
+        this.metersPerRotation = metersPerRotation;
     }
 }

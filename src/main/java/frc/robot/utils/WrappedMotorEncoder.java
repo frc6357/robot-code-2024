@@ -1,6 +1,7 @@
 package frc.robot.utils;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -14,12 +15,8 @@ public class WrappedMotorEncoder
     /**
      * The underlying motor for this MotorEncoder.
      */
-    private WPI_TalonFX underlyingMotor;
+    private TalonFX underlyingMotor;
 
-    /**
-     * Indicates the number of degrees per pulse provided by the encoder.
-     */
-    private double degreesPerPulse;
 
     /**
      * Indicates the initial offset of the motor in degrees
@@ -27,57 +24,66 @@ public class WrappedMotorEncoder
     private double degreesOffset = 0.0;
 
     /**
+     * Indicates the initial offset of the motor in degrees
+     */
+    private double degreesPerPulse = 0.0;
+
+    /**
      * Sets up the encoder wrapper with the required motor and other informaiton to
      * calculate distance and velocities
      * 
      * @param selectedMotorEncoder
      *            The motor used to provide the base information for this MotorEncoder
-     * @param degreesPerPulse
-     *            The distance that the wheel moves with each pulse from the motor
+     * @param degreesPerRotation
+     *            The ratio of sensor rotations to the mechanism's output
      * @param degreesOffset
      *            Indicates the initial absolute position of the motor
      */
-    public WrappedMotorEncoder(WPI_TalonFX selectedMotorEncoder, double degreesPerPulse,
+    public WrappedMotorEncoder(TalonFX selectedMotorEncoder, double degreesPerRotation,
         double degreesOffset)
     {
-        selectedMotorEncoder.setSelectedSensorPosition(0);
+        underlyingMotor.setPosition(0);
         underlyingMotor = selectedMotorEncoder;
-        this.degreesPerPulse = degreesPerPulse;
         this.degreesOffset = degreesOffset;
+        this.degreesPerPulse = degreesPerRotation;
+
+        TalonFXConfiguration config = new TalonFXConfiguration();
+        config.Feedback.SensorToMechanismRatio = degreesPerRotation;
+        underlyingMotor.getConfigurator().apply(config);
     }
 
     /**
-     * Calculates the position of the motor in pulses using the current position,
+     * Calculates the position of the motor in rotations using the current position,
      * inversion, and the last motor position reset.
      * 
-     * @return The current position of the motor in pulses
+     * @return The current position of the motor in rotations
      */
-    private double getPositionPulses()
+    private double getPositionRotations()
     {
-        return underlyingMotor.getSelectedSensorPosition();
+        return underlyingMotor.getPosition().getValue();
     }
 
     /**
-     * Calculates the velocity of the motor in pulses using the inversion, and the last
+     * Calculates the velocity of the motor in rot/sec using the inversion, and the last
      * motor position reset.
      * 
-     * @return The current velocity of the motor in pulse units
+     * @return The current velocity of the motor in rotations per second
      */
-    private double getVelocityPulses()
+    private double getVelocityRotations()
     {
-        return underlyingMotor.getSelectedSensorVelocity();
+        return underlyingMotor.getVelocity().getValue();
     }
 
     /**
-     * Calculates the position of the motor in meters using the stored meters per pulse
+     * Calculates the position of the motor in meters using the stored meters per rotation
      * and the current position.
      * 
      * @return The current position of the motor in meters
      */
     public double getPositionDegrees()
     {
-        return MathUtil.inputModulus((getPositionPulses() * degreesPerPulse + degreesOffset), 0,
-            360);
+        return MathUtil.inputModulus((getPositionRotations() * 360 + degreesOffset), 0,
+            360); //Multiply by 360 to get degrees from rotations
     }
 
     /**
@@ -88,11 +94,10 @@ public class WrappedMotorEncoder
      */
     public double getVelocityDegrees()
     {
-        // Multiplies by ten to convert from m/100ms to m/sec
-        return getVelocityPulses() * degreesPerPulse * 10;
+        return getVelocityRotations() * 360; //Multiply by 360 to get degrees from rotations
     }
 
-    public double getPulsePositionFromDesiredAngle(double angle)
+    public double getRotationPositionFromDesiredAngle(double angle)
     {
         double offset = MathUtil.inputModulus(angle - getPositionDegrees(), 0, 360);
         double absoluteDistance = Math.abs(offset);
@@ -100,7 +105,7 @@ public class WrappedMotorEncoder
         {
             offset = (360-absoluteDistance) * -Math.signum(offset);
         }
-        return getPositionPulses() + offset / degreesPerPulse;
+        return getPositionRotations() + offset / 360;
     }
 
     public Rotation2d getRotation2d()

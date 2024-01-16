@@ -5,7 +5,7 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.SK23Example;
-import frc.robot.Ports;
+import static frc.robot.Ports.OperatorPorts.*;
 
 public class SK23ExampleBinder implements CommandBinder
 {
@@ -25,7 +25,7 @@ public class SK23ExampleBinder implements CommandBinder
     public SK23ExampleBinder(Optional<SK23Example> subsystem)
     {
         this.subsystem = subsystem;
-        exampleButton           = Ports.kExample.button;
+        exampleButton           = kExample.button;
     }
 
     public void bindButtons()

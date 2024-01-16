@@ -1,9 +1,10 @@
 package frc.robot.utils.wrappers;
 
-import com.ctre.phoenix.sensors.AbsoluteSensorRange;
-import com.ctre.phoenix.sensors.CANCoderConfiguration;
-import com.ctre.phoenix.sensors.SensorInitializationStrategy;
-import com.ctre.phoenix.sensors.WPI_CANCoder;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CANcoderConfigurator;
+import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.utils.CANPort;
@@ -12,7 +13,7 @@ import frc.robot.utils.CANPort;
  * Java class that wraps WPI_CANCoder to allow offsetDegrees as parameter that changes
  * position to an offset position.
  */
-public class SK_CANCoder extends WPI_CANCoder
+public class SK_CANCoder extends CANcoder
 {
 
     private double offsetDegrees;
@@ -22,15 +23,14 @@ public class SK_CANCoder extends WPI_CANCoder
         super(deviceNumber.ID, deviceNumber.bus);
 
         this.offsetDegrees = offsetDegrees;
-        CANCoderConfiguration config = new CANCoderConfiguration();
-        config.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
-        config.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-        config.unitString = "deg";
-        config.sensorDirection = false; //Counter clockwise positive
-        config.magnetOffsetDegrees = this.offsetDegrees;
-        config.sensorCoefficient = 360.0 / 4096;
+        CANcoderConfigurator configurator = this.getConfigurator();
+        CANcoderConfiguration config = new CANcoderConfiguration();
 
-        this.configAllSettings(config);
+        config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Unsigned_0To1;
+        config.MagnetSensor.MagnetOffset = this.offsetDegrees / 360.0; //Convert from rotations to degrees
+        config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+        configurator.apply(config);
+        
     }
 
     /**
@@ -40,6 +40,6 @@ public class SK_CANCoder extends WPI_CANCoder
      */
     public Rotation2d getRotation2d()
     {
-        return Rotation2d.fromDegrees(getAbsolutePosition());
+        return Rotation2d.fromRotations(getAbsolutePosition().getValueAsDouble());
     }
 }
