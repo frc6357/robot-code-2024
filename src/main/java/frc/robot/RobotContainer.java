@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
-import frc.robot.bindings.SK23ExampleBinder;
-import frc.robot.subsystems.SK23Example;
+import frc.robot.bindings.SK24ExampleBinder;
+import frc.robot.subsystems.SK24Example;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
 
@@ -33,7 +33,7 @@ import frc.robot.utils.filters.FilteredJoystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private Optional<SK23Example>  SK23Example  = Optional.empty();
+  private Optional<SK24Example>  SK23Example  = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -74,7 +74,7 @@ public class RobotContainer {
             // This is decided by looking at Subsystems.json
             if (subsystems.isExamplePresent())
             {
-                SK23Example = Optional.of(new SK23Example());
+                SK23Example = Optional.of(new SK24Example());
             }
             // if (subsystems.isDrivePresent())
             // {
@@ -103,7 +103,7 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK23ExampleBinder(SK23Example));
+        buttonBinders.add(new SK24ExampleBinder(SK23Example));
 
         // Traversing through all the binding classes to actually bind the buttons
         for (CommandBinder subsystemGroup : buttonBinders)
