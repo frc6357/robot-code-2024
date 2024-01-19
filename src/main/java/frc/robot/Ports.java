@@ -43,8 +43,7 @@ public class Ports
         public static final SKTrigger kRotateGrid       = new SKTrigger(kDriver, kA.value, BUTTON);
         public static final SKTrigger kRotateLeft       = new SKTrigger(kDriver, kX.value, BUTTON);
         public static final SKTrigger kRotateRight      = new SKTrigger(kDriver, kB.value, BUTTON);
-        public static final SKTrigger kAutoLevel        = new SKTrigger(kDriver, kBack.value, BUTTON);
-
+        
         // Buttons for driver angle reset
         public static final SKTrigger kResetGyroDSS   = new SKTrigger(kDriver, 0, POV);
         public static final SKTrigger kResetGyroGrid  = new SKTrigger(kDriver, 180, POV);

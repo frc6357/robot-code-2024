@@ -13,14 +13,18 @@ import java.util.Optional;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
+import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24ExampleBinder;
+import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Example;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
@@ -33,7 +37,8 @@ import frc.robot.utils.filters.FilteredJoystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private Optional<SK24Example>  SK23Example  = Optional.empty();
+  private Optional<SK24Example>  SK24Example  = Optional.empty();
+  private Optional<SK24Drive>  driveSubsystem  = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -74,17 +79,16 @@ public class RobotContainer {
             // This is decided by looking at Subsystems.json
             if (subsystems.isExamplePresent())
             {
-                SK23Example = Optional.of(new SK24Example());
+                SK24Example = Optional.of(new SK24Example());
             }
-            // if (subsystems.isDrivePresent())
-            // {
-            //     driveSubsystem = Optional.of(new SK23Drive());
+            if (subsystems.isDrivePresent())
+            {
+                driveSubsystem = Optional.of(new SK24Drive(new File(Filesystem.getDeployDirectory(),"swerve")));
 
-            //     // Configures the autonomous paths and smartdashboard chooser
-            //     new SK23AutoGenerator(driveSubsystem.get(), armSubsystem, intakeSubsystem);
-            //     autoCommandSelector = AutoBuilder.buildAutoChooser();
-            //     SmartDashboard.putData("Auto Chooser", autoCommandSelector);
-            // }
+                // Configures the autonomous paths and smartdashboard chooser
+                autoCommandSelector = AutoBuilder.buildAutoChooser();
+                SmartDashboard.putData("Auto Chooser", autoCommandSelector);
+            }
             
         }
         catch (IOException e)
@@ -103,7 +107,8 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24ExampleBinder(SK23Example));
+        buttonBinders.add(new SK24ExampleBinder(SK24Example));
+        buttonBinders.add(new SK24DriveBinder(driveSubsystem));
 
         // Traversing through all the binding classes to actually bind the buttons
         for (CommandBinder subsystemGroup : buttonBinders)
