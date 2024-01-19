@@ -7,16 +7,8 @@ import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.*;
 
-
-import static edu.wpi.first.wpilibj.XboxController.Axis.*;
-import static edu.wpi.first.wpilibj.XboxController.Button.*;
-import static frc.robot.utils.SKTrigger.INPUT_TYPE.*;
-
-import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.utils.CANPort;
-import frc.robot.utils.SKTrigger;
 import frc.robot.utils.filters.FilteredAxis;
-import frc.robot.utils.filters.FilteredXboxController;
 
 public class Ports
 {
@@ -43,7 +35,7 @@ public class Ports
         public static final SKTrigger kRotateGrid       = new SKTrigger(kDriver, kA.value, BUTTON);
         public static final SKTrigger kRotateLeft       = new SKTrigger(kDriver, kX.value, BUTTON);
         public static final SKTrigger kRotateRight      = new SKTrigger(kDriver, kB.value, BUTTON);
-        
+
         // Buttons for driver angle reset
         public static final SKTrigger kResetGyroDSS   = new SKTrigger(kDriver, 0, POV);
         public static final SKTrigger kResetGyroGrid  = new SKTrigger(kDriver, 180, POV);
