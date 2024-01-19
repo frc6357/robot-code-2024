@@ -1,8 +1,5 @@
 package frc.robot.bindings;
 
-import static frc.robot.Constants.OIConstants.kDriveCoeff;
-import static frc.robot.Constants.OIConstants.kJoystickDeadband;
-import static frc.robot.Constants.OIConstants.kRotationCoeff;
 import static frc.robot.Ports.OperatorPorts.kResetGyroDSS;
 import static frc.robot.Ports.OperatorPorts.kResetGyroGrid;
 import static frc.robot.Ports.OperatorPorts.kResetGyroLeft;
@@ -21,13 +18,13 @@ import java.util.Optional;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 import static frc.robot.Constants.OIConstants.*;
 import frc.robot.commands.DefaultSwerveCommand;
+import frc.robot.commands.DriveTurnCommand;
 import frc.robot.subsystems.SK24Drive;
 //import frc.robot.commands.OnTheFlyCommand;
 import frc.robot.utils.filters.CubicDeadbandFilter;
@@ -99,10 +96,31 @@ public class SK24DriveBinder implements CommandBinder
                 .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
-            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(new Translation2d(0, 0), new Rotation2d(Math.toRadians(0))));}));
-            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(new Translation2d(0, 0), new Rotation2d(Math.toRadians(180))));}));
-            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(new Translation2d(0, 0), new Rotation2d(Math.toRadians(90))));}));
-            resetGyroRight.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(new Translation2d(0, 0), new Rotation2d(Math.toRadians(270))));}));
+            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(0))));}));
+            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(180))));}));
+            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(90))));}));
+            resetGyroRight.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(270))));}));
+
+            rotateDSS.whileTrue(
+                new DriveTurnCommand(
+                    () -> kVelocityXPort.getFilteredAxis(),
+                    () -> kVelocityYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 0, drive));
+            rotateGrid.and(robotCentric.negate()).whileTrue(
+                new DriveTurnCommand(
+                    () -> kVelocityXPort.getFilteredAxis(),
+                    () -> kVelocityYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 180, drive));
+            rotateLeft.whileTrue(
+                new DriveTurnCommand(
+                    () -> kVelocityXPort.getFilteredAxis(),
+                    () -> kVelocityYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 90, drive));
+            rotateRight.whileTrue(
+                new DriveTurnCommand(
+                    () -> kVelocityXPort.getFilteredAxis(),
+                    () -> kVelocityYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 270, drive));
 
             // Default command for driving
             drive.setDefaultCommand(
