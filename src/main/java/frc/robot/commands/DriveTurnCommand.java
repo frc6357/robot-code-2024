@@ -62,14 +62,14 @@ public class DriveTurnCommand extends Command
         double rot = PID.calculate(subsystem.getPose().getRotation().getDegrees());
         rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
 
-        subsystem.drive(new Translation2d(xSpeed.get(), ySpeed.get()), rot, !robotCentric.get());
+        subsystem.drive(xSpeed.get(), ySpeed.get(), rot, !robotCentric.get());
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted)
     {
-        subsystem.drive(new Translation2d(), 0, false);
+        subsystem.drive(0, 0, 0, false);
     }
 
     // Returns true when the command should end.

@@ -27,7 +27,7 @@ public class Ports
         // Axes for driving
         public static final FilteredAxis kVelocityXPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftY.value));
         public static final FilteredAxis kVelocityYPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftX.value));
-        public static final FilteredAxis kVelocityOmegaPort = new FilteredAxis(() -> kDriver.getRawAxis(kRightX.value));
+        public static final FilteredAxis kVelocityOmegaPort = new FilteredAxis(() -> kDriver.getRawAxis(kLeftTrigger.value)); //TODO - Change back for actual controller
         
         // Buttons for driving
         public static final SKTrigger kRobotCentricMode = new SKTrigger(kDriver, kRightBumper.value, BUTTON);

@@ -96,10 +96,10 @@ public class SK24DriveBinder implements CommandBinder
                 .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
-            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(0))));}));
-            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(180))));}));
-            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(90))));}));
-            resetGyroRight.onTrue(new InstantCommand(() -> {drive.resetOdometry(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(270))));}));
+            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.seedFieldRelative();}));
+            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.seedFieldRelative(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(90))));}));
+            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.seedFieldRelative(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(180))));}));
+            resetGyroRight.onTrue(new InstantCommand(() -> {drive.seedFieldRelative(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(270))));}));
 
             rotateDSS.whileTrue(
                 new DriveTurnCommand(

@@ -4,17 +4,27 @@
 
 package frc.robot;
 
+import static frc.robot.TunerConstants.BackLeft;
+import static frc.robot.TunerConstants.BackRight;
+import static frc.robot.TunerConstants.DrivetrainConstants;
+import static frc.robot.TunerConstants.FrontLeft;
+import static frc.robot.TunerConstants.FrontRight;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.ctre.phoenix6.Utils;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pathplanner.lib.auto.AutoBuilder;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -83,11 +93,20 @@ public class RobotContainer {
             }
             if (subsystems.isDrivePresent())
             {
-                driveSubsystem = Optional.of(new SK24Drive(new File(Filesystem.getDeployDirectory(),"swerve")));
+                driveSubsystem = Optional.of(new SK24Drive(DrivetrainConstants, FrontLeft,
+                FrontRight, BackLeft, BackRight));
+
 
                 // Configures the autonomous paths and smartdashboard chooser
                 autoCommandSelector = AutoBuilder.buildAutoChooser();
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
+
+                Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
+
+                if (Utils.isSimulation()) {
+                    driveSubsystem.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
+                }
+                driveSubsystem.get().registerTelemetry(log::telemeterize);
             }
             
         }

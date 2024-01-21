@@ -4,64 +4,60 @@
 
 package frc.robot.subsystems;
 
-import java.io.File;
+import static frc.robot.Constants.AutoConstants.kAutoPathConfig;
 
+import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
-import swervelib.SwerveController;
-import swervelib.SwerveDrive;
-import swervelib.parser.SwerveDriveConfiguration;
-import swervelib.parser.SwerveParser;
-import swervelib.telemetry.SwerveDriveTelemetry;
-import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.Constants;
+import frc.robot.TunerConstants;
 
-public class SK24Drive extends SubsystemBase
+
+public class SK24Drive extends SwerveDrivetrain implements Subsystem
 {
+  private static final double kSimLoopPeriod = 0.005; // 5 ms
+  private Notifier m_simNotifier = null;
+  private double m_lastSimTime;
 
-  /**
-   * Swerve drive object.
-   */
-  private final SwerveDrive swerveDrive;
-  /**
-   * Maximum speed of the robot in meters per second, used to limit acceleration.
-   */
-  public        double      maximumSpeed = DriveConstants.kMaxSpeedMetersPerSecond;
+    public SK24Drive(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
+        super(driveTrainConstants, modules);
+        if (Utils.isSimulation()) {
+          startSimThread();
+        }
 
-  /**
-   * Initialize {@link SwerveDrive} with the directory provided.
-   *
-   * @param directory Directory of swerve drive config files.
-   */
-  public SK24Drive(File directory)
-  {
-
-    // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary objects being created.
-    SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
-    try
-    {
-      swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed);
-    } catch (Exception e)
-    {
-      throw new RuntimeException(e);
+        setupPathPlanner();
+        
     }
-    swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
 
-    setupPathPlanner();
-    setMotorBrake(true);
+    private void startSimThread() {
+      m_lastSimTime = Utils.getCurrentTimeSeconds();
+
+      /* Run simulation at a faster rate so PID gains behave more reasonably */
+      m_simNotifier = new Notifier(() -> {
+          final double currentTime = Utils.getCurrentTimeSeconds();
+          double deltaTime = currentTime - m_lastSimTime;
+          m_lastSimTime = currentTime;
+
+          /* use the measured time delta, get battery voltage from WPILib */
+          this.updateSimState(deltaTime, RobotController.getBatteryVoltage());
+      });
+      m_simNotifier.startPeriodic(kSimLoopPeriod);
   }
+
 
   /**
    * Setup AutoBuilder for PathPlanner.
@@ -73,20 +69,7 @@ public class SK24Drive extends SubsystemBase
         this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
         this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
         this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-        new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                                         new PIDConstants(5.0, 0.0, 0.0),
-                                         // Translation PID constants
-                                         new PIDConstants(swerveDrive.swerveController.config.headingPIDF.p,
-                                                          swerveDrive.swerveController.config.headingPIDF.i,
-                                                          swerveDrive.swerveController.config.headingPIDF.d),
-                                         // Rotation PID constants
-                                         4.5,
-                                         // Max module speed, in m/s
-                                         swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
-                                         // Drive base radius in meters. Distance from robot center to furthest module.
-                                         new ReplanningConfig()
-                                         // Default path replanning config. See the API for the options here
-        ),
+        kAutoPathConfig,
         () -> {
                     // Boolean supplier that controls when the path will be mirrored for the red alliance
                     // This will flip the path being followed to the red side of the field.
@@ -113,53 +96,30 @@ public class SK24Drive extends SubsystemBase
    *                      relativity.
    * @param fieldRelative Drive mode.  True for field-relative, false for robot-relative.
    */
-  public void drive(Translation2d translation, double rotation, boolean fieldRelative)
+  public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative)
   {
-    swerveDrive.drive(translation,
-                      rotation,
-                      fieldRelative,
-                      false); // Open loop is disabled since it shouldn't be used most of the time.
+    if(fieldRelative){
+      SwerveRequest.FieldCentric fieldCentric = new SwerveRequest.FieldCentric()
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(0).withRotationalDeadband(0);
+      
+
+      this.setControl(fieldCentric.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
+    }else{
+      SwerveRequest.RobotCentric robotCentric = new SwerveRequest.RobotCentric()
+      .withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot);
+
+      this.setControl(robotCentric);
+    }
   }
 
-  /**
-   * Drive the robot given a chassis field oriented velocity.
-   *
-   * @param velocity Velocity according to the field.
-   */
-  public void driveFieldOriented(ChassisSpeeds velocity)
-  {
-    swerveDrive.driveFieldOriented(velocity);
-  }
-
-  /**
-   * Drive according to the chassis robot oriented velocity.
-   *
-   * @param velocity Robot oriented {@link ChassisSpeeds}
-   */
-  public void drive(ChassisSpeeds velocity)
-  {
-    swerveDrive.drive(velocity);
-  }
 
   @Override
   public void periodic()
   {
   }
 
-  @Override
-  public void simulationPeriodic()
-  {
-  }
 
-  /**
-   * Get the swerve drive kinematics object.
-   *
-   * @return {@link SwerveDriveKinematics} of the swerve drive.
-   */
-  public SwerveDriveKinematics getKinematics()
-  {
-    return swerveDrive.kinematics;
-  }
+
 
   /**
    * Resets odometry to the given pose. Gyro angle and module positions do not need to be reset when calling this
@@ -168,10 +128,11 @@ public class SK24Drive extends SubsystemBase
    *
    * @param initialHolonomicPose The pose to set the odometry to
    */
-  public void resetOdometry(Pose2d initialHolonomicPose)
+  public void resetOdometry(Pose2d initalHolonomicPose)
   {
-    swerveDrive.resetOdometry(initialHolonomicPose);
+    this.seedFieldRelative(initalHolonomicPose);
   }
+
 
   /**
    * Gets the current pose (position and rotation) of the robot, as reported by odometry.
@@ -180,7 +141,7 @@ public class SK24Drive extends SubsystemBase
    */
   public Pose2d getPose()
   {
-    return swerveDrive.getPose();
+    return this.getState().Pose;
   }
 
   /**
@@ -190,36 +151,11 @@ public class SK24Drive extends SubsystemBase
    */
   public void setChassisSpeeds(ChassisSpeeds chassisSpeeds)
   {
-    swerveDrive.setChassisSpeeds(chassisSpeeds);
+    SwerveRequest chassisSpeed = new SwerveRequest.ApplyChassisSpeeds().withSpeeds(chassisSpeeds);
+    this.setControl(chassisSpeed);
   }
 
-  /**
-   * Post the trajectory to the field.
-   *
-   * @param trajectory The trajectory to post.
-   */
-  public void postTrajectory(Trajectory trajectory)
-  {
-    swerveDrive.postTrajectory(trajectory);
-  }
 
-  /**
-   * Resets the gyro angle to zero and resets odometry to the same position, but facing toward 0.
-   */
-  public void zeroGyro()
-  {
-    swerveDrive.zeroGyro();
-  }
-
-  /**
-   * Sets the drive motors to brake/coast mode.
-   *
-   * @param brake True to set motors to brake mode, false for coast.
-   */
-  public void setMotorBrake(boolean brake)
-  {
-    swerveDrive.setMotorIdleMode(brake);
-  }
 
   /**
    * Gets the current yaw angle of the robot, as reported by the imu.  CCW positive, not wrapped.
@@ -228,18 +164,9 @@ public class SK24Drive extends SubsystemBase
    */
   public Rotation2d getHeading()
   {
-    return swerveDrive.getYaw();
+    return this.getPigeon2().getRotation2d();
   }
 
-  /**
-   * Gets the current field-relative velocity (x, y and omega) of the robot
-   *
-   * @return A ChassisSpeeds object of the current field-relative velocity
-   */
-  public ChassisSpeeds getFieldVelocity()
-  {
-    return swerveDrive.getFieldVelocity();
-  }
 
   /**
    * Gets the current velocity (x, y and omega) of the robot
@@ -248,35 +175,17 @@ public class SK24Drive extends SubsystemBase
    */
   public ChassisSpeeds getRobotVelocity()
   {
-    return swerveDrive.getRobotVelocity();
+    return TunerConstants.swerveKinematics.toChassisSpeeds(this.getState().ModuleStates);
   }
 
-  /**
-   * Get the {@link SwerveController} in the swerve drive.
-   *
-   * @return {@link SwerveController} from the {@link SwerveDrive}.
-   */
-  public SwerveController getSwerveController()
-  {
-    return swerveDrive.swerveController;
-  }
 
-  /**
-   * Get the {@link SwerveDriveConfiguration} object.
-   *
-   * @return The {@link SwerveDriveConfiguration} fpr the current drive.
-   */
-  public SwerveDriveConfiguration getSwerveDriveConfiguration()
-  {
-    return swerveDrive.swerveDriveConfiguration;
-  }
-
+  
   /**
    * Lock the swerve drive to prevent it from moving.
    */
   public void lock()
   {
-    swerveDrive.lockPose();
+    this.setControl(new SwerveRequest.SwerveDriveBrake());
   }
 
   /**
@@ -286,7 +195,7 @@ public class SK24Drive extends SubsystemBase
    */
   public Rotation2d getPitch()
   {
-    return swerveDrive.getPitch();
+    return new Rotation2d(this.getPigeon2().getPitch().getValueAsDouble());
   }
 
   /**
@@ -294,6 +203,6 @@ public class SK24Drive extends SubsystemBase
    */
   public void addFakeVisionReading()
   {
-    swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
+    this.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
 }

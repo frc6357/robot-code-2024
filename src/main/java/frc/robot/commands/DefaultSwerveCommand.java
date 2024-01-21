@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -40,7 +41,7 @@ public class DefaultSwerveCommand extends Command
 
         this.robotCentric = robotCentric;
         this.subsystem = drive;
-
+        
         addRequirements(drive);
     }
 
@@ -48,13 +49,13 @@ public class DefaultSwerveCommand extends Command
     @Override
     public void execute()
     {
-        subsystem.drive(new Translation2d(xSpeed.get(), ySpeed.get()), omegaSpeed.get(), !robotCentric.get());
+        subsystem.drive(xSpeed.get(), ySpeed.get(), omegaSpeed.get(), !robotCentric.get());
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted)
     {
-        subsystem.drive(new Translation2d(0, 0), 0, false);
+        subsystem.drive(0, 0, 0, false);
     }
 }
