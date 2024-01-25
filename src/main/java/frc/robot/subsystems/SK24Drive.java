@@ -106,9 +106,10 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
       this.setControl(fieldCentric.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
     }else{
       SwerveRequest.RobotCentric robotCentric = new SwerveRequest.RobotCentric()
-      .withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot);
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(0).withRotationalDeadband(0);
+      
 
-      this.setControl(robotCentric);
+      this.setControl(robotCentric.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
     }
   }
 

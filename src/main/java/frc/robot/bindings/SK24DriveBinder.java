@@ -87,7 +87,7 @@ public class SK24DriveBinder implements CommandBinder
 
             kVelocityYPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
                 kJoystickDeadband, DriveConstants.kMaxSpeedMetersPerSecond, true));
-
+            
             kVelocityOmegaPort.setFilter(new CubicDeadbandFilter(kRotationCoeff, kJoystickDeadband,
                 Math.toRadians(ModuleConstants.kMaxModuleAngularSpeedDegreesPerSecond), true));
 
