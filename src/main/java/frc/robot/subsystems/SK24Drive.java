@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.AutoConstants.kAutoPathConfig;
 
-import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
@@ -19,44 +18,21 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.Constants;
-import frc.robot.TunerConstants;
+import frc.robot.Constants.DriveConstants;
 
 
 public class SK24Drive extends SwerveDrivetrain implements Subsystem
 {
-  private static final double kSimLoopPeriod = 0.005; // 5 ms
-  private Notifier m_simNotifier = null;
-  private double m_lastSimTime;
 
     public SK24Drive(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
-        if (Utils.isSimulation()) {
-          startSimThread();
-        }
-
         setupPathPlanner();
         
     }
 
-    private void startSimThread() {
-      m_lastSimTime = Utils.getCurrentTimeSeconds();
-
-      /* Run simulation at a faster rate so PID gains behave more reasonably */
-      m_simNotifier = new Notifier(() -> {
-          final double currentTime = Utils.getCurrentTimeSeconds();
-          double deltaTime = currentTime - m_lastSimTime;
-          m_lastSimTime = currentTime;
-
-          /* use the measured time delta, get battery voltage from WPILib */
-          this.updateSimState(deltaTime, RobotController.getBatteryVoltage());
-      });
-      m_simNotifier.startPeriodic(kSimLoopPeriod);
-  }
+  
 
 
   /**
@@ -83,22 +59,21 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
 
 
   /**
-   * The primary method for controlling the drivebase.  Takes a {@link Translation2d} and a rotation rate, and
-   * calculates and commands module states accordingly.  Can use either open-loop or closed-loop velocity control for
-   * the wheel velocities.  Also has field- and robot-relative modes, which affect how the translation vector is used.
+   * The primary method for controlling the drivebase.  Takes a xSpeed, ySpeed and a rotation rate, and
+   * calculates and commands module states accordingly. Also has field- and robot-relative modes, 
+   * which affect how the translation vector is used.
    *
-   * @param translation   {@link Translation2d} that is the commanded linear velocity of the robot, in meters per
-   *                      second. In robot-relative mode, positive x is torwards the bow (front) and positive y is
-   *                      torwards port (left).  In field-relative mode, positive x is away from the alliance wall
-   *                      (field North) and positive y is torwards the left wall when looking through the driver station
-   *                      glass (field West).
-   * @param rotation      Robot angular rate, in radians per second. CCW positive.  Unaffected by field/robot
-   *                      relativity.
-   * @param fieldRelative Drive mode.  True for field-relative, false for robot-relative.
+   * @param xSpeed  Velocity of x in m/s
+   * @param ySpeed  Velocity of y in m/s
+   * @param rot     Robot angular rate, in radians per second. CCW positive.  Unaffected by field/robot relativity.
+   * @param fieldRelative Drive mode. True for field-relative, false for robot-relative.
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative)
   {
-    if(fieldRelative){
+    if((xSpeed == 0.0) && (ySpeed == 0.0) && (rot == 0.0)){
+      this.lock();
+    }
+    else if(fieldRelative){
       SwerveRequest.FieldCentric fieldCentric = new SwerveRequest.FieldCentric()
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(0).withRotationalDeadband(0);
       
@@ -117,24 +92,24 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   @Override
   public void periodic()
   {
+    
   }
 
 
 
 
   /**
-   * Resets odometry to the given pose. Gyro angle and module positions do not need to be reset when calling this
-   * method.  However, if either gyro angle or module position is reset, this must be called in order for odometry to
-   * keep working.
+   * Resets odometry to the given pose.
    *
-   * @param initialHolonomicPose The pose to set the odometry to
+   * @param initalHolonomicPose The pose to set the odometry to
    */
   public void resetOdometry(Pose2d initalHolonomicPose)
   {
-    this.seedFieldRelative(initalHolonomicPose);
+    this.m_odometry.resetPosition(getHeading(), this.m_modulePositions, initalHolonomicPose);
   }
 
-
+  
+  
   /**
    * Gets the current pose (position and rotation) of the robot, as reported by odometry.
    *
@@ -142,12 +117,11 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    */
   public Pose2d getPose()
   {
-    return this.getState().Pose;
+    return this.m_odometry.getEstimatedPosition();
   }
-
+  
   /**
-   * Set chassis speeds with closed-loop velocity control.
-   *
+   * Set chassis speeds of robot
    * @param chassisSpeeds Chassis Speeds to set.
    */
   public void setChassisSpeeds(ChassisSpeeds chassisSpeeds)
@@ -156,8 +130,8 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     this.setControl(chassisSpeed);
   }
 
-
-
+  
+  
   /**
    * Gets the current yaw angle of the robot, as reported by the imu.  CCW positive, not wrapped.
    *
@@ -168,7 +142,15 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     return this.getPigeon2().getRotation2d();
   }
 
-
+  /**
+   * Sets the heading of the robot using a {@link Rotation2d}. CCW positive, not wrapped.
+   * 
+   * @param angle {@link Rotation2d} to set the robot heading to
+   */
+  public void setHeading(Rotation2d angle){
+    resetOdometry(new Pose2d(this.m_odometry.getEstimatedPosition().getTranslation(), angle));
+  }
+  
   /**
    * Gets the current velocity (x, y and omega) of the robot
    *
@@ -176,7 +158,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    */
   public ChassisSpeeds getRobotVelocity()
   {
-    return TunerConstants.swerveKinematics.toChassisSpeeds(this.getState().ModuleStates);
+    return DriveConstants.swerveKinematics.toChassisSpeeds(this.getState().ModuleStates);
   }
 
 
@@ -206,4 +188,18 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   {
     this.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
+
+
+  /**
+   * Add a vision measurement
+   * @param vision The pose of the robot as measured by the vision camera.
+   * @param timestampSeconds The timestamp of the vision measurement in seconds. 
+   * Note that if you don't use your own time source by calling SwerveDrivePoseEstimator.updateWithTime(double, Rotation2d, SwerveModulePosition []) 
+   * then you must use a timestamp with an epoch since FPGA startup (i.e., the epoch of this timestamp is the same epoch as edu.wpi.first.wpilibj.Timer.getFPGATimestamp().) 
+   * This means that you should use edu.wpi.first.wpilibj.Timer.getFPGATimestamp() as your time source or sync the epochs.
+   */
+  public void addVisionMeasurement(Pose2d vision, double timestampSeconds){
+    this.addVisionMeasurement(vision, timestampSeconds);
+  }
+  
 }

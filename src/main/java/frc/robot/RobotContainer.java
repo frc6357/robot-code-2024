@@ -4,11 +4,8 @@
 
 package frc.robot;
 
-import static frc.robot.TunerConstants.BackLeft;
-import static frc.robot.TunerConstants.BackRight;
-import static frc.robot.TunerConstants.DrivetrainConstants;
-import static frc.robot.TunerConstants.FrontLeft;
-import static frc.robot.TunerConstants.FrontRight;
+import static frc.robot.Constants.DriveConstants.*;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -101,12 +98,6 @@ public class RobotContainer {
                 autoCommandSelector = AutoBuilder.buildAutoChooser();
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
 
-                Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
-
-                if (Utils.isSimulation()) {
-                    driveSubsystem.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
-                }
-                driveSubsystem.get().registerTelemetry(log::telemeterize);
             }
             
         }
