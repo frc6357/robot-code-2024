@@ -10,16 +10,21 @@ public class SubsystemControls
 {
 
     private final boolean example;
+    private final boolean lights;
 
     /**
      * 
      * @param example
      *            indicates if the example subsystem is present and should be enabled
+     * @param lights
+     *            indicates if the lights subsystem is present and should be enabled
      */
     public SubsystemControls(
-        @JsonProperty(required = true, value = "example")     boolean example)
+        @JsonProperty(required = true, value = "example")     boolean example,
+        @JsonProperty(required = true, value = "lights")      boolean lights)
     {
         this.example = example;
+        this.lights = lights;
     }
 
     /**
@@ -31,5 +36,9 @@ public class SubsystemControls
     public boolean isExamplePresent()
     {
         return example;
+    }
+
+    public boolean isLightsPresent(){
+        return lights;
     }
 }

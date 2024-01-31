@@ -1,5 +1,8 @@
 package frc.robot.subsystems;
 
+import java.awt.Color;
+import java.util.Map;
+
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
 import com.ctre.phoenix.led.CANdleConfiguration;
@@ -8,18 +11,19 @@ import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
 import com.ctre.phoenix.led.FireAnimation;
 import com.ctre.phoenix.led.LarsonAnimation;
 import com.ctre.phoenix.led.LarsonAnimation.BounceMode;
-import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 import com.ctre.phoenix.led.RainbowAnimation;
 import com.ctre.phoenix.led.RgbFadeAnimation;
 import com.ctre.phoenix.led.SingleFadeAnimation;
 import com.ctre.phoenix.led.StrobeAnimation;
 import com.ctre.phoenix.led.TwinkleAnimation;
+import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SK24Light extends SubsystemBase{
     CANdle candle;
+    SimpleWidget colorWidget;
     
     public SK24Light(){
 
@@ -36,9 +40,10 @@ public class SK24Light extends SubsystemBase{
         config.v5Enabled = false;
     
         candle.configAllSettings(config);
+
         
     }
-
+    
     /**
      * 
      * @param red The amount of Red to set, range is [0, 255]
@@ -46,10 +51,7 @@ public class SK24Light extends SubsystemBase{
      * @param blue The amount of Blue to set, range is [0, 255]
      */
     public void setLight(int red, int green, int blue, int numLed){
-        SmartDashboard.putNumber("RED", red);
         candle.setLEDs(red, green, blue, 0, 8, numLed); 
-        
-
         
     }
 

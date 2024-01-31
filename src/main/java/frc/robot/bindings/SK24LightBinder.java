@@ -27,8 +27,6 @@ public class SK24LightBinder implements CommandBinder{
         // If subsystem is present then this method will bind the buttons
         if (subsystem.isPresent())
         {
-
-            Direction direction = Direction.Forward;
             SK24Light m_light = subsystem.get();
             
             lightButton.onTrue(new InstantCommand(() -> m_light.setOrange(1000)));
