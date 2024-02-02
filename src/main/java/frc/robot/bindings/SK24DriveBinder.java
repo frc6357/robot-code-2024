@@ -16,7 +16,6 @@ import static frc.robot.Ports.OperatorPorts.kVelocityYPort;
 
 import java.util.Optional;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -26,7 +25,7 @@ import static frc.robot.Constants.OIConstants.*;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.subsystems.SK24Drive;
-//import frc.robot.commands.OnTheFlyCommand;
+import frc.robot.utils.OnTheFly;
 import frc.robot.utils.filters.CubicDeadbandFilter;
 import frc.robot.utils.filters.Filter;
 
@@ -96,10 +95,12 @@ public class SK24DriveBinder implements CommandBinder
                 .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
-            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.seedFieldRelative();}));
-            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.seedFieldRelative(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(90))));}));
-            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.seedFieldRelative(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(180))));}));
-            resetGyroRight.onTrue(new InstantCommand(() -> {drive.seedFieldRelative(new Pose2d(drive.getPose().getTranslation(), new Rotation2d(Math.toRadians(270))));}));
+            // resetGyroDSS.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(0)));}));
+            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(90)));}));
+            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(180)));}));
+            resetGyroRight.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(270)));}));
+
+            resetGyroDSS.onTrue(OnTheFly.pathfindingCommand);
 
             rotateDSS.whileTrue(
                 new DriveTurnCommand(
