@@ -10,6 +10,7 @@ public class SubsystemControls
 {
 
     private final boolean example;
+    private final boolean launcher;
 
     /**
      * 
@@ -17,9 +18,11 @@ public class SubsystemControls
      *            indicates if the example subsystem is present and should be enabled
      */
     public SubsystemControls(
-        @JsonProperty(required = true, value = "example")     boolean example)
+        @JsonProperty(required = true, value = "example")     boolean example,
+        @JsonProperty(required = true, value = "launcher")    boolean launcher)
     {
         this.example = example;
+        this.launcher = launcher;
     }
 
     /**
@@ -31,5 +34,10 @@ public class SubsystemControls
     public boolean isExamplePresent()
     {
         return example;
+    }
+
+    public boolean isLauncherPresent()
+    {
+        return launcher;
     }
 }
