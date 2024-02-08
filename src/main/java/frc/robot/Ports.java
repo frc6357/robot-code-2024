@@ -61,8 +61,11 @@ public class Ports
         
         // Operator controller set to xbox controller
         public static final GenericHID kOperator = new FilteredXboxController(1).getHID();
+
         public static final SKTrigger kLauncher        = new SKTrigger(kOperator, kX.value, BUTTON);
-        
+
+        public static final SKTrigger kIntake = new SKTrigger(kOperator, kA.value, BUTTON);
+
         
         //Buttons for Example
         public static final SKTrigger kExample   = new SKTrigger(kOperator, kY.value, BUTTON);
@@ -99,8 +102,16 @@ public class Ports
         public static final CANPort kRearLeftTurningEncoderPort   = new CANPort(31, busName);
         public static final CANPort kFrontRightTurningEncoderPort = new CANPort(32, busName);
         public static final CANPort kRearRightTurningEncoderPort  = new CANPort(33, busName);
-
+        
         // CAN ID for IMU
         public static final CANPort kPigeonPort = new CANPort(25, busName);
+    }
+    public static class intakePorts 
+    {
+        private static final String busName = "";
+
+        public static final CANPort kTopMotor = new CANPort(50, busName);
+        public static final CANPort kBottomMotor = new CANPort(51, busName);
+        
     }
 }

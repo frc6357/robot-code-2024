@@ -1,4 +1,6 @@
 {
-    "example"         : true,
-    "launcher"           : true
+    "launcher": true
+    "example": false,
+    "lights": true,
+    "intake": true
 }
