@@ -10,36 +10,45 @@ import static frc.robot.Ports.launcherPorts.*;
 
 public class SK24Launcher extends SubsystemBase
 {
+    // Create memory objects for both motors for public use
     CANSparkFlex topMotor;
     CANSparkFlex bottomMotor;
 
+    //Constructor for public command access
     public SK24Launcher()
     {
         //Initialize motor objects
         topMotor = new CANSparkFlex(kTopLauncherMotor.ID, MotorType.kBrushless);
         bottomMotor = new CANSparkFlex(kBottomLauncherMotor.ID, MotorType.kBrushless);
 
+        addFollower(bottomMotor, topMotor);
+
     }
-    //Make motorR follow motorL
-    public void addFollower(CANSparkFlex bottomMotor)
+
+    /**
+     * Make a follower motor follow a leader motor
+     * @param followerMotor The motor controller that is following
+     * @param leaderMotor The motor controller that is being followed
+     **/
+    public void addFollower(CANSparkFlex followerMotor, CANSparkFlex leaderMotor)
     {
-        bottomMotor.follow(topMotor);
+        followerMotor.follow(leaderMotor);
     }
 
     //Set motor speeds
-    public void setMotorSpeed (double speed)
+    public void setLauncherSpeed (double speed)
     {
         topMotor.set(speed);
     }
         
     //Return motor speeds
-    public double getMotorSpeed ()
+    public double getLauncherMotorSpeed()
     {
         return topMotor.get();
     }
     
     //Stop motors
-    public void stopMotor()
+    public void stopLauncher()
     {
         topMotor.stopMotor();
     }
