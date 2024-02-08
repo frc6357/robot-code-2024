@@ -1,4 +1,5 @@
 {
     "example": false,
-    "lights": true
+    "lights": true,
+    "intake": true
 }
