@@ -21,6 +21,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24ExampleBinder;
+import frc.robot.bindings.SK24LauncherBinder;
+import frc.robot.subsystems.SK24Example;
+import frc.robot.subsystems.SK24Launcher;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LightBinder;
 import frc.robot.subsystems.SK24Example;
@@ -37,10 +40,11 @@ import frc.robot.utils.filters.FilteredJoystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private Optional<SK24Example>  SK24Example  = Optional.empty();
+
+  private Optional<SK24Example>  m_example  = Optional.empty();
+  private Optional<SK24Launcher>  m_launcher  = Optional.empty();
   private Optional<SK24Light>  SK24Light  = Optional.empty();
   private Optional<SK24Intake>  SK24Intake  = Optional.empty();
-
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -81,7 +85,11 @@ public class RobotContainer {
             // This is decided by looking at Subsystems.json
             if (subsystems.isExamplePresent())
             {
-                SK24Example = Optional.of(new SK24Example());
+                m_example = Optional.of(new SK24Example());
+            }
+            if(subsystems.isLauncherPresent())
+            {
+                m_launcher = Optional.of(new SK24Launcher());
             }
             if(subsystems.isLightsPresent())
             {
@@ -118,7 +126,8 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24ExampleBinder(SK24Example));
+        buttonBinders.add(new SK24ExampleBinder(m_example));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher));
         buttonBinders.add(new SK24LightBinder(SK24Light));
         buttonBinders.add(new SK24IntakeBinder(SK24Intake));
 

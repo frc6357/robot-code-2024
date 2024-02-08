@@ -44,7 +44,7 @@ public class Ports
         public static final SKTrigger kRotateLeft       = new SKTrigger(kDriver, kX.value, BUTTON);
         public static final SKTrigger kRotateRight      = new SKTrigger(kDriver, kB.value, BUTTON);
         public static final SKTrigger kAutoLevel        = new SKTrigger(kDriver, kBack.value, BUTTON);
-
+        
         // Buttons for driver angle reset
         public static final SKTrigger kResetGyroDSS   = new SKTrigger(kDriver, 0, POV);
         public static final SKTrigger kResetGyroGrid  = new SKTrigger(kDriver, 180, POV);
@@ -62,12 +62,22 @@ public class Ports
         // Operator controller set to xbox controller
         public static final GenericHID kOperator = new FilteredXboxController(1).getHID();
 
+        public static final SKTrigger kLauncher        = new SKTrigger(kOperator, kX.value, BUTTON);
+
         public static final SKTrigger kIntake = new SKTrigger(kOperator, kA.value, BUTTON);
+
         
         //Buttons for Example
         public static final SKTrigger kExample   = new SKTrigger(kOperator, kY.value, BUTTON);
     }
     
+    //
+    public static class launcherPorts
+    {
+        private static final String busName = "";
+        public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
+        public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
+    }
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.
      */

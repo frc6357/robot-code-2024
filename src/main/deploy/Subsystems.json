@@ -1,4 +1,5 @@
 {
+    "launcher": true
     "example": false,
     "lights": true,
     "intake": true

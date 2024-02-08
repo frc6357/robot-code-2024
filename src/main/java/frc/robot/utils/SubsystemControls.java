@@ -10,6 +10,7 @@ public class SubsystemControls
 {
 
     private final boolean example;
+    private final boolean launcher;
     private final boolean lights;
     private final boolean intake;
 
@@ -24,10 +25,12 @@ public class SubsystemControls
      */
     public SubsystemControls(
         @JsonProperty(required = true, value = "example")     boolean example,
+        @JsonProperty(required = true, value = "launcher")    boolean launcher,
         @JsonProperty(required = true, value = "lights")      boolean lights,
         @JsonProperty(required = true, value = "intake")      boolean intake)
     {
         this.example = example;
+        this.launcher = launcher;
         this.lights = lights;
         this.intake = intake;
     }
@@ -42,7 +45,9 @@ public class SubsystemControls
     {
         return example;
     }
-
+    public boolean isLauncherPresent()
+    {
+        return launcher;
     public boolean isLightsPresent(){
         return lights;
     }
