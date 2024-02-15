@@ -27,8 +27,6 @@ public class SK24IntakeBinder implements CommandBinder{
             //intakeButton.onTrue(new IntakeCommand(intake, 0.0));
             intakeButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(0.5))); //TODO - change speed
             intakeButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0))); 
-
-
         }
     }
 }
