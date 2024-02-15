@@ -26,7 +26,7 @@ public class SK24LauncherBinder implements CommandBinder
     public  SK24LauncherBinder(Optional<SK24Launcher> subsystem)
     {
         this.subsystem = subsystem;
-        launcherButton = kLauncher.button;
+        launcherButton = kLaunchSpeaker.button;
     }
 
     public void bindButtons()

@@ -48,6 +48,7 @@ public class SubsystemControls
     public boolean isLauncherPresent()
     {
         return launcher;
+    }
     public boolean isLightsPresent(){
         return lights;
     }
