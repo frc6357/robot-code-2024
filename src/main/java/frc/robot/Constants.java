@@ -32,6 +32,17 @@ public final class Constants
 {
     
 
+    public static final class ClimbConstants
+    {
+        public static final PIDConstants rightClimb = new PIDConstants(0.0, 0.0, 0.0);
+        public static final PIDConstants leftClimb = new PIDConstants(0.0, 0.0, 0.0);
+        public static final PIDConstants balancePID = new PIDConstants(0.0, 0.0, 0.0);
+        public static final double spoolDiameter = 0.75; //Inches
+        public static final double gearRatio = 0.5; //Shaft rotations / 1 motor rotation
+
+        public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio); //inches moved per motor rotation
+        public static final double climbHeight = 11.0; //Inches        
+    }
     /** Constants that define the drivetrain as a whole */
     public static final class DriveConstants
     {

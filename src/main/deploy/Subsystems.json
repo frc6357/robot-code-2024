@@ -1,6 +1,7 @@
 {
-    "launcher": true
+    "launcher": true,
     "example": false,
     "lights": true,
-    "intake": true
+    "intake": true,
+    "climb": true
 }

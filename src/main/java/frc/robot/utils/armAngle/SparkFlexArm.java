@@ -3,7 +3,6 @@ package frc.robot.utils.armAngle;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
@@ -26,7 +25,7 @@ public class SparkFlexArm extends GenericArmMotor
     double                degreeSetPoint;
     CANSparkFlex          motor;
     RelativeEncoder       encoder;
-    SparkPIDController pidController;
+    SparkPIDController         pidController;
     double                gearRatio;
     DigitalInput          UpperSensor;
     DigitalInput          LowerSensor;
@@ -143,16 +142,6 @@ public class SparkFlexArm extends GenericArmMotor
 
         encoder.setPositionConversionFactor(1.0);
         motor.setIdleMode(CANSparkFlex.IdleMode.kBrake); 
-    }
-
-    public double getAppliedOutput()
-    {
-        return motor.getAppliedOutput();
-    }
-
-    public double getOutputCurrent()
-    {
-        return motor.getOutputCurrent();
     }
 
     public void resetEncoder()

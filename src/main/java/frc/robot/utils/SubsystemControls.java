@@ -13,6 +13,7 @@ public class SubsystemControls
     private final boolean launcher;
     private final boolean lights;
     private final boolean intake;
+    private final boolean climb;
 
     /**
      * 
@@ -27,12 +28,14 @@ public class SubsystemControls
         @JsonProperty(required = true, value = "example")     boolean example,
         @JsonProperty(required = true, value = "launcher")    boolean launcher,
         @JsonProperty(required = true, value = "lights")      boolean lights,
-        @JsonProperty(required = true, value = "intake")      boolean intake)
+        @JsonProperty(required = true, value = "intake")      boolean intake,
+        @JsonProperty(required = true, value = "climb")      boolean climb)
     {
         this.example = example;
         this.launcher = launcher;
         this.lights = lights;
         this.intake = intake;
+        this.climb = climb;
     }
 
     /**
@@ -48,6 +51,11 @@ public class SubsystemControls
     public boolean isLauncherPresent()
     {
         return launcher;
+    }
+    public boolean isClimbPresent()
+    {
+        return climb;
+    }
     public boolean isLightsPresent(){
         return lights;
     }

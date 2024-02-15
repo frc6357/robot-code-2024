@@ -62,22 +62,31 @@ public class Ports
         // Operator controller set to xbox controller
         public static final GenericHID kOperator = new FilteredXboxController(1).getHID();
 
-        public static final SKTrigger kLauncher        = new SKTrigger(kOperator, kX.value, BUTTON);
+        public static final SKTrigger kLauncher = new SKTrigger(kOperator, kX.value, BUTTON);
 
         public static final SKTrigger kIntake = new SKTrigger(kOperator, kA.value, BUTTON);
 
-        
+        public static final SKTrigger kClimb = new SKTrigger(kOperator, kY.value, BUTTON);
         //Buttons for Example
         public static final SKTrigger kExample   = new SKTrigger(kOperator, kY.value, BUTTON);
     }
     
-    //
+    //Assign CAN ports to launcher motors
     public static class launcherPorts
     {
         private static final String busName = "";
         public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
         public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
     }
+
+    //Assign CAN ports to climb motors
+    public static class climbPorts
+    {
+        private static final String busName = "";
+        public static final CANPort kRightClimbMotor = new CANPort(60, busName);
+        public static final CANPort kLeftClimbMotor = new CANPort(61, busName);
+    }
+
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.
      */
