@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.ClosedLoopOutputType;
@@ -47,7 +51,8 @@ public final class Constants
     /** Constants that define the drivetrain as a whole */
     public class DriveConstants {
             // Both sets of gains need to be tuned to your individual robot.
-
+        //List of autos we want to show up in the sendable chooser for shuffleboard
+        public static List<String> autoList = new ArrayList<String>(Arrays.asList("Example_auto"));
         // The steer motor uses any SwerveModule.SteerRequestType control request with the
         // output type specified by SwerveModuleConstants.SteerMotorClosedLoopOutput
         private static final Slot0Configs steerGains = new Slot0Configs()

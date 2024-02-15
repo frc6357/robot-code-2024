@@ -6,17 +6,16 @@ package frc.robot;
 
 import static frc.robot.Constants.DriveConstants.*;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pathplanner.lib.auto.AutoBuilder;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -24,11 +23,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24ExampleBinder;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Example;
+import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
 
@@ -91,7 +92,9 @@ public class RobotContainer {
 
 
                 // Configures the autonomous paths and smartdashboard chooser
-                autoCommandSelector = AutoBuilder.buildAutoChooser();
+                // autoCommandSelector = AutoBuilder.buildAutoChooser();
+                SK24AutoBuilder.setAutoNames(autoList);
+                autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Circle");
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
 
             }
