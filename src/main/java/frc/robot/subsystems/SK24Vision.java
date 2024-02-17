@@ -4,14 +4,14 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DriverStation;
-
+import java.util.*;
 public class SK24Vision extends SubsystemBase
 {
      NetworkTableInstance instance = NetworkTableInstance.getDefault();
      private NetworkTable limelight;
      public double[] robotPosition;
      public double[] targetPosition;
-     public var alliance = DriverStation.getAlliance();
+     public Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
      // Creates a vision class that interacts with the limelight AprilTag data using Networktables
      public SK24Vision()
@@ -25,7 +25,7 @@ public class SK24Vision extends SubsystemBase
      // Returns a boolean value to determine if a valid AprilTag is present
      public boolean tagPresent()
      {
-        if (limelight.getEntry("tv").getDouble() == 1) 
+        if (limelight.getEntry("tv").getDouble(0) == 1) 
             return true;
         else
             return false;
@@ -34,21 +34,21 @@ public class SK24Vision extends SubsystemBase
      // Returns the tag ID of the primary in view AprilTag
      public double getTagID()
      {
-        return limelight.getEntry("tid").getDouble();
+        return limelight.getEntry("tid").getDouble(0);
      }
 
      // Returns a double array containing {X,Y,Z,Roll,Pitch,Yaw} of the robot in the field space
      public double[] getPose()
      {
-        robotPosition[] = limelight.getEntry("botpose").getDoubleArray(new double[6]]);
-        return robotPosition[];
+        robotPosition = limelight.getEntry("botpose").getDoubleArray(new double[6]);
+        return robotPosition;
      }
 
      // Returns a double array containing {X,Y,Z,Roll,Pitch,Yaw} of the target in relation to the limelight
      public double[] getTargetPose()
      {
-        targetPosition[] = limelight.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
-        return targetPosition[];
+        targetPosition = limelight.getEntry("targetpose_cameraspace").getDoubleArray(new double[6]);
+        return targetPosition;
      }
 
      // Sets the pipeline to 0 which is used to recognize all field AprilTags
