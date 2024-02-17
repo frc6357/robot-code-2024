@@ -112,6 +112,7 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
         public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
+        public static final CANPort kTransferMotor = new CANPort(42, busName);
     }
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.

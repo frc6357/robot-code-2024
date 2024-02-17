@@ -37,7 +37,7 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_example = subsystem.get();
             
-            launcherButton.onTrue(new LaunchCommand(m_example, 0.5));
+            launcherButton.onTrue(new LaunchCommand(m_example, 0.5, 0.5));
             launcherButton.onFalse(new LaunchOffCommand(m_example));
 
             //exampleButton.onTrue(new InstantCommand(() -> m_example.setLauncherSpeed(0.5)));
