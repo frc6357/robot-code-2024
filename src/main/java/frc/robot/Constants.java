@@ -50,7 +50,10 @@ public final class Constants
 
     /** Constants that define the drivetrain as a whole */
     public class DriveConstants {
-            // Both sets of gains need to be tuned to your individual robot.
+
+        //Deadband for climb balance
+        public static final double deadband = 5.0;
+        // Both sets of gains need to be tuned to your individual robot.
         //List of autos we want to show up in the sendable chooser for shuffleboard
         public static List<String> autoList = new ArrayList<String>(Arrays.asList("Example_auto"));
         // The steer motor uses any SwerveModule.SteerRequestType control request with the

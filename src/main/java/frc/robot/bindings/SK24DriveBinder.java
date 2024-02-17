@@ -95,13 +95,11 @@ public class SK24DriveBinder implements CommandBinder
                 .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
-            // resetGyroDSS.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(0)));}));
+            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(0)));}));
             resetGyroGrid.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(90)));}));
             resetGyroLeft.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(180)));}));
             resetGyroRight.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(270)));}));
-
-            resetGyroDSS.onTrue(OnTheFly.pathfindingCommand);
-
+            
             rotateDSS.whileTrue(
                 new DriveTurnCommand(
                     () -> kVelocityXPort.getFilteredAxis(),

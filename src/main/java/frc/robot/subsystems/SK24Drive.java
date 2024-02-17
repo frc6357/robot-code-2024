@@ -5,13 +5,13 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.AutoConstants.kAutoPathConfig;
+import static frc.robot.Constants.DriveConstants.deadband;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
-import frc.robot.utils.SK24AutoBuilder;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.utils.SK24AutoBuilder;
 
 
 public class SK24Drive extends SwerveDrivetrain implements Subsystem
@@ -138,6 +139,23 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     return this.getPigeon2().getRotation2d();
   }
 
+  public boolean leftTilted()
+  {
+    double roll = this.getPigeon2().getRoll().getValueAsDouble();
+    if(roll > deadband){
+      return true;
+    }
+    return false;
+  }
+
+  public boolean rightTilted()
+  {
+    double roll = this.getPigeon2().getRoll().getValueAsDouble();
+    if(roll < -deadband){
+      return true;
+    }
+    return false;
+  }
   /**
    * Sets the heading of the robot using a {@link Rotation2d}. CCW positive, not wrapped.
    * 

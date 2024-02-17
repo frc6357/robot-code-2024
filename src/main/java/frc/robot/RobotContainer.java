@@ -94,7 +94,7 @@ public class RobotContainer {
                 // Configures the autonomous paths and smartdashboard chooser
                 // autoCommandSelector = AutoBuilder.buildAutoChooser();
                 SK24AutoBuilder.setAutoNames(autoList);
-                autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Circle");
+                autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Example_auto");
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
 
             }
