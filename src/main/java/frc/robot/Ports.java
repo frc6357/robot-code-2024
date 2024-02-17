@@ -49,6 +49,9 @@ public class Ports
         public static final SKTrigger kRotateAmp = new SKTrigger(kDriver, kX.value, BUTTON);
         public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kB.value, BUTTON);
 
+        // Zero position
+        public static final SKTrigger kZeroPos = new SKTrigger(kDriver, kStart.value, BUTTON); 
+
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
 
