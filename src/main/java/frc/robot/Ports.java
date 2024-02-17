@@ -12,6 +12,7 @@ import static edu.wpi.first.wpilibj.XboxController.Button.kBack;
 import static edu.wpi.first.wpilibj.XboxController.Button.kLeftBumper;
 import static edu.wpi.first.wpilibj.XboxController.Button.kLeftStick;
 import static edu.wpi.first.wpilibj.XboxController.Button.kRightBumper;
+import static edu.wpi.first.wpilibj.XboxController.Button.kRightStick;
 import static edu.wpi.first.wpilibj.XboxController.Button.kStart;
 import static edu.wpi.first.wpilibj.XboxController.Button.kX;
 import static edu.wpi.first.wpilibj.XboxController.Button.kY;
@@ -104,7 +105,8 @@ public class Ports
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
 
         // Reset launcher encoder
-        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kRightStick.value, BUTTON);
+        public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
     }
     
     public static class launcherPorts

@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -31,6 +30,25 @@ import edu.wpi.first.math.util.Units;
 public final class Constants
 {
     
+    public static final class LauncherAngleConstants
+    {
+        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0, 0.0);
+        public static final double kGearRatio = 0.2; //shaft rotation to motor rotation
+
+        public static final double kConversionFactor =  kGearRatio * 360.0;
+        public static final double kAngleTolerance =  5.0;
+        public static final double kArmMotorMinOutput =  -0.7;
+        public static final double kArmMotorMaxOutput =  1.0;
+
+        public static final double kMinAngle = 0.0;
+        public static final double kMaxAngle = 0.0;
+
+        public static final double kJoystickChange   = 30.0; // Manual setpoint value for degrees moved per second
+        public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
+
+        public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
+        
+    }
 
     /** Constants that define the drivetrain as a whole */
     public static final class DriveConstants
@@ -151,4 +169,5 @@ public final class Constants
 
     /** The file that is used for system instantiation at runtime */
     public static final String SUBSYSTEMFILE = "Subsystems.json";
+    public static Object LauncherAngleConstants;
 }
