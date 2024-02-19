@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ClimbBalanceCommand;
 import frc.robot.subsystems.SK24Climb;
 
 public class SK24ClimbBinder implements CommandBinder{
@@ -24,10 +25,8 @@ public class SK24ClimbBinder implements CommandBinder{
         if (subsystem.isPresent())
         {
             SK24Climb climb = subsystem.get();
-            climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(0.5))); 
-            climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(0.5))); 
-            climbButton.onFalse(new InstantCommand(() -> climb.setRightHook(-0.5)));
-            climbButton.onFalse(new InstantCommand(() -> climb.setLeftHook(-0.5)));
+            climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(0.0))); 
+            climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(0.0))); 
         }
     }
 }

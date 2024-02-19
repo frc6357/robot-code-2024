@@ -31,10 +31,10 @@ public class SK24Climb extends SubsystemBase
         motorL.getConfigurator().apply(configsLeft);
 
         Slot1Configs configsRight = new Slot1Configs();
-        configsRight.kP = leftClimb.kP;
-        configsRight.kI = leftClimb.kI;
-        configsRight.kD = leftClimb.kD;
-        motorL.getConfigurator().apply(configsRight);
+        configsRight.kP = rightClimb.kP;
+        configsRight.kI = rightClimb.kI;
+        configsRight.kD = rightClimb.kD;
+        motorR.getConfigurator().apply(configsRight);
 
     }
 
@@ -54,6 +54,15 @@ public class SK24Climb extends SubsystemBase
         motorR.setControl(voltage);
     }
 
+    public void runLeftHook(double speed)
+    {
+        motorL.set(speed);
+    }
+
+    public void runRightHook(double speed)
+    {
+        motorR.set(speed);
+    }
     public double getLeftPosition()
     {
         return (motorL.getPosition().getValueAsDouble() * climbConversion) / climbHeight;
