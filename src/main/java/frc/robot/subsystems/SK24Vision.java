@@ -11,6 +11,9 @@ public class SK24Vision extends SubsystemBase
      private NetworkTable limelight;
      public double[] robotPosition;
      public double[] targetPosition;
+     public double targetDistance = 0.0;
+     public double yOffset = 0.0;
+     public double zOffset = 0.0;
      public Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
      // Creates a vision class that interacts with the limelight AprilTag data using Networktables
@@ -102,8 +105,11 @@ public class SK24Vision extends SubsystemBase
      }
 
      // Returns the angle between the target and the pivot point of the launcher
-     public double returnTargetAngle()
+     public double returnTargetAngle(double[] poseData)
      {
-        return 0.0;
+       poseData[1] += yOffset;
+       poseData[2] += zOffset;
+       targetDistance = poseData[1] / poseData[2];
+        return Math.toDegrees(Math.atan(targetDistance));
      }
 }
