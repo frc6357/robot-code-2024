@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import static frc.robot.Ports.intakePorts.*;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkFlex;
 
 public class SK24Intake extends SubsystemBase
 {
@@ -18,11 +19,10 @@ public class SK24Intake extends SubsystemBase
         topIntakeMotor = new CANSparkFlex(kTopIntakeMotor.ID, MotorType.kBrushless);
         topIntakeMotor.setInverted(true);
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
+        bottomIntakeMotor.follow(topIntakeMotor);
     }
-    public void addFollower(CANSparkFlex bottomMotor)
-    {
-        bottomMotor.follow(topIntakeMotor);
-    }
+
+    //Set motor speeds
     public void setIntakeSpeed (double speed)
     {
         topIntakeMotor.set(speed);
