@@ -4,26 +4,34 @@
 
 package frc.robot;
 
-import static frc.robot.Constants.DriveConstants.*;
+import static frc.robot.Constants.DriveConstants.BackLeft;
+import static frc.robot.Constants.DriveConstants.BackRight;
+import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
+import static frc.robot.Constants.DriveConstants.FrontLeft;
+import static frc.robot.Constants.DriveConstants.FrontRight;
+import static frc.robot.Constants.DriveConstants.autoList;
+import static frc.robot.Constants.DriveConstants.kMaxSpeedMetersPerSecond;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import com.ctre.phoenix6.Utils;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24ExampleBinder;
@@ -90,6 +98,12 @@ public class RobotContainer {
                 driveSubsystem = Optional.of(new SK24Drive(DrivetrainConstants, FrontLeft,
                 FrontRight, BackLeft, BackRight));
 
+                Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
+
+                if (Utils.isSimulation()) {
+                    driveSubsystem.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
+                }
+                driveSubsystem.get().registerTelemetry(log::telemeterize);
 
                 // Configures the autonomous paths and smartdashboard chooser
                 // autoCommandSelector = AutoBuilder.buildAutoChooser();
@@ -124,6 +138,7 @@ public class RobotContainer {
         {
             subsystemGroup.bindButtons();
         }
+
     }
 
   /**

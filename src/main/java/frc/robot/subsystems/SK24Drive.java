@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.AutoConstants.kAutoPathConfig;
 import static frc.robot.Constants.DriveConstants.deadband;
 
+import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
@@ -16,8 +17,15 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.StructArrayPublisher;
+import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.utils.SK24AutoBuilder;
@@ -26,12 +34,42 @@ import frc.robot.utils.SK24AutoBuilder;
 public class SK24Drive extends SwerveDrivetrain implements Subsystem
 {
 
+    private static final double kSimLoopPeriod = 0.005; // 5 ms
+    private Notifier m_simNotifier = null;
+    private double m_lastSimTime;
+    StructArrayPublisher<SwerveModuleState> currentPublisher = NetworkTableInstance.getDefault()
+  .getStructArrayTopic("MyCurrentStates", SwerveModuleState.struct).publish();
+  
+    StructArrayPublisher<SwerveModuleState> targetPublisher = NetworkTableInstance.getDefault()
+  .getStructArrayTopic("MyTargetStates", SwerveModuleState.struct).publish();
+    
+  StructPublisher<Rotation2d> odomPublisher = NetworkTableInstance.getDefault().getStructTopic("Rotation", Rotation2d.struct).publish();
     public SK24Drive(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
-        setupPathPlanner();
-        
-    }
 
+        this.m_pigeon2.reset();
+        setupPathPlanner();
+
+        if (Utils.isSimulation()) {
+          startSimThread();
+      }
+
+    }
+  
+    private void startSimThread() {
+        m_lastSimTime = Utils.getCurrentTimeSeconds();
+
+        /* Run simulation at a faster rate so PID gains behave more reasonably */
+        m_simNotifier = new Notifier(() -> {
+            final double currentTime = Utils.getCurrentTimeSeconds();
+            double deltaTime = currentTime - m_lastSimTime;
+            m_lastSimTime = currentTime;
+
+            /* use the measured time delta, get battery voltage from WPILib */
+            updateSimState(deltaTime, RobotController.getBatteryVoltage());
+        });
+        m_simNotifier.startPeriodic(kSimLoopPeriod);
+    }
   /**
    * Setup AutoBuilder for PathPlanner.
    */
@@ -67,14 +105,14 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    */
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative)
   {
-    if((xSpeed == 0.0) && (ySpeed == 0.0) && (rot == 0.0)){
-      this.lock();
-    }
-    else if(fieldRelative){
+    // if((xSpeed == 0.0) && (ySpeed == 0.0) && (rot == 0.0)){
+    //   this.lock();
+    // }
+    // else
+     if(fieldRelative){
       SwerveRequest.FieldCentric fieldCentric = new SwerveRequest.FieldCentric()
       .withDriveRequestType(DriveRequestType.OpenLoopVoltage).withDeadband(0).withRotationalDeadband(0);
       
-
       this.setControl(fieldCentric.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
     }else{
       SwerveRequest.RobotCentric robotCentric = new SwerveRequest.RobotCentric()
@@ -83,13 +121,21 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
 
       this.setControl(robotCentric.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
     }
-  }
-
-
+   }
+   public void setFieldRelativeHeading(Rotation2d rotation){
+      this.m_fieldRelativeOffset = rotation;
+   }
+   public void pointWheels(Rotation2d rotation){
+      SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt().withModuleDirection(rotation);
+      this.setControl(point);
+   }
   @Override
   public void periodic()
   {
-    
+    SmartDashboard.putNumber("Pigeon", getPigeonHeading().getDegrees());
+    currentPublisher.set(this.getState().ModuleStates);
+    targetPublisher.set(this.getState().ModuleTargets);
+    odomPublisher.set(getOdomHeading());
   }
 
 
@@ -102,9 +148,18 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    */
   public void resetOdometry(Pose2d initalHolonomicPose)
   {
-    this.m_odometry.resetPosition(getHeading(), this.m_modulePositions, initalHolonomicPose);
+    var alliance = DriverStation.getAlliance();
+        double angle = (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false) ? Math.PI : 0.0;
+        setFieldRelativeHeading(new Rotation2d(angle));
+    this.seedFieldRelative(initalHolonomicPose);
+    //this.m_odometry.resetPosition(getPigeonHeading(), this.m_modulePositions, initalHolonomicPose);
   }
 
+  public void setFront()
+  {
+    resetOdometry(new Pose2d());
+    this.seedFieldRelative();
+  }
   
   
   /**
@@ -134,9 +189,14 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    *
    * @return The yaw angle
    */
-  public Rotation2d getHeading()
+  public Rotation2d getPigeonHeading()
   {
-    return this.getPigeon2().getRotation2d();
+    return this.m_pigeon2.getRotation2d();
+  }
+
+  public Rotation2d getOdomHeading()
+  {
+    return getPose().getRotation();
   }
 
   public boolean leftTilted()

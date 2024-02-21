@@ -1,5 +1,9 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.OIConstants.kDriveCoeff;
+import static frc.robot.Constants.OIConstants.kJoystickDeadband;
+import static frc.robot.Constants.OIConstants.kRotationCoeff;
+import static frc.robot.Constants.OIConstants.kSlowModePercent;
 import static frc.robot.Ports.OperatorPorts.kResetGyroDSS;
 import static frc.robot.Ports.OperatorPorts.kResetGyroGrid;
 import static frc.robot.Ports.OperatorPorts.kResetGyroLeft;
@@ -19,10 +23,8 @@ import java.util.Optional;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.OnTheFly;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
-import static frc.robot.Constants.OIConstants.*;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.subsystems.SK24Drive;
@@ -95,10 +97,10 @@ public class SK24DriveBinder implements CommandBinder
                 .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
-            resetGyroDSS.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(0)));}));
-            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(90)));}));
-            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(180)));}));
-            resetGyroRight.onTrue(new InstantCommand(() -> {drive.setHeading(new Rotation2d(Math.toRadians(270)));}));
+            resetGyroDSS.onTrue(new InstantCommand(drive::setFront));
+            resetGyroRight.onTrue(new InstantCommand(() -> {drive.setFieldRelativeHeading(new Rotation2d(Math.toRadians(270)));}));
+            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.setFieldRelativeHeading(new Rotation2d(Math.toRadians(180)));}));
+            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.setFieldRelativeHeading(new Rotation2d(Math.toRadians(90)));}));
             
             rotateDSS.whileTrue(
                 new DriveTurnCommand(
@@ -130,7 +132,7 @@ public class SK24DriveBinder implements CommandBinder
                     robotCentric::getAsBoolean, drive));
 
         }
-    }
+    } 
 
     /**
      * Sets the gains on the filters for the joysticks
@@ -146,8 +148,12 @@ public class SK24DriveBinder implements CommandBinder
         kVelocityXPort.setFilter(translation);
         kVelocityYPort.setFilter(translation);
 
+     
         Filter rotation = new CubicDeadbandFilter(kDriveCoeff, kJoystickDeadband,
             Math.toRadians(DriveConstants.kMaxRotationDegreesPerSecond) * percent, true);
         kVelocityOmegaPort.setFilter(rotation);
+  
     }
-}
+  
+} 
+ 
