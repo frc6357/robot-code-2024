@@ -4,22 +4,39 @@
 
 package frc.robot;
 
+import static frc.robot.Constants.DriveConstants.BackLeft;
+import static frc.robot.Constants.DriveConstants.BackRight;
+import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
+import static frc.robot.Constants.DriveConstants.FrontLeft;
+import static frc.robot.Constants.DriveConstants.FrontRight;
+import static frc.robot.Constants.DriveConstants.autoList;
+import static frc.robot.Constants.DriveConstants.kMaxSpeedMetersPerSecond;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.ctre.phoenix6.Utils;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
+import frc.robot.bindings.SK24DriveBinder;
+import frc.robot.subsystems.SK24Drive;
+import frc.robot.subsystems.SK24Example;
+import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
@@ -37,7 +54,7 @@ import frc.robot.utils.filters.FilteredJoystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
+  private Optional<SK24Drive>  m_drive  = Optional.empty();
   private Optional<SK24Launcher>  m_launcher  = Optional.empty();
   private Optional<SK24Light>  m_light  = Optional.empty();
   private Optional<SK24Intake>  m_intake  = Optional.empty();
@@ -89,17 +106,26 @@ public class RobotContainer {
             }
             if(subsystems.isIntakePresent())
             {
-                m_intake = Optional.of(new SK24Intake());
+              m_intake = Optional.of(new SK24Intake());
             }
-            // if (subsystems.isDrivePresent())
-            // {
-            //     driveSubsystem = Optional.of(new SK23Drive());
+            if (subsystems.isDrivePresent())
+            {
+                m_drive = Optional.of(new SK24Drive(DrivetrainConstants, FrontLeft,
+                FrontRight, BackLeft, BackRight));
 
-            //     // Configures the autonomous paths and smartdashboard chooser
-            //     new SK23AutoGenerator(driveSubsystem.get(), armSubsystem, intakeSubsystem);
-            //     autoCommandSelector = AutoBuilder.buildAutoChooser();
-            //     SmartDashboard.putData("Auto Chooser", autoCommandSelector);
-            // }
+                Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
+
+                if (Utils.isSimulation()) {
+                    driveSubsystem.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
+                }
+                m_drive.get().registerTelemetry(log::telemeterize);
+
+                // Configures the autonomous paths and smartdashboard chooser
+                // autoCommandSelector = AutoBuilder.buildAutoChooser();
+                SK24AutoBuilder.setAutoNames(autoList);
+                autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Example_auto");
+                SmartDashboard.putData("Auto Chooser", autoCommandSelector);
+            }
             
         }
         catch (IOException e)
@@ -118,6 +144,7 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
+        buttonBinders.add(new SK24DriveBinder(driveSubsystem));
         buttonBinders.add(new SK24LauncherBinder(m_launcher));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake));
@@ -127,6 +154,7 @@ public class RobotContainer {
         {
             subsystemGroup.bindButtons();
         }
+
     }
 
   /**
