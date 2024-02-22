@@ -15,8 +15,8 @@ import static frc.robot.Ports.OperatorPorts.kRotateLeft;
 import static frc.robot.Ports.OperatorPorts.kRotateRight;
 import static frc.robot.Ports.OperatorPorts.kSlowMode;
 import static frc.robot.Ports.OperatorPorts.kVelocityOmegaPort;
-import static frc.robot.Ports.OperatorPorts.kVelocityXPort;
-import static frc.robot.Ports.OperatorPorts.kVelocityYPort;
+import static frc.robot.Ports.OperatorPorts.kTranslationXPort;
+import static frc.robot.Ports.OperatorPorts.kRotationYPort;
 
 import java.util.Optional;
 
@@ -83,10 +83,10 @@ public class SK24DriveBinder implements CommandBinder
             SK24Drive drive = subsystem.get();
 
             // Sets filters for driving axes
-            kVelocityXPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
+            kTranslationXPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
                 kJoystickDeadband, DriveConstants.kMaxSpeedMetersPerSecond, true));
 
-            kVelocityYPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
+            kRotationYPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
                 kJoystickDeadband, DriveConstants.kMaxSpeedMetersPerSecond, true));
             
             kVelocityOmegaPort.setFilter(new CubicDeadbandFilter(kRotationCoeff, kJoystickDeadband,
@@ -104,30 +104,30 @@ public class SK24DriveBinder implements CommandBinder
             
             rotateDSS.whileTrue(
                 new DriveTurnCommand(
-                    () -> kVelocityXPort.getFilteredAxis(),
-                    () -> kVelocityYPort.getFilteredAxis(),
+                    () -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 0, drive));
             rotateGrid.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
-                    () -> kVelocityXPort.getFilteredAxis(),
-                    () -> kVelocityYPort.getFilteredAxis(),
+                    () -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 180, drive));
             rotateLeft.whileTrue(
                 new DriveTurnCommand(
-                    () -> kVelocityXPort.getFilteredAxis(),
-                    () -> kVelocityYPort.getFilteredAxis(),
+                    () -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 90, drive));
             rotateRight.whileTrue(
                 new DriveTurnCommand(
-                    () -> kVelocityXPort.getFilteredAxis(),
-                    () -> kVelocityYPort.getFilteredAxis(),
+                    () -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 270, drive));
 
             // Default command for driving
             drive.setDefaultCommand(
                 new DefaultSwerveCommand(
-                    () -> kVelocityXPort.getFilteredAxis(),
-                    () -> kVelocityYPort.getFilteredAxis(),
+                    () -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
                     () -> kVelocityOmegaPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, drive));
 
@@ -145,8 +145,8 @@ public class SK24DriveBinder implements CommandBinder
     {
         Filter translation = new CubicDeadbandFilter(kDriveCoeff, kJoystickDeadband,
             DriveConstants.kMaxSpeedMetersPerSecond * percent, true);
-        kVelocityXPort.setFilter(translation);
-        kVelocityYPort.setFilter(translation);
+        kTranslationXPort.setFilter(translation);
+        kRotationYPort.setFilter(translation);
 
      
         Filter rotation = new CubicDeadbandFilter(kDriveCoeff, kJoystickDeadband,
