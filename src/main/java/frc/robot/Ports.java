@@ -147,9 +147,8 @@ public class Ports
     public static class intakePorts 
     {
         private static final String busName = "";
-
-        public static final CANPort kTopMotor = new CANPort(50, busName);
-        public static final CANPort kBottomMotor = new CANPort(51, busName);
+        public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
+        public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
         
     }
 }
