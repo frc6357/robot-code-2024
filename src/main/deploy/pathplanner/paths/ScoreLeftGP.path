@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.282954626977957,
-        "y": 5.577308253853149
+        "x": 2.894982565999367,
+        "y": 6.991369417831561
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2829546269779577,
-        "y": 5.577308253853149
+        "x": 3.894982565999367,
+        "y": 6.991369417831561
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 1.44283883432246,
+        "y": 5.562647359246215
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 1.3725738150477713,
+        "y": 5.574358195791997
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 177.09134473295038,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "ScorePeice",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.028075040728967,
-      "y": 5.535530663936646
+      "x": 0.45,
+      "y": 2.15
     },
     "rotation": 0
   },
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Example_path"
+            "pathName": "ScoreRight"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Speaker",
   "choreoAuto": false
 }
