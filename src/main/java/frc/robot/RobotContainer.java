@@ -34,10 +34,15 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24DriveBinder;
-import frc.robot.bindings.SK24ExampleBinder;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Example;
 import frc.robot.utils.SK24AutoBuilder;
+import frc.robot.bindings.SK24IntakeBinder;
+import frc.robot.bindings.SK24LauncherBinder;
+import frc.robot.bindings.SK24LightBinder;
+import frc.robot.subsystems.SK24Intake;
+import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24Light;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
 
@@ -49,8 +54,10 @@ import frc.robot.utils.filters.FilteredJoystick;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private Optional<SK24Example>  SK24Example  = Optional.empty();
-  private Optional<SK24Drive>  driveSubsystem  = Optional.empty();
+  private Optional<SK24Drive>  m_drive  = Optional.empty();
+  private Optional<SK24Launcher>  m_launcher  = Optional.empty();
+  private Optional<SK24Light>  m_light  = Optional.empty();
+  private Optional<SK24Intake>  m_intake  = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -89,13 +96,21 @@ public class RobotContainer {
 
             // Instantiating subsystems if they are present
             // This is decided by looking at Subsystems.json
-            if (subsystems.isExamplePresent())
+            if(subsystems.isLauncherPresent())
             {
-                SK24Example = Optional.of(new SK24Example());
+                m_launcher = Optional.of(new SK24Launcher());
+            }
+            if(subsystems.isLightsPresent())
+            {
+                m_light = Optional.of(new SK24Light());
+            }
+            if(subsystems.isIntakePresent())
+            {
+              m_intake = Optional.of(new SK24Intake());
             }
             if (subsystems.isDrivePresent())
             {
-                driveSubsystem = Optional.of(new SK24Drive(DrivetrainConstants, FrontLeft,
+                m_drive = Optional.of(new SK24Drive(DrivetrainConstants, FrontLeft,
                 FrontRight, BackLeft, BackRight));
 
                 Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
@@ -103,14 +118,13 @@ public class RobotContainer {
                 if (Utils.isSimulation()) {
                     driveSubsystem.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
                 }
-                driveSubsystem.get().registerTelemetry(log::telemeterize);
+                m_drive.get().registerTelemetry(log::telemeterize);
 
                 // Configures the autonomous paths and smartdashboard chooser
                 // autoCommandSelector = AutoBuilder.buildAutoChooser();
                 SK24AutoBuilder.setAutoNames(autoList);
                 autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Example_auto");
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
-
             }
             
         }
@@ -130,8 +144,10 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24ExampleBinder(SK24Example));
         buttonBinders.add(new SK24DriveBinder(driveSubsystem));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher));
+        buttonBinders.add(new SK24LightBinder(m_light));
+        buttonBinders.add(new SK24IntakeBinder(m_intake));
 
         // Traversing through all the binding classes to actually bind the buttons
         for (CommandBinder subsystemGroup : buttonBinders)

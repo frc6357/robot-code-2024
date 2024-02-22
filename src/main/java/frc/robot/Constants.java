@@ -256,7 +256,7 @@ public final class Constants
             kTranslationPIDConstants,
             kRotationPIDConstants,
             kMaxSpeedMetersPerSecond,
-            Math.hypot(DriveConstants.kWheelBase / 2, DriveConstants.kTrackWidth / 2), //TODO: Create drive base radius
+            Math.hypot(DriveConstants.kWheelBase / 2, DriveConstants.kTrackWidth / 2), 
             new ReplanningConfig()
         );
 
