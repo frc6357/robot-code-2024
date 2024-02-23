@@ -268,6 +268,10 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     this.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
   
+  /**
+   * Check if the driverstation is set to blue or red
+   * @return Return true if the driver station to red and false if the driver station is set to true
+   */
   public boolean checkIsRed(){
 
     var alliance = DriverStation.getAlliance();
