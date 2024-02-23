@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.4474177279310322,
+      "y": 3.946551915928368
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "MiddleTaxi"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "TaxiPoints",
+  "choreoAuto": false
+}
