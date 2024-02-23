@@ -13,6 +13,7 @@ public class SubsystemControls
     private final boolean launcher;
     private final boolean lights;
     private final boolean intake;
+    private final boolean churro;
 
     /**
      * 
@@ -22,17 +23,21 @@ public class SubsystemControls
      *            indicates if the lights subsystem is present and should be enabled
      * @param intake
      *            indicates if the intake subsystem is present and should be enabled
+     * @param churro
+     *            indicates if the churro subsystem is present and should be enabled
      */
     public SubsystemControls(
         @JsonProperty(required = true, value = "example")     boolean example,
         @JsonProperty(required = true, value = "launcher")    boolean launcher,
         @JsonProperty(required = true, value = "lights")      boolean lights,
-        @JsonProperty(required = true, value = "intake")      boolean intake)
+        @JsonProperty(required = true, value = "intake")      boolean intake,
+        @JsonProperty(required = true, value = "churro")      boolean churro)
     {
         this.example = example;
         this.launcher = launcher;
         this.lights = lights;
         this.intake = intake;
+        this.churro = churro;
     }
 
     /**
@@ -54,5 +59,8 @@ public class SubsystemControls
     }
     public boolean isIntakePresent(){
         return intake;
+    }
+    public boolean isChurroPresent(){
+        return churro;
     }
 }
