@@ -1,14 +1,11 @@
 package frc.robot.bindings;
 
-import static frc.robot.Ports.OperatorPorts.kClimb;
-import static frc.robot.Ports.OperatorPorts.kIntake;
-
 import java.util.Optional;
-
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ClimbBalanceCommand;
 import frc.robot.subsystems.SK24Climb;
+import static frc.robot.Ports.OperatorPorts.*;
+import static frc.robot.Ports.OperatorPorts.kClimb;
 
 public class SK24ClimbBinder implements CommandBinder{
     Optional<SK24Climb> subsystem;
@@ -25,8 +22,9 @@ public class SK24ClimbBinder implements CommandBinder{
         if (subsystem.isPresent())
         {
             SK24Climb climb = subsystem.get();
-            climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(0.0))); 
-            climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(0.0))); 
+            //climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(0.0))); 
+            //climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(0.0))); 
+            climbButton.onTrue(new ClimbBalanceCommand(climb));
         }
     }
 }
