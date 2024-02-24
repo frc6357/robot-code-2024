@@ -39,26 +39,7 @@ public final class Constants
 {
 
     
-    public static final class LauncherAngleConstants
-    {
-        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0, 0.0);
-        public static final double kGearRatio = 0.2; //shaft rotation to motor rotation
-
-        public static final double kConversionFactor =  kGearRatio * 360.0;
-        public static final double kAngleTolerance =  5.0;
-        public static final double kArmMotorMinOutput =  -0.7;
-        public static final double kArmMotorMaxOutput =  1.0;
-
-        public static final double kMinAngle = 0.0;
-        public static final double kMaxAngle = 0.0;
-
-        public static final double kJoystickChange   = 30.0; // Manual setpoint value for degrees moved per second
-        public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
-
-        public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
-        
-    }
-
+    
     public static class OperatorConstants
     {
 
@@ -90,59 +71,59 @@ public final class Constants
         private static final Slot0Configs driveGains = new Slot0Configs()
             .withKP(3).withKI(0).withKD(0)
             .withKS(0).withKV(0).withKA(0);                     
-
-        // The closed-loop output type to use for the steer motors;
-        // This affects the PID/FF gains for the steer motors
-        private static final ClosedLoopOutputType steerClosedLoopOutput = ClosedLoopOutputType.Voltage;
-        // The closed-loop output type to use for the drive motors;
-        // This affects the PID/FF gains for the drive motors
-        private static final ClosedLoopOutputType driveClosedLoopOutput = ClosedLoopOutputType.Voltage;
-
-        // The stator current at which the wheels start to slip;
-        // This needs to be tuned to your individual robot
-        private static final double kSlipCurrentA = 300.0;
-
-        // Theoretical free speed (m/s) at 12v applied output;
-        // This needs to be tuned to your individual robot
-        public static final double kSpeedAt12VoltsMps = 4.73;
-
-        // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
-        // This may need to be tuned to your individual robot
-        private static final double kCoupleRatio = 3.5714285714285716;
-
-        private static final double kDriveGearRatio = 6.746031746031747;
-        private static final double kSteerGearRatio = 21.428571428571427;
-        private static final double kWheelRadiusInches = 2;
-
-        private static final boolean kSteerMotorReversed = true;
-        private static final boolean kInvertLeftSide = false;
-        private static final boolean kInvertRightSide = true;
-
-        private static final String kCANbusName = "DriveCAN";
-        private static final int kPigeonId = 25;
-
-
-        // These are only used for simulation
-        private static final double kSteerInertia = 0.00001;
-        private static final double kDriveInertia = 0.001;
-        // Simulated voltage necessary to overcome friction
-        private static final double kSteerFrictionVoltage = 0.25;
-        private static final double kDriveFrictionVoltage = 0.25;
-
-        public static final SwerveDrivetrainConstants DrivetrainConstants = new SwerveDrivetrainConstants()
-                .withPigeon2Id(kPigeonId)
-                .withCANbusName(kCANbusName);
-
-        private static final SwerveModuleConstantsFactory ConstantCreator = new SwerveModuleConstantsFactory()
-                .withDriveMotorGearRatio(kDriveGearRatio)
-                .withSteerMotorGearRatio(kSteerGearRatio)
-                .withWheelRadius(kWheelRadiusInches)
-                .withSlipCurrent(kSlipCurrentA)
-                .withSteerMotorGains(steerGains)
-                .withDriveMotorGains(driveGains)
-                .withSteerMotorClosedLoopOutput(steerClosedLoopOutput)
-                .withDriveMotorClosedLoopOutput(driveClosedLoopOutput)
-                .withSpeedAt12VoltsMps(kSpeedAt12VoltsMps)
+            
+            // The closed-loop output type to use for the steer motors;
+            // This affects the PID/FF gains for the steer motors
+            private static final ClosedLoopOutputType steerClosedLoopOutput = ClosedLoopOutputType.Voltage;
+            // The closed-loop output type to use for the drive motors;
+            // This affects the PID/FF gains for the drive motors
+            private static final ClosedLoopOutputType driveClosedLoopOutput = ClosedLoopOutputType.Voltage;
+            
+            // The stator current at which the wheels start to slip;
+            // This needs to be tuned to your individual robot
+            private static final double kSlipCurrentA = 300.0;
+            
+            // Theoretical free speed (m/s) at 12v applied output;
+            // This needs to be tuned to your individual robot
+            public static final double kSpeedAt12VoltsMps = 4.73;
+            
+            // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
+            // This may need to be tuned to your individual robot
+            private static final double kCoupleRatio = 3.5714285714285716;
+            
+            private static final double kDriveGearRatio = 6.746031746031747;
+            private static final double kSteerGearRatio = 21.428571428571427;
+            private static final double kWheelRadiusInches = 2;
+            
+            private static final boolean kSteerMotorReversed = true;
+            private static final boolean kInvertLeftSide = false;
+            private static final boolean kInvertRightSide = true;
+            
+            private static final String kCANbusName = "DriveCAN";
+            private static final int kPigeonId = 25;
+            
+            
+            // These are only used for simulation
+            private static final double kSteerInertia = 0.00001;
+            private static final double kDriveInertia = 0.001;
+            // Simulated voltage necessary to overcome friction
+            private static final double kSteerFrictionVoltage = 0.25;
+            private static final double kDriveFrictionVoltage = 0.25;
+            
+            public static final SwerveDrivetrainConstants DrivetrainConstants = new SwerveDrivetrainConstants()
+            .withPigeon2Id(kPigeonId)
+            .withCANbusName(kCANbusName);
+            
+            private static final SwerveModuleConstantsFactory ConstantCreator = new SwerveModuleConstantsFactory()
+            .withDriveMotorGearRatio(kDriveGearRatio)
+            .withSteerMotorGearRatio(kSteerGearRatio)
+            .withWheelRadius(kWheelRadiusInches)
+            .withSlipCurrent(kSlipCurrentA)
+            .withSteerMotorGains(steerGains)
+            .withDriveMotorGains(driveGains)
+            .withSteerMotorClosedLoopOutput(steerClosedLoopOutput)
+            .withDriveMotorClosedLoopOutput(driveClosedLoopOutput)
+            .withSpeedAt12VoltsMps(kSpeedAt12VoltsMps)
                 .withSteerInertia(kSteerInertia)
                 .withDriveInertia(kDriveInertia)
                 .withSteerFrictionVoltage(kSteerFrictionVoltage)
@@ -150,25 +131,25 @@ public final class Constants
                 .withFeedbackSource(SteerFeedbackType.RemoteCANcoder)
                 .withCouplingGearRatio(kCoupleRatio)
                 .withSteerMotorInverted(kSteerMotorReversed);
-
-        // Front Left
-        private static final int kFrontLeftDriveMotorId = 10;
+                
+                // Front Left
+                private static final int kFrontLeftDriveMotorId = 10;
         private static final int kFrontLeftSteerMotorId = 20;
         private static final int kFrontLeftEncoderId = 30;
         private static final double kFrontLeftEncoderOffset = -0.092041015625;
 
         private static final double kFrontLeftXPosInches = 11.25;
         private static final double kFrontLeftYPosInches = 11.25;
-
+        
         // Front Right
         private static final int kFrontRightDriveMotorId = 12;
         private static final int kFrontRightSteerMotorId = 22;
         private static final int kFrontRightEncoderId = 32;
         private static final double kFrontRightEncoderOffset = -0.29150390625;
-
+        
         private static final double kFrontRightXPosInches = 11.25;
         private static final double kFrontRightYPosInches = -11.25;
-
+        
         // Back Left
         private static final int kBackLeftDriveMotorId = 11;
         private static final int kBackLeftSteerMotorId = 21;
@@ -186,7 +167,7 @@ public final class Constants
 
         private static final double kBackRightXPosInches = -11.25;
         private static final double kBackRightYPosInches = -11.25;
-
+        
         public static final SwerveModuleConstants FrontLeft = ConstantCreator.createModuleConstants(
                 kFrontLeftSteerMotorId, kFrontLeftDriveMotorId, kFrontLeftEncoderId, kFrontLeftEncoderOffset, Units.inchesToMeters(kFrontLeftXPosInches), Units.inchesToMeters(kFrontLeftYPosInches), kInvertLeftSide);
         public static final SwerveModuleConstants FrontRight = ConstantCreator.createModuleConstants(
@@ -240,7 +221,7 @@ public final class Constants
         public static final double kDriveEncoderDistancePerRotation =
                 (kWheelDiameterMeters * Math.PI) / (kDriveGearRatio * (double) kEncoderCPR); //Meters per rotation
         public static final double kTurnEncoderRotationsToMechanism  =
-                kDegreesPerRevolution / (kTurnGearRatio * (double) kEncoderCPR);
+        kDegreesPerRevolution / (kTurnGearRatio * (double) kEncoderCPR);
 
     }
 
@@ -252,7 +233,7 @@ public final class Constants
         public static final double kRotationCoeff    = 0.95;
         public static final double kJoystickDeadband = 0.15;
         public static final double kSlowModePercent  = 0.2;
-
+        
         public static final double kAccelLimit = 2;
     }
 
@@ -281,6 +262,30 @@ public final class Constants
             new ReplanningConfig()
         );
 
+    }
+    public static final class LauncherAngleConstants
+    {
+        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0, 0.0);
+        public static final double kGearRatio = 0.2; //shaft rotation to motor rotation
+    
+        public static final double kConversionFactor =  kGearRatio * 360.0;
+        public static final double kAngleTolerance =  5.0;
+        public static final double kArmMotorMinOutput =  -0.7;
+        public static final double kArmMotorMaxOutput =  1.0;
+    
+        public static final double kMinAngle = 0.0;
+        public static final double kMaxAngle = 0.0;
+    
+        public static final double kJoystickChange   = 30.0; // Manual setpoint value for degrees moved per second
+        public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
+    
+        public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
+        
+    }
+
+    public static final class IntakeConstants
+    {
+        public static final double kIntakeSpeed = 0.5;
     }
 
     /** The file that is used for system instantiation at runtime */
