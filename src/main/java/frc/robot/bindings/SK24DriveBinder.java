@@ -9,7 +9,6 @@ import static frc.robot.Ports.DriverPorts.*;
 
 import java.util.Optional;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
@@ -80,17 +79,17 @@ public class SK24DriveBinder implements CommandBinder
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 0, drive));
+                    robotCentric::getAsBoolean, 180, drive));
             rotateAmp.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? 90 : 270, drive));
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? 270 : 90, drive));
             rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? 225 : 315, drive)); 
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? 45 : 135, drive)); 
 
             // Default command for driving
             drive.setDefaultCommand(

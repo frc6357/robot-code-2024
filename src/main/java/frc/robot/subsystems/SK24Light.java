@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import java.awt.Color;
-import java.util.Map;
 
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.CANdle.LEDStripType;

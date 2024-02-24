@@ -10,7 +10,6 @@ import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
 import static frc.robot.Constants.DriveConstants.FrontLeft;
 import static frc.robot.Constants.DriveConstants.FrontRight;
 import static frc.robot.Constants.DriveConstants.autoList;
-import static frc.robot.Constants.DriveConstants.kMaxSpeedMetersPerSecond;
 
 import java.io.File;
 import java.io.IOException;

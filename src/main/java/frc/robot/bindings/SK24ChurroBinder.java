@@ -33,10 +33,10 @@ public class SK24ChurroBinder implements CommandBinder
         if (subsystem.isPresent())
         {
 
-            SK24Churro m_example = subsystem.get();
+            SK24Churro m_churro = subsystem.get();
             
-            churroButton.onTrue(new ChurroRaiseCommand(m_example, 0.5));
-            churroButton.onFalse(new ChurroLowerCommand(m_example, 0.5));
+            churroButton.onTrue(new ChurroRaiseCommand(m_churro, 0.5));
+            churroButton.onFalse(new ChurroLowerCommand(m_churro, 0.5));
 
         }
     }
