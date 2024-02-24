@@ -22,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
@@ -37,6 +38,13 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
+    private boolean hasAppliedOperatorPerspective = false;
+    /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
+    private final Rotation2d BlueAlliancePerspectiveRotation = Rotation2d.fromDegrees(0);
+    /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
+    private final Rotation2d RedAlliancePerspectiveRotation = Rotation2d.fromDegrees(180);
+
+
     StructArrayPublisher<SwerveModuleState> currentPublisher = NetworkTableInstance.getDefault()
   .getStructArrayTopic("MyCurrentStates", SwerveModuleState.struct).publish();
   
@@ -132,6 +140,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   @Override
   public void periodic()
   {
+    this.checkIsRed();
     SmartDashboard.putNumber("Pigeon", getPigeonHeading().getDegrees());
     currentPublisher.set(this.getState().ModuleStates);
     targetPublisher.set(this.getState().ModuleTargets);
@@ -148,11 +157,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    */
   public void resetOdometry(Pose2d initalHolonomicPose)
   {
-    var alliance = DriverStation.getAlliance();
-        double angle = (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false) ? Math.PI : 0.0;
-        setFieldRelativeHeading(new Rotation2d(angle));
     this.seedFieldRelative(initalHolonomicPose);
-    //this.m_odometry.resetPosition(getPigeonHeading(), this.m_modulePositions, initalHolonomicPose);
   }
 
   public void setFront()
@@ -262,7 +267,22 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   {
     this.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
   }
+  
+  /**
+   * Check if the driverstation is set to blue or red
+   * @return Return true if the driver station to red and false if the driver station is set to true
+   */
+  public boolean checkIsRed(){
 
+    var alliance = DriverStation.getAlliance();
+    boolean isRed = alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
+    if (!hasAppliedOperatorPerspective || DriverStation.isDisabled()) {
+      this.setFieldRelativeHeading(isRed ? RedAlliancePerspectiveRotation : BlueAlliancePerspectiveRotation);
+      hasAppliedOperatorPerspective = true;
+    }
+    return isRed;
+  }
+  
 
   /**
    * Add a vision measurement
