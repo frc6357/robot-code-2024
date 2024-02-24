@@ -1,13 +1,12 @@
 package frc.robot.commands;
 
+import frc.robot.subsystems.SK24Churro;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SK24Intake;
 
-
-public class IntakeCommand extends Command
+public class ChurroLowerCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SK24Intake subsystem;
+  private final SK24Churro subsystem;
   double speed;
 
   /**
@@ -15,7 +14,7 @@ public class IntakeCommand extends Command
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(SK24Intake subsystem, double speed) 
+  public ChurroLowerCommand(SK24Churro subsystem, double speed) 
   {
     this.subsystem = subsystem;
     this.speed = speed;
@@ -28,7 +27,7 @@ public class IntakeCommand extends Command
   @Override
   public void initialize() 
   {
-      subsystem.setIntakeSpeed(speed);
+      subsystem.setChurroSpeed(speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,12 +38,17 @@ public class IntakeCommand extends Command
   @Override
   public void end(boolean interrupted) 
   {
-    subsystem.stopIntake();
+    //Intereupted by limit swicth
+    subsystem.stopChurro();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    //if (limit switch)
+    //{
+    //  return true;
+    //}
+    return false; //TODO - add back
   }
 }

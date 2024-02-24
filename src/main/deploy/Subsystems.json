@@ -1,7 +1,8 @@
 {
     "launcher": true,
-    "example": false,
     "lights": true,
     "intake": true,
-    "climb": true
+    "climb": true,
+    "drive": true,
+    "launcher_arm": true
 }

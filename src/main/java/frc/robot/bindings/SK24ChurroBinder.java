@@ -3,17 +3,15 @@ package frc.robot.bindings;
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.SK24Example;
+import frc.robot.commands.ChurroLowerCommand;
+import frc.robot.commands.ChurroRaiseCommand;
+import frc.robot.subsystems.SK24Churro;
 import static frc.robot.Ports.OperatorPorts.*;
 
-public class SK24ExampleBinder implements CommandBinder
+public class SK24ChurroBinder implements CommandBinder
 {
-    Optional<SK24Example> subsystem;
-
-    // Arm button commands
-    private final Trigger exampleButton;
-
+    Optional<SK24Churro> subsystem;
+    Trigger churroButton;
     /**
      * The class that is used to bind all the commands for the arm subsystem
      * 
@@ -21,11 +19,12 @@ public class SK24ExampleBinder implements CommandBinder
      *            The contoller that the commands are being bound to
      * @param subsystem
      *            The required drive subsystem for the commands
+     * @return 
      */
-    public SK24ExampleBinder(Optional<SK24Example> subsystem)
+    public SK24ChurroBinder(Optional<SK24Churro> subsystem)
     {
         this.subsystem = subsystem;
-        exampleButton           = kExample.button;
+        this.churroButton = kChurro.button;
     }
 
     public void bindButtons()
@@ -34,9 +33,11 @@ public class SK24ExampleBinder implements CommandBinder
         if (subsystem.isPresent())
         {
 
-            SK24Example m_example = subsystem.get();
+            SK24Churro m_churro = subsystem.get();
             
-            exampleButton.onTrue(new ExampleCommand(m_example));
+            churroButton.onTrue(new ChurroRaiseCommand(m_churro, 0.5));
+            churroButton.onFalse(new ChurroLowerCommand(m_churro, 0.5));
+
         }
     }
 
