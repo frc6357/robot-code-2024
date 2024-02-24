@@ -1,4 +1,5 @@
 {
+    "drive"         : true,
     "launcher": true,
     "example": false,
     "lights": true,

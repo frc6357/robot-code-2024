@@ -13,6 +13,7 @@ public class SK24Launcher extends SubsystemBase
     // Create memory objects for both motors for public use
     CANSparkFlex topMotor;
     CANSparkFlex bottomMotor;
+    CANSparkFlex transferMotor;
 
     //Constructor for public command access
     public SK24Launcher()
@@ -20,9 +21,7 @@ public class SK24Launcher extends SubsystemBase
         //Initialize motor objects
         topMotor = new CANSparkFlex(kTopLauncherMotor.ID, MotorType.kBrushless);
         bottomMotor = new CANSparkFlex(kBottomLauncherMotor.ID, MotorType.kBrushless);
-
-        addFollower(bottomMotor, topMotor);
-
+        transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
     }
 
     /**
@@ -36,21 +35,40 @@ public class SK24Launcher extends SubsystemBase
     }
 
     //Set motor speeds
-    public void setLauncherSpeed (double speed)
+    public void setLauncherSpeed (double speedTop, double speedBottom)
     {
-        topMotor.set(speed);
+        topMotor.set(speedTop);
+        bottomMotor.set(speedBottom);
     }
         
+    public void setTransferSpeed (double speed)
+    {
+        transferMotor.set(speed);
+    }
+
     //Return motor speeds
-    public double getLauncherMotorSpeed()
+    public double getTopMotorSpeed()
     {
         return topMotor.get();
+    }
+
+    //Return motor speeds
+    public double getBottomMotorSpeed()
+    {
+        return bottomMotor.get();
+    }
+    //Return motor speeds
+    public double getTransferMotorSpeed()
+    {
+        return transferMotor.get();
     }
     
     //Stop motors
     public void stopLauncher()
     {
         topMotor.stopMotor();
+        bottomMotor.stopMotor();
+        transferMotor.stopMotor();
     }
 
 }

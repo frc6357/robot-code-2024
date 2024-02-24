@@ -64,6 +64,8 @@ public class SK24LauncherBinder implements CommandBinder
             SK24LauncherAngle m_launcherAngle = launcherAngle.get();
             double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                 kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
+            launcherButton.onTrue(new LaunchCommand(m_example, 0.5, 0.5));
+            launcherButton.onFalse(new LaunchOffCommand(m_example));
 
             zeroPosDriver.or(zeroPosOperator).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(0.0)));
             m_launcherAngle.setDefaultCommand(

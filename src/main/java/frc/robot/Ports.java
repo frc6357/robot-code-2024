@@ -1,5 +1,11 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.utils.SKTrigger;
+import frc.robot.utils.filters.FilteredXboxController;
+import static edu.wpi.first.wpilibj.XboxController.Axis.*;
+import static edu.wpi.first.wpilibj.XboxController.Button.*;
+import static frc.robot.utils.SKTrigger.INPUT_TYPE.*;
 import static edu.wpi.first.wpilibj.XboxController.Axis.kLeftTrigger;
 import static edu.wpi.first.wpilibj.XboxController.Axis.kLeftX;
 import static edu.wpi.first.wpilibj.XboxController.Axis.kLeftY;
@@ -11,6 +17,7 @@ import static edu.wpi.first.wpilibj.XboxController.Button.kB;
 import static edu.wpi.first.wpilibj.XboxController.Button.kBack;
 import static edu.wpi.first.wpilibj.XboxController.Button.kLeftBumper;
 import static edu.wpi.first.wpilibj.XboxController.Button.kLeftStick;
+import static edu.wpi.first.wpilibj.XboxController.Button.kRightStick;
 import static edu.wpi.first.wpilibj.XboxController.Button.kRightBumper;
 import static edu.wpi.first.wpilibj.XboxController.Button.kRightStick;
 import static edu.wpi.first.wpilibj.XboxController.Button.kStart;
@@ -22,9 +29,7 @@ import static frc.robot.utils.SKTrigger.INPUT_TYPE.POV;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.utils.CANPort;
-import frc.robot.utils.SKTrigger;
 import frc.robot.utils.filters.FilteredAxis;
-import frc.robot.utils.filters.FilteredXboxController;
 
 public class Ports
 {
@@ -33,15 +38,15 @@ public class Ports
         public static final GenericHID kDriver = new FilteredXboxController(0).getHID();
         
         // Filtered axis (translation & rotation)
-        public static final FilteredAxis kTranslationXPort = new FilteredAxis(() -> kDriver.getRawAxis(kLeftY.value));
-        public static final FilteredAxis kRotationYPort = new FilteredAxis(() -> kDriver.getRawAxis(kLeftX.value));
-        public static final FilteredAxis kVelocityOmegaPort = new FilteredAxis(() -> kDriver.getRawAxis(kRightX.value));
+        public static final FilteredAxis kTranslationXPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftY.value));
+        public static final FilteredAxis kRotationYPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftX.value));
+        public static final FilteredAxis kVelocityOmegaPort = new FilteredAxis(() -> kDriver.getRawAxis(kRightX.value)); 
         
         // Switch modes
         public static final SKTrigger kRobotCentricMode = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
-        // Gyro
+        // Climb/Gyro
         public static final SKTrigger kClimb = new SKTrigger(kDriver, kY.value, BUTTON);
 
         // Rotate to specified position
@@ -110,6 +115,9 @@ public class Ports
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kRightStick.value, BUTTON);
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+
+        // Run Churro 
+        public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON);
     }
     
     public static class launcherPorts
@@ -117,6 +125,7 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
         public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
+        public static final CANPort kTransferMotor = new CANPort(42, busName);
     }
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.
@@ -151,9 +160,15 @@ public class Ports
     public static class intakePorts 
     {
         private static final String busName = "";
-
-        public static final CANPort kTopMotor = new CANPort(50, busName);
-        public static final CANPort kBottomMotor = new CANPort(51, busName);
+        public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
+        public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
         
+    }
+
+    public static class churroPorts
+    {
+        private static final String busName = "";
+
+        public static final CANPort kChurroMotor = new CANPort(70, busName);
     }
 }

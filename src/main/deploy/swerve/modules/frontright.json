@@ -1,0 +1,30 @@
+{
+  "location": {
+    "front": 0.2794,
+    "left": -0.2794
+  },
+  "absoluteEncoderOffset": 0,
+  "drive": {
+    "type": "falcon",
+    "id": 12,
+    "canbus": "DriveCAN"
+  },
+  "inverted": {
+    "drive": true,
+    "angle": true
+  },
+  "angle": {
+    "type": "falcon",
+    "id": 22,
+    "canbus": "DriveCAN"
+  },
+  "conversionFactor": {
+    "angle": 0.008203125,
+    "drive": 0.00002308925
+  },
+  "encoder": {
+    "type": "cancoder",
+    "id": 32,
+    "canbus": "DriveCAN"
+  }
+}
