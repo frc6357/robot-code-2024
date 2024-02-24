@@ -33,6 +33,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
+import frc.robot.bindings.SK24ChurroBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Example;
@@ -40,6 +41,7 @@ import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
+import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24Light;
@@ -58,6 +60,7 @@ public class RobotContainer {
   private Optional<SK24Launcher>  m_launcher  = Optional.empty();
   private Optional<SK24Light>  m_light  = Optional.empty();
   private Optional<SK24Intake>  m_intake  = Optional.empty();
+  private Optional<SK24Churro>  m_churro  = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -126,6 +129,10 @@ public class RobotContainer {
                 autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Example_auto");
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
             }
+            if(subsystems.isChurroPresent())
+            {
+                m_churro = Optional.of(new SK24Churro());
+            }
             
         }
         catch (IOException e)
@@ -148,6 +155,7 @@ public class RobotContainer {
         buttonBinders.add(new SK24LauncherBinder(m_launcher));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake));
+        buttonBinders.add(new SK24ChurroBinder(m_churro));
 
         // Traversing through all the binding classes to actually bind the buttons
         for (CommandBinder subsystemGroup : buttonBinders)

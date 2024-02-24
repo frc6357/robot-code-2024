@@ -17,6 +17,7 @@ import static edu.wpi.first.wpilibj.XboxController.Button.kB;
 import static edu.wpi.first.wpilibj.XboxController.Button.kBack;
 import static edu.wpi.first.wpilibj.XboxController.Button.kLeftBumper;
 import static edu.wpi.first.wpilibj.XboxController.Button.kLeftStick;
+import static edu.wpi.first.wpilibj.XboxController.Button.kRightStick;
 import static edu.wpi.first.wpilibj.XboxController.Button.kRightBumper;
 import static edu.wpi.first.wpilibj.XboxController.Button.kStart;
 import static edu.wpi.first.wpilibj.XboxController.Button.kX;
@@ -44,7 +45,7 @@ public class Ports
         public static final SKTrigger kRobotCentricMode = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
-        // Gyro
+        // Climb/Gyro
         public static final SKTrigger kClimb = new SKTrigger(kDriver, kY.value, BUTTON);
 
         // Rotate to specified position
@@ -109,6 +110,9 @@ public class Ports
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+
+        // Run Churro 
+        public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON);
     }
     
     public static class launcherPorts
@@ -154,5 +158,12 @@ public class Ports
         public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
         public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
         
+    }
+
+    public static class churroPorts
+    {
+        private static final String busName = "";
+
+        public static final CANPort kChurroMotor = new CANPort(70, busName);
     }
 }
