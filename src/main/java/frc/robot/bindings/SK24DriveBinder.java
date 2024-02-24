@@ -4,23 +4,11 @@ import static frc.robot.Constants.OIConstants.kDriveCoeff;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Constants.OIConstants.kRotationCoeff;
 import static frc.robot.Constants.OIConstants.kSlowModePercent;
-import static frc.robot.Ports.OperatorPorts.kResetGyroDSS;
-import static frc.robot.Ports.OperatorPorts.kResetGyroGrid;
-import static frc.robot.Ports.OperatorPorts.kResetGyroLeft;
-import static frc.robot.Ports.OperatorPorts.kResetGyroRight;
-import static frc.robot.Ports.OperatorPorts.kRobotCentricMode;
-import static frc.robot.Ports.OperatorPorts.kRotateDSS;
-import static frc.robot.Ports.OperatorPorts.kRotateGrid;
-import static frc.robot.Ports.OperatorPorts.kRotateLeft;
-import static frc.robot.Ports.OperatorPorts.kRotateRight;
-import static frc.robot.Ports.OperatorPorts.kSlowMode;
-import static frc.robot.Ports.OperatorPorts.kVelocityOmegaPort;
-import static frc.robot.Ports.OperatorPorts.kTranslationXPort;
-import static frc.robot.Ports.OperatorPorts.kRotationYPort;
+import static frc.robot.Ports.DriverPorts.*;
+
 
 import java.util.Optional;
 
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
@@ -38,17 +26,12 @@ public class SK24DriveBinder implements CommandBinder
 
     // Driver Buttons
     private final Trigger robotCentric;
-    private final Trigger rotateDSS;
-    private final Trigger rotateGrid;
-    private final Trigger rotateLeft;
-    private final Trigger rotateRight;
-
-    // Gyro Reset Buttons
-    private final Trigger resetGyroDSS;
-    private final Trigger resetGyroGrid;
-    private final Trigger resetGyroLeft;
-    private final Trigger resetGyroRight;
+    
     private final Trigger slowmode;
+    private final Trigger resetButton;
+    private final Trigger rotateSpeaker;
+    private final Trigger rotateAmp;
+    private final Trigger rotateSource;
 
     /**
      * The class that is used to bind all the commands for the drive subsystem
@@ -59,23 +42,16 @@ public class SK24DriveBinder implements CommandBinder
     public SK24DriveBinder(Optional<SK24Drive> subsystem)
     {
         this.subsystem  = subsystem;
-      
-
-        resetGyroDSS    = kResetGyroDSS.button;
-        resetGyroGrid   = kResetGyroGrid.button;
-        resetGyroLeft   = kResetGyroLeft.button;
-        resetGyroRight  = kResetGyroRight.button;
-
+        
         robotCentric    = kRobotCentricMode.button;
-
-        rotateDSS       = kRotateDSS.button;
-        rotateGrid      = kRotateGrid.button;
-        rotateLeft      = kRotateLeft.button;
-        rotateRight     = kRotateRight.button;
-
         slowmode = kSlowMode.button;
+        resetButton = kResetGyroPos.button;
+        rotateSpeaker = kRotateSpeaker.button;
+        rotateAmp = kRotateAmp.button;
+        rotateSource = kRotateSource.button;
+        
     }
-
+    
     public void bindButtons()
     {
         if (subsystem.isPresent())
@@ -97,31 +73,23 @@ public class SK24DriveBinder implements CommandBinder
                 .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
-            resetGyroDSS.onTrue(new InstantCommand(drive::setFront));
-            resetGyroRight.onTrue(new InstantCommand(() -> {drive.setFieldRelativeHeading(new Rotation2d(Math.toRadians(270)));}));
-            resetGyroGrid.onTrue(new InstantCommand(() -> {drive.setFieldRelativeHeading(new Rotation2d(Math.toRadians(180)));}));
-            resetGyroLeft.onTrue(new InstantCommand(() -> {drive.setFieldRelativeHeading(new Rotation2d(Math.toRadians(90)));}));
+            resetButton.onTrue(new InstantCommand(drive::setFront));
             
-            rotateDSS.whileTrue(
-                new DriveTurnCommand(
-                    () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 0, drive));
-            rotateGrid.and(robotCentric.negate()).whileTrue(
+            rotateSpeaker.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 180, drive));
-            rotateLeft.whileTrue(
+            rotateAmp.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 90, drive));
-            rotateRight.whileTrue(
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? 270 : 90, drive));
+            rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 270, drive));
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? 45 : 135, drive)); 
 
             // Default command for driving
             drive.setDefaultCommand(
