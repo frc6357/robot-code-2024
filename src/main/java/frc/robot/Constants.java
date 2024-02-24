@@ -39,9 +39,12 @@ public final class Constants
         public static final PIDConstants balancePID = new PIDConstants(0.0, 0.0, 0.0);
         public static final double spoolDiameter = 0.75; //Inches
         public static final double gearRatio = 0.5; //Shaft rotations / 1 motor rotation
+        public static final double climbHeight = 11.0; //Inches
 
-        public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio); //inches moved per motor rotation
-        public static final double climbHeight = 11.0; //Inches        
+        public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio) / climbHeight; //inches moved per motor rotation
+        public static final double kAngleTolerance = 2.0;
+        public static final double kArmMotorMinOutput = -1.0;
+        public static final double kArmMotorMaxOutput = 1.0;
     }
     /** Constants that define the drivetrain as a whole */
     public static final class DriveConstants
