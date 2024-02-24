@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class SubsystemControls
 {
-
+    private final boolean vision;
     private final boolean drive;
     private final boolean launcher;
     private final boolean lights;
@@ -29,6 +29,8 @@ public class SubsystemControls
      *            indicates if the churro subsystem is present and should be enabled
      * @param drive
      *            indicates if the drive subsystem is present and should be enabled
+     * @param vision
+     *            indicates if the vision subsystem is present and should be enabled
      */
     public SubsystemControls(
         @JsonProperty(required = true, value = "launcher")    boolean launcher,
@@ -36,7 +38,8 @@ public class SubsystemControls
         @JsonProperty(required = true, value = "intake")      boolean intake,
         @JsonProperty(required = true, value = "launcher_arm")      boolean launcher_arm,
         @JsonProperty(required = true, value = "churro")      boolean churro,
-        @JsonProperty(required = true, value = "drive")       boolean drive)
+        @JsonProperty(required = true, value = "drive")       boolean drive,
+        @JsonProperty(required = true, value = "vision")       boolean vision)
     {
         this.drive = drive;
         this.launcher = launcher;
@@ -44,6 +47,7 @@ public class SubsystemControls
         this.intake = intake;
         this.launcher_arm = launcher_arm;
         this.churro = churro;
+        this.vision = vision;
     }
 
 
@@ -74,5 +78,8 @@ public class SubsystemControls
     }
     public boolean isChurroPresent(){
         return churro;
+    }
+    public boolean isVisionPresent(){
+        return vision;
     }
 }

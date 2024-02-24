@@ -34,16 +34,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24ChurroBinder;
 import frc.robot.bindings.SK24DriveBinder;
-import frc.robot.subsystems.SK24Drive;
-import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
 import frc.robot.subsystems.SK24Churro;
+import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Light;
+import frc.robot.subsystems.SK24Vision;
+import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
 
@@ -61,6 +62,7 @@ public class RobotContainer {
   private Optional<SK24Intake>  m_intake  = Optional.empty();
   private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
   private Optional<SK24Churro>  m_churro  = Optional.empty();
+  private Optional<SK24Vision>  m_vision  = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -110,6 +112,10 @@ public class RobotContainer {
             if(subsystems.isIntakePresent())
             {
               m_intake = Optional.of(new SK24Intake());
+            }
+            if(subsystems.isVisionPresent())
+            {
+              m_vision = Optional.of(new SK24Vision());
             }
             if (subsystems.isDrivePresent())
             {

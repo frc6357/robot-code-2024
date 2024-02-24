@@ -3,5 +3,6 @@
     "launcher": false,
     "lights": false,
     "intake": false,
-    "launcher_arm": true
+    "launcher_arm": true,
+    "vision": true
 }
