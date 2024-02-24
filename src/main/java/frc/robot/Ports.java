@@ -73,7 +73,7 @@ public class Ports
         public static final SKTrigger kMoveLocationOne = new SKTrigger(kOperator, kX.value, BUTTON);
         public static final SKTrigger kMoveLocationTwo = new SKTrigger(kOperator, kB.value, BUTTON);
         public static final SKTrigger kMoveLocationThree = new SKTrigger(kOperator, kY.value, BUTTON);
-
+    
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
 
@@ -101,6 +101,7 @@ public class Ports
         public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON);
     }
     
+
     public static class launcherPorts
     {
         private static final String busName = "";
@@ -108,6 +109,15 @@ public class Ports
         public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
         public static final CANPort kTransferMotor = new CANPort(42, busName);
     }
+
+    //Assign CAN ports to climb motors
+    public static class climbPorts
+    {
+        private static final String busName = "";
+        public static final CANPort kRightClimbMotor = new CANPort(60, busName);
+        public static final CANPort kLeftClimbMotor = new CANPort(61, busName);
+    }
+
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.
      */
