@@ -85,12 +85,12 @@ public class SK24DriveBinder implements CommandBinder
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 270, drive));
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? 90 : 270, drive));
             rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? 45 : 315, drive));
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? 225 : 315, drive)); 
 
             // Default command for driving
             drive.setDefaultCommand(
