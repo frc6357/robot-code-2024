@@ -177,6 +177,15 @@ public final class Constants
         public static final SwerveModuleConstants BackRight = ConstantCreator.createModuleConstants(
                 kBackRightSteerMotorId, kBackRightDriveMotorId, kBackRightEncoderId, kBackRightEncoderOffset, Units.inchesToMeters(kBackRightXPosInches), Units.inchesToMeters(kBackRightYPosInches), kInvertRightSide);
 
+        /** Distance between centers of right and left wheels on robot */
+        public static final double kTrackWidth = 0.5588;
+        /** Distance between front and back wheels on robot */
+        public static final double kWheelBase  = 0.5588;
+
+        /** The max speed the drive wheels should be allowed to go */
+        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxRotationDegreesPerSecond = 360.0;
+        public static final double kStartAutoLength = 4;
 
         public static SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
             new Translation2d(FrontLeft.LocationX, FrontLeft.LocationY),
@@ -184,7 +193,7 @@ public final class Constants
             new Translation2d(BackLeft.LocationX, BackLeft.LocationY), 
             new Translation2d(BackRight.LocationX, BackRight.LocationY));
 
-
+    }
     
 
     public static final class ClimbConstants
@@ -200,41 +209,6 @@ public final class Constants
         public static final double kAngleTolerance = 2.0;
         public static final double kArmMotorMinOutput = -1.0;
         public static final double kArmMotorMaxOutput = 1.0;
-    }
-    /** Constants that define the drivetrain as a whole */
-    public static final class DriveConstants
-    {
-        // Whether or not the turning motor needs to be reversed. Positive input should
-        // cause CCW+ angle change
-        public static final boolean kFrontLeftTurnMotorReversed  = true;
-        public static final boolean kRearLeftTurnMotorReversed   = true;
-        public static final boolean kFrontRightTurnMotorReversed = true;
-        public static final boolean kRearRightTurnMotorReversed  = true;
-
-        // Whether or not the drive motors need to be reversed. Positive input should
-        // cause the robot to go into the positive x or y direction as outlined by the
-        // FIELD coordinate system
-        public static final boolean kFrontLeftDriveMotorReversed    = false;
-        public static final boolean kRearLeftDriveEncoderReversed   = false;
-        public static final boolean kFrontRightDriveEncoderReversed = true;
-        public static final boolean kRearRightDriveMotorReversed    = true;
-
-        // Offset for the CANCoders in Degrees
-        public static final double kFrontLeftAngleOffset  = -326.162;
-        public static final double kRearLeftAngleOffset   = -247.412;
-        public static final double kFrontRightAngleOffset = -1.934;
-        public static final double kRearRightAngleOffset  = -108.896;
-
-        
-        /** Distance between centers of right and left wheels on robot */
-        public static final double kTrackWidth = 0.5588;
-        /** Distance between front and back wheels on robot */
-        public static final double kWheelBase  = 0.5588;
-        
-        /** The max speed the drive wheels should be allowed to go */
-        public static final double kMaxSpeedMetersPerSecond = 5;
-        public static final double kMaxRotationDegreesPerSecond = 360.0;
-        public static final double kStartAutoLength = 4;
     }
 
     /** Constants that define each swerve module as an individual */
@@ -330,3 +304,4 @@ public final class Constants
     public static final String SUBSYSTEMFILE = "Subsystems.json";
     public static Object LauncherAngleConstants;
 }
+

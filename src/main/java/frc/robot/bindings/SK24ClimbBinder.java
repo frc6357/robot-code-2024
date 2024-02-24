@@ -1,6 +1,6 @@
 package frc.robot.bindings;
 
-import static frc.robot.Ports.OperatorPorts.kClimb;
+import static frc.robot.Ports.DriverPorts.kClimb;
 
 import java.util.Optional;
 
