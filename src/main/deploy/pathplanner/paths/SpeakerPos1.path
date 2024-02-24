@@ -1,0 +1,107 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.78765406878382,
+        "y": 4.830143563015478
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.9142505734596287,
+        "y": 4.450354048988052
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.661057564108011,
+        "y": 4.0900409202953645
+      },
+      "prevControl": {
+        "x": 2.7194867201122306,
+        "y": 4.031611764291145
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Shoot",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "sequential",
+              "data": {
+                "commands": [
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "VisionCommand"
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "AngleCommand"
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "LaunchCommand"
+                    }
+                  },
+                  {
+                    "type": "wait",
+                    "data": {
+                      "waitTime": 0.2
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "ShootCommand"
+                    }
+                  },
+                  {
+                    "type": "named",
+                    "data": {
+                      "name": "AngleCommand"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -34.695153531233984,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SpeakerPos",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

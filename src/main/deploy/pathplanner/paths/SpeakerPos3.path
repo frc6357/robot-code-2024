@@ -1,0 +1,100 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.259801612454497,
+        "y": 7.1558767932655005
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.683220250581832,
+        "y": 7.305380198270668
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.9085207882823325,
+        "y": 6.992782169623501
+      },
+      "prevControl": {
+        "x": 3.5744905014871655,
+        "y": 7.291788979633835
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "VisionCommand"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AngleCommand"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LaunchCommand"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.2
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LaunchOffCommand"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AngleCommand"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -148.49573328079575,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "SpeakerPos",
+  "previewStartingState": {
+    "rotation": -173.01894259317032,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
