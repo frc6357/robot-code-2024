@@ -5,6 +5,7 @@ import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Constants.OIConstants.kRotationCoeff;
 import static frc.robot.Constants.OIConstants.kSlowModePercent;
 import static frc.robot.Ports.DriverPorts.*;
+import static frc.robot.Constants.DriveConstants.*;
 
 
 import java.util.Optional;
@@ -79,17 +80,17 @@ public class SK24DriveBinder implements CommandBinder
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 180, drive));
+                    robotCentric::getAsBoolean, kSpeakerFacing, drive));
             rotateAmp.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? 270 : 90, drive));
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? kAmpRedFacing : kAmpBlueFacing, drive));
             rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? 45 : 135, drive)); 
+                    robotCentric::getAsBoolean, drive.checkIsRed() ? kSourceRedFacing : kSourceBlueFacing, drive)); 
 
             // Default command for driving
             drive.setDefaultCommand(
