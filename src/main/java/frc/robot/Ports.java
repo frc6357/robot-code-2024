@@ -42,9 +42,9 @@ public class Ports
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
 
         // Align to specified position
-        public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); //TODO - write command
-        public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); //TODO - write command
-        public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); //TODO - write command
+        public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); 
+        public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); 
+        public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
 
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
