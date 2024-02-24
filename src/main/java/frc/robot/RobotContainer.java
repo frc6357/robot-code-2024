@@ -44,6 +44,7 @@ import frc.robot.bindings.SK24LightBinder;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Light;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
@@ -60,6 +61,7 @@ public class RobotContainer {
   private Optional<SK24Launcher>  m_launcher  = Optional.empty();
   private Optional<SK24Light>  m_light  = Optional.empty();
   private Optional<SK24Intake>  m_intake  = Optional.empty();
+  private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
   private Optional<SK24Churro>  m_churro  = Optional.empty();
 
   // The list containing all the command binding classes
@@ -133,7 +135,10 @@ public class RobotContainer {
             {
                 m_churro = Optional.of(new SK24Churro());
             }
-            
+            if(subsystems.isLauncherArmPresent())
+            {
+                m_launcher_angle = Optional.of(new SK24LauncherAngle());
+            }
         }
         catch (IOException e)
         {
@@ -151,7 +156,8 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24DriveBinder(driveSubsystem));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle));
+        buttonBinders.add(new SK24DriveBinder(m_drive));
         buttonBinders.add(new SK24LauncherBinder(m_launcher));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake));

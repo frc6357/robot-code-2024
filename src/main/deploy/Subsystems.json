@@ -1,7 +1,8 @@
 {
     "drive"         : true,
-    "launcher": true
+    "launcher": true,
     "example": false,
     "lights": true,
-    "intake": true
+    "intake": true,
+    "launcher_arm": true
 }
