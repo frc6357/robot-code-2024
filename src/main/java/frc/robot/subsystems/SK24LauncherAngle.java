@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Ports.launcherPorts.kTopLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kPivotMotor;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
@@ -18,7 +18,7 @@ import static frc.robot.Constants.LauncherAngleConstants.*;
 public class SK24LauncherAngle extends SubsystemBase
 {
     // Create memory objects for both motors for public use
-    CANSparkFlex    motor;
+    CANSparkFlex    pivotMotor;
     int             joystickCount;
     double          targetAngle;
     double          currentAngle;
@@ -30,18 +30,18 @@ public class SK24LauncherAngle extends SubsystemBase
     public SK24LauncherAngle()
     {
         //Initialize motor objects
-        motor = new CANSparkFlex(kTopLauncherMotor.ID, MotorType.kBrushless);
+        pivotMotor = new CANSparkFlex(kPivotMotor.ID, MotorType.kBrushless);
 
         PID = new PIDController(kAnglePID.kP, kAnglePID.kI, kAnglePID.kD);
         PID.setIntegratorRange(-kAnglePID.iZone, kAnglePID.iZone);
         PID.setSetpoint(0.0);
 
-        motor.restoreFactoryDefaults();
-        motor.setIdleMode(IdleMode.kBrake); 
+        pivotMotor.restoreFactoryDefaults();
+        pivotMotor.setIdleMode(IdleMode.kBrake); 
 
         targetAngle = 0.0;
         currentAngle = 0.0;
-        encoder = motor.getEncoder();
+        encoder = pivotMotor.getEncoder();
         
         encoder.setPositionConversionFactor(kConversionFactor);
 
@@ -98,7 +98,7 @@ public class SK24LauncherAngle extends SubsystemBase
         // Calculates motor speed and puts it within operating range
         double speed = MathUtil.clamp(PID.calculate(current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
-        motor.set(speed); 
+        pivotMotor.set(speed); 
 
         SmartDashboard.putNumber("Current Angle", current_angle);
         SmartDashboard.putNumber("Target Angle", target_angle);

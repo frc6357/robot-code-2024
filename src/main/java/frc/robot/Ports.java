@@ -123,9 +123,12 @@ public class Ports
     public static class launcherPorts
     {
         private static final String busName = "";
-        public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
-        public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
+        public static final CANPort kLeftLauncherMotor = new CANPort(40, busName);
+        public static final CANPort kRightLauncherMotor = new CANPort(41, busName);
         public static final CANPort kTransferMotor = new CANPort(42, busName);
+        public static final CANPort kPivotMotor = new CANPort(43, busName);
+        public static final CANPort kLeftLaser = new CANPort(44, busName);
+        public static final CANPort kRightLaser = new CANPort(45,busName);
     }
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.

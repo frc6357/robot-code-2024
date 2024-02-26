@@ -11,18 +11,18 @@ import frc.robot.subsystems.SK24Launcher;
 public class LaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Launcher subsystem;
-  double speedTop;
-  double speedBottom;
+  double speedLeft;
+  double speedRight;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public LaunchCommand(SK24Launcher subsystem, double speedTop, double speedBottom) {
+  public LaunchCommand(SK24Launcher subsystem, double speedLeft, double speedRight) {
     this.subsystem = subsystem;
-    this.speedTop = speedTop;
-    this.speedBottom = speedBottom;
+    this.speedLeft = speedLeft;
+    this.speedRight = speedRight;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(this.subsystem);
   }
@@ -30,7 +30,7 @@ public class LaunchCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    subsystem.setLauncherSpeed(speedTop, speedBottom);
+    subsystem.setLauncherSpeed(speedLeft, speedRight);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
