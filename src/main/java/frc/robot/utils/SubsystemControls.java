@@ -38,8 +38,8 @@ public class SubsystemControls
         @JsonProperty(required = true, value = "launcher")    boolean launcher,
         @JsonProperty(required = true, value = "lights")      boolean lights,
         @JsonProperty(required = true, value = "intake")      boolean intake,
-        @JsonProperty(required = true, value = "launcher_arm")      boolean launcher_arm),
-        @JsonProperty(required = true, value = "churro")      boolean churro),
+        @JsonProperty(required = true, value = "launcher_arm")      boolean launcher_arm,
+        @JsonProperty(required = true, value = "churro")      boolean churro,
         @JsonProperty(required = true, value = "drive")       boolean drive)
     {
         this.drive = drive;
@@ -84,9 +84,12 @@ public class SubsystemControls
     {
         return intake;
     }
-    public boolean isLauncherArmPresent(){
+    public boolean isLauncherArmPresent()
+    {
         return launcher_arm;
-    public boolean isChurroPresent(){
+    }
+    public boolean isChurroPresent()
+    {
         return churro;
     }
 }

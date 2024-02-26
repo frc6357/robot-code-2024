@@ -56,7 +56,7 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
             
-            launcherButton.onTrue(new LaunchCommand(m_launcher, 0.5));
+            launcherButton.onTrue(new LaunchCommand(m_launcher, 0.5, 0.5));
             launcherButton.onFalse(new LaunchOffCommand(m_launcher));
         }
         if(launcherAngle.isPresent())
