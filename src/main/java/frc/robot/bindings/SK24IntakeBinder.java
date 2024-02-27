@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.SK24Intake;
+import static frc.robot.Constants.IntakeConstants.*;
 
 public class SK24IntakeBinder implements CommandBinder{
     Optional<SK24Intake> subsystem;
@@ -24,8 +25,7 @@ public class SK24IntakeBinder implements CommandBinder{
         if (subsystem.isPresent())
         {
             SK24Intake intake = subsystem.get();
-            //intakeButton.onTrue(new IntakeCommand(intake, 0.0));
-            intakeButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(0.5))); //TODO - change speed
+            intakeButton.onTrue(new IntakeCommand(intake, kIntakeSpeed));
             intakeButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0))); 
         }
     }

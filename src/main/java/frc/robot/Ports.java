@@ -3,29 +3,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.utils.SKTrigger;
 import frc.robot.utils.filters.FilteredXboxController;
-import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
-import static frc.robot.utils.SKTrigger.INPUT_TYPE.*;
-import static edu.wpi.first.wpilibj.XboxController.Axis.kLeftTrigger;
-import static edu.wpi.first.wpilibj.XboxController.Axis.kLeftX;
-import static edu.wpi.first.wpilibj.XboxController.Axis.kLeftY;
-import static edu.wpi.first.wpilibj.XboxController.Axis.kRightTrigger;
-import static edu.wpi.first.wpilibj.XboxController.Axis.kRightX;
-import static edu.wpi.first.wpilibj.XboxController.Axis.kRightY;
-import static edu.wpi.first.wpilibj.XboxController.Button.kA;
-import static edu.wpi.first.wpilibj.XboxController.Button.kB;
-import static edu.wpi.first.wpilibj.XboxController.Button.kBack;
-import static edu.wpi.first.wpilibj.XboxController.Button.kLeftBumper;
-import static edu.wpi.first.wpilibj.XboxController.Button.kLeftStick;
-import static edu.wpi.first.wpilibj.XboxController.Button.kRightBumper;
-import static edu.wpi.first.wpilibj.XboxController.Button.kStart;
-import static edu.wpi.first.wpilibj.XboxController.Button.kX;
-import static edu.wpi.first.wpilibj.XboxController.Button.kY;
+import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.AXIS;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.BUTTON;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.POV;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.utils.CANPort;
 import frc.robot.utils.filters.FilteredAxis;
 
@@ -44,13 +27,16 @@ public class Ports
         public static final SKTrigger kRobotCentricMode = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
-        // Gyro
+        // Climb/Gyro
         public static final SKTrigger kClimb = new SKTrigger(kDriver, kY.value, BUTTON);
 
         // Rotate to specified position
         public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kA.value, BUTTON);
         public static final SKTrigger kRotateAmp = new SKTrigger(kDriver, kX.value, BUTTON);
         public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kB.value, BUTTON);
+
+        // Zero position
+        public static final SKTrigger kZeroPos = new SKTrigger(kDriver, kStart.value, BUTTON); 
 
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
@@ -87,7 +73,7 @@ public class Ports
         public static final SKTrigger kMoveLocationOne = new SKTrigger(kOperator, kX.value, BUTTON);
         public static final SKTrigger kMoveLocationTwo = new SKTrigger(kOperator, kB.value, BUTTON);
         public static final SKTrigger kMoveLocationThree = new SKTrigger(kOperator, kY.value, BUTTON);
-
+    
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
 
@@ -108,9 +94,14 @@ public class Ports
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
 
         // Reset launcher encoder
-        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kRightStick.value, BUTTON);
+        public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+
+        // Run Churro 
+        public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON);
     }
     
+
     public static class launcherPorts
     {
         private static final String busName = "";
@@ -118,6 +109,15 @@ public class Ports
         public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
         public static final CANPort kTransferMotor = new CANPort(42, busName);
     }
+
+    //Assign CAN ports to climb motors
+    public static class climbPorts
+    {
+        private static final String busName = "";
+        public static final CANPort kRightClimbMotor = new CANPort(60, busName);
+        public static final CANPort kLeftClimbMotor = new CANPort(61, busName);
+    }
+
     /**
      * Defines all the ports needed to create sensors and actuators for the drivetrain.
      */
@@ -154,5 +154,12 @@ public class Ports
         public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
         public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
         
+    }
+
+    public static class churroPorts
+    {
+        private static final String busName = "";
+
+        public static final CANPort kChurroMotor = new CANPort(70, busName);
     }
 }

@@ -19,7 +19,8 @@ public class ArmAngleInternal
         /**
          * CAN Spark Max motor
          */
-        SparkMax
+        SparkMax,
+        SparkFlex
     }
 
     /**
@@ -59,6 +60,10 @@ public class ArmAngleInternal
                 motor = new SparkMaxArm(CanID, gearRatio, Kp, Ki, Kd, Kiz, MinOutput, MaxOutput, lowerSensorID,
                     upperSensorID);
                 break;
+            case SparkFlex:
+                motor = new SparkFlexArm(CanID, gearRatio, Kp, Ki, Kd, Kiz, MinOutput, MaxOutput, lowerSensorID,
+                    upperSensorID);
+                break;
         }
     }
 
@@ -95,6 +100,9 @@ public class ArmAngleInternal
             case SparkMax:
                 motor = new SparkMaxArm(CanID, gearRatio, Kp, Ki, Kd, Kiz, MinOutput, MaxOutput, lowerSensorID);
                 break;
+            case SparkFlex:
+                motor = new SparkFlexArm(CanID, gearRatio, Kp, Ki, Kd, Kiz, MinOutput, MaxOutput, lowerSensorID);
+                break;
         }
     }
 
@@ -127,6 +135,9 @@ public class ArmAngleInternal
         {
             case SparkMax:
                 motor = new SparkMaxArm(CanID, gearRatio, Kp, Ki, Kd, Kiz, MinOutput, MaxOutput);
+                break;
+            case SparkFlex:
+                motor = new SparkFlexArm(CanID, gearRatio, Kp, Ki, Kd, Kiz, MinOutput, MaxOutput);
                 break;
         }
     }

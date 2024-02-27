@@ -10,7 +10,6 @@ import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
 import static frc.robot.Constants.DriveConstants.FrontLeft;
 import static frc.robot.Constants.DriveConstants.FrontRight;
 import static frc.robot.Constants.DriveConstants.autoList;
-import static frc.robot.Constants.DriveConstants.kMaxSpeedMetersPerSecond;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,15 +32,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
+import frc.robot.bindings.SK24ChurroBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.subsystems.SK24Drive;
-import frc.robot.subsystems.SK24Example;
 import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
+import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Light;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
@@ -58,6 +59,8 @@ public class RobotContainer {
   private Optional<SK24Launcher>  m_launcher  = Optional.empty();
   private Optional<SK24Light>  m_light  = Optional.empty();
   private Optional<SK24Intake>  m_intake  = Optional.empty();
+  private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
+  private Optional<SK24Churro>  m_churro  = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -116,17 +119,24 @@ public class RobotContainer {
                 Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
 
                 if (Utils.isSimulation()) {
-                    driveSubsystem.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
+                    m_drive.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
                 }
                 m_drive.get().registerTelemetry(log::telemeterize);
 
                 // Configures the autonomous paths and smartdashboard chooser
                 // autoCommandSelector = AutoBuilder.buildAutoChooser();
                 SK24AutoBuilder.setAutoNames(autoList);
-                autoCommandSelector = SK24AutoBuilder.buildAutoChooser("Example_auto");
+                autoCommandSelector = SK24AutoBuilder.buildAutoChooser("LeftScore1");
                 SmartDashboard.putData("Auto Chooser", autoCommandSelector);
             }
-            
+            if(subsystems.isChurroPresent())
+            {
+                m_churro = Optional.of(new SK24Churro());
+            }
+            if(subsystems.isLauncherArmPresent())
+            {
+                m_launcher_angle = Optional.of(new SK24LauncherAngle());
+            }
         }
         catch (IOException e)
         {
@@ -144,10 +154,11 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24DriveBinder(driveSubsystem));
-        buttonBinders.add(new SK24LauncherBinder(m_launcher));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle));
+        buttonBinders.add(new SK24DriveBinder(m_drive));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake));
+        buttonBinders.add(new SK24ChurroBinder(m_churro));
 
         // Traversing through all the binding classes to actually bind the buttons
         for (CommandBinder subsystemGroup : buttonBinders)
