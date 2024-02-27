@@ -1,6 +1,9 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.SK24Churro;
+
+import static frc.robot.Constants.ChurroConstants.*;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ChurroLowerCommand extends Command
@@ -45,10 +48,10 @@ public class ChurroLowerCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    return Math.abs(subsystem.getChurroPosition() - kChurroLowerPosition) < kAngleTolerance;
     //if (limit switch)
     //{
     //  return true;
-    //}
-    return false; //TODO - add back
+    //} //TODO - determine if we need a limit switch
   }
 }
