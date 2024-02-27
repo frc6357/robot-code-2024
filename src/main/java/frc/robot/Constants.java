@@ -177,16 +177,6 @@ public final class Constants
         public static final SwerveModuleConstants BackRight = ConstantCreator.createModuleConstants(
                 kBackRightSteerMotorId, kBackRightDriveMotorId, kBackRightEncoderId, kBackRightEncoderOffset, Units.inchesToMeters(kBackRightXPosInches), Units.inchesToMeters(kBackRightYPosInches), kInvertRightSide);
 
-        /** Distance between centers of right and left wheels on robot */
-        public static final double kTrackWidth = 0.5588;
-        /** Distance between front and back wheels on robot */
-        public static final double kWheelBase  = 0.5588;
-
-        /** The max speed the drive wheels should be allowed to go */
-        public static final double kMaxSpeedMetersPerSecond = 5;
-        public static final double kMaxRotationDegreesPerSecond = 360.0;
-        public static final double kStartAutoLength = 4;
-
         public static SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
             new Translation2d(FrontLeft.LocationX, FrontLeft.LocationY),
             new Translation2d(FrontRight.LocationX, FrontRight.LocationY), 
