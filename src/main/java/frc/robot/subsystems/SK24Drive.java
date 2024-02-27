@@ -144,6 +144,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     currentPublisher.set(this.getState().ModuleStates);
     targetPublisher.set(this.getState().ModuleTargets);
     odomPublisher.set(getOdomHeading());
+    //SmartDashboard.putNumber("Speaker Angle", getSpeakerAngle());
   }
 
 
@@ -174,6 +175,15 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   public Pose2d getPose()
   {
     return this.m_odometry.getEstimatedPosition();
+  }
+
+  public double getSpeakerAngle(){
+      Pose2d currentPose = getPose();
+      double x = currentPose.getX();
+      double y = currentPose.getY();
+      double distanceX = checkIsRed() ? 16.542 - x : x;
+      double distanceY = 5.54 - y;
+      return checkIsRed() ? Math.toDegrees(Math.atan(distanceY / distanceX)) : 180 + Math.toDegrees(Math.atan(distanceY / distanceX) * -1);
   }
   
   /**

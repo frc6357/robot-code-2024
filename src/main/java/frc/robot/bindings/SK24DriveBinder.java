@@ -12,7 +12,6 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.ModuleConstants;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.subsystems.SK24Drive;
@@ -66,7 +65,7 @@ public class SK24DriveBinder implements CommandBinder
                 kJoystickDeadband, DriveConstants.kMaxSpeedMetersPerSecond, true));
             
             kVelocityOmegaPort.setFilter(new CubicDeadbandFilter(kRotationCoeff, kJoystickDeadband,
-                Math.toRadians(ModuleConstants.kMaxModuleAngularSpeedDegreesPerSecond), true));
+                Math.toRadians(DriveConstants.kMaxModuleAngularSpeedDegreesPerSecond), true));
 
             slowmode.
                 onTrue(new InstantCommand(() -> {setGainCommand(kSlowModePercent);}, drive))
@@ -79,7 +78,7 @@ public class SK24DriveBinder implements CommandBinder
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 180, drive));
+                    robotCentric::getAsBoolean, drive::getSpeakerAngle, drive));
             rotateAmp.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
