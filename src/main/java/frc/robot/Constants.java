@@ -63,12 +63,12 @@ public final class Constants
         
         // The steer motor uses any SwerveModule.SteerRequestType control request with the
         // output type specified by SwerveModuleConstants.SteerMotorClosedLoopOutput
-        private static final Slot0Configs steerGains = new Slot0Configs()
+        private static final Slot0Configs steerGains = new Slot0Configs() //TODO - tune steering gains drive
         .withKP(100).withKI(0).withKD(0.2)
         .withKS(0).withKV(1.5).withKA(0);
         // When using closed-loop control, the drive motor uses the control
         // output type specified by SwerveModuleConstants.DriveMotorClosedLoopOutput
-        private static final Slot0Configs driveGains = new Slot0Configs()
+        private static final Slot0Configs driveGains = new Slot0Configs() //TODO - tune driving gains drive
             .withKP(3).withKI(0).withKD(0)
             .withKS(0).withKV(0).withKA(0);                     
             
@@ -187,7 +187,7 @@ public final class Constants
 
     
 
-        
+        public static final double kMaxModuleAngularSpeedDegreesPerSecond               = 360;
         /** Distance between centers of right and left wheels on robot */
         public static final double kTrackWidth = 0.5588;
         /** Distance between front and back wheels on robot */
@@ -197,32 +197,6 @@ public final class Constants
         public static final double kMaxSpeedMetersPerSecond = 5;
         public static final double kMaxRotationDegreesPerSecond = 360.0;
         public static final double kStartAutoLength = 4;
-    }
-
-    /** Constants that define each swerve module as an individual */
-    public static final class ModuleConstants
-    {
-        // Turning Constraints
-        public static final double kMaxModuleAngularSpeedDegreesPerSecond               = 360;
-        public static final double kMaxModuleAngularAccelerationDegreesPerSecondSquared = 360;
-
-        // PID Constants
-        public static final double kPModuleTurningController = 0.25;
-        public static final double kPModuleDriveController   = 0.01;
-        public static final double kFModuleDriveController   = 0.0465;
-        public static final double kPIDAngleDeadband         = 0.01;
-
-        // Module Characteristics
-        public static final int    kEncoderCPR                   = 2048;
-        public static final int    kDegreesPerRevolution         = 360;
-        public static final double kWheelDiameterMeters          = Units.inchesToMeters(4.0);
-        public static final double kDriveGearRatio               = 6.75;
-        public static final double kTurnGearRatio                = 150.0 / 7.0;
-        public static final double kDriveEncoderDistancePerRotation =
-                (kWheelDiameterMeters * Math.PI) / (kDriveGearRatio * (double) kEncoderCPR); //Meters per rotation
-        public static final double kTurnEncoderRotationsToMechanism  =
-        kDegreesPerRevolution / (kTurnGearRatio * (double) kEncoderCPR);
-
     }
 
     /** Constants that are used when defining filters for controllers */
@@ -265,29 +239,41 @@ public final class Constants
     }
     public static final class LauncherAngleConstants
     {
-        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0, 0.0);
-        public static final double kGearRatio = 0.2; //shaft rotation to motor rotation
+        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0, 0.0); //TODO - Tune launcher angle PID
+        public static final double kGearRatio = 0.2; //shaft rotation to motor rotation //TODO - Put in launcher angle gear ratio
     
         public static final double kConversionFactor =  kGearRatio * 360.0;
-        public static final double kAngleTolerance =  5.0;
-        public static final double kArmMotorMinOutput =  -0.7;
-        public static final double kArmMotorMaxOutput =  1.0;
+        public static final double kAngleTolerance =  5.0; //TODO - find good angle tolerance launcher
+        public static final double kArmMotorMinOutput =  -0.7; //TODO - Find motor minimum output
+        public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
-        public static final double kMinAngle = 0.0;
-        public static final double kMaxAngle = 0.0;
+        public static final double kMinAngle = 0.0; //TODO - put minumum launcher angle
+        public static final double kMaxAngle = 0.0;//TODO - put maximum launcher angle
     
-        public static final double kJoystickChange   = 30.0; // Manual setpoint value for degrees moved per second
+        public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second //TODO - find good value degrees per second angle launcher
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
+
+
+        public static final double kAmpAngle = 45.0; //TODO - find launcher angle for the amp
+
+        public static final double kLauncherAmpTopSpeed = 0.5; //TODO - find launcher top speed for amp
+        public static final double kLauncherAmpBottomSpeed = 0.5; //TODO - find launcher bottom speed for amp
         
     }
 
     public static final class IntakeConstants
     {
-        public static final double kIntakeSpeed = 0.5;
+        public static final double kIntakeSpeed = 0.5; //TODO - find intake speed
     }
 
+    public static final class ChurroConstants
+    {
+        public static final double kAngleTolerance = 0.1; //Angle tolerance in rotations TODO - find churro angle tolerance
+        public static final double kChurroLowerPosition = 0.5; //TODO - find churro position in rotations for scoring amp
+        public static final double kChurroRaisePosition = 0.5; //TODO - find churro position in rotations for scoring amp
+    }
     /** The file that is used for system instantiation at runtime */
     public static final String SUBSYSTEMFILE = "Subsystems.json";
     public static Object LauncherAngleConstants;
