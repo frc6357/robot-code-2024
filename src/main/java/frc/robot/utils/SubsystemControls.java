@@ -13,6 +13,7 @@ public class SubsystemControls
     private final boolean launcher;
     private final boolean lights;
     private final boolean intake;
+    private final boolean climb;
     private final boolean launcher_arm;
     private final boolean churro;
 
@@ -34,6 +35,7 @@ public class SubsystemControls
         @JsonProperty(required = true, value = "launcher")    boolean launcher,
         @JsonProperty(required = true, value = "lights")      boolean lights,
         @JsonProperty(required = true, value = "intake")      boolean intake,
+        @JsonProperty(required = true, value = "climb")      boolean climb,
         @JsonProperty(required = true, value = "launcher_arm")      boolean launcher_arm,
         @JsonProperty(required = true, value = "churro")      boolean churro,
         @JsonProperty(required = true, value = "drive")       boolean drive)
@@ -42,6 +44,7 @@ public class SubsystemControls
         this.launcher = launcher;
         this.lights = lights;
         this.intake = intake;
+        this.climb = climb;
         this.launcher_arm = launcher_arm;
         this.churro = churro;
     }
@@ -60,6 +63,10 @@ public class SubsystemControls
     public boolean isLauncherPresent()
     {
         return launcher;
+    }
+    public boolean isClimbPresent()
+    {
+        return climb;
     }
     public boolean isLightsPresent()
     {

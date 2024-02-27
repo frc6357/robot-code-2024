@@ -7,13 +7,14 @@ import frc.robot.commands.ChurroLowerCommand;
 import frc.robot.commands.ChurroRaiseCommand;
 import frc.robot.subsystems.SK24Churro;
 import static frc.robot.Ports.OperatorPorts.*;
+import static frc.robot.Constants.ChurroConstants.*;
 
 public class SK24ChurroBinder implements CommandBinder
 {
     Optional<SK24Churro> subsystem;
     Trigger churroButton;
     /**
-     * The class that is used to bind all the commands for the arm subsystem
+     * The class that is used to bind all the commands for the churro subsystem
      * 
      * @param controller
      *            The contoller that the commands are being bound to
@@ -35,8 +36,8 @@ public class SK24ChurroBinder implements CommandBinder
 
             SK24Churro m_churro = subsystem.get();
             
-            churroButton.onTrue(new ChurroRaiseCommand(m_churro, 0.5));
-            churroButton.onFalse(new ChurroLowerCommand(m_churro, 0.5));
+            churroButton.onTrue(new ChurroRaiseCommand(m_churro, kChurroSpeed));
+            churroButton.onFalse(new ChurroLowerCommand(m_churro, -kChurroSpeed));
 
         }
     }

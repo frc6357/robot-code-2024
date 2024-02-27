@@ -18,7 +18,7 @@ public class SK24Intake extends SubsystemBase
         topIntakeMotor = new CANSparkFlex(kTopIntakeMotor.ID, MotorType.kBrushless);
         topIntakeMotor.setInverted(true);
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
-        bottomIntakeMotor.follow(topIntakeMotor);
+        bottomIntakeMotor.follow(topIntakeMotor, true);
     }
 
     //Set motor speeds
