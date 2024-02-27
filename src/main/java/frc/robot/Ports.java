@@ -42,16 +42,16 @@ public class Ports
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
 
         // Align to specified position
-        public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV);
-        public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV);
-        public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV);
+        public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); 
+        public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); 
+        public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
 
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
 
         // Intake or eject
-        public static final SKTrigger kIntake = new SKTrigger(kDriver, kLeftTrigger.value, AXIS);
-        public static final SKTrigger kEject  = new SKTrigger(kDriver, kRightTrigger.value, AXIS); 
+        public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);
+        public static final SKTrigger kEject  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
 
     }
     /**
@@ -65,7 +65,7 @@ public class Ports
         public static final GenericHID kOperator = new FilteredXboxController(1).getHID();
 
         // Launch at target
-        public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
+        //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
         public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
         public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
 
@@ -82,9 +82,8 @@ public class Ports
 
         // Intake
         public static final SKTrigger kIntake = new SKTrigger(kOperator, kLeftTrigger.value, BUTTON);
-        public static final SKTrigger k = new SKTrigger(kOperator, kLeftTrigger.value, BUTTON);
 
-        // Orient to speaker
+        // Change angle launcher to speaker
         public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, BUTTON);
 
         // Run subsystem manually
@@ -92,6 +91,7 @@ public class Ports
         public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
         public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV);
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
+        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kRightStick.value, BUTTON);

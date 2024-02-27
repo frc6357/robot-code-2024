@@ -193,9 +193,25 @@ public final class Constants
             new Translation2d(BackLeft.LocationX, BackLeft.LocationY), 
             new Translation2d(BackRight.LocationX, BackRight.LocationY));
 
-    }
     
+        
+        /** Distance between centers of right and left wheels on robot */
+        public static final double kTrackWidth = 0.5588;
+        /** Distance between front and back wheels on robot */
+        public static final double kWheelBase  = 0.5588;
+        
+        /** The max speed the drive wheels should be allowed to go */
+        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxRotationDegreesPerSecond = 360.0;
+        public static final double kStartAutoLength = 4;
 
+        public static final double kSpeakerFacing = 180.0;
+        public static final double kAmpRedFacing = 270.0;
+        public static final double kAmpBlueFacing = 90.0;
+        public static final double kSourceRedFacing = 45.0;
+        public static final double kSourceBlueFacing = 135.0;
+    }
+  
     public static final class ClimbConstants
     {
         public static final PIDConstants rightClimb = new PIDConstants(0.0, 0.0, 0.0);
@@ -292,12 +308,27 @@ public final class Constants
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
+
+        public static final double kSpeakerAngle = 45.0;
         
     }
 
     public static final class IntakeConstants
     {
         public static final double kIntakeSpeed = 0.5;
+    }
+
+    public static final class ChurroConstants
+    {
+        public static final double kChurroSpeed = 0.5;
+    }
+    public static final class LauncherConstants
+    {
+        public static final double kSpeakerDefaultTopSpeed = 0.5;
+        public static final double kSpeakerDefaultBottomSpeed = 0.5;
+
+        public static final double kAmpDefaultTopSpeed = 0.5;
+        public static final double kAmpDefaultBottomSpeed = 0.5;
     }
 
     /** The file that is used for system instantiation at runtime */

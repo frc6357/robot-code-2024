@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24LauncherAngle;
 import static frc.robot.Constants.LauncherAngleConstants.*;
 /** An example command that uses an example subsystem. */
-public class LaunchAngleCommand extends Command {
+public class AutoLaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private final SK24LauncherAngle arm;
@@ -32,7 +32,7 @@ public class LaunchAngleCommand extends Command {
      * @param arm
      *            Subsystem used for this command
      */
-    public LaunchAngleCommand(Supplier<Double> setpointChange, Supplier<Boolean> clampOverride, SK24LauncherAngle arm)
+    public AutoLaunchCommand(Supplier<Double> setpointChange, Supplier<Boolean> clampOverride, SK24LauncherAngle arm)
     {
         this.controller = setpointChange;
         this.override = clampOverride;
