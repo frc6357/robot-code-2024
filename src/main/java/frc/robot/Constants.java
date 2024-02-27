@@ -177,6 +177,15 @@ public final class Constants
         public static final SwerveModuleConstants BackRight = ConstantCreator.createModuleConstants(
                 kBackRightSteerMotorId, kBackRightDriveMotorId, kBackRightEncoderId, kBackRightEncoderOffset, Units.inchesToMeters(kBackRightXPosInches), Units.inchesToMeters(kBackRightYPosInches), kInvertRightSide);
 
+        /** Distance between centers of right and left wheels on robot */
+        public static final double kTrackWidth = 0.5588;
+        /** Distance between front and back wheels on robot */
+        public static final double kWheelBase  = 0.5588;
+
+        /** The max speed the drive wheels should be allowed to go */
+        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxRotationDegreesPerSecond = 360.0;
+        public static final double kStartAutoLength = 4;
 
         public static SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
             new Translation2d(FrontLeft.LocationX, FrontLeft.LocationY),
@@ -184,9 +193,7 @@ public final class Constants
             new Translation2d(BackLeft.LocationX, BackLeft.LocationY), 
             new Translation2d(BackRight.LocationX, BackRight.LocationY));
 
-
     
-
         
         /** Distance between centers of right and left wheels on robot */
         public static final double kTrackWidth = 0.5588;
@@ -203,7 +210,21 @@ public final class Constants
         public static final double kAmpBlueFacing = 90.0;
         public static final double kSourceRedFacing = 45.0;
         public static final double kSourceBlueFacing = 135.0;
-        
+    }
+  
+    public static final class ClimbConstants
+    {
+        public static final PIDConstants rightClimb = new PIDConstants(0.0, 0.0, 0.0);
+        public static final PIDConstants leftClimb = new PIDConstants(0.0, 0.0, 0.0);
+        public static final PIDConstants balancePID = new PIDConstants(0.0, 0.0, 0.0);
+        public static final double spoolDiameter = 0.75; //Inches
+        public static final double gearRatio = 0.5; //Shaft rotations / 1 motor rotation
+        public static final double climbHeight = 11.0; //Inches
+
+        public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio) / climbHeight; //inches moved per motor rotation
+        public static final double kAngleTolerance = 2.0;
+        public static final double kArmMotorMinOutput = -1.0;
+        public static final double kArmMotorMaxOutput = 1.0;
     }
 
     /** Constants that define each swerve module as an individual */
@@ -314,3 +335,4 @@ public final class Constants
     public static final String SUBSYSTEMFILE = "Subsystems.json";
     public static Object LauncherAngleConstants;
 }
+

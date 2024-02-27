@@ -78,8 +78,5 @@ public abstract class GenericArmMotor
     public abstract void testInit();
 
     public abstract void periodic();
-
-    public abstract double getAppliedOutput();
-
-    public abstract double getOutputCurrent();
+    
 }
