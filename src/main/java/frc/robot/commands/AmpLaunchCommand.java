@@ -4,31 +4,29 @@
 
 package frc.robot.commands;
 
-import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherAmpBottomSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherAmpTopSpeed;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 /** An example command that uses an example subsystem. */
-public class ZeroPositionCommand extends Command {
+public class AmpLaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    private final SK24LauncherAngle arm;
     private final SK24Launcher launcher;
 
+    
+
     /**
-     *         
      * @param arm
-     *            Launcher Angle Subsystem used for this command
-     * @param launcher
-     *            Launcher Subsystem used for this command
+     *            Subsystem used for this command
      */
-    public ZeroPositionCommand(SK24LauncherAngle arm, SK24Launcher launcher)
+    public AmpLaunchCommand(SK24Launcher launcher)
     {
-        this.arm = arm;
         this.launcher = launcher;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(arm, launcher);
+        addRequirements(launcher);
     }
 
     @Override
@@ -38,8 +36,7 @@ public class ZeroPositionCommand extends Command {
     @Override
     public void execute()
     {
-        arm.setTargetAngle(kMinAngle);
-        launcher.setLauncherSpeed(0.0, 0.0);
+        launcher.setLauncherSpeed(kLauncherAmpTopSpeed, kLauncherAmpBottomSpeed);
     }
 
     @Override
@@ -52,6 +49,6 @@ public class ZeroPositionCommand extends Command {
     @Override
     public boolean isFinished()
     {
-        return true;
+        return false;
     }
 }

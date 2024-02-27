@@ -21,6 +21,7 @@ import frc.robot.Ports;
 import frc.robot.commands.AutoLaunchCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LaunchOffCommand;
+import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.filters.DeadbandFilter;
@@ -81,7 +82,10 @@ public class SK24LauncherBinder implements CommandBinder
             defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
             
 
-            zeroPosDriver.or(zeroPosOperator).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(0.0)));
+            if(launcher.isPresent())
+            {
+                zeroPosDriver.or(zeroPosOperator).onTrue(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+            }
             m_launcherAngle.setDefaultCommand(
                     // Vertical movement of the arm is controlled by the Y axis of the right stick.
                     // Up on joystick moving arm up and down on stick moving arm down.
