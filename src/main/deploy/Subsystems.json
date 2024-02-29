@@ -4,5 +4,6 @@
     "intake": true,
     "climb": true,
     "drive": true,
-    "launcher_arm": true
+    "launcher_arm": true,
+    "vison": true
 }

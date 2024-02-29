@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
 import static frc.robot.Ports.launcherPorts.kTopLauncherMotor;
 
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -30,22 +31,23 @@ public class SK24LauncherAngle extends SubsystemBase
     public SK24LauncherAngle()
     {
         //Initialize motor objects
-        motor = new CANSparkFlex(kTopLauncherMotor.ID, MotorType.kBrushless);
+        motor = new CANSparkFlex(kLauncherAngleMotor.ID, MotorType.kBrushless);
 
         PID = new PIDController(kAnglePID.kP, kAnglePID.kI, kAnglePID.kD);
         PID.setIntegratorRange(-kAnglePID.iZone, kAnglePID.iZone);
-        PID.setSetpoint(0.0);
+        PID.setSetpoint(kMinAngle);
 
         motor.restoreFactoryDefaults();
         motor.setIdleMode(IdleMode.kBrake); 
+        
 
-        targetAngle = 0.0;
-        currentAngle = 0.0;
+        targetAngle = kMinAngle;
+        currentAngle = kMinAngle;
         encoder = motor.getEncoder();
         
         encoder.setPositionConversionFactor(kConversionFactor);
 
-        encoder.setPosition(0.0);
+        encoder.setPosition(kMinAngle);
 
     }
 
@@ -85,7 +87,12 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public void resetAngle()
     {
-        encoder.setPosition(0.0);
+        encoder.setPosition(kMinAngle);
+    }
+
+    public void zeroPosition()
+    {
+        setTargetAngle(kMinAngle);
     }
 
     @Override

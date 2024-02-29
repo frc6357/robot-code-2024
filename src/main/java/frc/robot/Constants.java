@@ -185,7 +185,7 @@ public final class Constants
 
     
 
-        public static final double kMaxModuleAngularSpeedDegreesPerSecond               = 360;
+        public static final double kMaxModuleAngularSpeedDegreesPerSecond = 360;
         
         /** Distance between centers of right and left wheels on robot */
         public static final double kTrackWidth = 0.5588;
@@ -199,8 +199,10 @@ public final class Constants
 
         public static final double kAmpRedFacing = 270.0;
         public static final double kAmpBlueFacing = 90.0;
-        public static final double kSourceRedFacing = 45.0;
-        public static final double kSourceBlueFacing = 135.0;
+        public static final double kSourceRedFacing = 45.0; //TODO - find actual angle for source 
+        public static final double kSourceBlueFacing = 135.0; //TODO - find actual angle for source 
+
+        public static final double kDriveAngleTolerance = 5.0; //TODO - set this drive angle tolerance value
     }
   
     public static final class ClimbConstants
@@ -214,8 +216,8 @@ public final class Constants
 
         public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio) / climbHeight; //inches moved per motor rotation
         public static final double kAngleTolerance = 2.0;
-        public static final double kArmMotorMinOutput = -1.0;
-        public static final double kArmMotorMaxOutput = 1.0;
+        public static final double kClimbMotorMinOutput = -1.0;
+        public static final double kClimbMotorMaxOutput = 1.0;
     }
 
     /** Constants that are used when defining filters for controllers */
@@ -276,11 +278,20 @@ public final class Constants
 
 
         public static final double kAmpAngle = 45.0; //TODO - find launcher angle for the amp
+        public static final double kSpeakerAngle = 45.0; //TODO - find launcher angle for the subwoofer
+
+        public static final double kPos1Angle = 45.0; //TODO - find launcher angle for position 1
+        public static final double kPos2Angle = 45.0; //TODO - find launcher angle for position 2
+        public static final double kPos3Angle = 45.0; //TODO - find launcher angle for position 3
 
         public static final double kLauncherAmpTopSpeed = 0.5; //TODO - find launcher top speed for amp
         public static final double kLauncherAmpBottomSpeed = 0.5; //TODO - find launcher bottom speed for amp
+        
+        //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
+        public static final double kLauncherTopSpeed = 0.5; 
+        public static final double kLauncherBottomSpeed = 0.5; 
 
-        public static final double kSpeakerAngle = 45.0;
+
         
     }
 

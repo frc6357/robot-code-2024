@@ -115,10 +115,6 @@ public class SK24Climb extends SubsystemBase
     }
 
 
-
-    /**
-     * {@inheritDoc}
-     */
     public boolean isRightAtTargetAngle()
     {
         return Math.abs(getRightCurrentAngle() - getRightTargetAngle()) < kAngleTolerance;
@@ -153,12 +149,12 @@ public class SK24Climb extends SubsystemBase
         double l_target_angle = getLeftTargetAngle();
 
         // Calculates motor speed and puts it within operating range
-        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_angle), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
         motorR.set(rSpeed); 
 
         // Calculates motor speed and puts it within operating range
-        double lSpeed = MathUtil.clamp(lPID.calculate(l_current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        double lSpeed = MathUtil.clamp(lPID.calculate(l_current_angle), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
         motorL.set(lSpeed); 
 

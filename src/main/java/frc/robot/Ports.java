@@ -47,7 +47,7 @@ public class Ports
         public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
 
         // Reset gyro
-        public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
+        public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightStick.value, BUTTON);
 
         // Intake or eject
         public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);
@@ -89,7 +89,7 @@ public class Ports
         // Run subsystem manually
         public static final SKTrigger kManualLauncher = new SKTrigger(kOperator, 90, POV);
         public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
-        public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV);
+        //public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
         public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
@@ -98,7 +98,7 @@ public class Ports
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
 
         // Run Churro 
-        public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON);
+        public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON); //TODO - button here used twice
     }
     
 
@@ -108,6 +108,7 @@ public class Ports
         public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
         public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
         public static final CANPort kTransferMotor = new CANPort(42, busName);
+        public static final CANPort kLauncherAngleMotor = new CANPort(43, busName);
     }
 
     //Assign CAN ports to climb motors

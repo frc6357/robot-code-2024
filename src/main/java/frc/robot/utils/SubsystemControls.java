@@ -16,6 +16,7 @@ public class SubsystemControls
     private final boolean climb;
     private final boolean launcher_arm;
     private final boolean churro;
+    private final boolean vision;
 
      /**  
      * @param launcher
@@ -28,6 +29,8 @@ public class SubsystemControls
      *            indicates if the launcher arm subsystem is present and should be enabled
      * @param churro
      *            indicates if the churro subsystem is present and should be enabled
+     * @param vision
+     *            indicates if the churro subsystem is present and should be enabled
      * @param drive
      *            indicates if the drive subsystem is present and should be enabled
      */
@@ -38,6 +41,7 @@ public class SubsystemControls
         @JsonProperty(required = true, value = "climb")      boolean climb,
         @JsonProperty(required = true, value = "launcher_arm")      boolean launcher_arm,
         @JsonProperty(required = true, value = "churro")      boolean churro,
+        @JsonProperty(required = true, value = "vision")      boolean vision,
         @JsonProperty(required = true, value = "drive")       boolean drive)
     {
         this.drive = drive;
@@ -47,6 +51,7 @@ public class SubsystemControls
         this.climb = climb;
         this.launcher_arm = launcher_arm;
         this.churro = churro;
+        this.vision = vision;
     }
 
 
@@ -81,5 +86,9 @@ public class SubsystemControls
     }
     public boolean isChurroPresent(){
         return churro;
+    }
+    public boolean isVisionPresent()
+    {
+        return vision;
     }
 }

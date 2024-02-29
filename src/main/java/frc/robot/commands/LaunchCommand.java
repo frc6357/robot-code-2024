@@ -6,47 +6,49 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Launcher;
-
 /** An example command that uses an example subsystem. */
 public class LaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final SK24Launcher subsystem;
-  double speedTop;
-  double speedBottom;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public LaunchCommand(SK24Launcher subsystem, double speedTop, double speedBottom) {
-    this.subsystem = subsystem;
-    this.speedTop = speedTop;
-    this.speedBottom = speedBottom;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(this.subsystem);
-  }
+    private final SK24Launcher launcher;
+    private double TopSpeed;
+    private double BottomSpeed;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    subsystem.setLauncherSpeed(speedTop, speedBottom);
-  }
+    
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
+    /**
+     * @param arm
+     *            Subsystem used for this command
+     */
+    public LaunchCommand(double TopSpeed, double BottomSpeed, SK24Launcher launcher)
+    {
+        this.TopSpeed = TopSpeed;
+        this.BottomSpeed = BottomSpeed;
+        this.launcher = launcher;
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(launcher);
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) 
-  {
-    subsystem.stopLauncher();
-  }
+    @Override
+    public void initialize()
+    {}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    @Override
+    public void execute()
+    {
+        launcher.setLauncherSpeed(TopSpeed, BottomSpeed);
+    }
+
+    @Override
+    public void end(boolean interrupted)
+    {
+
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished()
+    {
+        return true;
+    }
 }

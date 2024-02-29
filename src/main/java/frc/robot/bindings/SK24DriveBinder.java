@@ -1,18 +1,34 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.DriveConstants.kAmpBlueFacing;
+import static frc.robot.Constants.DriveConstants.kAmpRedFacing;
+import static frc.robot.Constants.DriveConstants.kSourceBlueFacing;
+import static frc.robot.Constants.DriveConstants.kSourceRedFacing;
 import static frc.robot.Constants.OIConstants.kDriveCoeff;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Constants.OIConstants.kRotationCoeff;
 import static frc.robot.Constants.OIConstants.kSlowModePercent;
-import static frc.robot.Ports.DriverPorts.*;
-import static frc.robot.Constants.DriveConstants.*;
-
+import static frc.robot.Ports.DriverPorts.kCenterStage;
+import static frc.robot.Ports.DriverPorts.kResetGyroPos;
+import static frc.robot.Ports.DriverPorts.kRobotCentricMode;
+import static frc.robot.Ports.DriverPorts.kRotateAmp;
+import static frc.robot.Ports.DriverPorts.kRotateSource;
+import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
+import static frc.robot.Ports.DriverPorts.kRotationYPort;
+import static frc.robot.Ports.DriverPorts.kSlowMode;
+import static frc.robot.Ports.DriverPorts.kTranslationXPort;
+import static frc.robot.Ports.DriverPorts.kVelocityOmegaPort;
+import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+import static frc.robot.Ports.OperatorPorts.kMoveLocationOne;
+import static frc.robot.Ports.OperatorPorts.kMoveLocationThree;
+import static frc.robot.Ports.OperatorPorts.kMoveLocationTwo;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.OnTheFly;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.subsystems.SK24Drive;
@@ -32,6 +48,9 @@ public class SK24DriveBinder implements CommandBinder
     private final Trigger rotateSpeaker;
     private final Trigger rotateAmp;
     private final Trigger rotateSource;
+    private final Trigger centerStage;
+    private final Trigger leftStage;
+    private final Trigger rightStage;
 
     /**
      * The class that is used to bind all the commands for the drive subsystem
@@ -49,6 +68,10 @@ public class SK24DriveBinder implements CommandBinder
         rotateSpeaker = kRotateSpeaker.button;
         rotateAmp = kRotateAmp.button;
         rotateSource = kRotateSource.button;
+        centerStage = kCenterStage.button;
+        leftStage = kCenterStage.button;
+        rightStage = kCenterStage.button;
+
         
     }
     
@@ -90,6 +113,10 @@ public class SK24DriveBinder implements CommandBinder
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, drive.checkIsRed() ? kSourceRedFacing : kSourceBlueFacing, drive)); 
+                    
+            centerStage.whileTrue(OnTheFly.centerStageCommand);
+            leftStage.whileTrue(OnTheFly.LeftStageCommand);
+            rightStage.whileTrue(OnTheFly.rightStageCommand);
 
             // Default command for driving
             drive.setDefaultCommand(

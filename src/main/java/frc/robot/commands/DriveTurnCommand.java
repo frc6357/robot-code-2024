@@ -4,10 +4,9 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Drive;
+import static frc.robot.Constants.DriveConstants.*;
 
 /**
  * A command used to turn the robot to a certain angle. This allows the driver to set the
@@ -44,17 +43,7 @@ public class DriveTurnCommand extends Command
     public DriveTurnCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed,
         Supplier<Boolean> robotCentric, double setpoint, SK24Drive drive)
     {
-        this.xSpeed = xSpeed;
-        this.ySpeed = ySpeed;
-        this.setpoint = () -> {return setpoint;};
-
-        this.robotCentric = robotCentric;
-        this.subsystem = drive;
-
-        PID = new PIDController(0.1, 0, 0, 0.02);
-        PID.enableContinuousInput(-180, 180);
-
-        addRequirements(subsystem);
+        this(xSpeed, ySpeed, robotCentric, () -> {return setpoint;}, drive);
     }
 
     /**
@@ -68,7 +57,7 @@ public class DriveTurnCommand extends Command
      * @param robotCentric
      *            Whether or not the drive mode is in robot or field centric mode
      * @param setpoint
-     *            The desired angle [0º, 360º] using the field coordinate system
+     *            The supplier for a desired angle [0º, 360º] using the field coordinate system
      * @param drive
      *            The subsystem required to control the drivetrain
      */
@@ -84,6 +73,7 @@ public class DriveTurnCommand extends Command
 
         PID = new PIDController(0.1, 0, 0, 0.02);
         PID.enableContinuousInput(-180, 180);
+        PID.setTolerance(kDriveAngleTolerance);
         
         addRequirements(subsystem);
     }
@@ -109,6 +99,6 @@ public class DriveTurnCommand extends Command
     @Override
     public boolean isFinished()
     {
-        return false;
+        return PID.atSetpoint();
     }
 }
