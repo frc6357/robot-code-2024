@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 0.7121783474336195,
-      "y": 6.571383911998593
+      "y": 6.591117797620211
     },
-    "rotation": -118.88658176691074
+    "rotation": -120.84658741214861
   },
   "command": {
     "type": "sequential",
@@ -15,12 +15,6 @@
           "type": "path",
           "data": {
             "pathName": "Pick_GP1"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pick_GP2"
           }
         }
       ]

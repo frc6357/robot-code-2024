@@ -22,6 +22,12 @@
           "data": {
             "pathName": "Pick_GP2"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pick_GP3"
+          }
         }
       ]
     }

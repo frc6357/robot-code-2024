@@ -189,6 +189,7 @@ public class RobotContainer {
             SK24Drive drive = m_drive.get();
             SK24Launcher launcher = m_launcher.get();
             SK24LauncherAngle launcherAngle = m_launcher_angle.get();
+            
             //Register commands for use in auto
             NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
@@ -211,7 +212,7 @@ public class RobotContainer {
                 SK24Vision vision = m_vision.get();
                 NamedCommands.registerCommand("AmpCenterCommand", new AmpCenterCommand(drive, vision));
                 NamedCommands.registerCommand("AutoLaunchCommand", new AutoLaunchCommandGroup(launcher, drive, launcherAngle, vision));
-                
+
                 kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
             }
         }

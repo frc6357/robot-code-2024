@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3393705037088326,
-      "y": 2.271555637062368
+      "x": 0.4260370059201674,
+      "y": 2.0029893905941654
     },
-    "rotation": 0
+    "rotation": -0.9022211615301754
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "RightTaxi"
+            "pathName": "Taxi_P4"
           }
         }
       ]

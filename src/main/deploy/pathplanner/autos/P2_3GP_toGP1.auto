@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3756161320151827,
-      "y": 5.5410316277334815
+      "x": 1.2745940876497153,
+      "y": 5.555088802485298
     },
     "rotation": 180.0
   },
@@ -15,6 +15,12 @@
           "type": "path",
           "data": {
             "pathName": "Pick_GP2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pick_GP1"
           }
         }
       ]

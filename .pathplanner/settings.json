@@ -1,6 +1,6 @@
 {
-  "robotWidth": 0.6858,
-  "robotLength": 0.6858,
+  "robotWidth": 0.698,
+  "robotLength": 0.698,
   "holonomicMode": true,
   "pathFolders": [
     "Amp",
@@ -11,6 +11,7 @@
   ],
   "autoFolders": [
     "Amp",
+    "New Folder",
     "Speaker",
     "TaxiPoints"
   ],

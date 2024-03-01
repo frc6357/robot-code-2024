@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3756161320151827,
-      "y": 7.177047995851627
+      "x": 1.2745940876497153,
+      "y": 5.555088802485298
     },
-    "rotation": -113.68208772453843
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "P1_1Amp"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "AmpScore"
+            "pathName": "Pick_GP2"
           }
         }
       ]

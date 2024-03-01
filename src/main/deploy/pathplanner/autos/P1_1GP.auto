@@ -2,22 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3366633613457033,
-      "y": 7.167309803184257
+      "x": 0.7516461186768542,
+      "y": 6.6207186260526365
     },
-    "rotation": -119.08499973522466
+    "rotation": -120.84658741214861
   },
   "command": {
     "type": "sequential",
     "data": {
-      "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pick_GP1"
-          }
-        }
-      ]
+      "commands": []
     }
   },
   "folder": null,
