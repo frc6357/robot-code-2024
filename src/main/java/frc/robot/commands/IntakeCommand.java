@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.SK24Intake;
 
 
@@ -15,10 +16,10 @@ public class IntakeCommand extends Command
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(SK24Intake subsystem, double speed) 
+  public IntakeCommand(SK24Intake subsystem) 
   {
     this.subsystem = subsystem;
-    this.speed = speed;
+    this.speed = Constants.IntakeConstants.kIntakeSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -45,6 +46,6 @@ public class IntakeCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return subsystem.haveNote();
   }
 }
