@@ -20,12 +20,14 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Ports.launcherPorts.*;
 
 
 public class SK24LauncherAngle extends SubsystemBase
 {
     // Create memory objects for both motors for public use
     CANSparkFlex    motor;
+    CANSparkFlex    followerMotor;
     int             joystickCount;
     double          targetAngle;
     double          currentAngle;
@@ -38,6 +40,8 @@ public class SK24LauncherAngle extends SubsystemBase
     {
         //Initialize motor objects
         motor = new CANSparkFlex(kLauncherAngleMotor.ID, MotorType.kBrushless);
+        followerMotor = new CANSparkFlex(kLauncherAngleFollowerMotor.ID, MotorType.kBrushless);
+        followerMotor.follow(motor, true);
 
         PID = new PIDController(kAnglePID.kP, kAnglePID.kI, kAnglePID.kD);
         PID.setIntegratorRange(-kAnglePID.iZone, kAnglePID.iZone);
