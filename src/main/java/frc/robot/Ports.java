@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.utils.SKTrigger;
 import frc.robot.utils.filters.FilteredXboxController;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
@@ -51,7 +52,7 @@ public class Ports
 
         // Intake or eject
         public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);
-        public static final SKTrigger kEject  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
+        public static final SKTrigger kTransfer  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
 
     }
     /**
@@ -66,13 +67,8 @@ public class Ports
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
-        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
+        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kB.value, BUTTON);
         public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
-
-        // Go and align to location
-        public static final SKTrigger kMoveLocationOne = new SKTrigger(kOperator, kX.value, BUTTON);
-        public static final SKTrigger kMoveLocationTwo = new SKTrigger(kOperator, kB.value, BUTTON);
-        public static final SKTrigger kMoveLocationThree = new SKTrigger(kOperator, kY.value, BUTTON);
     
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
@@ -81,7 +77,11 @@ public class Ports
         public static final SKTrigger kZeroPos = new SKTrigger(kOperator, kStart.value, BUTTON); 
 
         // Intake
-        public static final SKTrigger kIntake = new SKTrigger(kOperator, kLeftTrigger.value, BUTTON);
+        public static final SKTrigger kIntake = new SKTrigger(kOperator, kRightTrigger.value, BUTTON);
+        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftTrigger.value, AXIS); 
+
+        public static final SKTrigger kLaunchSub = new SKTrigger(kOperator, kX.value, BUTTON);
+
 
         // Change angle launcher to speaker
         public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, BUTTON);
@@ -154,6 +154,7 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
         public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
+        public static final CANPort kLaserCan = new CANPort(52, busName);
         
     }
 
