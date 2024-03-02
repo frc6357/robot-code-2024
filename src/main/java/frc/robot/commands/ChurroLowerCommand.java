@@ -48,6 +48,6 @@ public class ChurroLowerCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return subsystem.isChurroAtUpper();
+    return subsystem.isChurroAtLower();
   }
 }

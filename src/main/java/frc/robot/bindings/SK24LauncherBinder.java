@@ -3,13 +3,14 @@ package frc.robot.bindings;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
-import static frc.robot.Ports.DriverPorts.kTransfer;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
+import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
 import static frc.robot.Ports.OperatorPorts.kManualAmp;
@@ -19,19 +20,20 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
+import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
+import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.filters.DeadbandFilter;
-import static frc.robot.Constants.LauncherConstants.*;
 
 public class SK24LauncherBinder implements CommandBinder
 {
     Optional<SK24Launcher> launcher;
     Optional<SK24LauncherAngle> launcherAngle;
+    Optional<SK24Churro> churro;
 
     private Trigger manualLauncherButton;
     private Trigger angleOverrideButton;
@@ -41,6 +43,7 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger manualAmpButton;
     private Trigger driveTransferButton;
     private Trigger operatorTransferButton;
+    private Trigger launchAmp;
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -51,10 +54,11 @@ public class SK24LauncherBinder implements CommandBinder
      *            The required drive subsystem for the commands
      * @return 
      */
-    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle)
+    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Churro> churro)
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
+        this.churro = churro;
         manualLauncherButton = kManualLauncher.button;
         manualAmpButton = kManualAmp.button;
         angleOverrideButton = kLauncherOverride.button;
@@ -63,6 +67,7 @@ public class SK24LauncherBinder implements CommandBinder
         defaultLauncherAngleButton = kAngleSpeaker.button;
         driveTransferButton = Ports.DriverPorts.kTransfer.button;
         operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
+        launchAmp = kLaunchAmp.button;
     }
 
     public void bindButtons()
@@ -81,8 +86,8 @@ public class SK24LauncherBinder implements CommandBinder
             driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
             operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
 
-            driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.stopTransfer()));
-            operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.stopTransfer()));
+            driveTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
+            operatorTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
 
         
             if(launcherAngle.isPresent())
@@ -102,7 +107,10 @@ public class SK24LauncherBinder implements CommandBinder
                             () -> {return kLauncherAxis.getFilteredAxis();},
                             angleOverrideButton::getAsBoolean,
                             m_launcherAngle));
-            
+                
+                launchAmp.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher));
+                
+                
             }
         }
     }

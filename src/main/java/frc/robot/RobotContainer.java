@@ -166,7 +166,7 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_churro));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
@@ -195,10 +195,10 @@ public class RobotContainer {
 
             NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommand(intake, launcher));
 
+            NamedCommands.registerCommand("AmpScoreCommandGroup", new AmpScoreCommandGroup(launcherAngle, launcher));
             if(m_churro.isPresent())
             {
                 SK24Churro churro = m_churro.get();
-                NamedCommands.registerCommand("AmpScoreCommandGroup", new AmpScoreCommandGroup(churro, launcherAngle, launcher));
                 
                 //Create button bindings for following on the fly paths
             }
@@ -208,7 +208,7 @@ public class RobotContainer {
                 //NamedCommands.registerCommand("AmpCenterCommand", new AmpCenterCommand(drive, vision));
                 NamedCommands.registerCommand("AutoLaunchCommand", new AutoLaunchCommandGroup(launcher, launcherAngle, vision));
 
-                kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
+                // kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
             }
         }
 
