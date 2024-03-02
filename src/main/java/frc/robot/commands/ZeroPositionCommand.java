@@ -38,8 +38,8 @@ public class ZeroPositionCommand extends Command {
     @Override
     public void execute()
     {
-        arm.setTargetAngle(kMinAngle);
-        launcher.setLauncherSpeed(0.0, 0.0);
+        arm.zeroPosition();
+        launcher.stopLauncher();
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ChurroRaiseCommand extends Command
   @Override
   public void initialize() 
   {
-      subsystem.setChurroSpeed(-speed);
+      subsystem.setChurroSpeed(speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -48,6 +48,10 @@ public class ChurroRaiseCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(subsystem.getChurroPosition() - kChurroRaisePosition) < kAngleTolerance;
+    return subsystem.isChurroAtLower();
+    //if (limit switch)
+    //{
+    //  return true;
+    //} //TODO - determine if we need a limit switch
   }
 }

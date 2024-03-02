@@ -12,21 +12,18 @@ public class AmpCenterCommand extends Command
     private SK24Drive  drive;
     private SK24Vision vision;
 
-    private Supplier<Boolean> override;
     private PIDController    transPID;
 
     // Meters per second
     private double transDeadband = 0.005;
 
-    private double currentRotation;
     private double currentTranslation;
 
-    public AmpCenterCommand(Supplier<Boolean> override, SK24Drive drive, SK24Vision vision)
+    public AmpCenterCommand(SK24Drive drive, SK24Vision vision)
     {
         this.drive = drive;
         this.vision = vision;
 
-        this.override = override;
 
         transPID = new PIDController(0.13, 0, 0, 0.02);
         transPID.setSetpoint(0);
@@ -44,17 +41,13 @@ public class AmpCenterCommand extends Command
     @Override
     public void execute()
     {
-        currentRotation = drive.getPose().getRotation().getDegrees();
-        if (vision.tagPresent() && !override.get())
+        
+        if (vision.tagPresent())
         {
             double translation = transPID.calculate(vision.returnXOffset(vision.getTargetPose()));
             translation = Math.abs(translation) < transDeadband ? 0.0 : translation;
             currentTranslation = translation;
-            drive.drive(translation, 0.0, currentRotation, false);
-        }
-        else
-        {
-            drive.drive(0.0, 0.0, currentRotation, false);
+            drive.drive(translation, 0.0, 0.0, false);
         }
     }
 

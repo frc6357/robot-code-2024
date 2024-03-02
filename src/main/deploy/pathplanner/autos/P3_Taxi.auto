@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7812469471092803,
+      "y": 4.509192864539576
+    },
+    "rotation": 121.52217724675867
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Pos3CommandGroup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Taxi_P3"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

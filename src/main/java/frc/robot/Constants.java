@@ -56,7 +56,7 @@ public final class Constants
         public static final double deadband = 5.0;
         // Both sets of gains need to be tuned to your individual robot.
         //List of autos we want to show up in the sendable chooser for shuffleboard
-        public static List<String> autoList = new ArrayList<String>(Arrays.asList("LeftScore1"));
+        public static List<String> autoList = new ArrayList<String>(Arrays.asList("P4_Taxi"));
         // The steer motor uses any SwerveModule.SteerRequestType control request with the
         // output type specified by SwerveModuleConstants.SteerMotorClosedLoopOutput
         // Both sets of gains need to be tuned to your individual robot.
@@ -185,7 +185,7 @@ public final class Constants
 
     
 
-        public static final double kMaxModuleAngularSpeedDegreesPerSecond               = 360;
+        public static final double kMaxModuleAngularSpeedDegreesPerSecond = 360;
         
         /** Distance between centers of right and left wheels on robot */
         public static final double kTrackWidth = 0.5588;
@@ -199,8 +199,14 @@ public final class Constants
 
         public static final double kAmpRedFacing = 270.0;
         public static final double kAmpBlueFacing = 90.0;
-        public static final double kSourceRedFacing = 45.0;
-        public static final double kSourceBlueFacing = 135.0;
+        public static final double kSourceRedFacing = 45.0; //TODO - find actual angle for source 
+        public static final double kSourceBlueFacing = 135.0; //TODO - find actual angle for source 
+
+        public static final double kDriveAngleTolerance = 5.0; //TODO - set this drive angle tolerance value
+
+        public static final double kFieldWidth = 16.58; //Width of the field longwise in meters for use in pointing drive towards speaker
+        public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters shortwise from the amp side
+        public static final double kSpeakerHeight = 1.6 - 0.0; //Height of the center of the speaker opening in meters minus height of launcher pivot point
     }
   
     public static final class ClimbConstants
@@ -208,14 +214,18 @@ public final class Constants
         public static final PIDConstants rightClimb = new PIDConstants(0.0, 0.0, 0.0);
         public static final PIDConstants leftClimb = new PIDConstants(0.0, 0.0, 0.0);
         public static final PIDConstants balancePID = new PIDConstants(0.0, 0.0, 0.0);
+
+        public static final double kClimbBalanceTolerance = 5.0;
         public static final double spoolDiameter = 0.75; //Inches
         public static final double gearRatio = 0.5; //Shaft rotations / 1 motor rotation
         public static final double climbHeight = 11.0; //Inches
 
         public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio) / climbHeight; //inches moved per motor rotation
-        public static final double kAngleTolerance = 2.0;
-        public static final double kArmMotorMinOutput = -1.0;
-        public static final double kArmMotorMaxOutput = 1.0;
+        public static final double kPositionTolerance = 2.0;
+        public static final double kClimbMotorMinOutput = -1.0;
+        public static final double kClimbMotorMaxOutput = 1.0;
+
+
     }
 
     /** Constants that are used when defining filters for controllers */
@@ -276,19 +286,38 @@ public final class Constants
 
 
         public static final double kAmpAngle = 45.0; //TODO - find launcher angle for the amp
+        public static final double kSpeakerAngle = 45.0; //TODO - find launcher angle for the subwoofer
+
+        public static final double kPos1Angle = 45.0; //TODO - find launcher angle for position 1
+        public static final double kPos2Angle = 45.0; //TODO - find launcher angle for position 2
+        public static final double kPos3Angle = 45.0; //TODO - find launcher angle for position 3
+
+        public static final double GP1Angle = 45.0; //TODO - find launcher angle for position 3
+        public static final double GP2Angle = 45.0; //TODO - find launcher angle for position 3
+        public static final double GP3Angle = 45.0; //TODO - find launcher angle for position 3
+        public static final double GP456Angle = 45.0; //TODO - find launcher angle for position 3
+        public static final double GP78Angle = 45.0; //TODO - find launcher angle for position 3
+
+
 
         public static final double kLauncherAmpTopSpeed = 0.5; //TODO - find launcher top speed for amp
         public static final double kLauncherAmpBottomSpeed = 0.5; //TODO - find launcher bottom speed for amp
+        
+        //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
+        public static final double kLauncherTopSpeed = 0.5; 
+        public static final double kLauncherBottomSpeed = 0.5; 
 
-        public static final double kSpeakerAngle = 45.0;
+
+
         
     }
 
     public static final class IntakeConstants
     {
         public static final double kIntakeSpeed = 0.5; //TODO - find intake speed
+        public static final double noteMeasurement = 0.0;
     }
-
+    
     public static final class ChurroConstants
     {
         public static final double kAngleTolerance = 0.1; //Angle tolerance in rotations TODO - find churro angle tolerance
@@ -296,16 +325,19 @@ public final class Constants
         public static final double kChurroRaisePosition = 0.5; //TODO - find churro position in rotations for scoring amp
     	public static final double kChurroSpeed = 0.5;
     }
-
+    
     public static final class LauncherConstants
     {
-        public static final double kSpeakerDefaultTopSpeed = 0.5;
-        public static final double kSpeakerDefaultBottomSpeed = 0.5;
-
-        public static final double kAmpDefaultTopSpeed = 0.5;
-        public static final double kAmpDefaultBottomSpeed = 0.5;
+        public static final double kSpeakerDefaultLeftSpeed = 0.5;
+        public static final double kSpeakerDefaultRightSpeed = 0.5;
+        
+        public static final double kAmpDefaultLeftSpeed = 0.5;
+        public static final double kAmpDefaultRightSpeed = 0.5;
+        
+        public static final double kTransferSpeed = 0.5; 
+        public static final double noteMeasurement = 0.0;
     }
-
+    
     /** The file that is used for system instantiation at runtime */
     public static final String SUBSYSTEMFILE = "Subsystems.json";
     public static Object LauncherAngleConstants;

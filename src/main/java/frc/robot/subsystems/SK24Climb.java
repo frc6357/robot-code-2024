@@ -10,6 +10,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import static frc.robot.Ports.climbPorts.*;
 
@@ -20,14 +21,14 @@ public class SK24Climb extends SubsystemBase
     CANSparkFlex motorL;
     //Create memory PID object
     PIDController rPID;
-    PIDController lPID;
-    double LtargetAngle;
-    double LcurrentAngle;
+    // PIDController lPID;
+    // double LtargetPosition;
+    // double LcurrentPosition;
 
-    double RtargetAngle;
-    double RcurrentAngle;
+    double RtargetPosition;
+    double RcurrentPosition;
 
-    RelativeEncoder encoderL;
+    // RelativeEncoder encoderL;
     RelativeEncoder encoderR;
 
     //Constructor for public command access
@@ -37,47 +38,47 @@ public class SK24Climb extends SubsystemBase
         rPID = new PIDController(rightClimb.kP, rightClimb.kI, rightClimb.kD);
         rPID.setSetpoint(0.0);
 
-        lPID = new PIDController(leftClimb.kP, leftClimb.kI, leftClimb.kD);
-        lPID.setSetpoint(0.0);
+        // lPID = new PIDController(leftClimb.kP, leftClimb.kI, leftClimb.kD);
+        // lPID.setSetpoint(0.0);
 
         // accelLimit = new SlewRateLimiter(kPositiveAccelLimit, kNegativeAccelLimit, 0.0);
 
         motorR = new CANSparkFlex(kRightClimbMotor.ID, MotorType.kBrushless);
-        motorL = new CANSparkFlex(kLeftClimbMotor.ID, MotorType.kBrushless);
+        // motorL = new CANSparkFlex(kLeftClimbMotor.ID, MotorType.kBrushless);
 
         RelativeEncoder encoderR = motorR.getEncoder();
         encoderR.setPositionConversionFactor(climbConversion);
 
-        RelativeEncoder encoderL = motorL.getEncoder();
-        encoderL.setPositionConversionFactor(climbConversion);
+        // RelativeEncoder encoderL = motorL.getEncoder();
+        // encoderL.setPositionConversionFactor(climbConversion);
 
         motorR.restoreFactoryDefaults();
         motorR.setIdleMode(IdleMode.kBrake); 
 
-        motorL.restoreFactoryDefaults();
-        motorL.setIdleMode(IdleMode.kBrake); 
+        // motorL.restoreFactoryDefaults();
+        // motorL.setIdleMode(IdleMode.kBrake); 
         
 
-        RtargetAngle = 0.0;
-        RcurrentAngle = 0.0;
+        RtargetPosition = 0.0;
+        RcurrentPosition = 0.0;
 
-        LtargetAngle = 0.0;
-        LcurrentAngle = 0.0;
+        // LtargetPosition = 0.0;
+        // LcurrentPosition = 0.0;
 
 
     }
 
     public void setRightHook(double location)
     {
-        RtargetAngle = location;
+        RtargetPosition = location;
         rPID.setSetpoint(location);
     }
     
-    public void setLeftHook(double location)
-    {
-        LtargetAngle = location;
-        lPID.setSetpoint(location);
-    }
+    // public void setLeftHook(double location)
+    // {
+    //     LtargetPosition = location;
+    //     lPID.setSetpoint(location);
+    // }
 
     public void runLeftHook(double speed)
     {
@@ -88,86 +89,82 @@ public class SK24Climb extends SubsystemBase
     {
         motorR.set(speed);
     }
-    public double getLeftPosition()
-    {
-        return encoderL.getPosition();
-    }
+    // public double getLeftPosition()
+    // {
+    //     return encoderL.getPosition();
+    // }
     
     public double getRightPosition()
     {
         return encoderR.getPosition();
     }
 
-    public double getRightCurrentAngle(){
-        return RcurrentAngle;
+    public double getRightCurrentPosition(){
+        return RcurrentPosition;
     }
 
-    public double getLeftCurrentAngle(){
-        return LcurrentAngle;
+    // public double getLeftCurrentPosition(){
+    //     return LcurrentPosition;
+    // }
+
+    public double getRightTargetPosition(){
+        return RcurrentPosition;
     }
 
-    public double getRightTargetAngle(){
-        return RcurrentAngle;
-    }
-
-    public double getLeftTargetAngle(){
-        return LcurrentAngle;
-    }
+    // public double getLeftTargetPosition(){
+    //     return LcurrentPosition;
+    // }
 
 
-
-    /**
-     * {@inheritDoc}
-     */
-    public boolean isRightAtTargetAngle()
+    public boolean isRightAtTargetPosition()
     {
-        return Math.abs(getRightCurrentAngle() - getRightTargetAngle()) < kAngleTolerance;
+        return Math.abs(getRightCurrentPosition() - getRightTargetPosition()) < kPositionTolerance;
     }
 
-    public boolean isLeftAtTargetAngle()
-    {
-        return Math.abs(getLeftCurrentAngle() - getLeftTargetAngle()) < kAngleTolerance;
-    }
+    // public boolean isLeftAtTargetPosition()
+    // {
+    //     return Math.abs(getLeftCurrentPosition() - getLeftTargetPosition()) < kPositionTolerance;
+    // }
 
-    public void resetLeftAngle(){
-        encoderL.setPosition(0.0);
-    }
+    // public void resetLeftPosition(){
+    //     encoderL.setPosition(0.0);
+    // }
 
-    public void resetRightAngle(){
+    public void resetRightPosition(){
         encoderR.setPosition(0.0);
     }
 
     public void stopHooks()
     {
-        motorL.stopMotor();
+        // motorL.stopMotor();
         motorR.stopMotor();
     }
 
     @Override
     public void periodic(){
         
-        double r_current_angle = getRightCurrentAngle();
-        double r_target_angle = getRightTargetAngle();
+        double r_current_position = getRightCurrentPosition();
+        double r_target_position = getRightTargetPosition();
 
-        double l_current_angle = getLeftCurrentAngle();
-        double l_target_angle = getLeftTargetAngle();
+        // double l_current_position = getLeftCurrentPosition();
+        // double l_target_position = getLeftTargetPosition();
 
         // Calculates motor speed and puts it within operating range
-        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
         motorR.set(rSpeed); 
 
         // Calculates motor speed and puts it within operating range
-        double lSpeed = MathUtil.clamp(lPID.calculate(l_current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        // double lSpeed = MathUtil.clamp(lPID.calculate(l_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
-        motorL.set(lSpeed); 
+        // motorL.set(lSpeed); 
 
-        SmartDashboard.putNumber("Right Current Angle", r_current_angle);
-        SmartDashboard.putNumber("Right Target Angle", r_target_angle);
-        SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetAngle());
+        SmartDashboard.putNumber("Right Current Position", r_current_position);
+        SmartDashboard.putNumber("Right Target Position", r_target_position);
+        SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetPosition());
 
-        SmartDashboard.putNumber("Left Current Angle", l_current_angle);
-        SmartDashboard.putNumber("Left Target Angle", l_target_angle);
-        SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetAngle());
+        // SmartDashboard.putNumber("Left Current Position", l_current_position);
+        // SmartDashboard.putNumber("Left Target Position", l_target_position);
+        // SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetPosition());
     }
 }

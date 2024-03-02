@@ -1,19 +1,9 @@
 {
-  "robotWidth": 0.6858,
-  "robotLength": 0.6858,
+  "robotWidth": 0.698,
+  "robotLength": 0.698,
   "holonomicMode": true,
-  "pathFolders": [
-    "Amp",
-    "GetPeice",
-    "ScoreFromStart",
-    "ScorePeice",
-    "Taxi"
-  ],
-  "autoFolders": [
-    "Amp",
-    "Speaker",
-    "TaxiPoints"
-  ],
+  "pathFolders": [],
+  "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
