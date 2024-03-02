@@ -39,7 +39,7 @@ import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
 import frc.robot.commands.AmpCenterCommand;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.AutoLaunchCommandGroup;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
@@ -169,7 +169,7 @@ public class RobotContainer {
         buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle));
         buttonBinders.add(new SK24LightBinder(m_light));
-        buttonBinders.add(new SK24IntakeBinder(m_intake));
+        buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
         buttonBinders.add(new SK24ChurroBinder(m_churro));
 
         // Traversing through all the binding classes to actually bind the buttons
@@ -184,7 +184,6 @@ public class RobotContainer {
     {
         if(m_drive.isPresent() && m_launcher.isPresent() && m_launcher_angle.isPresent() && m_intake.isPresent())
         {
-            SK24Drive drive = m_drive.get();
             SK24Launcher launcher = m_launcher.get();
             SK24LauncherAngle launcherAngle = m_launcher_angle.get();
             SK24Intake intake = m_intake.get();
@@ -194,7 +193,7 @@ public class RobotContainer {
             NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
 
-            NamedCommands.registerCommand("IntakeCommand", new IntakeCommand(intake));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommand(intake, launcher));
 
             if(m_churro.isPresent())
             {
@@ -206,8 +205,8 @@ public class RobotContainer {
             if(m_vision.isPresent())
             {
                 SK24Vision vision = m_vision.get();
-                NamedCommands.registerCommand("AmpCenterCommand", new AmpCenterCommand(drive, vision));
-                NamedCommands.registerCommand("AutoLaunchCommand", new AutoLaunchCommandGroup(launcher, drive, launcherAngle, vision));
+                //NamedCommands.registerCommand("AmpCenterCommand", new AmpCenterCommand(drive, vision));
+                NamedCommands.registerCommand("AutoLaunchCommand", new AutoLaunchCommandGroup(launcher, launcherAngle, vision));
 
                 kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
             }

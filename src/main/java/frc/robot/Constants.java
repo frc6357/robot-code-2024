@@ -317,7 +317,7 @@ public final class Constants
         public static final double kIntakeSpeed = 0.5; //TODO - find intake speed
         public static final double noteMeasurement = 0.0;
     }
-
+    
     public static final class ChurroConstants
     {
         public static final double kAngleTolerance = 0.1; //Angle tolerance in rotations TODO - find churro angle tolerance
@@ -325,18 +325,19 @@ public final class Constants
         public static final double kChurroRaisePosition = 0.5; //TODO - find churro position in rotations for scoring amp
     	public static final double kChurroSpeed = 0.5;
     }
-
+    
     public static final class LauncherConstants
     {
         public static final double kSpeakerDefaultTopSpeed = 0.5;
         public static final double kSpeakerDefaultBottomSpeed = 0.5;
-
+        
         public static final double kAmpDefaultTopSpeed = 0.5;
         public static final double kAmpDefaultBottomSpeed = 0.5;
-
+        
         public static final double kTransferSpeed = 0.5; 
+        public static final double noteMeasurement = 0.0;
     }
-
+    
     /** The file that is used for system instantiation at runtime */
     public static final String SUBSYSTEMFILE = "Subsystems.json";
     public static Object LauncherAngleConstants;

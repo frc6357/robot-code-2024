@@ -1,7 +1,7 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
-import static frc.robot.Ports.intakePorts.kLaserCan;
+import static frc.robot.Ports.intakePorts.kLaserCanIntake;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 
 import com.revrobotics.CANSparkFlex;
@@ -30,7 +30,7 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
-        laserCan = new LaserCan(kLaserCan.ID);
+        laserCan = new LaserCan(kLaserCanIntake.ID);
 
         currIntakeState = false;
         pastIntakeState = false;
@@ -70,7 +70,7 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveNote", haveNote());
+        SmartDashboard.putBoolean("HaveIntakeNote", haveNote());
         if(getMotorSpeed() != 0.0)
         {
             currIntakeState = true;
