@@ -2,7 +2,7 @@
   "tabPane": [
     {
       "title": "SmartDashboard",
-      "autoPopulate": false,
+      "autoPopulate": true,
       "autoPopulatePrefix": "SmartDashboard/",
       "widgetPane": {
         "gridSize": 128.0,
@@ -11,19 +11,6 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "2,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "ComboBox Chooser",
-              "_source0": "network_table:///SmartDashboard/Auto Chooser",
-              "_title": "Auto Chooser",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
           "5,2": {
             "size": [
               2,
@@ -33,25 +20,10 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Arm at Setpoint",
               "_title": "Arm at Setpoint",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#00FF00FF",
-              "Colors/Color when false": "#8B0000FF"
-            }
-          },
-          "4,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/HaveNote",
-              "_title": "HaveNote",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#FC7F03FF",
-              "Colors/Color when false": "#B3B3B3FF"
+              "_glyph": 517,
+              "_showGlyph": true,
+              "Colors/Color when true": "#16AEBBFF",
+              "Colors/Color when false": "#F55D3EFF"
             }
           },
           "4,0": {
@@ -65,7 +37,7 @@
               "_title": "Launching",
               "_glyph": 148,
               "_showGlyph": false,
-              "Colors/Color when true": "#00FF00FF",
+              "Colors/Color when true": "#16AEBBFF",
               "Colors/Color when false": "#FF0000FF"
             }
           },
@@ -80,13 +52,13 @@
               "_title": "Intaking",
               "_glyph": 148,
               "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when true": "#16AEBBFF",
               "Colors/Color when false": "#FF0000FF"
             }
           },
           "2,1": {
             "size": [
-              1,
+              2,
               1
             ],
             "content": {
@@ -96,7 +68,7 @@
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#FF0000FF",
-              "Colors/Color when false": "#0000FFFF"
+              "Colors/Color when false": "#16AEBBFF"
             }
           },
           "7,1": {
@@ -134,10 +106,10 @@
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Churro at Lower",
               "_title": "Churro at Lower",
-              "_glyph": 148,
+              "_glyph": 14,
               "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "Colors/Color when true": "#16AEBBFF",
+              "Colors/Color when false": "#FF0000FF"
             }
           },
           "8,2": {
@@ -151,8 +123,8 @@
               "_title": "Churro at Upper",
               "_glyph": 148,
               "_showGlyph": false,
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
+              "Colors/Color when true": "#16AEBBFF",
+              "Colors/Color when false": "#FF0000FF"
             }
           },
           "5,0": {
@@ -179,6 +151,49 @@
               "_title": "Target Launcher Angle",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "3,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/HaveLauncherNote",
+              "_title": "HaveLauncherNote",
+              "_glyph": 120,
+              "_showGlyph": true,
+              "Colors/Color when true": "#FC8700FF",
+              "Colors/Color when false": "#FFFFFFFF"
+            }
+          },
+          "2,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/HaveIntakeNote",
+              "_title": "HaveIntakeNote",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#FC8700FF",
+              "Colors/Color when false": "#FFFFFFFF"
+            }
+          },
+          "2,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/Auto Chooser",
+              "_title": "Auto Chooser",
+              "_glyph": 506,
+              "_showGlyph": true
             }
           }
         }
