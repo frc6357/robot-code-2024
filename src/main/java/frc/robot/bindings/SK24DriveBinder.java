@@ -18,10 +18,6 @@ import static frc.robot.Ports.DriverPorts.kRotationYPort;
 import static frc.robot.Ports.DriverPorts.kSlowMode;
 import static frc.robot.Ports.DriverPorts.kTranslationXPort;
 import static frc.robot.Ports.DriverPorts.kVelocityOmegaPort;
-import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
-import static frc.robot.Ports.OperatorPorts.kMoveLocationOne;
-import static frc.robot.Ports.OperatorPorts.kMoveLocationThree;
-import static frc.robot.Ports.OperatorPorts.kMoveLocationTwo;
 
 import java.util.Optional;
 
@@ -31,13 +27,16 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.OnTheFly;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
+import frc.robot.commands.commandGroups.ReadyScoreCommandGroup;
 import frc.robot.subsystems.SK24Drive;
+import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.filters.CubicDeadbandFilter;
 import frc.robot.utils.filters.Filter;
 
 public class SK24DriveBinder implements CommandBinder
 {
-    Optional<SK24Drive>  subsystem;
+    Optional<SK24Drive>  m_drive;
+    Optional<SK24LauncherAngle>  m_arm;
     
 
     // Driver Buttons
@@ -55,12 +54,13 @@ public class SK24DriveBinder implements CommandBinder
     /**
      * The class that is used to bind all the commands for the drive subsystem
      * 
-     * @param subsystem
+     * @param m_drive
      *            The required drive subsystem for the commands
      */
-    public SK24DriveBinder(Optional<SK24Drive> subsystem)
+    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24LauncherAngle> m_arm)
     {
-        this.subsystem  = subsystem;
+        this.m_drive  = m_drive;
+        this.m_arm = m_arm;
         
         robotCentric    = kRobotCentricMode.button;
         slowmode = kSlowMode.button;
@@ -77,9 +77,9 @@ public class SK24DriveBinder implements CommandBinder
     
     public void bindButtons()
     {
-        if (subsystem.isPresent())
+        if (m_drive.isPresent())
         {
-            SK24Drive drive = subsystem.get();
+            SK24Drive drive = m_drive.get();
 
             // Sets filters for driving axes
             kTranslationXPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
@@ -97,12 +97,13 @@ public class SK24DriveBinder implements CommandBinder
 
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
-            
-            rotateSpeaker.whileTrue(
-                new DriveTurnCommand(
-                    () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive::getSpeakerAngle, drive));
+            if(m_arm.isPresent()){
+                rotateSpeaker.whileTrue(
+                    new ReadyScoreCommandGroup(
+                        () -> kTranslationXPort.getFilteredAxis(),
+                        () -> kRotationYPort.getFilteredAxis(),
+                        drive, m_arm.get()));
+            }
             rotateAmp.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
