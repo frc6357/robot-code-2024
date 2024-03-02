@@ -105,10 +105,12 @@ public class Ports
     public static class launcherPorts
     {
         private static final String busName = "";
-        public static final CANPort kTopLauncherMotor = new CANPort(40, busName);
-        public static final CANPort kBottomLauncherMotor = new CANPort(41, busName);
+        public static final CANPort kLeftLauncherMotor = new CANPort(40, busName);
+        public static final CANPort kRightLauncherMotor = new CANPort(41, busName);
         public static final CANPort kTransferMotor = new CANPort(42, busName);
         public static final CANPort kLauncherAngleMotor = new CANPort(43, busName);
+        public static final CANPort kLauncherAngleFollowerMotor = new CANPort(44, busName);
+        public static final CANPort kLaserCanLauncher = new CANPort(45, busName);
     }
 
     //Assign CAN ports to climb motors
@@ -154,7 +156,7 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
         public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
-        public static final CANPort kLaserCan = new CANPort(52, busName);
+        public static final CANPort kLaserCanIntake = new CANPort(52, busName);
         
     }
 
