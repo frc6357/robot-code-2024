@@ -13,9 +13,9 @@ public final class OnTheFly {
     public static final PathPlannerPath scorePos1 = PathPlannerPath.fromPathFile("ScorePos1");
     public static final PathPlannerPath scorePos2 = PathPlannerPath.fromPathFile("ScorePos2");
     public static final PathPlannerPath scorePos3 = PathPlannerPath.fromPathFile("ScorePos3");
-    public static final PathPlannerPath centerStage = PathPlannerPath.fromPathFile("CenterStage");
-    public static final PathPlannerPath leftStage = PathPlannerPath.fromPathFile("LeftStage");
-    public static final PathPlannerPath rightStage = PathPlannerPath.fromPathFile("RightStage");
+    public static final PathPlannerPath centerStage = PathPlannerPath.fromPathFile("StageCenter");
+    public static final PathPlannerPath leftStage = PathPlannerPath.fromPathFile("StageLeft");
+    public static final PathPlannerPath rightStage = PathPlannerPath.fromPathFile("StageRight");
 
     // Create the constraints to use while pathfinding. The constraints defined in the path will only be used for the path.
     public static final PathConstraints constraints = new PathConstraints(

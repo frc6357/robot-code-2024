@@ -17,6 +17,7 @@ public class SubsystemControls
     private final boolean launcher_arm;
     private final boolean churro;
     private final boolean vision;
+    private final boolean telemetry;
 
      /**  
      * @param launcher
@@ -42,6 +43,7 @@ public class SubsystemControls
         @JsonProperty(required = true, value = "launcher_arm")      boolean launcher_arm,
         @JsonProperty(required = true, value = "churro")      boolean churro,
         @JsonProperty(required = true, value = "vision")      boolean vision,
+        @JsonProperty(required = true, value = "telemetry")      boolean telemetry,
         @JsonProperty(required = true, value = "drive")       boolean drive)
     {
         this.drive = drive;
@@ -52,6 +54,7 @@ public class SubsystemControls
         this.launcher_arm = launcher_arm;
         this.churro = churro;
         this.vision = vision;
+        this.telemetry = telemetry;
     }
 
 
@@ -90,5 +93,9 @@ public class SubsystemControls
     public boolean isVisionPresent()
     {
         return vision;
+    }
+    public boolean isTelemetryPresent()
+    {
+        return telemetry;
     }
 }
