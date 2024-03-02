@@ -1,7 +1,14 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.LauncherAngleConstants.kAnglePID;
+import static frc.robot.Constants.LauncherAngleConstants.kAngleTolerance;
+import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMaxOutput;
+import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMinOutput;
+import static frc.robot.Constants.LauncherAngleConstants.kConversionFactor;
+import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
-import static frc.robot.Ports.launcherPorts.kTopLauncherMotor;
+
+import java.util.function.Supplier;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
@@ -13,7 +20,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.LauncherAngleConstants.*;
 
 
 public class SK24LauncherAngle extends SubsystemBase
@@ -54,6 +60,12 @@ public class SK24LauncherAngle extends SubsystemBase
     public void setTargetAngle(double angle)
     {
         targetAngle = angle;
+        PID.setSetpoint(targetAngle);
+    }
+
+    public void setTargetAngle(Supplier<Double> angle)
+    {
+        targetAngle = angle.get();
         PID.setSetpoint(targetAngle);
     }
 
@@ -107,8 +119,8 @@ public class SK24LauncherAngle extends SubsystemBase
         // speed = accelLimit.calculate(speed);
         motor.set(speed); 
 
-        SmartDashboard.putNumber("Current Angle", current_angle);
-        SmartDashboard.putNumber("Target Angle", target_angle);
+        SmartDashboard.putNumber("Current Launcher Angle", current_angle);
+        SmartDashboard.putNumber("Target Launcher Angle", target_angle);
         SmartDashboard.putBoolean("Arm at Setpoint", isAtTargetAngle());
     }
 

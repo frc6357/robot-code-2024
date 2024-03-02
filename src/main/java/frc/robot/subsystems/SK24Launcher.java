@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Ports.launcherPorts.*;
@@ -14,6 +15,8 @@ public class SK24Launcher extends SubsystemBase
     CANSparkFlex topMotor;
     CANSparkFlex bottomMotor;
     CANSparkFlex transferMotor;
+    private boolean currLauncherState;
+    private boolean pastLauncherState;
 
     //Constructor for public command access
     public SK24Launcher()
@@ -22,6 +25,9 @@ public class SK24Launcher extends SubsystemBase
         topMotor = new CANSparkFlex(kTopLauncherMotor.ID, MotorType.kBrushless);
         bottomMotor = new CANSparkFlex(kBottomLauncherMotor.ID, MotorType.kBrushless);
         transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
+        currLauncherState = false;
+        pastLauncherState = false;
+        SmartDashboard.putBoolean("Launching", currLauncherState);
     }
 
     /**
@@ -68,7 +74,22 @@ public class SK24Launcher extends SubsystemBase
     {
         topMotor.stopMotor();
         bottomMotor.stopMotor();
+    }
+
+    public void stopTransfer(){
         transferMotor.stopMotor();
+    }
+
+    public void periodic()
+    {
+        if(getTopMotorSpeed() != 0.0 || getBottomMotorSpeed() != 0.0)
+        {
+            currLauncherState = true;
+        }
+        if(currLauncherState != pastLauncherState){
+            pastLauncherState = currLauncherState;
+            SmartDashboard.putBoolean("Launching", currLauncherState);
+        }
     }
 
 }

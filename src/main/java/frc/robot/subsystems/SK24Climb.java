@@ -10,6 +10,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 import static frc.robot.Ports.climbPorts.*;
 
@@ -21,11 +22,11 @@ public class SK24Climb extends SubsystemBase
     //Create memory PID object
     PIDController rPID;
     PIDController lPID;
-    double LtargetAngle;
-    double LcurrentAngle;
+    double LtargetPosition;
+    double LcurrentPosition;
 
-    double RtargetAngle;
-    double RcurrentAngle;
+    double RtargetPosition;
+    double RcurrentPosition;
 
     RelativeEncoder encoderL;
     RelativeEncoder encoderR;
@@ -58,24 +59,24 @@ public class SK24Climb extends SubsystemBase
         motorL.setIdleMode(IdleMode.kBrake); 
         
 
-        RtargetAngle = 0.0;
-        RcurrentAngle = 0.0;
+        RtargetPosition = 0.0;
+        RcurrentPosition = 0.0;
 
-        LtargetAngle = 0.0;
-        LcurrentAngle = 0.0;
+        LtargetPosition = 0.0;
+        LcurrentPosition = 0.0;
 
 
     }
 
     public void setRightHook(double location)
     {
-        RtargetAngle = location;
+        RtargetPosition = location;
         rPID.setSetpoint(location);
     }
     
     public void setLeftHook(double location)
     {
-        LtargetAngle = location;
+        LtargetPosition = location;
         lPID.setSetpoint(location);
     }
 
@@ -98,38 +99,38 @@ public class SK24Climb extends SubsystemBase
         return encoderR.getPosition();
     }
 
-    public double getRightCurrentAngle(){
-        return RcurrentAngle;
+    public double getRightCurrentPosition(){
+        return RcurrentPosition;
     }
 
-    public double getLeftCurrentAngle(){
-        return LcurrentAngle;
+    public double getLeftCurrentPosition(){
+        return LcurrentPosition;
     }
 
-    public double getRightTargetAngle(){
-        return RcurrentAngle;
+    public double getRightTargetPosition(){
+        return RcurrentPosition;
     }
 
-    public double getLeftTargetAngle(){
-        return LcurrentAngle;
+    public double getLeftTargetPosition(){
+        return LcurrentPosition;
     }
 
 
-    public boolean isRightAtTargetAngle()
+    public boolean isRightAtTargetPosition()
     {
-        return Math.abs(getRightCurrentAngle() - getRightTargetAngle()) < kAngleTolerance;
+        return Math.abs(getRightCurrentPosition() - getRightTargetPosition()) < kPositionTolerance;
     }
 
-    public boolean isLeftAtTargetAngle()
+    public boolean isLeftAtTargetPosition()
     {
-        return Math.abs(getLeftCurrentAngle() - getLeftTargetAngle()) < kAngleTolerance;
+        return Math.abs(getLeftCurrentPosition() - getLeftTargetPosition()) < kPositionTolerance;
     }
 
-    public void resetLeftAngle(){
+    public void resetLeftPosition(){
         encoderL.setPosition(0.0);
     }
 
-    public void resetRightAngle(){
+    public void resetRightPosition(){
         encoderR.setPosition(0.0);
     }
 
@@ -142,28 +143,28 @@ public class SK24Climb extends SubsystemBase
     @Override
     public void periodic(){
         
-        double r_current_angle = getRightCurrentAngle();
-        double r_target_angle = getRightTargetAngle();
+        double r_current_position = getRightCurrentPosition();
+        double r_target_position = getRightTargetPosition();
 
-        double l_current_angle = getLeftCurrentAngle();
-        double l_target_angle = getLeftTargetAngle();
+        double l_current_position = getLeftCurrentPosition();
+        double l_target_position = getLeftTargetPosition();
 
         // Calculates motor speed and puts it within operating range
-        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_angle), kClimbMotorMinOutput, kClimbMotorMaxOutput);
+        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
         motorR.set(rSpeed); 
 
         // Calculates motor speed and puts it within operating range
-        double lSpeed = MathUtil.clamp(lPID.calculate(l_current_angle), kClimbMotorMinOutput, kClimbMotorMaxOutput);
+        double lSpeed = MathUtil.clamp(lPID.calculate(l_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
         motorL.set(lSpeed); 
 
-        SmartDashboard.putNumber("Right Current Angle", r_current_angle);
-        SmartDashboard.putNumber("Right Target Angle", r_target_angle);
-        SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetAngle());
+        SmartDashboard.putNumber("Right Current Position", r_current_position);
+        SmartDashboard.putNumber("Right Target Position", r_target_position);
+        SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetPosition());
 
-        SmartDashboard.putNumber("Left Current Angle", l_current_angle);
-        SmartDashboard.putNumber("Left Target Angle", l_target_angle);
-        SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetAngle());
+        SmartDashboard.putNumber("Left Current Position", l_current_position);
+        SmartDashboard.putNumber("Left Target Position", l_target_position);
+        SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetPosition());
     }
 }
