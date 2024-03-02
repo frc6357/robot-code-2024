@@ -2,31 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7713800042984719,
-      "y": 4.568394521404429
+      "x": 0.7417791758660457,
+      "y": 6.551650026376976
     },
-    "rotation": 122.24669974542432
+    "rotation": -118.46516214265486
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Pos3"
+            "name": "Pos1CommandGroup"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pick_GP6"
+            "pathName": "AmpScore"
           }
         }
       ]

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.281268050080585,
-        "y": 2.6780029835267265
+        "x": 2.5079619390008028,
+        "y": 7.380473222484906
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1351951600700367,
-        "y": 2.8143376808699054
+        "x": 2.685566909595359,
+        "y": 7.271936851566012
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.901478536053158,
-        "y": 3.135698038893113
+        "x": 2.616498309919698,
+        "y": 7.252202965944393
       },
       "prevControl": {
-        "x": 2.0767660040658162,
-        "y": 3.018839726884674
+        "x": 2.596764424298081,
+        "y": 7.252202965944393
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,16 +32,16 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "ScorePos2",
+      "name": "Pick up",
       "waypointRelativePos": 1.0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "Pos2CommandGroup"
+                "name": "IntakeCommand"
               }
             }
           ]
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 116.98023071822286,
+    "rotation": 136.9091524329963,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 132.32457334397085,
     "velocity": 0
   },
   "useDefaultConstraints": true

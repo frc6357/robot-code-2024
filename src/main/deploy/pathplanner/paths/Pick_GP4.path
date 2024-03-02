@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.952728772896414,
-        "y": 6.952016786916457
+        "x": 5.152302612297534,
+        "y": 6.571383911998593
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.3647784000844725,
-        "y": 6.952016786916457
+        "x": 5.564352239485593,
+        "y": 6.571383911998593
       },
       "isLocked": false,
       "linkedName": null
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 4.952728772896414,
-        "y": 6.952016786916457
+        "x": 5.15,
+        "y": 6.46
       },
       "prevControl": {
-        "x": 6.611492656704746,
-        "y": 7.242564600959318
+        "x": 6.808763883808332,
+        "y": 6.750547814042861
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score456"
     }
   ],
   "rotationTargets": [
@@ -57,7 +57,42 @@
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Pick Up",
+      "waypointRelativePos": 1.05,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeCommand"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Score",
+      "waypointRelativePos": 2.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "GP456Command"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

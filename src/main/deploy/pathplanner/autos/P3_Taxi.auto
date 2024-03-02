@@ -2,15 +2,21 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2971090034844166,
-      "y": 4.469153648732008
+      "x": 0.7812469471092803,
+      "y": 4.509192864539576
     },
-    "rotation": 126.58869940642037
+    "rotation": 121.52217724675867
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Pos3CommandGroup"
+          }
+        },
         {
           "type": "path",
           "data": {
