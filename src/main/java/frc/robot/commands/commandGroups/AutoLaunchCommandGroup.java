@@ -21,7 +21,7 @@ import frc.robot.subsystems.SK24Vision;
 /** An example command that uses an example subsystem. */
 public class AutoLaunchCommandGroup extends SequentialCommandGroup {
    
-    public AutoLaunchCommandGroup(SK24Launcher launcher, SK24Drive drive, SK24LauncherAngle arm, SK24Vision vision)
+    public AutoLaunchCommandGroup(SK24Launcher launcher, SK24LauncherAngle arm, SK24Vision vision)
     {
         addCommands(
             new AutoLaunchAngle(arm, vision),
