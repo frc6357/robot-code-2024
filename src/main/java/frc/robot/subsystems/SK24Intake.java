@@ -7,7 +7,6 @@ import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import au.grapplerobotics.ConfigurationFailedException;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;

@@ -3,10 +3,10 @@ package frc.robot.bindings;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultBottomSpeed;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultTopSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultBottomSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultTopSpeed;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.DriverPorts.kTransfer;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
@@ -73,11 +73,11 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
             
-            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultTopSpeed, kSpeakerDefaultBottomSpeed)));
+            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
             
 
             
-            manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultTopSpeed, kAmpDefaultBottomSpeed)));
+            manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
             driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
             operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
 

@@ -2,14 +2,14 @@ package frc.robot.commands.commandGroups;
 
 import static frc.robot.Constants.ChurroConstants.kChurroSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultBottomSpeed;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultTopSpeed;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AngleCommand;
-import frc.robot.commands.ChurroLowerCommand;
+import frc.robot.commands.ChurroRaiseCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -22,10 +22,10 @@ public class AmpScoreCommandGroup extends SequentialCommandGroup{
     addCommands(
         new ParallelCommandGroup(
 
-            new ChurroLowerCommand(churro, kChurroSpeed),
+            new ChurroRaiseCommand(churro, kChurroSpeed),
 
             new AngleCommand(kAmpAngle, arm)),
-        new LaunchCommand(kAmpDefaultTopSpeed, kAmpDefaultBottomSpeed, launcher),
+        new LaunchCommand(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed, launcher),
         new WaitCommand(0.5),
         new ZeroPositionCommand(arm, launcher)
     );

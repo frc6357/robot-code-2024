@@ -24,10 +24,10 @@ public class SK24ClimbBinder implements CommandBinder{
         {
             SK24Climb climb = subsystem.get();
             climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(1.0))); 
-            climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(1.0))); 
+            // climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(1.0))); 
             
             climbButton.onFalse(new InstantCommand(() -> climb.setRightHook(0.0))); 
-            climbButton.onFalse(new InstantCommand(() -> climb.setLeftHook(0.0))); 
+            // climbButton.onFalse(new InstantCommand(() -> climb.setLeftHook(0.0))); 
 
             //climbButton.onTrue(new ClimbBalanceCommand(climb)); TODO - add climb balancing command later
         }

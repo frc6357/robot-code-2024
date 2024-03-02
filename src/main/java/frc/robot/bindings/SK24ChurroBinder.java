@@ -3,8 +3,8 @@ package frc.robot.bindings;
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ChurroLowerCommand;
 import frc.robot.commands.ChurroRaiseCommand;
+import frc.robot.commands.ChurroLowerCommand;
 import frc.robot.subsystems.SK24Churro;
 import static frc.robot.Ports.OperatorPorts.*;
 import static frc.robot.Constants.ChurroConstants.*;
@@ -36,8 +36,8 @@ public class SK24ChurroBinder implements CommandBinder
 
             SK24Churro m_churro = subsystem.get();
             
-            churroButton.onTrue(new ChurroRaiseCommand(m_churro, kChurroSpeed));
-            churroButton.onFalse(new ChurroLowerCommand(m_churro, -kChurroSpeed));
+            churroButton.onTrue(new ChurroLowerCommand(m_churro, kChurroSpeed));
+            churroButton.onFalse(new ChurroRaiseCommand(m_churro, -kChurroSpeed));
 
         }
     }

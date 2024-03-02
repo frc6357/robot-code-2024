@@ -328,11 +328,11 @@ public final class Constants
     
     public static final class LauncherConstants
     {
-        public static final double kSpeakerDefaultTopSpeed = 0.5;
-        public static final double kSpeakerDefaultBottomSpeed = 0.5;
+        public static final double kSpeakerDefaultLeftSpeed = 0.5;
+        public static final double kSpeakerDefaultRightSpeed = 0.5;
         
-        public static final double kAmpDefaultTopSpeed = 0.5;
-        public static final double kAmpDefaultBottomSpeed = 0.5;
+        public static final double kAmpDefaultLeftSpeed = 0.5;
+        public static final double kAmpDefaultRightSpeed = 0.5;
         
         public static final double kTransferSpeed = 0.5; 
         public static final double noteMeasurement = 0.0;
