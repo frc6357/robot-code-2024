@@ -48,6 +48,6 @@ public class ChurroRaiseCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(subsystem.getChurroPosition() - kChurroRaisePosition) < kAngleTolerance;
+    return subsystem.isChurroAtUpper();
   }
 }

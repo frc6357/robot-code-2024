@@ -9,10 +9,8 @@ import static frc.robot.Constants.LauncherAngleConstants.kLauncherTopSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.kPos2Angle;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AngleCommand;
 import frc.robot.commands.LaunchCommand;
-import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 /** An example command that uses an example subsystem. */
@@ -22,9 +20,7 @@ public class Pos2CommandGroup extends SequentialCommandGroup {
     {
         addCommands(
             new AngleCommand(kPos2Angle, arm),
-            new LaunchCommand(kLauncherTopSpeed, kLauncherBottomSpeed, launcher),
-            new WaitCommand(0.2),
-            new ZeroPositionCommand(arm, launcher)
+            new LaunchCommand(kLauncherTopSpeed, kLauncherBottomSpeed, launcher)
         );
     }
 

@@ -48,7 +48,7 @@ public class ChurroLowerCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(subsystem.getChurroPosition() - kChurroLowerPosition) < kAngleTolerance;
+    return subsystem.isChurroAtLower();
     //if (limit switch)
     //{
     //  return true;
