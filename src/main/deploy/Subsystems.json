@@ -3,7 +3,9 @@
     "lights": true,
     "intake": true,
     "climb": true,
-    "drive": true,
     "launcher_arm": true,
-    "vison": true
+    "churro": true,
+    "vision": true,
+    "drive": true,
+    "telemetry": false
 }

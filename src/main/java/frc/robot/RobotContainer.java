@@ -9,11 +9,7 @@ import static frc.robot.Constants.DriveConstants.BackRight;
 import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
 import static frc.robot.Constants.DriveConstants.FrontLeft;
 import static frc.robot.Constants.DriveConstants.FrontRight;
-import static frc.robot.Constants.DriveConstants.autoList;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
-import static frc.robot.Ports.OperatorPorts.kMoveLocationOne;
-import static frc.robot.Ports.OperatorPorts.kMoveLocationThree;
-import static frc.robot.Ports.OperatorPorts.kMoveLocationTwo;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,6 +39,7 @@ import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
 import frc.robot.commands.AmpCenterCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.AutoLaunchCommandGroup;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
@@ -131,13 +128,14 @@ public class RobotContainer {
             {
                 m_drive = Optional.of(new SK24Drive(DrivetrainConstants, FrontLeft,
                 FrontRight, BackLeft, BackRight));
-
-                Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
-
-                if (Utils.isSimulation()) {
-                    m_drive.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
+                if(subsystems.isTelemetryPresent()){
+                    Telemetry log = new Telemetry(Constants.AutoConstants.kMaxSpeedMetersPerSecond);
+    
+                    if (Utils.isSimulation()) {
+                        m_drive.get().seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
+                    }
+                    m_drive.get().registerTelemetry(log::telemeterize);
                 }
-                m_drive.get().registerTelemetry(log::telemeterize);
             }
             if(subsystems.isChurroPresent())
             {
@@ -169,7 +167,7 @@ public class RobotContainer {
 
         // Adding all the binding classes to the list
         buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle));
-        buttonBinders.add(new SK24DriveBinder(m_drive));
+        buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake));
         buttonBinders.add(new SK24ChurroBinder(m_churro));
@@ -184,21 +182,19 @@ public class RobotContainer {
 
     private void configurePathPlanner()
     {
-        if(m_drive.isPresent() && m_launcher.isPresent() && m_launcher_angle.isPresent())
+        if(m_drive.isPresent() && m_launcher.isPresent() && m_launcher_angle.isPresent() && m_intake.isPresent())
         {
             SK24Drive drive = m_drive.get();
             SK24Launcher launcher = m_launcher.get();
             SK24LauncherAngle launcherAngle = m_launcher_angle.get();
+            SK24Intake intake = m_intake.get();
             
             //Register commands for use in auto
             NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
-            
-            //Create button bindings for following on the fly paths
-            kMoveLocationOne.button.whileTrue(OnTheFly.scorePos1Command);
-            kMoveLocationTwo.button.whileTrue(OnTheFly.scorePos2Command);
-            kMoveLocationThree.button.whileTrue(OnTheFly.scorePos3Command);
+
+            NamedCommands.registerCommand("IntakeCommand", new IntakeCommand(intake));
 
             if(m_churro.isPresent())
             {
@@ -219,8 +215,9 @@ public class RobotContainer {
 
 
         // Configures the autonomous paths and smartdashboard chooser
-        SK24AutoBuilder.setAutoNames(autoList);
-        autoCommandSelector = SK24AutoBuilder.buildAutoChooser("LeftScore1");
+        
+        //SK24AutoBuilder.setAutoNames(autoList);
+        autoCommandSelector = SK24AutoBuilder.buildAutoChooser("P4_Taxi");
         SmartDashboard.putData("Auto Chooser", autoCommandSelector);
     }
 
