@@ -2,32 +2,45 @@ package frc.robot.bindings;
 
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
+import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
-import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
+import static frc.robot.Ports.DriverPorts.kTransfer;
+import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
+import static frc.robot.Ports.OperatorPorts.kManualAmp;
+import static frc.robot.Ports.OperatorPorts.kManualLauncher;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.commands.LaunchAngleCommand;
-import frc.robot.commands.LaunchCommand;
-import frc.robot.commands.LaunchOffCommand;
+import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.filters.DeadbandFilter;
+import static frc.robot.Constants.LauncherConstants.*;
 
 public class SK24LauncherBinder implements CommandBinder
 {
     Optional<SK24Launcher> launcher;
     Optional<SK24LauncherAngle> launcherAngle;
 
-    private Trigger launcherButton = null;
-    private Trigger angleOverrideButton = null;
-    private Trigger zeroPosDriver = null;
-    private Trigger zeroPosOperator = null;
+    private Trigger manualLauncherButton;
+    private Trigger angleOverrideButton;
+    private Trigger zeroPosDriver;
+    private Trigger zeroPosOperator;
+    private Trigger defaultLauncherAngleButton;
+    private Trigger manualAmpButton;
+    private Trigger driveTransferButton;
+    private Trigger operatorTransferButton;
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -42,10 +55,14 @@ public class SK24LauncherBinder implements CommandBinder
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
-        launcherButton = kLaunchSpeaker.button;
+        manualLauncherButton = kManualLauncher.button;
+        manualAmpButton = kManualAmp.button;
         angleOverrideButton = kLauncherOverride.button;
         zeroPosDriver = Ports.OperatorPorts.kZeroPos.button;
         zeroPosOperator = Ports.DriverPorts.kZeroPos.button;
+        defaultLauncherAngleButton = kAngleSpeaker.button;
+        driveTransferButton = Ports.DriverPorts.kTransfer.button;
+        operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
     }
 
     public void bindButtons()
@@ -56,26 +73,37 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
             
-            launcherButton.onTrue(new LaunchCommand(m_launcher, 0.5, 0.5));
-            launcherButton.onFalse(new LaunchOffCommand(m_launcher));
-        }
-        if(launcherAngle.isPresent())
-        {
-            SK24LauncherAngle m_launcherAngle = launcherAngle.get();
-            double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
-                kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
-            launcherButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(90.0)));
-            launcherButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(90.0)));
+            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
+            
 
-            zeroPosDriver.or(zeroPosOperator).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(0.0)));
-            m_launcherAngle.setDefaultCommand(
-                    // Vertical movement of the arm is controlled by the Y axis of the right stick.
-                    // Up on joystick moving arm up and down on stick moving arm down.
-                    new LaunchAngleCommand(
-                        () -> {return kLauncherAxis.getFilteredAxis();},
-                        angleOverrideButton::getAsBoolean,
-                        m_launcherAngle));
+            
+            manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
+            driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
+            operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
+
+            driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.stopTransfer()));
+            operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.stopTransfer()));
+
+        
+            if(launcherAngle.isPresent())
+            {
+                SK24LauncherAngle m_launcherAngle = launcherAngle.get();
+                double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
+                    kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
+                defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
+                manualLauncherButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+                manualAmpButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+                zeroPosDriver.or(zeroPosOperator).onTrue(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+                
+                m_launcherAngle.setDefaultCommand(
+                        // Vertical movement of the arm is controlled by the Y axis of the right stick.
+                        // Up on joystick moving arm up and down on stick moving arm down.
+                        new LaunchAngleCommand(
+                            () -> {return kLauncherAxis.getFilteredAxis();},
+                            angleOverrideButton::getAsBoolean,
+                            m_launcherAngle));
+            
+            }
         }
     }
-
 }

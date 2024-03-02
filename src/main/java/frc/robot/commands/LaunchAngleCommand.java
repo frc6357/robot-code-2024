@@ -50,7 +50,7 @@ public class LaunchAngleCommand extends Command {
     {
         double angleChange = controller.get() / 50; // Degrees per 20ms
 
-         // Sets the new angle to the current angle plusor minus the constant change
+         // Sets the new angle to the current angle plus or minus the constant change
         double setpoint = arm.getTargetAngle() + angleChange;
 
         if(!override.get())

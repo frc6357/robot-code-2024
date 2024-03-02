@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7417791758660457,
+      "y": 6.551650026376976
+    },
+    "rotation": -118.46516214265486
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Pos1CommandGroup"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AmpScore"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

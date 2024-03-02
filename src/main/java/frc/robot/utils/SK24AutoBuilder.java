@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 public class SK24AutoBuilder extends AutoBuilder{
     private static List<String> autoNames = new ArrayList<String>();
-    public static SendableChooser<Command> buildAutoChooser(String defaultAutoName) {
+    public static SendableChooser<Command> buildOwnAutoChooser(String defaultAutoName) {
     if (!AutoBuilder.isConfigured()) {
       throw new RuntimeException(
           "AutoBuilder was not configured before attempting to build an auto chooser");

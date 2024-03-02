@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.AutoConstants.kAutoPathConfig;
 import static frc.robot.Constants.DriveConstants.deadband;
+import static frc.robot.Constants.DriveConstants.kFieldWidth;
+import static frc.robot.Constants.DriveConstants.kSpeakerHeight;
+import static frc.robot.Constants.DriveConstants.kSpeakerLocation;
 
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
@@ -144,6 +147,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     currentPublisher.set(this.getState().ModuleStates);
     targetPublisher.set(this.getState().ModuleTargets);
     odomPublisher.set(getOdomHeading());
+    //SmartDashboard.putNumber("Speaker Angle", getSpeakerAngle());
   }
 
 
@@ -174,6 +178,25 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   public Pose2d getPose()
   {
     return this.m_odometry.getEstimatedPosition();
+  }
+
+  public double getSpeakerAngle(){
+      Pose2d currentPose = getPose();
+      double x = currentPose.getX();
+      double y = currentPose.getY();
+      double distanceX = checkIsRed() ? kFieldWidth - x : x;
+      double distanceY = kSpeakerLocation - y;
+      return checkIsRed() ? Math.toDegrees(Math.atan(distanceY / distanceX)) : 180 + Math.toDegrees(Math.atan(distanceY / distanceX) * -1);
+  }
+
+  public double getSpeakerLauncherAngle(){
+      Pose2d currentPose = getPose();
+      double x = currentPose.getX();
+      double y = currentPose.getY();
+      double distanceX = checkIsRed() ? kFieldWidth - x : x;
+      double distanceY = kSpeakerLocation - y;
+      double distanceSpeaker = Math.sqrt(Math.pow(distanceX, 2.0) + Math.pow(distanceY, 2.0));
+      return Math.toDegrees(Math.atan(kSpeakerHeight / distanceSpeaker));
   }
   
   /**

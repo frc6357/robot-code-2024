@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.5015337722983153,
+      "y": 7.36073933686329
+    },
+    "rotation": 89.55927192723898
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AmpScore"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PickGP1_Amp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "AmpScore"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -3,25 +3,38 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import static frc.robot.Ports.launcherPorts.*;
+import static frc.robot.Constants.LauncherConstants.*;
 
 
 public class SK24Launcher extends SubsystemBase
 {
     // Create memory objects for both motors for public use
-    CANSparkFlex topMotor;
-    CANSparkFlex bottomMotor;
+    CANSparkFlex leftMotor;
+    CANSparkFlex rightMotor;
     CANSparkFlex transferMotor;
+    private boolean currLauncherState;
+    private boolean pastLauncherState;
+    private LaserCan laserCan;
+
 
     //Constructor for public command access
     public SK24Launcher()
     {
         //Initialize motor objects
-        topMotor = new CANSparkFlex(kTopLauncherMotor.ID, MotorType.kBrushless);
-        bottomMotor = new CANSparkFlex(kBottomLauncherMotor.ID, MotorType.kBrushless);
+        leftMotor = new CANSparkFlex(kLeftLauncherMotor.ID, MotorType.kBrushless);
+        rightMotor = new CANSparkFlex(kRightLauncherMotor.ID, MotorType.kBrushless);
         transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
+
+        laserCan = new LaserCan(kLaserCanLauncher.ID);
+
+        currLauncherState = false;
+        pastLauncherState = false;
+        SmartDashboard.putBoolean("Launching", currLauncherState);
     }
 
     /**
@@ -35,10 +48,10 @@ public class SK24Launcher extends SubsystemBase
     }
 
     //Set motor speeds
-    public void setLauncherSpeed (double speedTop, double speedBottom)
+    public void setLauncherSpeed (double speedLeft, double speedRight)
     {
-        topMotor.set(speedTop);
-        bottomMotor.set(speedBottom);
+        leftMotor.set(speedLeft);
+        rightMotor.set(speedRight);
     }
         
     public void setTransferSpeed (double speed)
@@ -47,15 +60,15 @@ public class SK24Launcher extends SubsystemBase
     }
 
     //Return motor speeds
-    public double getTopMotorSpeed()
+    public double getLeftMotorSpeed()
     {
-        return topMotor.get();
+        return leftMotor.get();
     }
 
     //Return motor speeds
-    public double getBottomMotorSpeed()
+    public double getRightMotorSpeed()
     {
-        return bottomMotor.get();
+        return rightMotor.get();
     }
     //Return motor speeds
     public double getTransferMotorSpeed()
@@ -63,12 +76,40 @@ public class SK24Launcher extends SubsystemBase
         return transferMotor.get();
     }
     
+    public boolean haveNote()
+    {
+        LaserCan.Measurement measurement = laserCan.getMeasurement();
+        if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+          if(measurement.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
+        return false;
+    }
+
     //Stop motors
     public void stopLauncher()
     {
-        topMotor.stopMotor();
-        bottomMotor.stopMotor();
+        leftMotor.stopMotor();
+        rightMotor.stopMotor();
+    }
+
+    public void stopTransfer(){
         transferMotor.stopMotor();
+    }
+
+    public void periodic()
+    {
+        SmartDashboard.putBoolean("HaveLauncherNote", haveNote());
+        if(getLeftMotorSpeed() != 0.0 || getRightMotorSpeed() != 0.0)
+        {
+            currLauncherState = true;
+        }
+        if(currLauncherState != pastLauncherState){
+            pastLauncherState = currLauncherState;
+            SmartDashboard.putBoolean("Launching", currLauncherState);
+        }
     }
 
 }

@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7713800042984719,
+      "y": 6.561516969187785
+    },
+    "rotation": -118.9959595141184
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pos1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pick_GP1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pick_GP4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Pick_GP5"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
