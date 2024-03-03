@@ -1,7 +1,5 @@
 package frc.robot.bindings;
 
-import static frc.robot.Ports.OperatorPorts.kPartyMode;
-
 import java.util.Optional;
 
 import com.ctre.phoenix.led.ColorFlowAnimation.Direction;

@@ -7,20 +7,23 @@ package frc.robot.commands.commandGroups;
 import static frc.robot.Constants.LauncherAngleConstants.kLauncherBottomSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.kLauncherTopSpeed;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoLaunchAngle;
-import frc.robot.commands.DriveTurnCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.ZeroPositionCommand;
-import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
-/** An example command that uses an example subsystem. */
+
 public class AutoLaunchCommandGroup extends SequentialCommandGroup {
-   
+   /**
+    * Command group that will determine launcher angle based on the vision targeting, set the launcher to that angle,
+    * and then launch a note in the speaker. Finally, turns everything off and to zero position.
+    * @param launcher Launcher subsystem to use
+    * @param arm Launcher angle subsystem to use
+    * @param vision Vision subsystem to use
+    */
     public AutoLaunchCommandGroup(SK24Launcher launcher, SK24LauncherAngle arm, SK24Vision vision)
     {
         addCommands(

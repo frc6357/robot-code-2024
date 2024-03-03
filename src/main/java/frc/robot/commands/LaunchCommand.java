@@ -11,19 +11,24 @@ public class LaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private final SK24Launcher launcher;
-    private double TopSpeed;
-    private double BottomSpeed;
+    private double LeftSpeed;
+    private double RightSpeed;
 
     
 
     /**
-     * @param arm
-     *            Subsystem used for this command
+     * Command that will launch a note at speeds top and bottom speeds
+     * @param LeftSpeed
+     *            Speed for the left side of the launchers
+     * @param RightSpeed
+     *            Speed for the right side of the launchers
+     * @param launcher
+     *            Launcher angle used for this command
      */
-    public LaunchCommand(double TopSpeed, double BottomSpeed, SK24Launcher launcher)
+    public LaunchCommand(double LeftSpeed, double RightSpeed, SK24Launcher launcher)
     {
-        this.TopSpeed = TopSpeed;
-        this.BottomSpeed = BottomSpeed;
+        this.LeftSpeed = LeftSpeed;
+        this.RightSpeed = RightSpeed;
         this.launcher = launcher;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(launcher);
@@ -36,7 +41,7 @@ public class LaunchCommand extends Command {
     @Override
     public void execute()
     {
-        launcher.setLauncherSpeed(TopSpeed, BottomSpeed);
+        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
     }
 
     @Override
