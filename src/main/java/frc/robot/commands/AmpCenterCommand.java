@@ -17,6 +17,11 @@ public class AmpCenterCommand extends Command
 
     private double currentTranslation;
 
+    /**
+     * Command to center robot on amp
+     * @param drive Drive subsystem to use
+     * @param vision Vision subsystem to use
+     */
     public AmpCenterCommand(SK24Drive drive, SK24Vision vision)
     {
         this.drive = drive;

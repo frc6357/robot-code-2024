@@ -23,8 +23,8 @@ public class ReadyScoreCommand extends Command{
     private double maxRot = 4;
     
     /**
-     * Creates a command that turns the robot to a specified angle using the field
-     * coordinate system
+     * Creates a command that turns the robot to the speaker using the field
+     * coordinate system and brings the launcher angle to score in speaker
      * 
      * @param xSpeed
      *            The supplier for the robot x axis speed

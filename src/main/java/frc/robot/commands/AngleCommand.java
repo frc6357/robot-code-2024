@@ -14,9 +14,9 @@ public class AngleCommand extends Command {
     private double angle;
 
     /**
-     *         
-     * @param arm
-     *            Subsystem used for this command
+     * Command to set the launcher angle to the angle parameter
+     * @param angle The specified angle to set the launcher to - In degrees, up is positive
+     * @param arm Launcher angle subsysystem to use
      */
     public AngleCommand(double angle, SK24LauncherAngle arm)
     {

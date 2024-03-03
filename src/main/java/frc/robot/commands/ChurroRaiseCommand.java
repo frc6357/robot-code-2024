@@ -11,10 +11,10 @@ public class ChurroRaiseCommand extends Command
   double speed;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
+  * Command to raise the churro for retracting back into robot
+  *
+  * @param churro The churro subsystem used by this command.
+  */
   public ChurroRaiseCommand(SK24Churro subsystem, double speed) 
   {
     this.subsystem = subsystem;

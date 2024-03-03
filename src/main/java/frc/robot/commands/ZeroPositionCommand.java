@@ -15,7 +15,7 @@ public class ZeroPositionCommand extends Command {
     private final SK24Launcher launcher;
 
     /**
-     *         
+     * Command to zero the position of the launcher angle and turn off the launcher motors
      * @param arm
      *            Launcher Angle Subsystem used for this command
      * @param launcher

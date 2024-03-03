@@ -38,7 +38,6 @@ import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
 import frc.robot.commands.IntakeTransferCommand;
-import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.AutoLaunchCommandGroup;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
@@ -205,7 +204,7 @@ public class RobotContainer {
                 //NamedCommands.registerCommand("AmpCenterCommand", new AmpCenterCommand(drive, vision));
                 NamedCommands.registerCommand("AutoLaunchCommand", new AutoLaunchCommandGroup(launcher, launcherAngle, vision));
 
-                kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
+                //kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
             }
         }
 

@@ -17,10 +17,10 @@ public class AutoLaunchAngle extends Command {
   double speedBottom;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param launcher The subsystem used by this command.
-   */
+     * Command to set the target angle of the launcher to score in speaker based on vision 
+     * @param arm Launcher angle subsysystem to use
+     * @param vision Vision subsystem to use
+     */
   public AutoLaunchAngle(SK24LauncherAngle arm, SK24Vision vision) {
     this.arm = arm;
     this.vision = vision;
