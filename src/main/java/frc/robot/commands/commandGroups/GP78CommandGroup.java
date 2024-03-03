@@ -6,7 +6,6 @@ package frc.robot.commands.commandGroups;
 
 import static frc.robot.Constants.LauncherAngleConstants.kLauncherBottomSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.kLauncherTopSpeed;
-import static frc.robot.Constants.LauncherAngleConstants.kPos3Angle;
 import static frc.robot.Constants.LauncherAngleConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;

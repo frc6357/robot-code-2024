@@ -9,7 +9,6 @@ import static frc.robot.Constants.DriveConstants.BackRight;
 import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
 import static frc.robot.Constants.DriveConstants.FrontLeft;
 import static frc.robot.Constants.DriveConstants.FrontRight;
-import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +37,6 @@ import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
-import frc.robot.commands.AmpCenterCommand;
 import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.AutoLaunchCommandGroup;
@@ -166,7 +164,7 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_churro));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
@@ -197,8 +195,7 @@ public class RobotContainer {
 
             if(m_churro.isPresent())
             {
-                SK24Churro churro = m_churro.get();
-                NamedCommands.registerCommand("AmpScoreCommandGroup", new AmpScoreCommandGroup(churro, launcherAngle, launcher));
+                //SK24Churro churro = m_churro.get();
                 
                 //Create button bindings for following on the fly paths
             }

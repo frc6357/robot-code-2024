@@ -27,7 +27,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.OnTheFly;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
-import frc.robot.commands.commandGroups.ReadyScoreCommandGroup;
+import frc.robot.commands.ReadyScoreCommand;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.filters.CubicDeadbandFilter;
@@ -99,7 +99,7 @@ public class SK24DriveBinder implements CommandBinder
             resetButton.onTrue(new InstantCommand(drive::setFront));
             if(m_arm.isPresent()){
                 rotateSpeaker.whileTrue(
-                    new ReadyScoreCommandGroup(
+                    new ReadyScoreCommand(
                         () -> kTranslationXPort.getFilteredAxis(),
                         () -> kRotationYPort.getFilteredAxis(),
                         drive, m_arm.get()));

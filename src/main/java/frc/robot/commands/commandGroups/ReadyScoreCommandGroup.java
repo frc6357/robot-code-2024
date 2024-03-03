@@ -4,8 +4,6 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Ports.DriverPorts.kRobotCentricMode;
-
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
