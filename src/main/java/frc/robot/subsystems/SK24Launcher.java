@@ -47,35 +47,56 @@ public class SK24Launcher extends SubsystemBase
         followerMotor.follow(leaderMotor);
     }
 
-    //Set motor speeds
+    /**
+     * Set the speed of the launcher
+     * @param speedLeft The speed to set the left launcher motor to as a double value
+     * @param speedRight The speed to set the right launcher motor to as a double value
+     */
     public void setLauncherSpeed (double speedLeft, double speedRight)
     {
         leftMotor.set(speedLeft);
         rightMotor.set(speedRight);
     }
-        
+    /**
+     * Set the speed of the launcher
+     * @param speed The speed to set the transfer motor to as a double value
+     */
     public void setTransferSpeed (double speed)
     {
         transferMotor.set(speed);
     }
 
-    //Return motor speeds
+    /**
+     * Gets the speed of the left launcher motor
+     * @return double value of speed for the left launcher motor
+     */
     public double getLeftMotorSpeed()
     {
         return leftMotor.get();
     }
 
-    //Return motor speeds
+    /**
+     * Gets the speed of the right launcher motor
+     * @return double value of speed for the right launcher motor
+     */
     public double getRightMotorSpeed()
     {
         return rightMotor.get();
     }
-    //Return motor speeds
+
+    /**
+     * Gets the speed of the transfer motor
+     * @return double value of speed for the transfer motor
+     */
     public double getTransferMotorSpeed()
     {
         return transferMotor.get();
     }
     
+    /**
+     * Determines if the launcher currently has a note
+     * @return trure if LaserCAN detects a note, false if no note detected
+     */
     public boolean haveNote()
     {
         LaserCan.Measurement measurement = laserCan.getMeasurement();
@@ -88,13 +109,18 @@ public class SK24Launcher extends SubsystemBase
         return false;
     }
 
-    //Stop motors
+    /**
+     * Stops the launcher motors
+     */
     public void stopLauncher()
     {
         leftMotor.stopMotor();
         rightMotor.stopMotor();
     }
 
+    /**
+     * Stops the transfer motor
+     */
     public void stopTransfer(){
         transferMotor.stopMotor();
     }
