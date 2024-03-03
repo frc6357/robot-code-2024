@@ -65,7 +65,9 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
       }
 
     }
-  
+    /**
+     * Current time in seconds.
+     **/
     private void startSimThread() {
         m_lastSimTime = Utils.getCurrentTimeSeconds();
 
@@ -132,14 +134,25 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
       this.setControl(robotCentric.withVelocityX(xSpeed).withVelocityY(ySpeed).withRotationalRate(rot));
     }
    }
+   /**
+    * Sets the orientation the field should be
+    * @param rotation The current rotation of the field
+    **/
    public void setFieldRelativeHeading(Rotation2d rotation){
       this.m_fieldRelativeOffset = rotation;
    }
+   /**
+    * Point the robot's wheels in the specified direction
+    * @param rotation The current rotation of the field
+    **/
    public void pointWheels(Rotation2d rotation){
       SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt().withModuleDirection(rotation);
       this.setControl(point);
    }
   @Override
+  /**
+   * Periodically check if the pigeon is red
+   */
   public void periodic()
   {
     this.checkIsRed();
