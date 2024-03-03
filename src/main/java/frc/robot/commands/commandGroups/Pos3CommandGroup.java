@@ -13,9 +13,13 @@ import frc.robot.commands.AngleCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
-/** An example command that uses an example subsystem. */
+
 public class Pos3CommandGroup extends SequentialCommandGroup {
-   
+   /**
+     * Shoot note into speaker from starting position 3
+     * @param launcher Launcher subsystem to use
+     * @param arm Launcher angle subsystem to use
+     */
     public Pos3CommandGroup(SK24Launcher launcher, SK24LauncherAngle arm)
     {
         addCommands(

@@ -17,6 +17,8 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.Ports.climbPorts.*;
+
 public class SK24Climb extends SubsystemBase
 {
     //Create memory motor objects

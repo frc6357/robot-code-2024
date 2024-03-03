@@ -1,12 +1,13 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
+import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Ports.OperatorPorts.kIntake;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 
@@ -28,7 +29,14 @@ public class SK24IntakeBinder implements CommandBinder{
         {
             SK24Intake intake = m_intake.get();
             SK24Launcher launcher = m_launcher.get();
-            intakeButton.whileTrue(new IntakeTransferCommand(intake, launcher));
+
+            intakeButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
+            intakeButton.onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed)));
+
+            intakeButton.onFalse(new InstantCommand(() -> intake.stopIntake()));
+            intakeButton.onFalse(new InstantCommand(() -> launcher.stopTransfer()));
+
+            //intakeButton.whileTrue(new IntakeTransferCommand(intake, launcher)); //TODO - test intake transfer command
         }
     }
 }
