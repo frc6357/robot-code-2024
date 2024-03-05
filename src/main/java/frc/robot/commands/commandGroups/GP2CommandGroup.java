@@ -23,7 +23,7 @@ public class GP2CommandGroup extends SequentialCommandGroup {
     {
         addCommands(
             new AngleCommand(GP2Angle, arm),
-            new LaunchCommand(kLauncherTopSpeed, kLauncherBottomSpeed, launcher),
+            new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
             new WaitCommand(0.2),
             new ZeroPositionCommand(arm, launcher)
         );

@@ -208,12 +208,14 @@ public class RobotContainer {
             }
         }
 
-
-        // Configures the autonomous paths and smartdashboard chooser
-        
-        //SK24AutoBuilder.setAutoNames(autoList);
-        autoCommandSelector = SK24AutoBuilder.buildAutoChooser("P4_Taxi");
-        SmartDashboard.putData("Auto Chooser", autoCommandSelector);
+        if(m_drive.isPresent()){
+            
+            // Configures the autonomous paths and smartdashboard chooser
+            
+            //SK24AutoBuilder.setAutoNames(autoList);
+            autoCommandSelector = SK24AutoBuilder.buildAutoChooser("P4_Taxi");
+            SmartDashboard.putData("Auto Chooser", autoCommandSelector);
+        }
     }
 
   /**

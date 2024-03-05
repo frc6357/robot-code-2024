@@ -23,7 +23,7 @@ public class GP3CommandGroup extends SequentialCommandGroup {
     {
         addCommands(
             new AngleCommand(GP3Angle, arm),
-            new LaunchCommand(kLauncherTopSpeed, kLauncherBottomSpeed, launcher),
+            new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
             new WaitCommand(0.2),
             new ZeroPositionCommand(arm, launcher)
         );

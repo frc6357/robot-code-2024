@@ -4,8 +4,8 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherBottomSpeed;
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherTopSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherRightSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherLeftSpeed;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -28,7 +28,7 @@ public class AutoLaunchCommandGroup extends SequentialCommandGroup {
     {
         addCommands(
             new AutoLaunchAngle(arm, vision),
-            new LaunchCommand(kLauncherTopSpeed, kLauncherBottomSpeed, launcher),
+            new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
             new WaitCommand(0.2),
             new ZeroPositionCommand(arm, launcher)
         );

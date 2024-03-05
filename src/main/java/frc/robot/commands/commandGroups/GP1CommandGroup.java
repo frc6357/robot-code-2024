@@ -4,8 +4,8 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherBottomSpeed;
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherTopSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherRightSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.*;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -15,14 +15,18 @@ import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
-/** An example command that uses an example subsystem. */
+
 public class GP1CommandGroup extends SequentialCommandGroup {
-   
+    /**
+     * Shoot note into speaker from game piece position 1
+     * @param launcher Launcher subsystem to use
+     * @param arm Launcher angle subsystem to use
+     */
     public GP1CommandGroup(SK24Launcher launcher, SK24LauncherAngle arm)
     {
         addCommands(
             new AngleCommand(GP1Angle, arm),
-            new LaunchCommand(kLauncherTopSpeed, kLauncherBottomSpeed, launcher),
+            new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
             new WaitCommand(0.2),
             new ZeroPositionCommand(arm, launcher)
         );

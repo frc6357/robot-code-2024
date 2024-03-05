@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
-import static frc.robot.Ports.intakePorts.kLaserCanIntake;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 
 import com.revrobotics.CANSparkFlex;
@@ -29,7 +28,7 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
-        laserCan = new LaserCan(kLaserCanIntake.ID);
+        //laserCan = new LaserCan(kLaserCanIntake.ID);
 
         currIntakeState = false;
         pastIntakeState = false;
@@ -55,21 +54,21 @@ public class SK24Intake extends SubsystemBase
         topIntakeMotor.stopMotor();
     }
 
-    public boolean haveNote()
-    {
-        LaserCan.Measurement measurement = laserCan.getMeasurement();
-        if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-          if(measurement.distance_mm < noteMeasurement)
-          {
-            return true;
-          }
-        } 
-        return false;
-    }
+    // public boolean haveNote()
+    // {
+    //     LaserCan.Measurement measurement = laserCan.getMeasurement();
+    //     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
+    //       if(measurement.distance_mm < noteMeasurement)
+    //       {
+    //         return true;
+    //       }
+    //     } 
+    //     return false;
+    // }
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveIntakeNote", haveNote());
+        // SmartDashboard.putBoolean("HaveIntakeNote", haveNote());
         if(getMotorSpeed() != 0.0)
         {
             currIntakeState = true;

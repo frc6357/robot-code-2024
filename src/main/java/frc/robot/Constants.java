@@ -225,6 +225,16 @@ public final class Constants
         public static final double kClimbMotorMinOutput = -1.0;
         public static final double kClimbMotorMaxOutput = 1.0;
 
+        
+        public static final double kMinAngle = 0.0;
+        public static final double kMaxAngle = 1.0;
+    
+        public static final double kJoystickChange   = 0.1; // Manual setpoint value for units from 0.0 - 1.0 moved per second //TODO - find good value degrees per second angle launcher
+        public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
+    
+        public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
+
+
 
     }
 
@@ -277,7 +287,7 @@ public final class Constants
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
         public static final double kMinAngle = 0.0; //TODO - put minumum launcher angle
-        public static final double kMaxAngle = 0.0;//TODO - put maximum launcher angle
+        public static final double kMaxAngle = 45.0;//TODO - put maximum launcher angle
     
         public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second //TODO - find good value degrees per second angle launcher
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
@@ -304,8 +314,8 @@ public final class Constants
         public static final double kLauncherAmpBottomSpeed = 0.5; //TODO - find launcher bottom speed for amp
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
-        public static final double kLauncherTopSpeed = 0.5; 
-        public static final double kLauncherBottomSpeed = 0.5; 
+        public static final double kLauncherLeftSpeed = -0.25; 
+        public static final double kLauncherRightSpeed = 0.30; 
 
 
 
@@ -314,8 +324,11 @@ public final class Constants
 
     public static final class IntakeConstants
     {
-        public static final double kIntakeSpeed = 0.5; //TODO - find intake speed
-        public static final double noteMeasurement = 0.0;
+        public static final double kIntakeSpeed = -0.3; //TODO - find intake speed
+        public static final double noteMeasurement = 5.0; //TODO - find note measurement distance in millimeters
+        public static final double kIntakeAngle = 45.0; //TODO - find angle to intake note at
+        public static final double kIntakeSeconds = 3.0; //TODO - find speed to stop intake after if LaserCan fails
+        
     }
     
     public static final class ChurroConstants
@@ -334,7 +347,7 @@ public final class Constants
         public static final double kAmpDefaultLeftSpeed = 0.5;
         public static final double kAmpDefaultRightSpeed = 0.5;
         
-        public static final double kTransferSpeed = 0.5; 
+        public static final double kTransferSpeed = -0.3; 
         public static final double noteMeasurement = 0.0;
     }
     

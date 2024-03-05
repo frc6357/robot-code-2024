@@ -31,9 +31,9 @@ public class Ports
         public static final SKTrigger kClimb = new SKTrigger(kDriver, kY.value, BUTTON);
 
         // Rotate to specified position
-        public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kA.value, BUTTON);
+        public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kB.value, BUTTON);
         public static final SKTrigger kRotateAmp = new SKTrigger(kDriver, kX.value, BUTTON);
-        public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kB.value, BUTTON);
+        public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kA.value, BUTTON);
 
         // Zero position
         public static final SKTrigger kZeroPos = new SKTrigger(kDriver, kStart.value, BUTTON); 
@@ -48,10 +48,11 @@ public class Ports
 
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightStick.value, BUTTON);
+        public static final SKTrigger kTransfer = new SKTrigger(kDriver, kLeftStick.value, BUTTON);
 
         // Intake or eject
         public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);
-        public static final SKTrigger kTransfer  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
+        public static final SKTrigger kEject  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
 
     }
     /**
@@ -73,11 +74,11 @@ public class Ports
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
 
         // Zero position
-        public static final SKTrigger kZeroPos = new SKTrigger(kOperator, kStart.value, BUTTON); 
+        public static final SKTrigger kZeroPos = new SKTrigger(kOperator, kY.value, BUTTON); 
 
         // Intake
-        public static final SKTrigger kIntake = new SKTrigger(kOperator, kRightTrigger.value, BUTTON);
-        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftTrigger.value, AXIS); 
+        public static final SKTrigger kIntake = new SKTrigger(kOperator, kRightTrigger.value, AXIS);
+        //public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftTrigger.value, AXIS); 
 
         public static final SKTrigger kLaunchSub = new SKTrigger(kOperator, kX.value, BUTTON);
 
@@ -90,11 +91,13 @@ public class Ports
         public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
         //public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
+        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value)); //TODO - determine if we will use churro bar
+        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Reset launcher encoder
-        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kRightStick.value, BUTTON);
+        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+        public static final SKTrigger kClimbOverride = new SKTrigger(kOperator, kRightStick.value, BUTTON);
 
         // Run Churro 
         public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON); //TODO - button here used twice
@@ -109,7 +112,8 @@ public class Ports
         public static final CANPort kTransferMotor = new CANPort(42, busName);
         public static final CANPort kLauncherAngleMotor = new CANPort(43, busName);
         public static final CANPort kLauncherAngleFollowerMotor = new CANPort(44, busName);
-        public static final CANPort kLaserCanLauncher = new CANPort(45, busName);
+        public static final CANPort kLaserCanLauncher1 = new CANPort(46, busName);
+        public static final CANPort kLaserCanLauncher2 = new CANPort(47, busName);
     }
 
     //Assign CAN ports to climb motors
@@ -147,7 +151,7 @@ public class Ports
         public static final CANPort kRearRightTurningEncoderPort  = new CANPort(33, busName);
         
         // CAN ID for IMU
-        public static final CANPort kPigeonPort = new CANPort(25, busName);
+        public static final CANPort kPigeonPort = new CANPort(25, "");
     }
 
     public static class intakePorts 
@@ -155,7 +159,7 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
         public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
-        public static final CANPort kLaserCanIntake = new CANPort(52, busName);
+        // public static final CANPort kLaserCanIntake = new CANPort(52, busName);
         
     }
 
@@ -163,6 +167,6 @@ public class Ports
     {
         private static final String busName = "";
 
-        public static final CANPort kChurroMotor = new CANPort(70, busName);
+        public static final CANPort kChurroMotor = new CANPort(45, busName); //TODO - configure spark max if we use churro
     }
 }

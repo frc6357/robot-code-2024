@@ -30,7 +30,7 @@ public class SK24Launcher extends SubsystemBase
         rightMotor = new CANSparkFlex(kRightLauncherMotor.ID, MotorType.kBrushless);
         transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
 
-        laserCan = new LaserCan(kLaserCanLauncher.ID);
+        laserCan = new LaserCan(kLaserCanLauncher1.ID);
 
         currLauncherState = false;
         pastLauncherState = false;

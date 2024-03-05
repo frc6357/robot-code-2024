@@ -71,7 +71,7 @@ public class SK24LauncherBinder implements CommandBinder
         defaultLauncherAngleButton = kAngleSpeaker.button;
 
         driveTransferButton = Ports.DriverPorts.kTransfer.button;
-        operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
+        // operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
         
         launchAmp = kLaunchAmp.button;
     }
@@ -85,13 +85,16 @@ public class SK24LauncherBinder implements CommandBinder
             SK24Launcher m_launcher = launcher.get();
             
             manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
+            manualLauncherButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+
             manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
+            manualAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
             driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
-            operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
+            // operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
 
             driveTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
-            operatorTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
+            // operatorTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
         
             if(launcherAngle.isPresent())
             {

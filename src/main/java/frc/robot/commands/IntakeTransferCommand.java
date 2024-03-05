@@ -35,24 +35,14 @@ public class IntakeTransferCommand extends Command
   @Override
   public void initialize() 
   {
-      intake.setIntakeSpeed(intakeSpeed);
+      intake.setIntakeSpeed(intakeSpeed); 
       launcher.setTransferSpeed(transferSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!launcher.haveNote())
-    {
-      if(intake.haveNote())
-      {
-        intake.setIntakeSpeed(intakeSpeed);
-        launcher.setTransferSpeed(transferSpeed);
-      }else{
-        intake.setIntakeSpeed(intakeSpeed / 2.0);
-        launcher.setTransferSpeed(transferSpeed / 2.0);
-      }
-    }
+    
   }
 
   // Called once the command ends or is interrupted.
