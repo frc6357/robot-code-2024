@@ -2,7 +2,7 @@
     "launcher": true,
     "lights": false,
     "intake": true,
-    "climb": false,
+    "climb": true,
     "launcher_arm": true,
     "churro": false,
     "vision": false,
