@@ -157,12 +157,12 @@ public class SK24Climb extends SubsystemBase
         double lSpeed = MathUtil.clamp(lPID.calculate(l_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
         motorL.set(lSpeed); 
 
-        SmartDashboard.putNumber("Right Current Position", r_current_position);
-        SmartDashboard.putNumber("Right Target Position", r_target_position);
-        SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetPosition());
+        // SmartDashboard.putNumber("Right Current Position", r_current_position);
+        // SmartDashboard.putNumber("Right Target Position", r_target_position);
+        // SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetPosition());
 
-        SmartDashboard.putNumber("Left Current Position", l_current_position);
-        SmartDashboard.putNumber("Left Target Position", l_target_position);
-        SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetPosition());
+        // SmartDashboard.putNumber("Left Current Position", l_current_position);
+        // SmartDashboard.putNumber("Left Target Position", l_target_position);
+        // SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetPosition());
     }
 }

@@ -45,7 +45,7 @@ public class SK24ClimbBinder implements CommandBinder{
 
             climbButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 
-            //climbButton.onTrue(new ClimbBalanceCommand(climb)); TODO - add climb balancing command later
+            //climbButton.onTrue(new ClimbBalanceCommand(climb)); //TODO - add climb balancing command later
 
              climb.setDefaultCommand(
                         // Vertical movement of the arm is controlled by the Y axis of the right stick.

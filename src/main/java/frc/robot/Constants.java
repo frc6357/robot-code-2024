@@ -217,10 +217,10 @@ public final class Constants
 
         public static final double kClimbBalanceTolerance = 5.0;
         public static final double spoolDiameter = 0.75; //Inches
-        public static final double gearRatio = 0.5; //Shaft rotations / 1 motor rotation
+        public static final double gearRatio = 1.0 / 16.0; //Shaft rotations / 1 motor rotation
         public static final double climbHeight = 11.0; //Inches
 
-        public static final double climbConversion = (Math.PI * spoolDiameter) * (gearRatio) / climbHeight; //inches moved per motor rotation
+        public static final double climbConversion = (Math.PI * spoolDiameter) * ((gearRatio) / climbHeight); //inches moved per motor rotation
         public static final double kPositionTolerance = 2.0;
         public static final double kClimbMotorMinOutput = -1.0;
         public static final double kClimbMotorMaxOutput = 1.0;
