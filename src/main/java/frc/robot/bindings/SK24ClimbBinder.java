@@ -4,7 +4,7 @@ import static frc.robot.Constants.ClimbConstants.kJoystickChange;
 import static frc.robot.Constants.ClimbConstants.kJoystickDeadband;
 import static frc.robot.Constants.ClimbConstants.kJoystickReversed;
 import static frc.robot.Ports.DriverPorts.kClimb;
-import static frc.robot.Ports.DriverPorts.kClimbAxis;
+import static frc.robot.Ports.OperatorPorts.kClimbAxis;
 import static frc.robot.Ports.DriverPorts.kClimbOverride;
 
 import java.util.Optional;

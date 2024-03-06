@@ -211,8 +211,8 @@ public final class Constants
   
     public static final class ClimbConstants
     {
-        public static final PIDConstants rightClimb = new PIDConstants(0.001, 0.0, 0.0);
-        public static final PIDConstants leftClimb = new PIDConstants(0.001, 0.0, 0.0);
+        public static final PIDConstants rightClimb = new PIDConstants(0.01, 0.0, 0.0);
+        public static final PIDConstants leftClimb = new PIDConstants(0.01, 0.0, 0.0);
         public static final PIDConstants balancePID = new PIDConstants(0.0, 0.0, 0.0);
 
         public static final double kClimbBalanceTolerance = 5.0;

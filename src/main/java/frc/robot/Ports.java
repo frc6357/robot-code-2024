@@ -54,17 +54,17 @@ public class Ports
         public static final SKTrigger kEject  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
         
         public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
-        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kDriver.getRawAxis(kRightY.value));
     }
     /**
      * Defines the button, controller, and axis IDs needed to get input from an external
      * controller
      */
-
+    
     public static class OperatorPorts
     {
         // Operator controller set to xbox controller
         public static final GenericHID kOperator = new FilteredXboxController(1).getHID();
+        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
@@ -93,7 +93,7 @@ public class Ports
         public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
         //public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
+        //public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
