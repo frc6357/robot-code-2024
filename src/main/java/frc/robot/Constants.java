@@ -278,9 +278,9 @@ public final class Constants
     }
     public static final class LauncherAngleConstants
     {
-        public static final PIDConstants kAnglePID = new PIDConstants(0.001, 0.0, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kGearRatio = 1.0; //shaft rotation to motor rotation //TODO - Put in launcher angle gear ratio
-    
+        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0); //TODO - Tune launcher angle PID
+        public static final double kLauncherAngleFF = 0.1; //TODO - Tune launcher angle PID
+
         public static final double kConversionFactor = 360.0;
         public static final double kAngleTolerance =  3.0; //TODO - find good angle tolerance launcher
         public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
