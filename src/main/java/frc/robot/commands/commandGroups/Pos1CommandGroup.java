@@ -4,8 +4,6 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherRightSpeed;
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.kPos1Angle;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -13,6 +11,9 @@ import frc.robot.commands.AngleCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
+
+import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 public class Pos1CommandGroup extends SequentialCommandGroup {
    

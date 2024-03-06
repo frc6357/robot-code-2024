@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.SparkFlexExternalEncoder.Type;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.MathUtil;
@@ -53,9 +54,10 @@ public class SK24LauncherAngle extends SubsystemBase
 
         targetAngle = kMinAngle;
         currentAngle = kMinAngle;
-        encoder = motor.getEncoder();
+        encoder = motor.getExternalEncoder(Type.kQuadrature, 8192);
         
         encoder.setPositionConversionFactor(kConversionFactor);
+        encoder.setInverted(true);
 
         encoder.setPosition(kMinAngle);
 

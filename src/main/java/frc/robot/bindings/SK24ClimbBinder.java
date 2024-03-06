@@ -4,8 +4,8 @@ import static frc.robot.Constants.ClimbConstants.kJoystickChange;
 import static frc.robot.Constants.ClimbConstants.kJoystickDeadband;
 import static frc.robot.Constants.ClimbConstants.kJoystickReversed;
 import static frc.robot.Ports.DriverPorts.kClimb;
-import static frc.robot.Ports.OperatorPorts.kClimbAxis;
-import static frc.robot.Ports.OperatorPorts.kClimbOverride;
+import static frc.robot.Ports.DriverPorts.kClimbAxis;
+import static frc.robot.Ports.DriverPorts.kClimbOverride;
 
 import java.util.Optional;
 
@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ClimbAngleCommand;
 import frc.robot.subsystems.SK24Climb;
 import frc.robot.utils.filters.DeadbandFilter;
-import static frc.robot.Ports.climbPorts.*;
 
 public class SK24ClimbBinder implements CommandBinder{
     Optional<SK24Climb> subsystem;
@@ -39,10 +38,10 @@ public class SK24ClimbBinder implements CommandBinder{
             kClimbAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
             climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(1.0))); 
-            // climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(1.0))); 
+            climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(1.0))); 
             
             climbButton.onFalse(new InstantCommand(() -> climb.setRightHook(0.0))); 
-            // climbButton.onFalse(new InstantCommand(() -> climb.setLeftHook(0.0))); 
+            climbButton.onFalse(new InstantCommand(() -> climb.setLeftHook(0.0))); 
 
             //climbButton.onTrue(new ClimbBalanceCommand(climb)); TODO - add climb balancing command later
 

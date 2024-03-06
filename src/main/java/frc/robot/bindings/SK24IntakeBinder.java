@@ -7,9 +7,10 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Ports;
+import frc.robot.commands.commandGroups.IntakeTransferCommandGroup;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.Ports;
 
 public class SK24IntakeBinder implements CommandBinder{
     Optional<SK24Intake> m_intake;
@@ -34,15 +35,17 @@ public class SK24IntakeBinder implements CommandBinder{
             SK24Intake intake = m_intake.get();
             SK24Launcher launcher = m_launcher.get();
 
-            intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
+            // intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             ejectButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
-            intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed)));
+            ejectButton.onTrue(new InstantCommand(() -> launcher.setTransferSpeed(-kTransferSpeed)));
+            // intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed)));
 
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
             ejectButton.onFalse(new InstantCommand(() -> intake.stopIntake()));
+            ejectButton.onFalse(new InstantCommand(() -> launcher.stopTransfer()));
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
 
-            //intakeButton.whileTrue(new IntakeTransferCommand(intake, launcher)); //TODO - test intake transfer command
+            intakeDriverButton.whileTrue(new IntakeTransferCommandGroup(launcher, intake )); //TODO - test intake transfer command
         }
     }
 }

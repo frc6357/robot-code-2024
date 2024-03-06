@@ -4,7 +4,10 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherAngleConstants.*;
+import static frc.robot.Constants.LauncherAngleConstants.GP2Angle;
+
+import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;

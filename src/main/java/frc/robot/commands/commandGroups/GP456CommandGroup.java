@@ -14,6 +14,9 @@ import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 
+import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
+
 public class GP456CommandGroup extends SequentialCommandGroup {
    
     /**

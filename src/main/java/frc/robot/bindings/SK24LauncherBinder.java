@@ -87,8 +87,8 @@ public class SK24LauncherBinder implements CommandBinder
             manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
             manualLauncherButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
-            manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
-            manualAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+            // manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
+            // manualAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
             driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
             // operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));

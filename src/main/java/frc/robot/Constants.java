@@ -278,12 +278,12 @@ public final class Constants
     }
     public static final class LauncherAngleConstants
     {
-        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kGearRatio = 0.2; //shaft rotation to motor rotation //TODO - Put in launcher angle gear ratio
+        public static final PIDConstants kAnglePID = new PIDConstants(0.001, 0.0, 0.0, 0.0); //TODO - Tune launcher angle PID
+        public static final double kGearRatio = 1.0; //shaft rotation to motor rotation //TODO - Put in launcher angle gear ratio
     
-        public static final double kConversionFactor =  kGearRatio * 360.0;
+        public static final double kConversionFactor = 360.0;
         public static final double kAngleTolerance =  5.0; //TODO - find good angle tolerance launcher
-        public static final double kArmMotorMinOutput =  -0.7; //TODO - Find motor minimum output
+        public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
         public static final double kMinAngle = 0.0; //TODO - put minumum launcher angle
@@ -307,25 +307,16 @@ public final class Constants
         public static final double GP3Angle = 45.0; //TODO - find launcher angle for gp3
         public static final double GP456Angle = 45.0; //TODO - find launcher angle for gp456
         public static final double GP78Angle = 45.0; //TODO - find launcher angle for gp78
-
-
-
-        public static final double kLauncherAmpTopSpeed = 0.5; //TODO - find launcher top speed for amp
-        public static final double kLauncherAmpBottomSpeed = 0.5; //TODO - find launcher bottom speed for amp
         
-        //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
-        public static final double kLauncherLeftSpeed = -0.25; 
-        public static final double kLauncherRightSpeed = 0.30; 
-
-
-
+        
+        
+        
         
     }
-
+    
     public static final class IntakeConstants
     {
-        public static final double kIntakeSpeed = -0.3; //TODO - find intake speed
-        public static final double noteMeasurement = 5.0; //TODO - find note measurement distance in millimeters
+        public static final double kIntakeSpeed = 0.3; //TODO - find intake speed
         public static final double kIntakeAngle = 45.0; //TODO - find angle to intake note at
         public static final double kIntakeSeconds = 3.0; //TODO - find speed to stop intake after if LaserCan fails
         
@@ -341,14 +332,28 @@ public final class Constants
     
     public static final class LauncherConstants
     {
-        public static final double kSpeakerDefaultLeftSpeed = 0.5;
-        public static final double kSpeakerDefaultRightSpeed = 0.5;
+        public static final double kRightLauncherP = 0.0; //TODO - Tune launcher PID
+        public static final double kRightLauncherFF = 0.0; //TODO - Tune launcher PID
+        public static final double kLeftLauncherP = 0.0;
+        public static final double kLeftLauncherFF = 0.0;
         
-        public static final double kAmpDefaultLeftSpeed = 0.5;
-        public static final double kAmpDefaultRightSpeed = 0.5;
+        // velocity factor is determined by (1/60)*(1/GearReduction)* pi(wheelDiameter)
+        public static final double ENCODER_RPM_TO_MPS = (1.0/60.0) * (1 / 0.0) * (Math.PI * 0.0);
         
-        public static final double kTransferSpeed = -0.3; 
-        public static final double noteMeasurement = 0.0;
+        public static final double kSpeakerDefaultLeftSpeed = 0.4;
+        public static final double kSpeakerDefaultRightSpeed = 0.3;
+        
+        public static final double kAmpDefaultLeftSpeed = 0.1;
+        public static final double kAmpDefaultRightSpeed = 0.2;
+        
+        //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
+        public static final double kLauncherLeftSpeed = 0.55; 
+        public static final double kLauncherRightSpeed = 0.45; 
+
+        public static final double kTransferSpeed = 0.3; 
+        public static final double noteMeasurement = 85;
+        
+        public static final double kVelocityTolerance = 0.1;
     }
     
     /** The file that is used for system instantiation at runtime */

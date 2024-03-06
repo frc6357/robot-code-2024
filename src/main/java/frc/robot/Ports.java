@@ -45,15 +45,17 @@ public class Ports
         public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); 
         public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); 
         public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
-
+        
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightStick.value, BUTTON);
         public static final SKTrigger kTransfer = new SKTrigger(kDriver, kLeftStick.value, BUTTON);
-
+        
         // Intake or eject
         public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);
         public static final SKTrigger kEject  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
-
+        
+        public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
+        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kDriver.getRawAxis(kRightY.value));
     }
     /**
      * Defines the button, controller, and axis IDs needed to get input from an external
@@ -91,13 +93,11 @@ public class Ports
         public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
         //public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value)); //TODO - determine if we will use churro bar
-        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
+        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value)); 
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
-        public static final SKTrigger kClimbOverride = new SKTrigger(kOperator, kRightStick.value, BUTTON);
 
         // Run Churro 
         public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON); //TODO - button here used twice
@@ -151,7 +151,7 @@ public class Ports
         public static final CANPort kRearRightTurningEncoderPort  = new CANPort(33, busName);
         
         // CAN ID for IMU
-        public static final CANPort kPigeonPort = new CANPort(25, "");
+        public static final CANPort kPigeonPort = new CANPort(25, busName);
     }
 
     public static class intakePorts 

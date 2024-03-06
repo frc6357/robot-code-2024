@@ -6,10 +6,8 @@ import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Constants.IntakeConstants.*;
 
 public class SK24Intake extends SubsystemBase
 {
@@ -17,14 +15,13 @@ public class SK24Intake extends SubsystemBase
     CANSparkFlex bottomIntakeMotor;
     private boolean pastIntakeState;
     private boolean currIntakeState;
-    private LaserCan laserCan;
 
     public SK24Intake()
     {
 
         //Initialize motor objects, assuming intake has 2 motors.
         topIntakeMotor = new CANSparkFlex(kTopIntakeMotor.ID, MotorType.kBrushless);
-        topIntakeMotor.setInverted(true);
+        topIntakeMotor.setInverted(false);
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
