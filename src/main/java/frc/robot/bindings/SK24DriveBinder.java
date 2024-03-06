@@ -97,6 +97,7 @@ public class SK24DriveBinder implements CommandBinder
 
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
+            
             if(m_arm.isPresent()){
                 rotateSpeaker.whileTrue(
                     new ReadyScoreCommand(

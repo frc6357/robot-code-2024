@@ -318,7 +318,7 @@ public final class Constants
     {
         public static final double kIntakeSpeed = 0.3; //TODO - find intake speed
         public static final double kIntakeAngle = 45.0; //TODO - find angle to intake note at
-        public static final double kIntakeSeconds = 3.0; //TODO - find speed to stop intake after if LaserCan fails
+        public static final double kIntakeSeconds = 5.0; //TODO - find speed to stop intake after if LaserCan fails
         
     }
     

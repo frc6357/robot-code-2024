@@ -40,8 +40,6 @@ public class SK24Climb extends SubsystemBase
         lPID = new PIDController(leftClimb.kP, leftClimb.kI, leftClimb.kD);
         lPID.setSetpoint(0.0);
 
-        // accelLimit = new SlewRateLimiter(kPositiveAccelLimit, kNegativeAccelLimit, 0.0);
-
         motorR = new CANSparkFlex(kRightClimbMotor.ID, MotorType.kBrushless);
         motorL = new CANSparkFlex(kLeftClimbMotor.ID, MotorType.kBrushless);
 
@@ -50,6 +48,8 @@ public class SK24Climb extends SubsystemBase
 
         RelativeEncoder encoderL = motorL.getEncoder();
         encoderL.setPositionConversionFactor(climbConversion);
+
+        resetPosition(0.0);
 
         motorR.restoreFactoryDefaults();
         motorR.setIdleMode(IdleMode.kBrake); 
@@ -125,12 +125,9 @@ public class SK24Climb extends SubsystemBase
         return Math.abs(getLeftCurrentPosition() - getLeftTargetPosition()) < kPositionTolerance;
     }
 
-    public void resetLeftPosition(){
-        encoderL.setPosition(0.0);
-    }
-
-    public void resetRightPosition(){
-        encoderR.setPosition(0.0);
+    public void resetPosition(double position){
+        encoderL.setPosition(position);
+        encoderR.setPosition(position);
     }
 
     public void stopHooks()
@@ -150,12 +147,10 @@ public class SK24Climb extends SubsystemBase
 
         // Calculates motor speed and puts it within operating range
         double rSpeed = MathUtil.clamp(rPID.calculate(r_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
-        // speed = accelLimit.calculate(speed);
         motorR.set(rSpeed); 
 
         // Calculates motor speed and puts it within operating range
         double lSpeed = MathUtil.clamp(lPID.calculate(l_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
-        // speed = accelLimit.calculate(speed);
         motorL.set(lSpeed); 
 
         SmartDashboard.putNumber("Right Current Position", r_current_position);

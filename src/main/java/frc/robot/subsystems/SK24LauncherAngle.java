@@ -118,7 +118,7 @@ public class SK24LauncherAngle extends SubsystemBase
 
     /**
      * Calculates feedforward value of arm by multiplying cosine of angle degrees by feed forward constant
-     * @param angle Current angle of the launcher arm in degrees
+     * @param angle Target angle of the launcher arm in degrees
      * @return feed forward value to be used in PID control loop
      * 
      */
@@ -135,7 +135,7 @@ public class SK24LauncherAngle extends SubsystemBase
         double target_angle = getTargetAngle();
 
         // Calculates motor speed and puts it within operating range
-        double speed = MathUtil.clamp(PID.calculate(current_angle) + calculateFF(current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        double speed = MathUtil.clamp(PID.calculate(current_angle) + calculateFF(target_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
         motor.set(speed); 
 

@@ -198,16 +198,19 @@ public class SK24Launcher extends SubsystemBase
     {
 
         SmartDashboard.putBoolean("HaveLauncherNote", haveNote());
-        SmartDashboard.putNumber("Left Velocity", getLeftMotorSpeed());
-        SmartDashboard.putNumber("Right Velocity", getRightMotorSpeed());
+        SmartDashboard.putNumber("Left Speed", getLeftMotorSpeed());
+        SmartDashboard.putNumber("Right Speed", getRightMotorSpeed());
 
-        SmartDashboard.putNumber("Left Target Velocity", getLeftTargetVelocity());
-        SmartDashboard.putNumber("Right Target Velocity", getRightTargetVelocity());
+        // SmartDashboard.putNumber("Left Target Velocity", getLeftTargetVelocity());
+        // SmartDashboard.putNumber("Right Target Velocity", getRightTargetVelocity());
 
 
-        if(getLeftVelocity() != 0.0 || getRightVelocity() != 0.0)
+        if(Math.abs(getLeftMotorSpeed()) < 0.05 || Math.abs(getRightMotorSpeed()) < 0.05)
         {
             currLauncherState = true;
+        }else
+        {
+            currLauncherState = false;
         }
         if(currLauncherState != pastLauncherState){
             pastLauncherState = currLauncherState;

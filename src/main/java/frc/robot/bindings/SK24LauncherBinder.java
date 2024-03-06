@@ -11,6 +11,7 @@ import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
 import static frc.robot.Ports.OperatorPorts.kManualAmp;
@@ -41,8 +42,7 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger zeroPosOperator;
     private Trigger defaultLauncherAngleButton;
     private Trigger manualAmpButton;
-    private Trigger driveTransferButton;
-    private Trigger operatorTransferButton;
+    private Trigger launchSpeaker;
     private Trigger launchAmp;
 
     /**
@@ -61,6 +61,7 @@ public class SK24LauncherBinder implements CommandBinder
         this.churro = churro;
 
         manualLauncherButton = kManualLauncher.button;
+        launchSpeaker = kLaunchSpeaker.button;
         manualAmpButton = kManualAmp.button;
 
         angleOverrideButton = kLauncherOverride.button;
@@ -70,7 +71,6 @@ public class SK24LauncherBinder implements CommandBinder
 
         defaultLauncherAngleButton = kAngleSpeaker.button;
 
-        driveTransferButton = Ports.DriverPorts.kTransfer.button;
         // operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
         
         launchAmp = kLaunchAmp.button;
@@ -87,14 +87,11 @@ public class SK24LauncherBinder implements CommandBinder
             manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
             manualLauncherButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
+            launchSpeaker.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
+            launchSpeaker.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+
             // manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
             // manualAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-
-            driveTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
-            // operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
-
-            driveTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
-            // operatorTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
         
             if(launcherAngle.isPresent())
             {

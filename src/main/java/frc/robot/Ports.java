@@ -47,8 +47,7 @@ public class Ports
         public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
         
         // Reset gyro
-        public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kRightStick.value, BUTTON);
-        public static final SKTrigger kTransfer = new SKTrigger(kDriver, kLeftStick.value, BUTTON);
+        public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kLeftStick.value, BUTTON);
         
         // Intake or eject
         public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);

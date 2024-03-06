@@ -66,9 +66,11 @@ public class SK24Intake extends SubsystemBase
     public void periodic()
     {
         // SmartDashboard.putBoolean("HaveIntakeNote", haveNote());
-        if(getMotorSpeed() != 0.0)
+        if(Math.abs(getMotorSpeed()) < 0.05)
         {
             currIntakeState = true;
+        }else{
+            currIntakeState = false;
         }
         if(currIntakeState != pastIntakeState){
             pastIntakeState = currIntakeState;
