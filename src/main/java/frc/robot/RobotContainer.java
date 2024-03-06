@@ -33,6 +33,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24ChurroBinder;
+import frc.robot.bindings.SK24ClimbBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
@@ -43,6 +44,7 @@ import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
 import frc.robot.commands.commandGroups.Pos3CommandGroup;
 import frc.robot.subsystems.SK24Churro;
+import frc.robot.subsystems.SK24Climb;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
@@ -68,6 +70,7 @@ public class RobotContainer {
   private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
   private Optional<SK24Churro>  m_churro  = Optional.empty();
   private Optional<SK24Vision>  m_vision  = Optional.empty();
+  private Optional<SK24Climb> m_climb = Optional.empty();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -146,6 +149,10 @@ public class RobotContainer {
             {
                 m_vision = Optional.of(new SK24Vision());
             }
+            if(subsystems.isClimbPresent())
+            {
+                m_climb = Optional.of(new SK24Climb());
+            }
         }
         catch (IOException e)
         {
@@ -168,6 +175,8 @@ public class RobotContainer {
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
         buttonBinders.add(new SK24ChurroBinder(m_churro));
+        buttonBinders.add(new SK24ClimbBinder(m_climb));
+
 
         // Traversing through all the binding classes to actually bind the buttons
         for (CommandBinder subsystemGroup : buttonBinders)

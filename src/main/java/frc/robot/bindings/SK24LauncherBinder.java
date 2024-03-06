@@ -1,5 +1,6 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
@@ -9,6 +10,7 @@ import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
+import static frc.robot.Ports.OperatorPorts.kAngleAmp;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
@@ -41,6 +43,7 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger zeroPosDriver;
     private Trigger zeroPosOperator;
     private Trigger defaultLauncherAngleButton;
+    private Trigger defaultAmpAngleButton;
     private Trigger manualAmpButton;
     private Trigger launchSpeaker;
     private Trigger launchAmp;
@@ -70,6 +73,7 @@ public class SK24LauncherBinder implements CommandBinder
         zeroPosOperator = Ports.DriverPorts.kZeroPos.button;
 
         defaultLauncherAngleButton = kAngleSpeaker.button;
+        defaultAmpAngleButton = kAngleAmp.button;
 
         // operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
         
@@ -100,6 +104,7 @@ public class SK24LauncherBinder implements CommandBinder
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
                 defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
+                defaultAmpAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle)));
                 
                 manualLauncherButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
                 manualAmpButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));

@@ -85,14 +85,15 @@ public class Ports
 
 
         // Change angle launcher to speaker
-        public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, BUTTON);
+        public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, POV);
+        public static final SKTrigger kAngleAmp = new SKTrigger(kOperator, 180, POV);
 
         // Run subsystem manually
         public static final SKTrigger kManualLauncher = new SKTrigger(kOperator, 90, POV);
         public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
         //public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value)); 
+        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);

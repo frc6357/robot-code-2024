@@ -51,8 +51,9 @@ public class SK24LauncherAngle extends SubsystemBase
         PID.setSetpoint(kMinAngle);
         FeedForward = kLauncherAngleFF;
 
-        motor.restoreFactoryDefaults();
         motor.setIdleMode(IdleMode.kBrake); 
+
+        motor.setInverted(true);
         
 
         targetAngle = kMinAngle;

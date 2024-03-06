@@ -35,13 +35,17 @@ public class SK24Climb extends SubsystemBase
     {
         //Initialize motor objects
         rPID = new PIDController(rightClimb.kP, rightClimb.kI, rightClimb.kD);
-        rPID.setSetpoint(0.0);
+        rPID.setSetpoint(1.0);
 
         lPID = new PIDController(leftClimb.kP, leftClimb.kI, leftClimb.kD);
-        lPID.setSetpoint(0.0);
+        lPID.setSetpoint(1.0);
 
         motorR = new CANSparkFlex(kRightClimbMotor.ID, MotorType.kBrushless);
         motorL = new CANSparkFlex(kLeftClimbMotor.ID, MotorType.kBrushless);
+
+        motorL.setInverted(true);
+        encoderL = motorL.getEncoder();
+        encoderR = motorR.getEncoder();
 
         RelativeEncoder encoderR = motorR.getEncoder();
         encoderR.setPositionConversionFactor(climbConversion);
@@ -49,20 +53,20 @@ public class SK24Climb extends SubsystemBase
         RelativeEncoder encoderL = motorL.getEncoder();
         encoderL.setPositionConversionFactor(climbConversion);
 
-        resetPosition(0.0);
-
+        motorL.restoreFactoryDefaults();
         motorR.restoreFactoryDefaults();
+        resetPosition(1.0);
+
         motorR.setIdleMode(IdleMode.kBrake); 
 
-        motorL.restoreFactoryDefaults();
         motorL.setIdleMode(IdleMode.kBrake); 
         
 
-        RtargetPosition = 0.0;
-        RcurrentPosition = 0.0;
+        RtargetPosition = 1.0;
+        RcurrentPosition = 1.0;
 
-        LtargetPosition = 0.0;
-        LcurrentPosition = 0.0;
+        LtargetPosition = 1.0;
+        LcurrentPosition = 1.0;
 
 
     }

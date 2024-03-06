@@ -211,8 +211,8 @@ public final class Constants
   
     public static final class ClimbConstants
     {
-        public static final PIDConstants rightClimb = new PIDConstants(0.0, 0.0, 0.0);
-        public static final PIDConstants leftClimb = new PIDConstants(0.0, 0.0, 0.0);
+        public static final PIDConstants rightClimb = new PIDConstants(0.001, 0.0, 0.0);
+        public static final PIDConstants leftClimb = new PIDConstants(0.001, 0.0, 0.0);
         public static final PIDConstants balancePID = new PIDConstants(0.0, 0.0, 0.0);
 
         public static final double kClimbBalanceTolerance = 5.0;
@@ -278,15 +278,15 @@ public final class Constants
     }
     public static final class LauncherAngleConstants
     {
-        public static final PIDConstants kAnglePID = new PIDConstants(0.0, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kLauncherAngleFF = 0.1; //TODO - Tune launcher angle PID
+        public static final PIDConstants kAnglePID = new PIDConstants(0.007, 0.0, 0.0); //TODO - Tune launcher angle PID
+        public static final double kLauncherAngleFF = 0.011; //TODO - Tune launcher angle PID
 
         public static final double kConversionFactor = 360.0;
         public static final double kAngleTolerance =  3.0; //TODO - find good angle tolerance launcher
         public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
-        public static final double kMinAngle = 0.0; //TODO - put minumum launcher angle
+        public static final double kMinAngle = 14.0; //TODO - put minumum launcher angle
         public static final double kMaxAngle = 45.0;//TODO - put maximum launcher angle
     
         public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second //TODO - find good value degrees per second angle launcher
@@ -295,8 +295,8 @@ public final class Constants
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
 
-        public static final double kAmpAngle = 45.0; //TODO - find launcher angle for the amp
-        public static final double kSpeakerAngle = 45.0; //TODO - find launcher angle for the subwoofer
+        public static final double kAmpAngle = 25.0; //TODO - find launcher angle for the amp
+        public static final double kSpeakerAngle = 40.0; //TODO - find launcher angle for the subwoofer
 
         public static final double kPos1Angle = 45.0; //TODO - find launcher angle for position 1
         public static final double kPos2Angle = 45.0; //TODO - find launcher angle for position 2
