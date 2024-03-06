@@ -138,8 +138,8 @@ public final class Constants
         private static final int kFrontLeftEncoderId = 30;
         private static final double kFrontLeftEncoderOffset = -0.092041015625;
 
-        private static final double kFrontLeftXPosInches = 11.25;
-        private static final double kFrontLeftYPosInches = 11.25;
+        private static final double kFrontLeftXPosInches = 11.75;
+        private static final double kFrontLeftYPosInches = 11.75;
         
         // Front Right
         private static final int kFrontRightDriveMotorId = 12;
@@ -147,8 +147,8 @@ public final class Constants
         private static final int kFrontRightEncoderId = 32;
         private static final double kFrontRightEncoderOffset = -0.29150390625;
         
-        private static final double kFrontRightXPosInches = 11.25;
-        private static final double kFrontRightYPosInches = -11.25;
+        private static final double kFrontRightXPosInches = 11.75;
+        private static final double kFrontRightYPosInches = -11.75;
         
         // Back Left
         private static final int kBackLeftDriveMotorId = 11;
@@ -156,8 +156,8 @@ public final class Constants
         private static final int kBackLeftEncoderId = 31;
         private static final double kBackLeftEncoderOffset = 0.141845703125;
 
-        private static final double kBackLeftXPosInches = -11.25;
-        private static final double kBackLeftYPosInches = 11.25;
+        private static final double kBackLeftXPosInches = -11.75;
+        private static final double kBackLeftYPosInches = 11.75;
 
         // Back Right
         private static final int kBackRightDriveMotorId = 13;
@@ -165,8 +165,8 @@ public final class Constants
         private static final int kBackRightEncoderId = 33;
         private static final double kBackRightEncoderOffset = 0.205322265625;
 
-        private static final double kBackRightXPosInches = -11.25;
-        private static final double kBackRightYPosInches = -11.25;
+        private static final double kBackRightXPosInches = -11.75;
+        private static final double kBackRightYPosInches = -11.75;
         
         public static final SwerveModuleConstants FrontLeft = ConstantCreator.createModuleConstants(
                 kFrontLeftSteerMotorId, kFrontLeftDriveMotorId, kFrontLeftEncoderId, kFrontLeftEncoderOffset, Units.inchesToMeters(kFrontLeftXPosInches), Units.inchesToMeters(kFrontLeftYPosInches), kInvertLeftSide);
@@ -188,9 +188,9 @@ public final class Constants
         public static final double kMaxModuleAngularSpeedDegreesPerSecond = 360;
         
         /** Distance between centers of right and left wheels on robot */
-        public static final double kTrackWidth = 0.5588;
+        public static final double kTrackWidth = 0.5842;
         /** Distance between front and back wheels on robot */
-        public static final double kWheelBase  = 0.5588;
+        public static final double kWheelBase  = 0.5842;
         
         /** The max speed the drive wheels should be allowed to go */
         public static final double kMaxSpeedMetersPerSecond = 5;
@@ -282,7 +282,7 @@ public final class Constants
         public static final double kGearRatio = 1.0; //shaft rotation to motor rotation //TODO - Put in launcher angle gear ratio
     
         public static final double kConversionFactor = 360.0;
-        public static final double kAngleTolerance =  5.0; //TODO - find good angle tolerance launcher
+        public static final double kAngleTolerance =  3.0; //TODO - find good angle tolerance launcher
         public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
