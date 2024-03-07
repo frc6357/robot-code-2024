@@ -296,9 +296,10 @@ public final class Constants
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
 
-        public static final double kAmpAngle = 25.0; //TODO - find launcher angle for the amp
+        public static final double kAmpAngle = 44.0; //TODO - find launcher angle for the amp
         public static final double kFloorAngle = 14.0; 
         public static final double kSpeakerAngle = 40.0; //TODO - find launcher angle for the subwoofer
+        public static final double kWingAngle = 23.0;
 
         public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
         public static final double kPos2Angle = 45.0; //TODO - find launcher angle for position 2
