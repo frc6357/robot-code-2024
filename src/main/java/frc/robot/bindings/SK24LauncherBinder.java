@@ -7,20 +7,13 @@ import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleFloor;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
-<<<<<<< HEAD
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 //import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
-=======
-import static frc.robot.Ports.OperatorPorts.kLaunchSub;
-import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
-import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
-import static frc.robot.Ports.OperatorPorts.kManualLauncher;
 import static frc.robot.Ports.OperatorPorts.kVisionAngle;
->>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
 
 import java.util.Optional;
 
@@ -48,14 +41,11 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger floorAngleDriver;
     private Trigger floorAngleOperator;
     private Trigger defaultFloorAngleButton;
-<<<<<<< HEAD
     private Trigger launchAmpButton;
     private Trigger ampAngleButton;
     private Trigger launchSpeakerButton;
-=======
     private Trigger visionAngle;
     private Trigger launchSpeaker;
->>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
     //private Trigger launchAmp;
 
     /**
@@ -71,18 +61,12 @@ public class SK24LauncherBinder implements CommandBinder
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
-<<<<<<< HEAD
         this.churro = churro;
+        this.vision = vision;
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
-=======
-        this.vision = vision;
-        
-        launchSpeaker = kLaunchSub.button;
-        manualLauncherButton = kManualLauncher.button;
         visionAngle = kVisionAngle.button;
->>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
 
         angleOverrideButton = kLauncherOverride.button;
 

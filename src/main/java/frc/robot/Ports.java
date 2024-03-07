@@ -65,13 +65,9 @@ public class Ports
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
-<<<<<<< HEAD
         public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
         public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
-=======
         public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
-// public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
->>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
     
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
