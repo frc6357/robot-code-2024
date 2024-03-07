@@ -66,14 +66,14 @@ public class SK24Launcher extends SubsystemBase
         encoderR = rightMotor.getEncoder();
 
          //Pid setup
-        // leftPidController = leftMotor.getPIDController();
-        // rightPidController = rightMotor.getPIDController();
+        leftPidController = leftMotor.getPIDController();
+        rightPidController = rightMotor.getPIDController();
 
-        // leftPidController.setP(kLeftLauncherP);
-        // rightPidController.setP(kRightLauncherP);
+        leftPidController.setP(kLeftLauncherP);
+        rightPidController.setP(kRightLauncherP);
 
-        // leftPidController.setFF(kLeftLauncherFF);
-        // rightPidController.setFF(kRightLauncherFF);
+        leftPidController.setFF(kLeftLauncherFF);
+        rightPidController.setFF(kRightLauncherFF);
         
     }
 
@@ -125,10 +125,10 @@ public class SK24Launcher extends SubsystemBase
      */
     public void setLauncherSpeed (double speedLeft, double speedRight)
     {
-        // leftTargetVelocity = speedLeft;
-        // rightTargetVelocity = speedRight;
-        // leftPidController.setReference(speedLeft, CANSparkBase.ControlType.kVelocity);
-        // rightPidController.setReference(speedRight, CANSparkBase.ControlType.kVelocity);
+        leftTargetVelocity = speedLeft;
+        rightTargetVelocity = speedRight;
+        //leftPidController.setReference(speedLeft, CANSparkBase.ControlType.kVelocity);
+        //rightPidController.setReference(speedRight, CANSparkBase.ControlType.kVelocity);
 
         rightMotor.set(speedRight);
         leftMotor.set(speedLeft);

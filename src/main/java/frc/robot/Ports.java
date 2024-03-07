@@ -27,10 +27,6 @@ public class Ports
         public static final SKTrigger kRobotCentricMode = new SKTrigger(kDriver, kRightBumper.value, BUTTON);
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
-        // Climb/Gyro
-        public static final SKTrigger kClimbUp = new SKTrigger(kDriver, kY.value, BUTTON);
-        public static final SKTrigger kClimbDown = new SKTrigger(kDriver, kB.value, BUTTON);
-
         // // Rotate to specified position
         public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kA.value, BUTTON);
         public static final SKTrigger kRotateLeft = new SKTrigger(kDriver, kX.value, BUTTON);
@@ -71,7 +67,7 @@ public class Ports
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
         public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kB.value, BUTTON);
-        public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
+// public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
     
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
@@ -81,9 +77,15 @@ public class Ports
 
         // Intake
         public static final SKTrigger kIntake = new SKTrigger(kOperator, kRightTrigger.value, AXIS);
-        //public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftTrigger.value, AXIS); 
+        public static final SKTrigger kEject = new SKTrigger(kOperator, kLeftTrigger.value, AXIS);
+        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kA.value, BUTTON); 
 
         public static final SKTrigger kLaunchSub = new SKTrigger(kOperator, kX.value, BUTTON);
+
+         // Climb/Gyro
+        public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
+        public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
+        
 
 
         // Change angle launcher to speaker

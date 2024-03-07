@@ -17,14 +17,16 @@ public class SK24IntakeBinder implements CommandBinder{
     Optional<SK24Launcher> m_launcher;
     Trigger intakeDriverButton;
     Trigger intakeOperatorButton;
-    Trigger ejectButton;
+    Trigger ejectDriverButton;
+    Trigger ejectOperatorButton;
 
     public SK24IntakeBinder(Optional<SK24Intake> intake, Optional<SK24Launcher> launcher){
         this.m_intake = intake;
         this.m_launcher = launcher;
         this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
         this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
-        this.ejectButton = Ports.DriverPorts.kEject.button;
+        this.ejectDriverButton = Ports.DriverPorts.kEject.button;
+        this.ejectOperatorButton = Ports.OperatorPorts.kEject.button;
     }
 
     public void bindButtons()
@@ -36,15 +38,15 @@ public class SK24IntakeBinder implements CommandBinder{
             SK24Launcher launcher = m_launcher.get();
 
             // intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
-            ejectButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
-            ejectButton.onTrue(new InstantCommand(() -> launcher.setTransferSpeed(-kTransferSpeed)));
+            ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
+            ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(-kTransferSpeed)));
             // intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed)));
             
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
             intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setLauncherSpeed(-0.1, -0.1)));
             
-            ejectButton.onFalse(new InstantCommand(() -> intake.stopIntake()));
-            ejectButton.onFalse(new InstantCommand(() -> launcher.stopTransfer()));
+            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
+            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
             
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> launcher.stopLauncher()));
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));

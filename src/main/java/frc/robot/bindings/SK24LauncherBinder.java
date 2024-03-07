@@ -14,7 +14,7 @@ import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleFloor;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
-import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+//import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
@@ -44,13 +44,14 @@ public class SK24LauncherBinder implements CommandBinder
 
     private Trigger manualLauncherButton;
     private Trigger angleOverrideButton;
+    private Trigger operatorTransferButton;
     private Trigger zeroPosDriver;
     private Trigger zeroPosOperator;
     private Trigger defaultLauncherAngleButton;
     private Trigger defaultFloorAngleButton;
     private Trigger manualAmpButton;
     private Trigger launchSpeaker;
-    private Trigger launchAmp;
+    //private Trigger launchAmp;
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -79,9 +80,9 @@ public class SK24LauncherBinder implements CommandBinder
         defaultLauncherAngleButton = kAngleSpeaker.button;
         defaultFloorAngleButton = kAngleFloor.button;
 
-        // operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
+        operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
         
-        launchAmp = kLaunchAmp.button;
+        //launchAmp = kLaunchAmp.button;
     }
 
     public void bindButtons()
@@ -92,11 +93,15 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
             
-            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.7, 0.8)));
+            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.6, 0.7))); // used to be .7 .8
             manualLauncherButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
-            launchSpeaker.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.7, 0.8)));
+            operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(0.6)));
+            operatorTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
+
+            launchSpeaker.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.6, 0.7))); //used to be .7 .8
             launchSpeaker.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+            
 
             // manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
             // manualAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));

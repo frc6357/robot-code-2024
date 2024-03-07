@@ -3,10 +3,10 @@ package frc.robot.bindings;
 import static frc.robot.Constants.ClimbConstants.kJoystickChange;
 import static frc.robot.Constants.ClimbConstants.kJoystickDeadband;
 import static frc.robot.Constants.ClimbConstants.kJoystickReversed;
-import static frc.robot.Ports.DriverPorts.kClimbDown;
+import static frc.robot.Ports.OperatorPorts.kClimbDown;
 import static frc.robot.Ports.OperatorPorts.kClimbAxis;
 import static frc.robot.Ports.DriverPorts.kClimbOverride;
-import static frc.robot.Ports.DriverPorts.kClimbUp;
+import static frc.robot.Ports.OperatorPorts.kClimbUp;
 
 import java.util.Optional;
 
