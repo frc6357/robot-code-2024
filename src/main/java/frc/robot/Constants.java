@@ -296,6 +296,7 @@ public final class Constants
 
 
         public static final double kAmpAngle = 25.0; //TODO - find launcher angle for the amp
+        public static final double kFloorAngle = 14.0; 
         public static final double kSpeakerAngle = 40.0; //TODO - find launcher angle for the subwoofer
 
         public static final double kPos1Angle = 45.0; //TODO - find launcher angle for position 1

@@ -34,7 +34,7 @@ public class Ports
         public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kY.value, BUTTON);
 
         // Zero position
-        public static final SKTrigger kZeroPos = new SKTrigger(kDriver, kStart.value, BUTTON); 
+        public static final SKTrigger kAngleFloor = new SKTrigger(kDriver, kStart.value, BUTTON); 
 
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
@@ -62,39 +62,38 @@ public class Ports
     {
         // Operator controller set to xbox controller
         public static final GenericHID kOperator = new FilteredXboxController(1).getHID();
-        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
-        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kB.value, BUTTON);
-// public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
+        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
+        public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
     
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
 
-        // Zero position
-        public static final SKTrigger kZeroPos = new SKTrigger(kOperator, kY.value, BUTTON); 
 
         // Intake
         public static final SKTrigger kIntake = new SKTrigger(kOperator, kRightTrigger.value, AXIS);
         public static final SKTrigger kEject = new SKTrigger(kOperator, kLeftTrigger.value, AXIS);
-        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kA.value, BUTTON); 
+        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftBumper.value, BUTTON); 
 
-        public static final SKTrigger kLaunchSub = new SKTrigger(kOperator, kX.value, BUTTON);
+        // public static final SKTrigger kLaunchSub = new SKTrigger(kOperator, kX.value, BUTTON);
 
          // Climb/Gyro
-        public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
-        public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
+         public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
+         public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kY.value, BUTTON);
+         public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kX.value, BUTTON);
         
 
 
         // Change angle launcher to speaker
         public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, POV);
+        public static final SKTrigger kAngleAmp = new SKTrigger(kOperator, 270, POV);
         public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
+        public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
 
         // Run subsystem manually
-        public static final SKTrigger kManualLauncher = new SKTrigger(kOperator, 90, POV);
-        public static final SKTrigger kManualAmp = new SKTrigger(kOperator, 270, POV);
+
         //public static final SKTrigger kManualTrap = new SKTrigger(kOperator, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
         //public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
