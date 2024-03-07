@@ -35,10 +35,10 @@ public class SK24Climb extends SubsystemBase
     {
         //Initialize motor objects
         rPID = new PIDController(rightClimb.kP, rightClimb.kI, rightClimb.kD);
-        rPID.setSetpoint(1.0);
+        rPID.setSetpoint(0.0);
 
         lPID = new PIDController(leftClimb.kP, leftClimb.kI, leftClimb.kD);
-        lPID.setSetpoint(1.0);
+        lPID.setSetpoint(0.0);
 
         motorR = new CANSparkFlex(kRightClimbMotor.ID, MotorType.kBrushless);
         motorL = new CANSparkFlex(kLeftClimbMotor.ID, MotorType.kBrushless);
@@ -51,10 +51,10 @@ public class SK24Climb extends SubsystemBase
         motorL.restoreFactoryDefaults();
         motorR.restoreFactoryDefaults();
         RelativeEncoder encoderR = motorR.getEncoder();
-        encoderR.setPositionConversionFactor(1.0);
+        encoderR.setPositionConversionFactor(climbConversion);
 
         RelativeEncoder encoderL = motorL.getEncoder();
-        encoderL.setPositionConversionFactor(1.0);
+        encoderL.setPositionConversionFactor(climbConversion);
         resetPosition(0.0);
 
         motorR.setIdleMode(IdleMode.kBrake); 
@@ -137,10 +137,10 @@ public class SK24Climb extends SubsystemBase
     public void periodic(){
         
         double r_current_position = getRightPosition();
-        double r_target_position = getRightTargetPosition();
+        // double r_target_position = getRightTargetPosition();
 
         double l_current_position = getLeftPosition();
-        double l_target_position = getLeftTargetPosition();
+        // double l_target_position = getLeftTargetPosition();
 
         // // Calculates motor speed and puts it within operating range
         // double rSpeed = MathUtil.clamp(rPID.calculate(r_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
@@ -151,11 +151,11 @@ public class SK24Climb extends SubsystemBase
         // motorL.set(lSpeed); 
 
         SmartDashboard.putNumber("Right Current Position", r_current_position);
-        SmartDashboard.putNumber("Right Target Position", r_target_position);
-        SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetPosition());
+        // SmartDashboard.putNumber("Right Target Position", r_target_position);
+        // SmartDashboard.putBoolean("Right Arm at Setpoint", isRightAtTargetPosition());
 
         SmartDashboard.putNumber("Left Current Position", l_current_position);
-        SmartDashboard.putNumber("Left Target Position", l_target_position);
-        SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetPosition());
+        // SmartDashboard.putNumber("Left Target Position", l_target_position);
+        // SmartDashboard.putBoolean("Left Arm at Setpoint", isLeftAtTargetPosition());
     }
 }

@@ -133,37 +133,38 @@ public final class Constants
                 .withSteerMotorInverted(kSteerMotorReversed);
                 
                 // Front Left
-                private static final int kFrontLeftDriveMotorId = 10;
-        private static final int kFrontLeftSteerMotorId = 20;
-        private static final int kFrontLeftEncoderId = 30;
-        private static final double kFrontLeftEncoderOffset = -0.092041015625;
+                private static final int kFrontLeftDriveMotorId = 13;
+        private static final int kFrontLeftSteerMotorId = 23;
+        private static final int kFrontLeftEncoderId = 33;
+
+        private static final double kFrontLeftEncoderOffset = 0.205322265625;
 
         private static final double kFrontLeftXPosInches = 11.75;
         private static final double kFrontLeftYPosInches = 11.75;
         
         // Front Right
-        private static final int kFrontRightDriveMotorId = 12;
-        private static final int kFrontRightSteerMotorId = 22;
-        private static final int kFrontRightEncoderId = 32;
-        private static final double kFrontRightEncoderOffset = -0.29150390625;
+        private static final int kFrontRightDriveMotorId = 11;
+        private static final int kFrontRightSteerMotorId = 21;
+        private static final int kFrontRightEncoderId = 31;
+        private static final double kFrontRightEncoderOffset = 0.141845703125;
         
         private static final double kFrontRightXPosInches = 11.75;
         private static final double kFrontRightYPosInches = -11.75;
         
         // Back Left
-        private static final int kBackLeftDriveMotorId = 11;
-        private static final int kBackLeftSteerMotorId = 21;
-        private static final int kBackLeftEncoderId = 31;
-        private static final double kBackLeftEncoderOffset = 0.141845703125;
+        private static final int kBackLeftDriveMotorId = 12;
+        private static final int kBackLeftSteerMotorId = 22;
+        private static final int kBackLeftEncoderId = 32;
+        private static final double kBackLeftEncoderOffset = -0.29150390625;
 
         private static final double kBackLeftXPosInches = -11.75;
         private static final double kBackLeftYPosInches = 11.75;
 
         // Back Right
-        private static final int kBackRightDriveMotorId = 13;
-        private static final int kBackRightSteerMotorId = 23;
-        private static final int kBackRightEncoderId = 33;
-        private static final double kBackRightEncoderOffset = 0.205322265625;
+        private static final int kBackRightDriveMotorId = 10;
+        private static final int kBackRightSteerMotorId = 20;
+        private static final int kBackRightEncoderId = 30;
+        private static final double kBackRightEncoderOffset = -0.092041015625;
 
         private static final double kBackRightXPosInches = -11.75;
         private static final double kBackRightYPosInches = -11.75;
@@ -217,10 +218,10 @@ public final class Constants
 
         public static final double kClimbBalanceTolerance = 5.0;
         public static final double spoolDiameter = 0.75; //Inches
-        public static final double gearRatio = 1.0 / 16.0; //Shaft rotations / 1 motor rotation
+        public static final double gearRatio = 1.0; //Shaft rotations / 1 motor rotation
         public static final double climbHeight = 11.0; //Inches
 
-        public static final double climbConversion = (Math.PI * spoolDiameter) * ((gearRatio) / climbHeight); //inches moved per motor rotation
+        public static final double climbConversion = 1.0 / 87.0; //inches moved per motor rotation
         public static final double kPositionTolerance = 2.0;
         public static final double kClimbMotorMinOutput = -1.0;
         public static final double kClimbMotorMaxOutput = 1.0;
@@ -298,7 +299,7 @@ public final class Constants
         public static final double kAmpAngle = 25.0; //TODO - find launcher angle for the amp
         public static final double kSpeakerAngle = 40.0; //TODO - find launcher angle for the subwoofer
 
-        public static final double kPos1Angle = 45.0; //TODO - find launcher angle for position 1
+        public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
         public static final double kPos2Angle = 45.0; //TODO - find launcher angle for position 2
         public static final double kPos3Angle = 45.0; //TODO - find launcher angle for position 3
 
@@ -340,15 +341,15 @@ public final class Constants
         // velocity factor is determined by (1/60)*(1/GearReduction)* pi(wheelDiameter)
         public static final double ENCODER_RPM_TO_MPS = (1.0/60.0) * (1 / 0.0) * (Math.PI * 0.0);
         
-        public static final double kSpeakerDefaultLeftSpeed = 0.5;
-        public static final double kSpeakerDefaultRightSpeed = 0.5;
+        public static final double kSpeakerDefaultLeftSpeed = 0.6;
+        public static final double kSpeakerDefaultRightSpeed = 0.7;
         
         public static final double kAmpDefaultLeftSpeed = 0.1;
         public static final double kAmpDefaultRightSpeed = 0.2;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
-        public static final double kLauncherLeftSpeed = 0.55; 
-        public static final double kLauncherRightSpeed = 0.45; 
+        public static final double kLauncherLeftSpeed = 0.6; 
+        public static final double kLauncherRightSpeed = 0.7; 
 
         public static final double kTransferSpeed = 0.3; 
         public static final double noteMeasurement = 85;

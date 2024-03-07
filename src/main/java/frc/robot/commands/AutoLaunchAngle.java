@@ -4,6 +4,9 @@
 
 package frc.robot.commands;
 
+import java.util.Arrays;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
@@ -31,7 +34,11 @@ public class AutoLaunchAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    vision.setSpekerMode();
     double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
+    System.out.println(Arrays.toString(vision.getTargetPose()));
+    SmartDashboard.putNumberArray("Array", vision.getTargetPose());
+    SmartDashboard.putNumber("Vison angle", launcherAngle);
     arm.setTargetAngle(launcherAngle);
   }
 

@@ -66,7 +66,7 @@ public class Ports
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
-        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kB.value, BUTTON);
+        public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
 // public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
     
         // Party mode
@@ -137,22 +137,22 @@ public class Ports
         private static final String busName = "DriveCAN";
 
         // CAN IDs for the drive motors on the swerve module
-        public static final CANPort kFrontLeftDriveMotorPort  = new CANPort(10, busName);
-        public static final CANPort kRearLeftDriveMotorPort   = new CANPort(11, busName);
-        public static final CANPort kFrontRightDriveMotorPort = new CANPort(12, busName);
-        public static final CANPort kRearRightDriveMotorPort  = new CANPort(13, busName);
+        public static final CANPort kFrontLeftDriveMotorPort  = new CANPort(13, busName);
+        public static final CANPort kRearLeftDriveMotorPort   = new CANPort(12, busName);
+        public static final CANPort kFrontRightDriveMotorPort = new CANPort(11, busName);
+        public static final CANPort kRearRightDriveMotorPort  = new CANPort(10, busName);
 
         // CAN IDs for the turning motors on the swerve module
-        public static final CANPort kFrontLeftTurningMotorPort  = new CANPort(20, busName);
-        public static final CANPort kRearLeftTurningMotorPort   = new CANPort(21, busName);
-        public static final CANPort kFrontRightTurningMotorPort = new CANPort(22, busName);
-        public static final CANPort kRearRightTurningMotorPort  = new CANPort(23, busName);
+        public static final CANPort kFrontLeftTurningMotorPort  = new CANPort(23, busName);
+        public static final CANPort kRearLeftTurningMotorPort   = new CANPort(22, busName);
+        public static final CANPort kFrontRightTurningMotorPort = new CANPort(21, busName);
+        public static final CANPort kRearRightTurningMotorPort  = new CANPort(20, busName);
 
         // CAN IDs for the CANCoders
-        public static final CANPort kFrontLeftTurningEncoderPort  = new CANPort(30, busName);
-        public static final CANPort kRearLeftTurningEncoderPort   = new CANPort(31, busName);
-        public static final CANPort kFrontRightTurningEncoderPort = new CANPort(32, busName);
-        public static final CANPort kRearRightTurningEncoderPort  = new CANPort(33, busName);
+        public static final CANPort kFrontLeftTurningEncoderPort  = new CANPort(33, busName);
+        public static final CANPort kRearLeftTurningEncoderPort   = new CANPort(32, busName);
+        public static final CANPort kFrontRightTurningEncoderPort = new CANPort(31, busName);
+        public static final CANPort kRearRightTurningEncoderPort  = new CANPort(30, busName);
         
         // CAN ID for IMU
         public static final CANPort kPigeonPort = new CANPort(25, busName);

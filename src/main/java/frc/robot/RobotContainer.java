@@ -38,7 +38,7 @@ import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
-import frc.robot.commands.IntakeTransferCommand;
+import frc.robot.commands.IntakeAutoCommand;
 import frc.robot.commands.commandGroups.AutoLaunchCommandGroup;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
@@ -170,7 +170,7 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_churro));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
@@ -198,8 +198,9 @@ public class RobotContainer {
             NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
+            NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake, launcher));
 
-            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommand(intake, launcher));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeAutoCommand(intake, launcher));
 
             if(m_churro.isPresent())
             {
