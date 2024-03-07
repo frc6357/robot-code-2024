@@ -1,8 +1,10 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.ClimbConstants.kMinAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
+import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
@@ -10,7 +12,7 @@ import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
-import static frc.robot.Ports.OperatorPorts.kAngleAmp;
+import static frc.robot.Ports.OperatorPorts.kAngleFloor;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
@@ -23,6 +25,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
@@ -31,6 +34,7 @@ import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.filters.DeadbandFilter;
+import static frc.robot.Constants.LauncherAngleConstants.*;
 
 public class SK24LauncherBinder implements CommandBinder
 {
@@ -43,7 +47,7 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger zeroPosDriver;
     private Trigger zeroPosOperator;
     private Trigger defaultLauncherAngleButton;
-    private Trigger defaultAmpAngleButton;
+    private Trigger defaultFloorAngleButton;
     private Trigger manualAmpButton;
     private Trigger launchSpeaker;
     private Trigger launchAmp;
@@ -73,7 +77,7 @@ public class SK24LauncherBinder implements CommandBinder
         zeroPosOperator = Ports.DriverPorts.kZeroPos.button;
 
         defaultLauncherAngleButton = kAngleSpeaker.button;
-        defaultAmpAngleButton = kAngleAmp.button;
+        defaultFloorAngleButton = kAngleFloor.button;
 
         // operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
         
@@ -88,10 +92,10 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
             
-            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
+            manualLauncherButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.7, 0.8)));
             manualLauncherButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
-            launchSpeaker.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kSpeakerDefaultLeftSpeed, kSpeakerDefaultRightSpeed)));
+            launchSpeaker.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.7, 0.8)));
             launchSpeaker.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
             // manualAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
@@ -104,10 +108,11 @@ public class SK24LauncherBinder implements CommandBinder
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
                 defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                defaultAmpAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle)));
+                defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle)));
+
                 
-                manualLauncherButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
-                manualAmpButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+                // manualLauncherButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+                // manualAmpButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
 
                 zeroPosDriver.or(zeroPosOperator).onTrue(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
                 
@@ -119,7 +124,7 @@ public class SK24LauncherBinder implements CommandBinder
                             angleOverrideButton::getAsBoolean,
                             m_launcherAngle));
                 
-                launchAmp.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher));
+                //launchAmp.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher));
                 
             }
         }

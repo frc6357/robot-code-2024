@@ -340,8 +340,8 @@ public final class Constants
         // velocity factor is determined by (1/60)*(1/GearReduction)* pi(wheelDiameter)
         public static final double ENCODER_RPM_TO_MPS = (1.0/60.0) * (1 / 0.0) * (Math.PI * 0.0);
         
-        public static final double kSpeakerDefaultLeftSpeed = 0.4;
-        public static final double kSpeakerDefaultRightSpeed = 0.3;
+        public static final double kSpeakerDefaultLeftSpeed = 0.5;
+        public static final double kSpeakerDefaultRightSpeed = 0.5;
         
         public static final double kAmpDefaultLeftSpeed = 0.1;
         public static final double kAmpDefaultRightSpeed = 0.2;

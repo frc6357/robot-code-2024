@@ -8,10 +8,10 @@ import static frc.robot.Constants.OIConstants.kDriveCoeff;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Constants.OIConstants.kRotationCoeff;
 import static frc.robot.Constants.OIConstants.kSlowModePercent;
-import static frc.robot.Ports.DriverPorts.kCenterStage;
 import static frc.robot.Ports.DriverPorts.kResetGyroPos;
 import static frc.robot.Ports.DriverPorts.kRobotCentricMode;
-import static frc.robot.Ports.DriverPorts.kRotateAmp;
+import static frc.robot.Ports.DriverPorts.kRotateLeft;
+import static frc.robot.Ports.DriverPorts.kRotateRight;
 import static frc.robot.Ports.DriverPorts.kRotateSource;
 import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
 import static frc.robot.Ports.DriverPorts.kRotationYPort;
@@ -45,11 +45,12 @@ public class SK24DriveBinder implements CommandBinder
     private final Trigger slowmode;
     private final Trigger resetButton;
     private final Trigger rotateSpeaker;
-    private final Trigger rotateAmp;
+    private final Trigger rotateLeft;
+    private final Trigger rotateRight;
     private final Trigger rotateSource;
-    private final Trigger centerStage;
-    private final Trigger leftStage;
-    private final Trigger rightStage;
+    // private final Trigger centerStage;
+    // private final Trigger leftStage;
+    // private final Trigger rightStage;
 
     /**
      * The class that is used to bind all the commands for the drive subsystem
@@ -66,11 +67,12 @@ public class SK24DriveBinder implements CommandBinder
         slowmode = kSlowMode.button;
         resetButton = kResetGyroPos.button;
         rotateSpeaker = kRotateSpeaker.button;
-        rotateAmp = kRotateAmp.button;
+        rotateLeft = kRotateLeft.button;
+        rotateRight = kRotateRight.button;
         rotateSource = kRotateSource.button;
-        centerStage = kCenterStage.button;
-        leftStage = kCenterStage.button;
-        rightStage = kCenterStage.button;
+        // centerStage = kCenterStage.button;
+        // leftStage = kCenterStage.button;
+        // rightStage = kCenterStage.button;
 
         
     }
@@ -98,27 +100,32 @@ public class SK24DriveBinder implements CommandBinder
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
-            if(m_arm.isPresent()){
-                rotateSpeaker.whileTrue(
-                    new ReadyScoreCommand(
-                        () -> kTranslationXPort.getFilteredAxis(),
-                        () -> kRotationYPort.getFilteredAxis(),
-                        drive, m_arm.get()));
-            }
-            rotateAmp.and(robotCentric.negate()).whileTrue(
+            
+            rotateSpeaker.whileTrue(
+                new DriveTurnCommand(() -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 180.0, drive));
+        
+            rotateLeft.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? kAmpRedFacing : kAmpBlueFacing, drive));
+                    robotCentric::getAsBoolean, 90.0, drive));
+
+            rotateRight.and(robotCentric.negate()).whileTrue(
+                new DriveTurnCommand(
+                    () -> kTranslationXPort.getFilteredAxis(),
+                    () -> kRotationYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 270.0, drive));
             rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive.checkIsRed() ? kSourceRedFacing : kSourceBlueFacing, drive)); 
+                    robotCentric::getAsBoolean,0.0, drive)); 
                     
-            centerStage.whileTrue(OnTheFly.centerStageCommand);
-            leftStage.whileTrue(OnTheFly.LeftStageCommand);
-            rightStage.whileTrue(OnTheFly.rightStageCommand);
+            // centerStage.whileTrue(OnTheFly.centerStageCommand);
+            // leftStage.whileTrue(OnTheFly.LeftStageCommand);
+            // rightStage.whileTrue(OnTheFly.rightStageCommand);
 
             // Default command for driving
             drive.setDefaultCommand(

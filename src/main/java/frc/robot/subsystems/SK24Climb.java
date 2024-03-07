@@ -47,26 +47,26 @@ public class SK24Climb extends SubsystemBase
         encoderL = motorL.getEncoder();
         encoderR = motorR.getEncoder();
 
-        RelativeEncoder encoderR = motorR.getEncoder();
-        encoderR.setPositionConversionFactor(climbConversion);
-
-        RelativeEncoder encoderL = motorL.getEncoder();
-        encoderL.setPositionConversionFactor(climbConversion);
-
+        
         motorL.restoreFactoryDefaults();
         motorR.restoreFactoryDefaults();
-        resetPosition(1.0);
+        RelativeEncoder encoderR = motorR.getEncoder();
+        encoderR.setPositionConversionFactor(1.0);
+
+        RelativeEncoder encoderL = motorL.getEncoder();
+        encoderL.setPositionConversionFactor(1.0);
+        resetPosition(0.0);
 
         motorR.setIdleMode(IdleMode.kBrake); 
 
         motorL.setIdleMode(IdleMode.kBrake); 
         
 
-        RtargetPosition = 1.0;
-        RcurrentPosition = 1.0;
+        RtargetPosition = 0.0;
+        RcurrentPosition = 0.0;
 
-        LtargetPosition = 1.0;
-        LcurrentPosition = 1.0;
+        LtargetPosition = 0.0;
+        LcurrentPosition = 0.0;
 
 
     }
@@ -142,13 +142,13 @@ public class SK24Climb extends SubsystemBase
         double l_current_position = getLeftPosition();
         double l_target_position = getLeftTargetPosition();
 
-        // Calculates motor speed and puts it within operating range
-        double rSpeed = MathUtil.clamp(rPID.calculate(r_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
-        motorR.set(rSpeed); 
+        // // Calculates motor speed and puts it within operating range
+        // double rSpeed = MathUtil.clamp(rPID.calculate(r_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
+        // motorR.set(rSpeed); 
 
-        // Calculates motor speed and puts it within operating range
-        double lSpeed = MathUtil.clamp(lPID.calculate(l_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
-        motorL.set(lSpeed); 
+        // // Calculates motor speed and puts it within operating range
+        // double lSpeed = MathUtil.clamp(lPID.calculate(l_current_position), kClimbMotorMinOutput, kClimbMotorMaxOutput);
+        // motorL.set(lSpeed); 
 
         SmartDashboard.putNumber("Right Current Position", r_current_position);
         SmartDashboard.putNumber("Right Target Position", r_target_position);

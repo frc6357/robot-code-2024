@@ -3,9 +3,10 @@ package frc.robot.bindings;
 import static frc.robot.Constants.ClimbConstants.kJoystickChange;
 import static frc.robot.Constants.ClimbConstants.kJoystickDeadband;
 import static frc.robot.Constants.ClimbConstants.kJoystickReversed;
-import static frc.robot.Ports.DriverPorts.kClimb;
+import static frc.robot.Ports.DriverPorts.kClimbDown;
 import static frc.robot.Ports.OperatorPorts.kClimbAxis;
 import static frc.robot.Ports.DriverPorts.kClimbOverride;
+import static frc.robot.Ports.DriverPorts.kClimbUp;
 
 import java.util.Optional;
 
@@ -17,13 +18,15 @@ import frc.robot.utils.filters.DeadbandFilter;
 
 public class SK24ClimbBinder implements CommandBinder{
     Optional<SK24Climb> subsystem;
-    Trigger climbButton;
+    Trigger climbUpButton;
+    Trigger climbDownButton;
     Trigger climbOverride;
 
 
     public SK24ClimbBinder(Optional<SK24Climb> subsystem){
         this.subsystem = subsystem;
-        this.climbButton = kClimb.button;
+        this.climbUpButton = kClimbUp.button;
+        this.climbDownButton = kClimbDown.button;
         this.climbOverride = kClimbOverride.button;
     }
 
@@ -37,23 +40,29 @@ public class SK24ClimbBinder implements CommandBinder{
             double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
             kClimbAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
-            climbButton.onTrue(new InstantCommand(() -> climb.setRightHook(0.5))); //TODO - change values back to 1.0
-            climbButton.onTrue(new InstantCommand(() -> climb.setLeftHook(0.5))); //TODO - change values back to 1.0
+            climbUpButton.onTrue(new InstantCommand(() -> climb.runRightHook(0.2))); //TODO - change values back to 1.0
+            climbUpButton.onTrue(new InstantCommand(() -> climb.runLeftHook(0.2))); //TODO - change values back to 1.0
             
-            climbButton.onFalse(new InstantCommand(() -> climb.setRightHook(0.0))); 
-            climbButton.onFalse(new InstantCommand(() -> climb.setLeftHook(0.0))); 
+            climbUpButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0))); 
+            climbUpButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
 
-            climbButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
+
+            climbDownButton.onTrue(new InstantCommand(() -> climb.runRightHook(-0.2))); //TODO - change values back to 1.0
+            climbDownButton.onTrue(new InstantCommand(() -> climb.runLeftHook(-0.2))); //TODO - change values back to 1.0
+            
+            climbDownButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
+            climbDownButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
+            climbUpButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 
             //climbButton.onTrue(new ClimbBalanceCommand(climb)); //TODO - add climb balancing command later
 
-             climb.setDefaultCommand(
-                        // Vertical movement of the arm is controlled by the Y axis of the right stick.
-                        // Up on joystick moving arm up and down on stick moving arm down.
-                        new ClimbAngleCommand(
-                            () -> {return kClimbAxis.getFilteredAxis();},
-                            climbOverride::getAsBoolean,
-                            climb));
+            //  climb.setDefaultCommand(
+            //             // Vertical movement of the arm is controlled by the Y axis of the right stick.
+            //             // Up on joystick moving arm up and down on stick moving arm down.
+            //             new ClimbAngleCommand(
+            //                 () -> {return kClimbAxis.getFilteredAxis();},
+            //                 climbOverride::getAsBoolean,
+            //                 climb));
         }
     }
 }

@@ -24,12 +24,7 @@ public class IntakeTransferCommandGroup extends ParallelCommandGroup {
             new ParallelDeadlineGroup(
                 new IntakeTransferCommand(intake, launcher),
                 new WaitCommand(kIntakeSeconds)
-            ),
-            new ParallelDeadlineGroup(
-                new LaunchCommand(-0.1, -0.1, launcher),
-                new WaitCommand(0.5)),
-            new InstantCommand(() -> launcher.stopLauncher())
-            //new ZeroPositionCommand(arm, launcher)
+            )
         );
     }
 

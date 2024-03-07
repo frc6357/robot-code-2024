@@ -28,12 +28,14 @@ public class Ports
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
         // Climb/Gyro
-        public static final SKTrigger kClimb = new SKTrigger(kDriver, kY.value, BUTTON);
+        public static final SKTrigger kClimbUp = new SKTrigger(kDriver, kY.value, BUTTON);
+        public static final SKTrigger kClimbDown = new SKTrigger(kDriver, kB.value, BUTTON);
 
-        // Rotate to specified position
-        public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kB.value, BUTTON);
-        public static final SKTrigger kRotateAmp = new SKTrigger(kDriver, kX.value, BUTTON);
-        public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kA.value, BUTTON);
+        // // Rotate to specified position
+        public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kA.value, BUTTON);
+        public static final SKTrigger kRotateLeft = new SKTrigger(kDriver, kX.value, BUTTON);
+        public static final SKTrigger kRotateRight = new SKTrigger(kDriver, kB.value, BUTTON);
+        public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kY.value, BUTTON);
 
         // Zero position
         public static final SKTrigger kZeroPos = new SKTrigger(kDriver, kStart.value, BUTTON); 
@@ -41,10 +43,10 @@ public class Ports
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
 
-        // Align to specified position
-        public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); 
-        public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); 
-        public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
+        // // Align to specified position
+        // public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); 
+        // public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); 
+        // public static final SKTrigger kLeftStage = new SKTrigger(kDriver, 270, POV); 
         
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kLeftStick.value, BUTTON);
@@ -86,7 +88,7 @@ public class Ports
 
         // Change angle launcher to speaker
         public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, POV);
-        public static final SKTrigger kAngleAmp = new SKTrigger(kOperator, 180, POV);
+        public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
 
         // Run subsystem manually
         public static final SKTrigger kManualLauncher = new SKTrigger(kOperator, 90, POV);
