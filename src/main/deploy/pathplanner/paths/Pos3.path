@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7713800042984719,
-        "y": 4.568394521404429
+        "x": 0.7401886415755699,
+        "y": 4.450117887396973
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9391180320822197,
-        "y": 4.420390379242297
+        "x": 0.9079266693593177,
+        "y": 4.302113745234842
       },
       "isLocked": false,
       "linkedName": "Pos3"
@@ -20,8 +20,8 @@
         "y": 4.301987065512593
       },
       "prevControl": {
-        "x": 1.3337957445145676,
-        "y": 4.380922607999063
+        "x": 1.325730468864645,
+        "y": 4.379852868122284
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 2.25,
-    "rotation": 163.41266144307272,
+    "rotation": 130.93312739403802,
     "rotateFast": false
   },
   "reversed": false,

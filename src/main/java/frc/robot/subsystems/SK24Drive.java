@@ -58,6 +58,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
         super(driveTrainConstants, modules);
 
         this.m_pigeon2.reset();
+        checkIsRed();
         setupPathPlanner();
 
         if (Utils.isSimulation()) {

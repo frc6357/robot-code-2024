@@ -1,46 +1,45 @@
 package frc.robot.bindings;
 
-import static frc.robot.Constants.ClimbConstants.kMinAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
-import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleFloor;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
+<<<<<<< HEAD
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 //import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+=======
+import static frc.robot.Ports.OperatorPorts.kLaunchSub;
+import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
+import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
+import static frc.robot.Ports.OperatorPorts.kManualLauncher;
+import static frc.robot.Ports.OperatorPorts.kVisionAngle;
+>>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants;
 import frc.robot.Ports;
+import frc.robot.commands.AutoLaunchAngle;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
-import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
-import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
+import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.filters.DeadbandFilter;
-import static frc.robot.Constants.LauncherAngleConstants.*;
 
 public class SK24LauncherBinder implements CommandBinder
 {
     Optional<SK24Launcher> launcher;
     Optional<SK24LauncherAngle> launcherAngle;
-    Optional<SK24Churro> churro;
+    Optional<SK24Vision> vision;
 
     private Trigger manualLauncherButton;
     private Trigger angleOverrideButton;
@@ -49,9 +48,14 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger floorAngleDriver;
     private Trigger floorAngleOperator;
     private Trigger defaultFloorAngleButton;
+<<<<<<< HEAD
     private Trigger launchAmpButton;
     private Trigger ampAngleButton;
     private Trigger launchSpeakerButton;
+=======
+    private Trigger visionAngle;
+    private Trigger launchSpeaker;
+>>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
     //private Trigger launchAmp;
 
     /**
@@ -63,14 +67,22 @@ public class SK24LauncherBinder implements CommandBinder
      *            The required drive subsystem for the commands
      * @return 
      */
-    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Churro> churro)
+    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Vision> vision)
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
+<<<<<<< HEAD
         this.churro = churro;
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
+=======
+        this.vision = vision;
+        
+        launchSpeaker = kLaunchSub.button;
+        manualLauncherButton = kManualLauncher.button;
+        visionAngle = kVisionAngle.button;
+>>>>>>> 8c2227f7fba1bd3108da75871715e8be48d65c3a
 
         angleOverrideButton = kLauncherOverride.button;
 
@@ -108,6 +120,10 @@ public class SK24LauncherBinder implements CommandBinder
             if(launcherAngle.isPresent())
             {
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
+                if(vision.isPresent())
+                {
+                    visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
+                }
                 double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 

@@ -5,7 +5,7 @@
     "climb": true,
     "launcher_arm": true,
     "churro": false,
-    "vision": false,
+    "vision": true,
     "drive": true,
     "telemetry": false
 }

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.IntakeTransferCommand;
+import frc.robot.commands.IntakeAutoCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
@@ -22,7 +22,7 @@ public class IntakeTransferCommandGroup extends ParallelCommandGroup {
         addCommands(
             //new AngleCommand(kIntakeAngle, arm),
             new ParallelDeadlineGroup(
-                new IntakeTransferCommand(intake, launcher),
+                new IntakeAutoCommand(intake, launcher),
                 new WaitCommand(kIntakeSeconds)
             )
         );

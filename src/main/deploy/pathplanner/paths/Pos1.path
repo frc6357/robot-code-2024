@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7713800042984719,
-        "y": 6.561516969187785
+        "x": 0.7284778050297884,
+        "y": 6.651755158003897
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0673882886227328,
-        "y": 6.561516969187785
+        "x": 1.0244860893540495,
+        "y": 6.651755158003897
       },
       "isLocked": false,
       "linkedName": "Pos1"
     },
     {
       "anchor": {
-        "x": 1.4028643441902284,
-        "y": 6.561516969187785
+        "x": 1.5599471997802752,
+        "y": 6.5463576290918635
       },
       "prevControl": {
-        "x": 0.8799163752173673,
-        "y": 6.52204919794455
+        "x": 1.036999230807414,
+        "y": 6.506889857848628
       },
       "nextControl": null,
       "isLocked": false,
@@ -33,7 +33,24 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0,
+      "waypointRelativePos": 0.55,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Pos1CommandGroup"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Launch",
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -41,7 +58,7 @@
             {
               "type": "named",
               "data": {
-                "name": "Pos1CommandGroup"
+                "name": "IntakeAutoCommand"
               }
             }
           ]
@@ -57,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 2.5,
-    "rotation": 179.68345195272704,
+    "rotation": -138.5165474963354,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -118.76764933884378,
+    "rotation": -121.34958086524304,
     "velocity": 0
   },
   "useDefaultConstraints": true
