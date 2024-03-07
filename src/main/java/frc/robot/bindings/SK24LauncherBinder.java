@@ -4,6 +4,7 @@ import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
+import static frc.robot.Constants.LauncherAngleConstants.kFloorAngle;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleFloor;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
@@ -61,7 +62,6 @@ public class SK24LauncherBinder implements CommandBinder
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
-        this.churro = churro;
         this.vision = vision;
 
         launchSpeakerButton = kLaunchSpeaker.button;
