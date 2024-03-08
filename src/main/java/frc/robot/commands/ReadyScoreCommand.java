@@ -1,13 +1,16 @@
 package frc.robot.commands;
 
+import static frc.robot.Constants.DriveConstants.kDriveAngleTolerance;
+
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24LauncherAngle;
-import static frc.robot.Constants.DriveConstants.*;
+import frc.robot.subsystems.SK24Vision;
 
 
 public class ReadyScoreCommand extends Command{
@@ -17,6 +20,7 @@ public class ReadyScoreCommand extends Command{
     private Supplier<Double> xSpeed;
     
     private SK24Drive              drive;
+    private SK24Vision              vision;
     private PIDController          PID;
     
     // In radians per second
@@ -34,20 +38,25 @@ public class ReadyScoreCommand extends Command{
      *            The subsystem required to control the drivetrain
      * @param arm
      *            The subsystem to control launcher angle
+     * @param vision
+     *            The subsystem to control vision
      */
-    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, SK24Drive drive, SK24LauncherAngle arm)
+    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, SK24Drive drive, SK24LauncherAngle arm, SK24Vision vision)
     {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.arm = arm;
+        this.vision = vision;
 
         this.drive = drive;
 
         PID = new PIDController(0.1, 0, 0, 0.02);
         PID.enableContinuousInput(-180, 180);
         PID.setTolerance(kDriveAngleTolerance);
+
+        vision.setSpekerMode();
         
-        addRequirements(drive, arm);
+        addRequirements(drive, arm, vision);
     }
     
     // Called every time the scheduler runs while the command is scheduled.
@@ -60,7 +69,9 @@ public class ReadyScoreCommand extends Command{
         rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
         drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
 
-        arm.setTargetAngle(drive::getSpeakerLauncherAngle);
+        double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
+        SmartDashboard.putNumber("Vison angle", launcherAngle);
+        arm.setTargetAngle(launcherAngle);
         
     }
 
@@ -69,13 +80,15 @@ public class ReadyScoreCommand extends Command{
     public void end(boolean interrupted)
     {
         drive.drive(0, 0, 0, false);
+        arm.zeroPosition();
+        vision.setAllTagMode();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished()
     {
-        return PID.atSetpoint() && arm.isAtTargetAngle();
+        return false;
     }
 
 }

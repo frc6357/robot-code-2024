@@ -1,9 +1,5 @@
 package frc.robot.bindings;
 
-import static frc.robot.Constants.DriveConstants.kAmpBlueFacing;
-import static frc.robot.Constants.DriveConstants.kAmpRedFacing;
-import static frc.robot.Constants.DriveConstants.kSourceBlueFacing;
-import static frc.robot.Constants.DriveConstants.kSourceRedFacing;
 import static frc.robot.Constants.OIConstants.kDriveCoeff;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Constants.OIConstants.kRotationCoeff;
@@ -24,12 +20,11 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.OnTheFly;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
-import frc.robot.commands.ReadyScoreCommand;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24LauncherAngle;
+import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.filters.CubicDeadbandFilter;
 import frc.robot.utils.filters.Filter;
 
@@ -58,7 +53,7 @@ public class SK24DriveBinder implements CommandBinder
      * @param m_drive
      *            The required drive subsystem for the commands
      */
-    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24LauncherAngle> m_arm)
+    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24LauncherAngle> m_arm, Optional<SK24Vision> vision)
     {
         this.m_drive  = m_drive;
         this.m_arm = m_arm;

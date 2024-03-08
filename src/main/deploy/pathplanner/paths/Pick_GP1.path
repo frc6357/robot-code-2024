@@ -32,6 +32,23 @@
   "constraintZones": [],
   "eventMarkers": [
     {
+      "name": "Angle",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "GP1Command"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
       "name": "New Event Marker",
       "waypointRelativePos": 1.0,
       "command": {
@@ -39,15 +56,9 @@
         "data": {
           "commands": [
             {
-              "type": "named",
+              "type": "wait",
               "data": {
-                "name": "IntakeCommand"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoLaunchCommand"
+                "waitTime": 1.0
               }
             }
           ]

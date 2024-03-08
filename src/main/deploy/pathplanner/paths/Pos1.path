@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -49,16 +49,28 @@
       }
     },
     {
-      "name": "Launch",
+      "name": "Transfer",
       "waypointRelativePos": 1.0,
       "command": {
         "type": "sequential",
         "data": {
           "commands": [
             {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.25
+              }
+            },
+            {
               "type": "named",
               "data": {
                 "name": "IntakeAutoCommand"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 0.5
               }
             }
           ]

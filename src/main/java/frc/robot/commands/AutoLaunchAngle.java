@@ -36,8 +36,6 @@ public class AutoLaunchAngle extends Command {
   public void initialize() {
     vision.setSpekerMode();
     double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
-    System.out.println(Arrays.toString(vision.getTargetPose()));
-    SmartDashboard.putNumberArray("Array", vision.getTargetPose());
     SmartDashboard.putNumber("Vison angle", launcherAngle);
     arm.setTargetAngle(launcherAngle);
   }

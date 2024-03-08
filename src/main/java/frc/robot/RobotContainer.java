@@ -9,6 +9,9 @@ import static frc.robot.Constants.DriveConstants.BackRight;
 import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
 import static frc.robot.Constants.DriveConstants.FrontLeft;
 import static frc.robot.Constants.DriveConstants.FrontRight;
+import static frc.robot.Constants.LauncherAngleConstants.GP1Angle;
+import static frc.robot.Constants.LauncherAngleConstants.GP2Angle;
+import static frc.robot.Constants.LauncherAngleConstants.GP3Angle;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +33,7 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SK24ChurroBinder;
@@ -171,7 +175,7 @@ public class RobotContainer {
 
         // Adding all the binding classes to the list
         buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision));
-        buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle));
+        buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
         buttonBinders.add(new SK24ChurroBinder(m_churro));
@@ -199,8 +203,15 @@ public class RobotContainer {
             NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
             NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake, launcher));
+            NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
+            NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
+            NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
+            
 
             NamedCommands.registerCommand("IntakeCommand", new IntakeAutoCommand(intake, launcher));
+            NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
+            NamedCommands.registerCommand("StopLauncherCommand", new InstantCommand(() -> launcher.stopLauncher()));
+            NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> launcher.stopTransfer()));
 
             if(m_churro.isPresent())
             {

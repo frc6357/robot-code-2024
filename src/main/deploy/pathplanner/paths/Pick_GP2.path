@@ -54,22 +54,33 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Score",
-      "waypointRelativePos": 1.3,
+      "name": "Angle",
+      "waypointRelativePos": 0.0,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "IntakeCommand"
+                "name": "GP2Command"
               }
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Wait",
+      "waypointRelativePos": 1.4,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
             {
-              "type": "named",
+              "type": "wait",
               "data": {
-                "name": "AutoLaunchCommand"
+                "waitTime": 1.0
               }
             }
           ]

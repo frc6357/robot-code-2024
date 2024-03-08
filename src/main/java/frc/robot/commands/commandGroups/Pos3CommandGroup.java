@@ -4,17 +4,17 @@
 
 package frc.robot.commands.commandGroups;
 
+import static frc.robot.Constants.LauncherAngleConstants.kPos3Angle;
 import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
-import static frc.robot.Constants.LauncherAngleConstants.kPos3Angle;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.AngleCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 
-public class Pos3CommandGroup extends SequentialCommandGroup {
+public class Pos3CommandGroup extends ParallelCommandGroup {
    /**
      * Shoot note into speaker from starting position 3
      * @param launcher Launcher subsystem to use
