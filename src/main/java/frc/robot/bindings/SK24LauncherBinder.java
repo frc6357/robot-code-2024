@@ -98,10 +98,10 @@ public class SK24LauncherBinder implements CommandBinder
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.6, 0.7))); //used to be .7 .8
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
-            //launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.2, 0.2)));
-           // launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(0.2)));
-           // launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-           // launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
+            launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.2, 0.2)));
+            launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(0.2)));
+            launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+            launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
             
 
         
@@ -110,7 +110,7 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
                 if(vision.isPresent())
                 {
-                    visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
+                    //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
                 double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
