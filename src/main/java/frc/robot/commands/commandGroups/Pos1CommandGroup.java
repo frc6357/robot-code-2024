@@ -9,10 +9,9 @@ import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.commands.AngleCommand;
-import frc.robot.commands.IntakeAutoCommand;
-import frc.robot.commands.LaunchCommand;
-import frc.robot.subsystems.SK24Intake;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AngleCommandAuto;
+import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 
@@ -26,8 +25,9 @@ public class Pos1CommandGroup extends ParallelCommandGroup {
     public Pos1CommandGroup(SK24Launcher launcher, SK24LauncherAngle arm)
     {
         addCommands(
-            new AngleCommand(kPos1Angle, arm),
-            new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)
+            new AngleCommandAuto(kPos1Angle, arm),
+            new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
+            new WaitCommand(0.25)
         );
     }
 

@@ -47,7 +47,7 @@ public class LaunchCommand extends Command {
     @Override
     public void end(boolean interrupted)
     {
-    
+        launcher.stopLauncher();
     }
 
     // Returns true when the command should end.

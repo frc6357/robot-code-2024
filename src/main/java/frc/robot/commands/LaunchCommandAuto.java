@@ -5,42 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
 /** An example command that uses an example subsystem. */
-public class ZeroPositionCommandIntake extends Command {
+public class LaunchCommandAuto extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    private final SK24LauncherAngle arm;
     private final SK24Launcher launcher;
-    private final SK24Intake intake;
+    private double LeftSpeed;
+    private double RightSpeed;
+
+    
 
     /**
-     * Command to zero the position of the launcher angle and turn off the launcher motors
-     * @param arm
-     *            Launcher Angle Subsystem used for this command
+     * Command that will launch a note at speeds top and bottom speeds
+     * @param LeftSpeed
+     *            Speed for the left side of the launchers
+     * @param RightSpeed
+     *            Speed for the right side of the launchers
      * @param launcher
-     *            Launcher Subsystem used for this command
+     *            Launcher angle used for this command
      */
-    public ZeroPositionCommandIntake(SK24LauncherAngle arm, SK24Launcher launcher, SK24Intake intake)
+    public LaunchCommandAuto(double LeftSpeed, double RightSpeed, SK24Launcher launcher)
     {
-        this.intake = intake;
-        this.arm = arm;
+        this.LeftSpeed = LeftSpeed;
+        this.RightSpeed = RightSpeed;
         this.launcher = launcher;
-        
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(arm, launcher);
+        addRequirements(launcher);
     }
 
     @Override
     public void initialize()
     {
-
-        arm.zeroPosition();
-        launcher.stopTransfer();
-        launcher.stopLauncher();
-        intake.stopIntake();
+        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
     }
 
     @Override
@@ -51,7 +48,7 @@ public class ZeroPositionCommandIntake extends Command {
     @Override
     public void end(boolean interrupted)
     {
-
+        
     }
 
     // Returns true when the command should end.
