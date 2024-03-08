@@ -1,5 +1,7 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.IntakeConstants.kIntakeLauncherLeftSpeed;
+import static frc.robot.Constants.IntakeConstants.kIntakeLauncherRightSpeed;
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 
@@ -43,7 +45,7 @@ public class SK24IntakeBinder implements CommandBinder{
             // intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed)));
             
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
-            intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setLauncherSpeed(-0.1, -0.1)));
+            intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> launcher.setLauncherSpeed(kIntakeLauncherLeftSpeed, kIntakeLauncherRightSpeed)));
             
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));

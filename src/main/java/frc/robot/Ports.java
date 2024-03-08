@@ -65,7 +65,7 @@ public class Ports
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
-public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
+        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
         public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
         //public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
     

@@ -308,9 +308,9 @@ public final class Constants
         public static final double kPos2Angle = 40.0; //TODO - find launcher angle for position 2
         public static final double kPos3Angle = 40.0; //TODO - find launcher angle for position 3
 
-        public static final double GP1Angle = 40.0; //TODO - find launcher angle for gp1
-        public static final double GP2Angle = 40.0; //TODO - find launcher angle for gp2
-        public static final double GP3Angle = 40.0; //TODO - find launcher angle for gp3
+        public static final double GP1Angle = 37.0; //TODO - find launcher angle for gp1
+        public static final double GP2Angle = 37.0; //TODO - find launcher angle for gp2
+        public static final double GP3Angle = 37.0; //TODO - find launcher angle for gp3
         public static final double GP456Angle = 40.0; //TODO - find launcher angle for gp456
         public static final double GP78Angle = 40.0; //TODO - find launcher angle for gp78
         
@@ -325,6 +325,9 @@ public final class Constants
         public static final double kIntakeSpeed = 0.3; //TODO - find intake speed
         public static final double kIntakeAngle = 40.0; //TODO - find angle to intake note at
         public static final double kIntakeSeconds = 10.0; //TODO - find speed to stop intake after if LaserCan fails
+        public static final double kIntakeLauncherLeftSpeed = -0.1;
+        public static final double kIntakeLauncherRightSpeed = -0.1;
+
         
     }
     
@@ -346,14 +349,14 @@ public final class Constants
         public static final double kSpeakerDefaultLeftSpeed = 0.6;
         public static final double kSpeakerDefaultRightSpeed = 0.7;
         
-        public static final double kAmpDefaultLeftSpeed = 0.3;
-        public static final double kAmpDefaultRightSpeed = 0.4;
+        public static final double kAmpDefaultLeftSpeed = 0.27;
+        public static final double kAmpDefaultRightSpeed = 0.27;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.6; 
         public static final double kLauncherRightSpeed = 0.7; 
 
-        public static final double kTransferSpeed = 0.3; 
+        public static final double kTransferSpeed = 0.5; 
         public static final double noteMeasurement = 85;
         
         public static final double kSpeedTolerance = 0.1;

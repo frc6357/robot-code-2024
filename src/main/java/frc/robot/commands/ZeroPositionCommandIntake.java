@@ -9,11 +9,12 @@ import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 /** An example command that uses an example subsystem. */
-public class ZeroPositionCommand extends Command {
+public class ZeroPositionCommandIntake extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private final SK24LauncherAngle arm;
     private final SK24Launcher launcher;
+    private final SK24Intake intake;
 
     /**
      * Command to zero the position of the launcher angle and turn off the launcher motors
@@ -22,8 +23,9 @@ public class ZeroPositionCommand extends Command {
      * @param launcher
      *            Launcher Subsystem used for this command
      */
-    public ZeroPositionCommand(SK24LauncherAngle arm, SK24Launcher launcher)
+    public ZeroPositionCommandIntake(SK24LauncherAngle arm, SK24Launcher launcher, SK24Intake intake)
     {
+        this.intake = intake;
         this.arm = arm;
         this.launcher = launcher;
         
@@ -41,6 +43,7 @@ public class ZeroPositionCommand extends Command {
         arm.zeroPosition();
         launcher.stopTransfer();
         launcher.stopLauncher();
+        intake.stopIntake();
     }
 
     @Override
