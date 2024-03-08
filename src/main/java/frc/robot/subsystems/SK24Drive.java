@@ -14,6 +14,7 @@ import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
@@ -86,6 +87,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
    */
   public void setupPathPlanner()
   {
+    
     SK24AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
         this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -100,8 +102,9 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
                     return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
                 },
         this // Reference to this subsystem to set requirements
-                                  );
+        );
   }
+  
 
 
   /**

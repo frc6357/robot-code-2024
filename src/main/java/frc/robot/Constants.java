@@ -209,7 +209,10 @@ public final class Constants
         public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters shortwise from the amp side
         public static final double kSpeakerHeight = 1.6 - 0.0; //Height of the center of the speaker opening in meters minus height of launcher pivot point
     }
-  
+    public static final class VisionConstants
+    {
+        public static final double limelightStartingAngle = 15.0;
+    }
     public static final class ClimbConstants
     {
         public static final PIDConstants rightClimb = new PIDConstants(0.01, 0.0, 0.0);
@@ -320,7 +323,7 @@ public final class Constants
     public static final class IntakeConstants
     {
         public static final double kIntakeSpeed = 0.3; //TODO - find intake speed
-        public static final double kIntakeAngle = 45.0; //TODO - find angle to intake note at
+        public static final double kIntakeAngle = 40.0; //TODO - find angle to intake note at
         public static final double kIntakeSeconds = 1.0; //TODO - find speed to stop intake after if LaserCan fails
         
     }
@@ -340,9 +343,6 @@ public final class Constants
         public static final double kLeftLauncherP = 0.0;
         public static final double kLeftLauncherFF = 0.0;
         
-        // velocity factor is determined by (1/60)*(1/GearReduction)* pi(wheelDiameter)
-        public static final double ENCODER_RPM_TO_MPS = (1.0/60.0) * (1 / 0.0) * (Math.PI * 0.0);
-        
         public static final double kSpeakerDefaultLeftSpeed = 0.6;
         public static final double kSpeakerDefaultRightSpeed = 0.7;
         
@@ -356,7 +356,7 @@ public final class Constants
         public static final double kTransferSpeed = 0.3; 
         public static final double noteMeasurement = 85;
         
-        public static final double kVelocityTolerance = 0.1;
+        public static final double kSpeedTolerance = 0.1;
     }
     
     /** The file that is used for system instantiation at runtime */

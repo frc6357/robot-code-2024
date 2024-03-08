@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import java.util.*;
 public class SK24Vision extends SubsystemBase
@@ -104,7 +105,7 @@ public class SK24Vision extends SubsystemBase
      // Returns the target angle of the launcher using the pitch provided by the limelight data
      public double returnTargetAngle(double[] poseData)
      {
-         return poseData[4];
+         return (-1.0 * poseData[3] ) + Constants.VisionConstants.limelightStartingAngle;
      }
 
      // Returns the x offset from the center of the robot

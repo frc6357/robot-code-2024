@@ -1,15 +1,17 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.LauncherConstants.ENCODER_RPM_TO_MPS;
 import static frc.robot.Constants.LauncherConstants.kLeftLauncherFF;
 import static frc.robot.Constants.LauncherConstants.kLeftLauncherP;
 import static frc.robot.Constants.LauncherConstants.kRightLauncherFF;
 import static frc.robot.Constants.LauncherConstants.kRightLauncherP;
-import static frc.robot.Constants.LauncherConstants.kVelocityTolerance;
+import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
 import static frc.robot.Constants.LauncherConstants.noteMeasurement;
-import static frc.robot.Ports.launcherPorts.*;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncher1;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncher2;
+import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
-import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -71,9 +73,6 @@ public class SK24Launcher extends SubsystemBase
 
         leftPidController.setP(kLeftLauncherP);
         rightPidController.setP(kRightLauncherP);
-
-        leftPidController.setFF(kLeftLauncherFF);
-        rightPidController.setFF(kRightLauncherFF);
         
     }
 
@@ -110,12 +109,12 @@ public class SK24Launcher extends SubsystemBase
 
     public boolean isRightAtTargetPosition()
     {
-        return Math.abs(getRightVelocity() - getRightTargetVelocity()) < kVelocityTolerance;
+        return Math.abs(getRightVelocity() - getRightTargetVelocity()) < kSpeedTolerance;
     }
 
     public boolean isLeftAtTargetPosition()
     {
-        return Math.abs(getLeftVelocity() - getLeftTargetVelocity()) < kVelocityTolerance;
+        return Math.abs(getLeftVelocity() - getLeftTargetVelocity()) < kSpeedTolerance;
     }
 
     /**
