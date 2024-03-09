@@ -18,18 +18,23 @@ import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
+import static frc.robot.Ports.OperatorPorts.kChurroDown;
 import static frc.robot.Ports.OperatorPorts.*;
 
 import java.util.Optional;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
+import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
+import frc.robot.commands.commandGroups.AmpScoreDownGroup;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
+import frc.robot.subsystems.SK24Churro;
 import frc.robot.utils.filters.DeadbandFilter;
 
 public class SK24LauncherBinder implements CommandBinder
@@ -37,6 +42,7 @@ public class SK24LauncherBinder implements CommandBinder
     Optional<SK24Launcher> launcher;
     Optional<SK24LauncherAngle> launcherAngle;
     Optional<SK24Vision> vision;
+    Optional<SK24Churro> churro;
 
     private Trigger manualLauncherButton;
     private Trigger angleOverrideButton;
@@ -51,6 +57,7 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger resetAngleButton;
     private Trigger visionAngle;
     private Trigger launchSpeaker;
+    private Trigger churroDownButton;
     private Trigger wingAngleButton;
     //private Trigger launchAmp;
 
@@ -68,10 +75,12 @@ public class SK24LauncherBinder implements CommandBinder
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
         this.vision = vision;
+        this.churro = churro;
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
         //visionAngle = kVisionAngle.button;
+        churroDownButton = kChurroDown.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
@@ -117,6 +126,15 @@ public class SK24LauncherBinder implements CommandBinder
                 {
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
+
+                if(churro.isPresent())
+                {
+                    SK24Churro m_churro = churro.get();
+                    churroDownButton.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher, m_churro));
+                    churroDownButton.onFalse(new AmpScoreDownGroup(m_launcherAngle, m_launcher, m_churro));
+
+                    //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
+                }
                 double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
@@ -129,6 +147,7 @@ public class SK24LauncherBinder implements CommandBinder
                 
                 // manualLauncherButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
                 // manualAmpButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
+
 
                 floorAngleDriver.or(floorAngleOperator).onTrue(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
                 

@@ -46,7 +46,7 @@ public class ChurroRaiseCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return subsystem.isChurroAtLower();
+    return subsystem.isChurroAtUpper();
     //if (limit switch)
     //{
     //  return true;

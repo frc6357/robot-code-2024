@@ -337,6 +337,8 @@ public final class Constants
         public static final double kChurroLowerPosition = 0.5; //TODO - find churro position in rotations for scoring amp
         public static final double kChurroRaisePosition = 0.5; //TODO - find churro position in rotations for scoring amp
     	public static final double kChurroSpeed = 0.5;
+        public static final double kChurroGearRatio= 0.0;
+        public static final double kChurroConversion= 0.0;
     }
     
     public static final class LauncherConstants

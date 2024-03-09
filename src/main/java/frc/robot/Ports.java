@@ -39,6 +39,10 @@ public class Ports
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
 
+        public static final SKTrigger kClimbUp = new SKTrigger(kDriver, 0, POV);
+        public static final SKTrigger kClimbDown = new SKTrigger(kDriver, 180, POV);
+
+
         // // Align to specified position
         // public static final SKTrigger kCenterStage = new SKTrigger(kDriver, 0, POV); 
         // public static final SKTrigger kRightStage = new SKTrigger(kDriver, 90, POV); 
@@ -82,8 +86,8 @@ public class Ports
 
          // Climb/Gyro
         public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
-         public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kY.value, BUTTON);
-        public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kX.value, BUTTON);
+
+        public static final SKTrigger kChurroDown = new SKTrigger(kOperator, kX.value, BUTTON);
         
 
 
@@ -103,8 +107,6 @@ public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
 
-        // Run Churro 
-        public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON); //TODO - button here used twice
     }
     
 

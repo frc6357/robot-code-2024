@@ -140,7 +140,7 @@ public class SK24LauncherAngle extends SubsystemBase
         // speed = accelLimit.calculate(speed);
         motor.set(speed); 
 
-        SmartDashboard.putNumber("Current Launcher Angle", current_angle);
+        SmartDashboard.putNumber("Current Launcher Angle", getCurrentAngle());
         SmartDashboard.putNumber("Target Launcher Angle", target_angle);
         SmartDashboard.putBoolean("Arm at Setpoint", isAtTargetAngle());
     }

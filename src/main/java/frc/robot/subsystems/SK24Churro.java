@@ -36,18 +36,22 @@ public class SK24Churro extends SubsystemBase
         return cMotor.get();
     }
     
+    // Gets churro position from encoder
     public double getChurroPosition(){
         return cEncoder.getPosition();
     }
 
+    //Resets churro encoder
     public void resetChurroEncoder(){
         cEncoder.setPosition(0.0);
     }
 
+    //Boolean true if churro at lower pos
     public boolean isChurroAtLower(){
         return Math.abs(getChurroPosition() - Constants.ChurroConstants.kChurroLowerPosition) < Constants.ChurroConstants.kAngleTolerance;
     }
 
+    //Boolean true if churro at higher pos
     public boolean isChurroAtUpper(){
         return Math.abs(getChurroPosition() - Constants.ChurroConstants.kChurroRaisePosition) < Constants.ChurroConstants.kAngleTolerance;
     }

@@ -36,7 +36,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
-import frc.robot.bindings.SK24ChurroBinder;
 import frc.robot.bindings.SK24ClimbBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24IntakeBinder;
@@ -179,7 +178,6 @@ public class RobotContainer {
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
-        buttonBinders.add(new SK24ChurroBinder(m_churro));
         buttonBinders.add(new SK24ClimbBinder(m_climb));
 
 
