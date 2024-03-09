@@ -16,11 +16,11 @@
     },
     {
       "anchor": {
-        "x": 1.8878506230621577,
+        "x": 1.665344728692309,
         "y": 5.539225686154654
       },
       "prevControl": {
-        "x": 1.6705537482355555,
+        "x": 1.4480478538657071,
         "y": 5.539225686154654
       },
       "nextControl": null,
@@ -42,35 +42,6 @@
               "type": "named",
               "data": {
                 "name": "Pos2CommandGroup"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "Transfer",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeAutoCommand"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.5
               }
             }
           ]

@@ -28,7 +28,7 @@ public class IntakeAutoCommand extends Command
     this.transferSpeed = Constants.LauncherConstants.kTransferSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    addRequirements(intake, launcher);
   }
 
   // Called when the command is initially scheduled.

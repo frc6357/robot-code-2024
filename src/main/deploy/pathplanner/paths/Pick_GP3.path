@@ -39,21 +39,15 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.05,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "IntakeCommand"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoLaunchCommand"
+                "name": "GP3Command"
               }
             }
           ]

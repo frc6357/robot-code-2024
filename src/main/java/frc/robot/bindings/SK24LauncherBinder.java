@@ -13,30 +13,30 @@ import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
+import static frc.robot.Ports.OperatorPorts.kChurroDown;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 //import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
-import static frc.robot.Ports.OperatorPorts.kChurroDown;
-import static frc.robot.Ports.OperatorPorts.*;
 
 import java.util.Optional;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
+import frc.robot.commands.ChurroLowerCommand;
+import frc.robot.commands.ChurroRaiseCommand;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
-import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.AmpScoreDownGroup;
+import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
-import frc.robot.subsystems.SK24Churro;
 import frc.robot.utils.filters.DeadbandFilter;
-
+import frc.robot.Constants.ChurroConstants;
+import frc.robot.Constants.ChurroConstants.*;
 public class SK24LauncherBinder implements CommandBinder
 {
     Optional<SK24Launcher> launcher;
@@ -70,7 +70,7 @@ public class SK24LauncherBinder implements CommandBinder
      *            The required drive subsystem for the commands
      * @return 
      */
-    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Vision> vision)
+    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Vision> vision, Optional<SK24Churro> churro)
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
@@ -130,8 +130,10 @@ public class SK24LauncherBinder implements CommandBinder
                 if(churro.isPresent())
                 {
                     SK24Churro m_churro = churro.get();
-                    churroDownButton.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher, m_churro));
-                    churroDownButton.onFalse(new AmpScoreDownGroup(m_launcherAngle, m_launcher, m_churro));
+                    // churroDownButton.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher, m_churro));
+                    // churroDownButton.onFalse(new AmpScoreDownGroup(m_launcherAngle, m_launcher, m_churro));
+                    churroDownButton.onTrue(new ChurroRaiseCommand(m_churro, ChurroConstants.kChurroSpeed));
+                    churroDownButton.onFalse(new ChurroLowerCommand(m_churro, ChurroConstants.kChurroSpeed));
 
                     //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
                 }

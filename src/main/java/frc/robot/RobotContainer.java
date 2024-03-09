@@ -174,7 +174,7 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision, m_churro));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision));
         buttonBinders.add(new SK24LightBinder(m_light));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
@@ -207,6 +207,8 @@ public class RobotContainer {
             NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
             NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
             NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
+            NamedCommands.registerCommand("Stop", new InstantCommand(() -> launcher.stopLauncher()));
+            NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
             
 
             NamedCommands.registerCommand("IntakeCommand", new IntakeAutoCommand(intake, launcher));

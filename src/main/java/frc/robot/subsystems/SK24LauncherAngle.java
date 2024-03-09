@@ -58,10 +58,10 @@ public class SK24LauncherAngle extends SubsystemBase
 
         targetAngle = kMinAngle;
         currentAngle = kMinAngle;
-        encoder = motor.getExternalEncoder(Type.kQuadrature, 8192);
+        encoder = motor.getEncoder();
         
         encoder.setPositionConversionFactor(kConversionFactor);
-        encoder.setInverted(true);
+        // encoder.setInverted(true);z
 
         encoder.setPosition(kMinAngle);
 

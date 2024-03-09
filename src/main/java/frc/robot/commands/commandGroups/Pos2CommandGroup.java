@@ -24,7 +24,7 @@ public class Pos2CommandGroup extends ParallelCommandGroup {
     public Pos2CommandGroup(SK24Launcher launcher, SK24LauncherAngle arm)
     {
         addCommands(
-            new AngleCommandAuto(kPos2Angle, arm),
+            new AngleCommandAuto(50.0, arm),
             new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
             new WaitCommand(0.25)
         );

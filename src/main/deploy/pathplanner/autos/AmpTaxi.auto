@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5176827472057212,
-      "y": 2.1079505782406716
+      "x": 1.1956585451632455,
+      "y": 7.331138508430864
     },
-    "rotation": 179.11859600341785
+    "rotation": -179.5185341941616
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Taxi_P4"
+            "pathName": "AmpTaxi"
           }
         }
       ]
