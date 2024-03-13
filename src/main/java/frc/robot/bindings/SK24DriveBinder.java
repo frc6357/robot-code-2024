@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
+import frc.robot.commands.ReadyScoreCommand;
+import frc.robot.commands.TurnSpeakerCommand;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
@@ -32,6 +34,7 @@ public class SK24DriveBinder implements CommandBinder
 {
     Optional<SK24Drive>  m_drive;
     Optional<SK24LauncherAngle>  m_arm;
+    Optional<SK24Vision>  m_vision;
     
 
     // Driver Buttons
@@ -53,10 +56,11 @@ public class SK24DriveBinder implements CommandBinder
      * @param m_drive
      *            The required drive subsystem for the commands
      */
-    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24LauncherAngle> m_arm, Optional<SK24Vision> vision)
+    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24LauncherAngle> m_arm, Optional<SK24Vision> m_vision)
     {
         this.m_drive  = m_drive;
         this.m_arm = m_arm;
+        this.m_vision = m_vision;
         
         robotCentric    = kRobotCentricMode.button;
         slowmode = kSlowMode.button;
@@ -95,12 +99,21 @@ public class SK24DriveBinder implements CommandBinder
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
-            
-            rotateSpeaker.whileTrue(
-                new DriveTurnCommand(() -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 180.0, drive));
-        
+            if(m_arm.isPresent() && m_vision.isPresent())
+            {
+                SK24LauncherAngle arm = m_arm.get();
+                SK24Vision vision = m_vision.get();
+                rotateSpeaker.whileTrue(
+                    new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
+                        () -> kRotationYPort.getFilteredAxis(),
+                        drive,arm, vision));
+            }else
+            {
+                rotateSpeaker.whileTrue(
+                    new TurnSpeakerCommand(() -> kTranslationXPort.getFilteredAxis(),
+                        () -> kRotationYPort.getFilteredAxis(),
+                        drive));
+            }
             rotateLeft.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),

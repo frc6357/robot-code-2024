@@ -1,5 +1,7 @@
 package frc.robot.bindings;
 
+import static frc.robot.Constants.ChurroConstants.kChurroLowerPosition;
+import static frc.robot.Constants.ChurroConstants.kChurroRaisePosition;
 import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kFloorAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
@@ -14,6 +16,7 @@ import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kChurroDown;
+import static frc.robot.Ports.OperatorPorts.kChurroUp;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 //import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
@@ -46,7 +49,6 @@ public class SK24LauncherBinder implements CommandBinder
 
     private Trigger manualLauncherButton;
     private Trigger angleOverrideButton;
-    private Trigger operatorTransferButton;
     private Trigger defaultLauncherAngleButton;
     private Trigger floorAngleDriver;
     private Trigger floorAngleOperator;
@@ -54,10 +56,11 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger launchAmpButton;
     private Trigger ampAngleButton;
     private Trigger launchSpeakerButton;
-    private Trigger resetAngleButton;
+    // private Trigger resetAngleButton;
     private Trigger visionAngle;
     private Trigger launchSpeaker;
     private Trigger churroDownButton;
+    private Trigger churroUpButton;
     private Trigger wingAngleButton;
     //private Trigger launchAmp;
 
@@ -81,20 +84,21 @@ public class SK24LauncherBinder implements CommandBinder
         launchAmpButton = kLaunchAmp.button;
         //visionAngle = kVisionAngle.button;
         churroDownButton = kChurroDown.button;
+        churroUpButton = kChurroUp.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
         floorAngleDriver = Ports.OperatorPorts.kAngleFloor.button;
         floorAngleOperator = Ports.DriverPorts.kAngleFloor.button;
         defaultFloorAngleButton = Ports.OperatorPorts.kAngleFloor.button;
-        resetAngleButton = Ports.OperatorPorts.kResetLauncherEncoder.button;
+        // resetAngleButton = Ports.OperatorPorts.kResetLauncherEncoder.button;
 
         ampAngleButton = Ports.OperatorPorts.kAngleAmp.button;
         wingAngleButton = Ports.OperatorPorts.kAngleWing.button;
 
         defaultLauncherAngleButton = kAngleSpeaker.button;
 
-        operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
+       
         
     }
 
@@ -106,19 +110,24 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
 
-            operatorTransferButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(kTransferSpeed)));
-            operatorTransferButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
-
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); //used to be .7 .8
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
             launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
-            //launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setTransferSpeed(0.2)));
             launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-            //launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopTransfer()));
             
 
         
+            if(churro.isPresent())
+            {
+                SK24Churro m_churro = churro.get();
+                // churroDownButton.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher, m_churro));
+                // churroDownButton.onFalse(new AmpScoreDownGroup(m_launcherAngle, m_launcher, m_churro));
+                churroDownButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroLowerPosition)));
+                churroUpButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroRaisePosition)));
+
+                //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
+            }
             if(launcherAngle.isPresent())
             {
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
@@ -127,16 +136,6 @@ public class SK24LauncherBinder implements CommandBinder
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
 
-                if(churro.isPresent())
-                {
-                    SK24Churro m_churro = churro.get();
-                    // churroDownButton.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher, m_churro));
-                    // churroDownButton.onFalse(new AmpScoreDownGroup(m_launcherAngle, m_launcher, m_churro));
-                    churroDownButton.onTrue(new ChurroRaiseCommand(m_churro, ChurroConstants.kChurroSpeed));
-                    churroDownButton.onFalse(new ChurroLowerCommand(m_churro, ChurroConstants.kChurroSpeed));
-
-                    //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
-                }
                 double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
@@ -144,7 +143,7 @@ public class SK24LauncherBinder implements CommandBinder
                 defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
                 ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle)));
                 wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kWingAngle)));
-                resetAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.resetAngle()));
+                // resetAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.resetAngle()));
 
                 
                 // manualLauncherButton.onFalse(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
