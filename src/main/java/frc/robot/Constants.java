@@ -206,7 +206,7 @@ public final class Constants
         public static final double kDriveAngleTolerance = 5.0; //TODO - set this drive angle tolerance value
 
         public static final double kFieldWidth = 16.58; //Width of the field longwise in meters for use in pointing drive towards speaker
-        public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters shortwise from the amp side
+        public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters from the amp side
         public static final double kSpeakerHeight = 1.6 - 0.0; //Height of the center of the speaker opening in meters minus height of launcher pivot point
     }
     public static final class VisionConstants
@@ -333,12 +333,12 @@ public final class Constants
     
     public static final class ChurroConstants
     {
+        public static final PIDConstants kChurroPID = new PIDConstants(0.001, 0.0, 0.0); //TODO - Tune launcher angle PID
         public static final double kAngleTolerance = 0.1; //Angle tolerance in rotations TODO - find churro angle tolerance
-        public static final double kChurroLowerPosition = 0.5; //TODO - find churro position in rotations for scoring amp
-        public static final double kChurroRaisePosition = 0.5; //TODO - find churro position in rotations for scoring amp
+        public static final double kChurroLowerPosition = 0.0; //TODO - find churro position in rotations for scoring amp
+        public static final double kChurroRaisePosition = 180.0; //TODO - find churro position in rotations for scoring amp
     	public static final double kChurroSpeed = 0.1;
-        public static final double kChurroGearRatio= 0.0;
-        public static final double kChurroConversion= 0.0;
+        public static final double kChurroConversion= (1.0 / 49.0) * 360.0;
     }
     
     public static final class LauncherConstants
@@ -351,8 +351,8 @@ public final class Constants
         public static final double kSpeakerDefaultLeftSpeed = 0.5;
         public static final double kSpeakerDefaultRightSpeed = 0.6;
         
-        public static final double kAmpDefaultLeftSpeed = 0.27;
-        public static final double kAmpDefaultRightSpeed = 0.27;
+        public static final double kAmpDefaultLeftSpeed = 0.15;
+        public static final double kAmpDefaultRightSpeed = 0.25;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.50; 

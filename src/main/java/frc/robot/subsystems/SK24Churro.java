@@ -1,10 +1,14 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.ChurroConstants.kChurroConversion;
+import static frc.robot.Constants.ChurroConstants.kChurroPID;
 import static frc.robot.Ports.churroPorts.kChurroMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,19 +19,31 @@ public class SK24Churro extends SubsystemBase
     //memory variable for motor
     CANSparkFlex cMotor;
     RelativeEncoder cEncoder;
+    SparkPIDController pid;
 
     public SK24Churro()
     {
         //Initialize motor object
         cMotor = new CANSparkFlex(kChurroMotor.ID, MotorType.kBrushless);
+        cMotor.setInverted(true);
         cEncoder = cMotor.getEncoder();
         cEncoder.setPosition(0.0);
+        cEncoder.setPositionConversionFactor(kChurroConversion);
+
+        pid = cMotor.getPIDController();
+        pid.setP(kChurroPID.kP);
+        pid.setI(kChurroPID.kI);
+        pid.setD(kChurroPID.kD);
     }
 
-    //Run motor
-    public void setChurroSpeed(double speed)
+    /**
+     * Set churro speed to specified degrees
+     * @param degrees degrees to set the churro to
+     */
+    public void setChurroSpeed(double degrees)
     {
-        cMotor.set(speed);
+        SmartDashboard.putNumber("Churro target", degrees);
+        pid.setReference(degrees, ControlType.kPosition);
     }
 
     //Return motor speed

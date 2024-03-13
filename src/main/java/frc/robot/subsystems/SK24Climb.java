@@ -49,8 +49,6 @@ public class SK24Climb extends SubsystemBase
         encoderR = motorR.getEncoder();
 
         
-        motorL.restoreFactoryDefaults();
-        motorR.restoreFactoryDefaults();
         RelativeEncoder encoderR = motorR.getEncoder();
         encoderR.setPositionConversionFactor(climbConversion);
 
@@ -58,9 +56,6 @@ public class SK24Climb extends SubsystemBase
         encoderL.setPositionConversionFactor(climbConversion);
         resetPosition(0.0);
 
-        motorR.setIdleMode(IdleMode.kBrake); 
-
-        motorL.setIdleMode(IdleMode.kBrake); 
         
 
         RtargetPosition = 0.0;

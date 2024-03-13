@@ -88,6 +88,7 @@ public class Ports
         public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         public static final SKTrigger kChurroDown = new SKTrigger(kOperator, kX.value, BUTTON);
+        public static final SKTrigger kChurroUp = new SKTrigger(kOperator, kY.value, BUTTON);
         
 
 
