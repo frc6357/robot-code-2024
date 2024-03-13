@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.5599471997802752,
-        "y": 6.5463576290918635
+        "x": 1.9209549213878978,
+        "y": 6.534327279805212
       },
       "prevControl": {
-        "x": 1.036999230807414,
-        "y": 6.506889857848628
+        "x": 1.3980069524150367,
+        "y": 6.4948595085619765
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,35 +47,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "Transfer",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.25
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeAutoCommand"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 0.5
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -85,8 +56,8 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.5,
-    "rotation": -138.5165474963354,
+    "velocity": 0.0,
+    "rotation": -146.66635574267767,
     "rotateFast": false
   },
   "reversed": false,

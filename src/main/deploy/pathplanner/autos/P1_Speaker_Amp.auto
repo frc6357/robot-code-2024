@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7417791758660457,
-      "y": 6.551650026376976
+      "x": 0.7607347530216694,
+      "y": 6.715747579077855
     },
-    "rotation": -118.46516214265486
+    "rotation": -121.05427111635277
   },
   "command": {
     "type": "sequential",
@@ -21,6 +21,12 @@
           "type": "path",
           "data": {
             "pathName": "AmpScore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AmpScoreCommandGroup"
           }
         }
       ]

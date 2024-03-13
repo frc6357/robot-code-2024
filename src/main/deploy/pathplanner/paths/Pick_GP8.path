@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 4.9253629276489335,
-        "y": 1.7855483844815823
+        "x": 4.583384230381693,
+        "y": 2.2187287617818487
       },
       "prevControl": {
-        "x": 6.055858058652065,
-        "y": 0.5810956280857222
+        "x": 5.022048924504975,
+        "y": 1.96354672607564
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score78"
     }
   ],
   "rotationTargets": [
@@ -52,12 +52,53 @@
     },
     {
       "waypointRelativePos": 2.0,
-      "rotationDegrees": 131.18592516570965,
+      "rotationDegrees": 140.4027594438986,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Pick Up",
+      "waypointRelativePos": 0.65,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeCommand"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LauncherCommand"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "SetAngle",
+      "waypointRelativePos": 0.35,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "GP78Command"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -66,7 +107,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 134.27273015365446,
+    "rotation": 140.5191376376035,
     "rotateFast": false
   },
   "reversed": false,

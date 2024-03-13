@@ -39,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "Dump",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -53,13 +53,13 @@
             {
               "type": "wait",
               "data": {
-                "waitTime": 0.5
+                "waitTime": 1.0
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "Stop"
+                "name": "StopLauncherCommand"
               }
             }
           ]

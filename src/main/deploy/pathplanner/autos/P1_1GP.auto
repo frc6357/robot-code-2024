@@ -16,6 +16,12 @@
           "data": {
             "pathName": "Pos1"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeAutoCommand"
+          }
         }
       ]
     }

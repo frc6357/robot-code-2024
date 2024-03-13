@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeAutoCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Pick_GP2"
@@ -27,6 +33,12 @@
           "type": "path",
           "data": {
             "pathName": "Pick_GP3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroPositionCommand"
           }
         }
       ]

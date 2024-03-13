@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.5015337722983153,
-      "y": 7.36073933686329
+      "x": 1.439620589164843,
+      "y": 7.279745042950645
     },
     "rotation": 89.55927192723898
   },
@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "AmpScoreCommandGroup"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "PickGP1_Amp"
@@ -27,6 +33,12 @@
           "type": "path",
           "data": {
             "pathName": "AmpScore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AmpScoreCommandGroup"
           }
         }
       ]

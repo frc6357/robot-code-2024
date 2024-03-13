@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2745940876497153,
-      "y": 5.555088802485298
+      "x": 1.385354324682553,
+      "y": 5.539225686154654
     },
     "rotation": 180.0
   },
@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeAutoCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Pick_GP2"
@@ -27,6 +33,12 @@
           "type": "path",
           "data": {
             "pathName": "Pick_GP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroPositionCommand"
           }
         }
       ]

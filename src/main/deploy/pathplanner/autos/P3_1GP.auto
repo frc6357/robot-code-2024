@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.761513061487663,
-      "y": 4.538793692972002
+      "x": 0.7502903555425439,
+      "y": 4.39709133871194
     },
     "rotation": 119.48712567294147
   },
@@ -12,9 +12,15 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Pos3"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Pos3CommandGroup"
+            "name": "IntakeAutoCommand"
           }
         }
       ]

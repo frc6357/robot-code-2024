@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.2691235086459884,
+        "x": 2.118506425308017,
         "y": 5.54682190445462
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5438232601046953,
+        "x": 2.3932061767667236,
         "y": 5.54682190445462
       },
       "isLocked": false,
@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Angle",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "parallel",
         "data": {

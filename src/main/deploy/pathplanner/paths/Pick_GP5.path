@@ -60,9 +60,9 @@
   "eventMarkers": [
     {
       "name": "Pick UP",
-      "waypointRelativePos": 1.1,
+      "waypointRelativePos": 0.75,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -70,14 +70,20 @@
               "data": {
                 "name": "IntakeCommand"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LauncherCommand"
+              }
             }
           ]
         }
       }
     },
     {
-      "name": "Score",
-      "waypointRelativePos": 2.0,
+      "name": "SetAngle",
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {

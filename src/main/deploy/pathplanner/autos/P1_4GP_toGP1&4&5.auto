@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7713800042984719,
-      "y": 6.561516969187785
+      "x": 0.7284778050297884,
+      "y": 6.651755158003897
     },
     "rotation": -118.9959595141184
   },
@@ -18,9 +18,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "IntakeAutoCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Pick_GP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopCommand"
           }
         },
         {
@@ -30,9 +42,39 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "TransferCommand"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.8
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Pick_GP5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "TransferCommand"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroPositionCommand"
           }
         }
       ]

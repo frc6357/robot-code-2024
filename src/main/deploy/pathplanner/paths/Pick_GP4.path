@@ -60,7 +60,7 @@
   "eventMarkers": [
     {
       "name": "Pick Up",
-      "waypointRelativePos": 1.05,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -76,10 +76,10 @@
       }
     },
     {
-      "name": "Score",
-      "waypointRelativePos": 2.0,
+      "name": "SetAngle",
+      "waypointRelativePos": 0.15,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {

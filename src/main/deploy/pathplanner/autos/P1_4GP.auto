@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7713800042984719,
-      "y": 6.550532534784503
+      "x": 0.7284778050297884,
+      "y": 6.651755158003897
     },
     "rotation": -120.78609875887473
   },
@@ -15,6 +15,12 @@
           "type": "path",
           "data": {
             "pathName": "Pos1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeAutoCommand"
           }
         },
         {
@@ -33,6 +39,12 @@
           "type": "path",
           "data": {
             "pathName": "Pick_GP3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroPositionCommand"
           }
         }
       ]
