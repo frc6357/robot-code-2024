@@ -20,12 +20,12 @@ public class IntakeTransferCommand extends Command
    * @param intake The intake subsystem used by this command.
    * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeTransferCommand(SK24Intake intake, SK24Launcher launcher) 
+  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SK24Launcher launcher) 
   {
     this.intake = intake;
     this.launcher = launcher;
-    this.intakeSpeed = Constants.IntakeConstants.kIntakeSpeed;
-    this.transferSpeed = Constants.LauncherConstants.kTransferSpeed;
+    this.intakeSpeed = intakeSpeed;
+    this.transferSpeed = transferSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
