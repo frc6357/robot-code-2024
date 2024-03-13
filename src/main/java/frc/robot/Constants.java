@@ -337,7 +337,7 @@ public final class Constants
         public static final double kAngleTolerance = 0.1; //Angle tolerance in rotations TODO - find churro angle tolerance
         public static final double kChurroLowerPosition = 0.0; //TODO - find churro position in rotations for scoring amp
         public static final double kChurroRaisePosition = 180.0; //TODO - find churro position in rotations for scoring amp
-    	public static final double kChurroSpeed = 0.1;
+    	public static final double kChurroSpeed = 0.15;
         public static final double kChurroConversion= (1.0 / 49.0) * 360.0;
     }
     
@@ -351,8 +351,8 @@ public final class Constants
         public static final double kSpeakerDefaultLeftSpeed = 0.5;
         public static final double kSpeakerDefaultRightSpeed = 0.6;
         
-        public static final double kAmpDefaultLeftSpeed = 0.15;
-        public static final double kAmpDefaultRightSpeed = 0.25;
+        public static final double kAmpDefaultLeftSpeed = 0.21;
+        public static final double kAmpDefaultRightSpeed = 0.21;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.50; 
