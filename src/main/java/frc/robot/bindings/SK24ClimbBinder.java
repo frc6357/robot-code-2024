@@ -1,8 +1,6 @@
 package frc.robot.bindings;
 
-import static frc.robot.Constants.ClimbConstants.kJoystickChange;
-import static frc.robot.Constants.ClimbConstants.kJoystickDeadband;
-import static frc.robot.Constants.ClimbConstants.kJoystickReversed;
+import static frc.robot.Constants.ClimbConstants.*;
 import static frc.robot.Ports.DriverPorts.kClimbDown;
 import static frc.robot.Ports.DriverPorts.kClimbOverride;
 import static frc.robot.Ports.DriverPorts.kClimbUp;
@@ -40,15 +38,16 @@ public class SK24ClimbBinder implements CommandBinder{
             double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
             kClimbAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
-            climbUpButton.onTrue(new InstantCommand(() -> climb.runRightHook(0.2))); //TODO - change values back to 1.0
-            climbUpButton.onTrue(new InstantCommand(() -> climb.runLeftHook(0.2))); //TODO - change values back to 1.0
+            // Climb Up Buttons 
+            climbUpButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbUpSpeed))); //TODO - change values back to 1.0
+            climbUpButton.onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbUpSpeed))); //TODO - change values back to 1.0
             
             climbUpButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0))); 
             climbUpButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
 
-
-            climbDownButton.onTrue(new InstantCommand(() -> climb.runRightHook(-0.2))); //TODO - change values back to 1.0
-            climbDownButton.onTrue(new InstantCommand(() -> climb.runLeftHook(-0.2))); //TODO - change values back to 1.0
+            // Climb Down Buttons
+            climbDownButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed))); //TODO - change values back to 1.0
+            climbDownButton.onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); //TODO - change values back to 1.0
             
             climbDownButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
             climbDownButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));

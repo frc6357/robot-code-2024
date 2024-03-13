@@ -229,6 +229,9 @@ public final class Constants
         public static final double kClimbMotorMinOutput = -1.0;
         public static final double kClimbMotorMaxOutput = 1.0;
 
+        public static final double kClimbUpSpeed = 2.0;
+        public static final double kClimbDownSpeed = -2.0;
+
         
         public static final double kMinAngle = 0.0;
         public static final double kMaxAngle = 1.0;
