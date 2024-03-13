@@ -12,6 +12,10 @@ import static frc.robot.Constants.DriveConstants.FrontRight;
 import static frc.robot.Constants.LauncherAngleConstants.GP1Angle;
 import static frc.robot.Constants.LauncherAngleConstants.GP2Angle;
 import static frc.robot.Constants.LauncherAngleConstants.GP3Angle;
+import static frc.robot.Constants.LauncherAngleConstants.GP456Angle;
+import static frc.robot.Constants.LauncherAngleConstants.GP78Angle;
+import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,9 +45,13 @@ import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.bindings.SK24LightBinder;
+import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.IntakeAutoCommand;
+import frc.robot.commands.LaunchCommand;
+import frc.robot.commands.LaunchCommandAuto;
+import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
-import frc.robot.commands.commandGroups.AutoLaunchCommandGroup;
+import frc.robot.commands.commandGroups.IntakeTransferCommandGroup;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
 import frc.robot.commands.commandGroups.Pos3CommandGroup;
@@ -191,27 +199,47 @@ public class RobotContainer {
 
     private void configurePathPlanner()
     {
-        if(m_drive.isPresent() && m_launcher.isPresent() && m_launcher_angle.isPresent() && m_intake.isPresent())
+        if(m_drive.isPresent() && m_launcher.isPresent() && m_intake.isPresent())
         {
             SK24Launcher launcher = m_launcher.get();
-            SK24LauncherAngle launcherAngle = m_launcher_angle.get();
             SK24Intake intake = m_intake.get();
             
+            if(m_launcher_angle.isPresent())
+            {
+                SK24LauncherAngle launcherAngle = m_launcher_angle.get();
+                
+                NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher, launcherAngle));
+                NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
+                NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
+                NamedCommands.registerCommand("ZeroPositionCommand", new ZeroPositionCommandIntake(launcherAngle, launcher, intake));
+                
+                NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
+                NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
+                NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
+                NamedCommands.registerCommand("GP456Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP456Angle)));
+                NamedCommands.registerCommand("GP78Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP78Angle)));
+            }else{
+                NamedCommands.registerCommand("Pos1CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                NamedCommands.registerCommand("Pos2CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));               
+                NamedCommands.registerCommand("ZeroPositionCommand", new StopCommand(intake, launcher));
+                
+                NamedCommands.registerCommand("GP1Command", new DoNothingCommand());
+                NamedCommands.registerCommand("GP2Command", new DoNothingCommand());
+                NamedCommands.registerCommand("GP3Command", new DoNothingCommand());
+                NamedCommands.registerCommand("GP456Command", new DoNothingCommand());
+                NamedCommands.registerCommand("GP78Command", new DoNothingCommand());
+            }
             //Register commands for use in auto
-            NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher, launcherAngle));
-            NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
-            NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
+            
             NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake, launcher));
-            NamedCommands.registerCommand("ZeroPositionCommand", new ZeroPositionCommandIntake(launcherAngle, launcher, intake));
-
-            NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
-            NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
-            NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
-            NamedCommands.registerCommand("Stop", new InstantCommand(() -> launcher.stopLauncher()));
             NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
             
 
-            NamedCommands.registerCommand("IntakeCommand", new IntakeAutoCommand(intake, launcher));
+            NamedCommands.registerCommand("LauncherCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroup(launcher, intake));
+
+            NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
             NamedCommands.registerCommand("StopLauncherCommand", new InstantCommand(() -> launcher.stopLauncher()));
             NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> launcher.stopTransfer()));
@@ -225,9 +253,6 @@ public class RobotContainer {
             if(m_vision.isPresent())
             {
                 SK24Vision vision = m_vision.get();
-                //NamedCommands.registerCommand("AmpCenterCommand", new AmpCenterCommand(drive, vision));
-                NamedCommands.registerCommand("AutoLaunchCommand", new AutoLaunchCommandGroup(launcher, launcherAngle, vision));
-
                 //kLaunchAmp.button.whileTrue(OnTheFly.scoreAmpCommand);
             }
         }
