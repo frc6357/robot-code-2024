@@ -13,6 +13,7 @@ import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
 import java.util.function.Supplier;
 
 import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -21,6 +22,7 @@ import com.revrobotics.SparkFlexExternalEncoder.Type;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -32,8 +34,7 @@ public class SK24LauncherAngle extends SubsystemBase
     CANSparkFlex    followerMotor;
     int             joystickCount;
     double          targetAngle;
-    double          currentAngle;
-    RelativeEncoder encoder;
+    DutyCycleEncoder encoder;
     PIDController   PID;
     SlewRateLimiter accelLimit;
     double FeedForward;
@@ -57,13 +58,8 @@ public class SK24LauncherAngle extends SubsystemBase
         
 
         targetAngle = kMinAngle;
-        currentAngle = kMinAngle;
-        encoder = motor.getEncoder();
-        
-        encoder.setPositionConversionFactor(kConversionFactor);
-        // encoder.setInverted(true);z
-
-        encoder.setPosition(kMinAngle);
+        encoder = new DutyCycleEncoder(0);
+        encoder.setDistancePerRotation(360.0);
 
     }
 
@@ -93,7 +89,7 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public double getCurrentAngle()
     {
-        return encoder.getPosition();
+        return encoder.getDistance();
     }
 
     /**
@@ -109,7 +105,7 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public void resetAngle()
     {
-        encoder.setPosition(kMinAngle);
+        encoder.setPositionOffset(kMinAngle);
     }
 
     public void zeroPosition()
@@ -138,7 +134,7 @@ public class SK24LauncherAngle extends SubsystemBase
         // Calculates motor speed and puts it within operating range
         double speed = MathUtil.clamp(PID.calculate(current_angle) + calculateFF(target_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
-        motor.set(speed); 
+        //motor.set(speed); TODO- add back when we want to move launcher angle
 
         SmartDashboard.putNumber("Current Launcher Angle", getCurrentAngle());
         SmartDashboard.putNumber("Target Launcher Angle", target_angle);
