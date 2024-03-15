@@ -113,20 +113,17 @@ public class SK24LauncherBinder implements CommandBinder
             // Launch Speaker Button
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); //used to be .7 .8
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-
-            // Launch Amp Button
-            launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
-            launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-            
-
         
             if(churro.isPresent())
             {
                 SK24Churro m_churro = churro.get();
 
-                // Churro Buttons
-                churroDownButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroLowerPosition)));
-                churroUpButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroRaisePosition)));
+                // Launch Amp Button
+                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
+                launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroRaisePosition)));
+
+                launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+                launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroLowerPosition)));
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
             }

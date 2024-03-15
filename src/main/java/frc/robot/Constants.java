@@ -231,7 +231,6 @@ public final class Constants
 
         public static final double kClimbUpSpeed = 2.0;
         public static final double kClimbDownSpeed = -2.0;
-
         
         public static final double kMinAngle = 0.0;
         public static final double kMaxAngle = 1.0;
@@ -240,9 +239,6 @@ public final class Constants
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
-
-
-
     }
 
     /** Constants that are used when defining filters for controllers */
@@ -301,7 +297,6 @@ public final class Constants
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
-
         public static final double kAmpAngle = 44.0; //TODO - find launcher angle for the amp
         public static final double kFloorAngle = 14.0; 
         public static final double kSpeakerAngle = 48.0; //TODO - find launcher angle for the subwoofer
@@ -316,11 +311,6 @@ public final class Constants
         public static final double GP3Angle = 37.0; //TODO - find launcher angle for gp3
         public static final double GP456Angle = 40.0; //TODO - find launcher angle for gp456
         public static final double GP78Angle = 40.0; //TODO - find launcher angle for gp78
-        
-        
-        
-        
-        
     }
     
     public static final class IntakeConstants
@@ -330,8 +320,6 @@ public final class Constants
         public static final double kIntakeSeconds = 10.0; //TODO - find speed to stop intake after if LaserCan fails
         public static final double kIntakeLauncherLeftSpeed = -0.1;
         public static final double kIntakeLauncherRightSpeed = -0.1;
-
-        
     }
     
     public static final class ChurroConstants
