@@ -175,7 +175,6 @@ public class SK24Launcher extends SubsystemBase
 
     public void periodic()
     {
-
         SmartDashboard.putBoolean("HaveLauncherNote", haveNote());
         SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
         SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
@@ -183,7 +182,6 @@ public class SK24Launcher extends SubsystemBase
         SmartDashboard.putNumber("Left Launcher Target Speed", getLeftTargetSpeed());
         SmartDashboard.putNumber("Right Launcher Target Speed", getRightTargetSpeed());
         SmartDashboard.putBoolean("Launcher Full Speed", isFullSpeed());
-
     }
 
 }

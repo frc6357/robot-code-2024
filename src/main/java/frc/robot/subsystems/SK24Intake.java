@@ -25,8 +25,6 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
-        //laserCan = new LaserCan(kLaserCanIntake.ID);
-
         currIntakeState = false;
         pastIntakeState = false;
         SmartDashboard.putBoolean("Intaking", currIntakeState);
@@ -51,21 +49,8 @@ public class SK24Intake extends SubsystemBase
         topIntakeMotor.stopMotor();
     }
 
-    // public boolean haveNote()
-    // {
-    //     LaserCan.Measurement measurement = laserCan.getMeasurement();
-    //     if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-    //       if(measurement.distance_mm < noteMeasurement)
-    //       {
-    //         return true;
-    //       }
-    //     } 
-    //     return false;
-    // }
-
     public void periodic()
     {
-        // SmartDashboard.putBoolean("HaveIntakeNote", haveNote());
         if(Math.abs(getMotorSpeed()) < 0.05)
         {
             currIntakeState = true;

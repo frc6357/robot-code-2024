@@ -47,7 +47,6 @@ public class SK24Climb extends SubsystemBase
         motorR.setInverted(false);
         encoderL = motorL.getEncoder();
         encoderR = motorR.getEncoder();
-
         
         RelativeEncoder encoderR = motorR.getEncoder();
         encoderR.setPositionConversionFactor(climbConversion);
@@ -56,15 +55,11 @@ public class SK24Climb extends SubsystemBase
         encoderL.setPositionConversionFactor(climbConversion);
         resetPosition(0.0);
 
-        
-
         RtargetPosition = 0.0;
         RcurrentPosition = 0.0;
 
         LtargetPosition = 0.0;
         LcurrentPosition = 0.0;
-
-
     }
 
     public void setRightHook(double location)
@@ -98,7 +93,6 @@ public class SK24Climb extends SubsystemBase
         return encoderR.getPosition();
     }
 
-
     public double getRightTargetPosition(){
         return RtargetPosition;
     }
@@ -106,7 +100,6 @@ public class SK24Climb extends SubsystemBase
     public double getLeftTargetPosition(){
         return LtargetPosition;
     }
-
 
     public boolean isRightAtTargetPosition()
     {
