@@ -51,6 +51,7 @@ public class SK24ClimbBinder implements CommandBinder{
             
             climbDownButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
             climbDownButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
+            
             climbUpButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 
             //climbButton.onTrue(new ClimbBalanceCommand(climb)); //TODO - add climb balancing command later

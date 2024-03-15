@@ -44,15 +44,18 @@ public class SK24IntakeBinder implements CommandBinder{
             SK24Intake intake = m_intake.get();
             SK24Launcher launcher = m_launcher.get();
 
+            // Eject Buttons
             ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
             ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(-kTransferSpeed)));
 
+            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
+            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
+
+            // Transfer Button
             operatorTransferButton.onTrue(new IntakeAutoCommand(intake, launcher));
             operatorTransferButton.onFalse(new StopCommand(intake, launcher));
             
-            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
-            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
-            
+            // Intake Buttons
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> launcher.stopLauncher()));
             intakeDriverButton.or(intakeOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
 

@@ -110,9 +110,11 @@ public class SK24LauncherBinder implements CommandBinder
 
             SK24Launcher m_launcher = launcher.get();
 
+            // Launch Speaker Button
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); //used to be .7 .8
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
 
+            // Launch Amp Button
             launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
             launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
             
@@ -121,8 +123,8 @@ public class SK24LauncherBinder implements CommandBinder
             if(churro.isPresent())
             {
                 SK24Churro m_churro = churro.get();
-                // churroDownButton.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher, m_churro));
-                // churroDownButton.onFalse(new AmpScoreDownGroup(m_launcherAngle, m_launcher, m_churro));
+
+                // Churro Buttons
                 churroDownButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroLowerPosition)));
                 churroUpButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroRaisePosition)));
 
@@ -133,16 +135,19 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
                 if(vision.isPresent())
                 {
+                    // Vision Angle Change Button
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
 
                 double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
-                defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
-                ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle)));
-                wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kWingAngle)));
+                // Launch Angle Buttons
+                defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle))); // 48 deg
+                defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle))); // 14 deg
+                ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle))); // 44 deg
+                wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kWingAngle))); // 23 deg
+
                 // resetAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.resetAngle()));
 
                 
