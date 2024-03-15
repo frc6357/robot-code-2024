@@ -23,6 +23,22 @@
         "x": 2.4804310097680693,
         "y": 6.666751660401648
       },
+      "nextControl": {
+        "x": 2.881915261900021,
+        "y": 7.004843662196977
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.057816007523907,
+        "y": 6.550532534784503
+      },
+      "prevControl": {
+        "x": 2.508004980759713,
+        "y": 6.7680647147912785
+      },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
@@ -47,6 +63,23 @@
           ]
         }
       }
+    },
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.4,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeCommand"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "globalConstraints": {
@@ -57,7 +90,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -143.4089117326007,
+    "rotation": -150.0115525034462,
     "rotateFast": false
   },
   "reversed": false,

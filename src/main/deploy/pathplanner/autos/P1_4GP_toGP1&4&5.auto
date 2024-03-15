@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAutoCommand"
+            "name": "ShootCommand"
           }
         },
         {
@@ -32,31 +32,13 @@
         {
           "type": "named",
           "data": {
-            "name": "StopCommand"
+            "name": "ShootCommand"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Pick_GP4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "TransferCommand"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.8
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "StopCommand"
           }
         },
         {

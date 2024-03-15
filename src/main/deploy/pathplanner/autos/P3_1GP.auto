@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAutoCommand"
+            "name": "ShootCommand"
           }
         }
       ]

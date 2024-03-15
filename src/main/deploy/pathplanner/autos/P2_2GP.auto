@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.385354324682553,
+      "x": 1.3142878194153342,
       "y": 5.539225686154654
     },
     "rotation": 180.0
@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAutoCommand"
+            "name": "ShootCommand"
           }
         },
         {
@@ -30,9 +30,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "ZeroPositionCommand"
+            "name": "ShootCommand"
           }
         }
       ]

@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.118506425308017,
+        "x": 1.7121880748754352,
         "y": 5.54682190445462
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3932061767667236,
+        "x": 1.9868878263341423,
         "y": 5.54682190445462
       },
       "isLocked": false,
@@ -32,11 +32,11 @@
     },
     {
       "anchor": {
-        "x": 2.3747772592070286,
+        "x": 1.7121880748754352,
         "y": 5.54682190445462
       },
       "prevControl": {
-        "x": 2.610895424287669,
+        "x": 1.9483062399560758,
         "y": 5.526164241757521
       },
       "nextControl": null,
@@ -54,8 +54,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Angle",
-      "waypointRelativePos": 0.05,
+      "name": "Intake",
+      "waypointRelativePos": 0.45,
       "command": {
         "type": "parallel",
         "data": {
@@ -63,7 +63,7 @@
             {
               "type": "named",
               "data": {
-                "name": "GP2Command"
+                "name": "IntakeCommand"
               }
             }
           ]
@@ -78,7 +78,7 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 2.0,
+    "velocity": 0.0,
     "rotation": 180.0,
     "rotateFast": false
   },

@@ -51,10 +51,11 @@ import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
-import frc.robot.commands.commandGroups.IntakeTransferCommandGroup;
+import frc.robot.commands.commandGroups.IntakeTransferCommandGroupAuto;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
 import frc.robot.commands.commandGroups.Pos3CommandGroup;
+import frc.robot.commands.commandGroups.ShootCommandGroup;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Climb;
 import frc.robot.subsystems.SK24Drive;
@@ -234,10 +235,11 @@ public class RobotContainer {
             
             NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake, launcher));
             NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
+            NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake, launcher));
             
 
             NamedCommands.registerCommand("LauncherCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
-            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroup(launcher, intake));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake));
 
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));

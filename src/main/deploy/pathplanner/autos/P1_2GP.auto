@@ -20,13 +20,19 @@
         {
           "type": "named",
           "data": {
-            "name": "IntakeAutoCommand"
+            "name": "ShootCommand"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Pick_GP1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCommand"
           }
         },
         {
