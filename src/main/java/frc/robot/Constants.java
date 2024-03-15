@@ -312,6 +312,11 @@ public final class Constants
         public static final double GP456Angle = 40.0; //TODO - find launcher angle for gp456
         public static final double GP78Angle = 40.0; //TODO - find launcher angle for gp78
     }
+
+    public static final class LightConstants
+    {
+        public static final int numLedOnBot = 100; //TODO - find actual number of LED on bot
+    }
     
     public static final class IntakeConstants
     {

@@ -16,10 +16,11 @@ import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24Light;
 
 public class IntakeTransferCommandGroup extends SequentialCommandGroup {
     
-    public IntakeTransferCommandGroup(SK24Launcher launcher, SK24Intake intake)
+    public IntakeTransferCommandGroup(SK24Launcher launcher, SK24Intake intake, SK24Light light)
     {
         // addCommands(
         //     new ParallelRaceGroup(
@@ -38,16 +39,11 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
 
         addCommands(
             new ParallelRaceGroup(
-                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher),
+                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light),
                 new WaitCommand(kIntakeSeconds)
             ),
             new WaitCommand(0.5),
-            new ParallelRaceGroup(
-                new IntakeTransferCommand(-0.1, -0.1, intake, launcher),
-                new WaitCommand(3.0)
-            )
-            
+            new InstantCommand(() -> light.setTeamColor(100))
         );
     }
-
 }

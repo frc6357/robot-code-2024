@@ -63,7 +63,7 @@ public class SK24Light extends SubsystemBase{
     }
 
     public void RainbowAnimate(double brightness, double speed, int numLed){
-        RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed);
+        RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed, false, 8);
         candle.animate(animation);
     }
 
@@ -116,6 +116,17 @@ public class SK24Light extends SubsystemBase{
     public void setGreen(int numLed){
         setLight(0, 255, 0, numLed);
     }
+
+    public void setTeamColor(int numLed)
+    {
+        setLight(3, 168, 181, numLed);
+    }
+
+    public void setPartyMode(int numLed)
+    {
+        RainbowAnimate(1.0, 0.7, numLed);
+    }
     
+
 
 }
