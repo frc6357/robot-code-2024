@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
