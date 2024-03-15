@@ -222,7 +222,7 @@ public class RobotContainer {
             }else{
                 NamedCommands.registerCommand("Pos1CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
                 NamedCommands.registerCommand("Pos2CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
-                NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));               
+                NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)); //Switched values since it's on other side              
                 NamedCommands.registerCommand("ZeroPositionCommand", new StopCommand(intake, launcher));
                 
                 NamedCommands.registerCommand("GP1Command", new DoNothingCommand());

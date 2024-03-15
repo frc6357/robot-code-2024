@@ -3,51 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.034951245475011,
-        "y": 4.553757300898827
+        "x": 0.9626945359454185,
+        "y": 4.051949444840401
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.222950400099274,
-        "y": 4.459757723586694
+        "x": 1.1506936905696823,
+        "y": 3.957949867528269
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score3"
     },
     {
       "anchor": {
-        "x": 2.496814123442796,
-        "y": 4.438407050851191
+        "x": 2.45,
+        "y": 4.2
       },
       "prevControl": {
-        "x": 2.372021520414014,
-        "y": 4.4724413971317665
+        "x": 1.8761690092567065,
+        "y": 4.176578326908437
       },
       "nextControl": {
-        "x": 2.625633325446393,
-        "y": 4.403274541213847
+        "x": 2.58341299542387,
+        "y": 4.205445428384648
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "PickGP3"
     },
     {
       "anchor": {
-        "x": 2.034951245475011,
-        "y": 4.553757300898827
+        "x": 0.9626945359454185,
+        "y": 4.051949444840401
       },
       "prevControl": {
-        "x": 2.402343919664031,
-        "y": 4.3675447177003
+        "x": 1.7004772383296527,
+        "y": 3.72404602155852
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score3"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 148.80578643645754,
+      "waypointRelativePos": 1.25,
+      "rotationDegrees": 180.0,
       "rotateFast": false
     }
   ],
@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0.05,
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -63,7 +63,7 @@
             {
               "type": "named",
               "data": {
-                "name": "GP3Command"
+                "name": "IntakeCommand"
               }
             }
           ]
@@ -79,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 150.4030053903767,
+    "rotation": 125.87304322004304,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 123.56052508712878,
     "velocity": 0
   },
   "useDefaultConstraints": true

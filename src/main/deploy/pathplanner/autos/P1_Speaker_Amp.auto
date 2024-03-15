@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7607347530216694,
-      "y": 6.715747579077855
+      "x": 0.7284778050297884,
+      "y": 6.651755158003897
     },
     "rotation": -121.05427111635277
   },
@@ -12,9 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Pos1"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Pos1CommandGroup"
+            "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PickGP1_Amp"
           }
         },
         {

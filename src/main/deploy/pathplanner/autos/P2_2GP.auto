@@ -30,15 +30,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "ShootCommand"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ShootCommand"
+            "name": "ZeroPositionCommand"
           }
         }
       ]
