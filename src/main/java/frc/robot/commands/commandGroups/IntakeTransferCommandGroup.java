@@ -8,18 +8,20 @@ import static frc.robot.Constants.IntakeConstants.kIntakeSeconds;
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.IntakeTransferCommand;
-import frc.robot.commands.LaunchCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.utils.SKCANLight;
 
 public class IntakeTransferCommandGroup extends SequentialCommandGroup {
     
-    public IntakeTransferCommandGroup(SK24Launcher launcher, SK24Intake intake)
+    public IntakeTransferCommandGroup(SK24Launcher launcher, SK24Intake intake, SKCANLight light)
     {
         // addCommands(
         //     new ParallelRaceGroup(
@@ -35,14 +37,13 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
         //     new InstantCommand(() -> launcher.stopLauncher())
             
         // );
-
         addCommands(
             new ParallelRaceGroup(
-                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher),
+                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light),
                 new WaitCommand(kIntakeSeconds)
             ),
-            new WaitCommand(0.5)
-            //new InstantCommand(() -> light.setTeamColor(100)) TODO - add back in lights
+            new WaitCommand(0.5),
+            new InstantCommand(() -> light.setTeamColor(100))
         );
     }
 }

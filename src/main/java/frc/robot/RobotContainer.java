@@ -44,7 +44,6 @@ import frc.robot.bindings.SK24ClimbBinder;
 import frc.robot.bindings.SK24DriveBinder;
 import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
-import frc.robot.bindings.SK24LightBinder;
 import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.IntakeAutoCommand;
 import frc.robot.commands.LaunchCommand;
@@ -62,9 +61,9 @@ import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
-import frc.robot.subsystems.SK24Light;
 import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.SK24AutoBuilder;
+import frc.robot.utils.SKCANLight;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
 
@@ -78,7 +77,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private Optional<SK24Drive>  m_drive  = Optional.empty();
   private Optional<SK24Launcher>  m_launcher  = Optional.empty();
-  private Optional<SK24Light>  m_light  = Optional.empty();
+  private SKCANLight  m_light  = new SKCANLight();
   private Optional<SK24Intake>  m_intake  = Optional.empty();
   private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
   private Optional<SK24Churro>  m_churro  = Optional.empty();
@@ -131,7 +130,7 @@ public class RobotContainer {
             }
             if(subsystems.isLightsPresent())
             {
-                m_light = Optional.of(new SK24Light());
+                m_light.init();
             }
             if(subsystems.isIntakePresent())
             {
@@ -185,8 +184,7 @@ public class RobotContainer {
         // Adding all the binding classes to the list
         buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision, m_churro));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision));
-        buttonBinders.add(new SK24LightBinder(m_light));
-        buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher));
+        buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher, m_light));
         buttonBinders.add(new SK24ClimbBinder(m_climb));
 
 
@@ -204,7 +202,6 @@ public class RobotContainer {
         {
             SK24Launcher launcher = m_launcher.get();
             SK24Intake intake = m_intake.get();
-            SK24Light light = m_light.get();
             
             if(m_launcher_angle.isPresent())
             {
@@ -241,7 +238,7 @@ public class RobotContainer {
 
             NamedCommands.registerCommand("LauncherCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
 
-            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake,m_light));
 
 
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));

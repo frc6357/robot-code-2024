@@ -1,8 +1,11 @@
 package frc.robot.commands;
 
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.utils.SKCANLight;
 
 
 public class IntakeTransferCommand extends Command
@@ -10,6 +13,7 @@ public class IntakeTransferCommand extends Command
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
   private final SK24Launcher launcher;
+  private final SKCANLight light;
   double intakeSpeed;
   double transferSpeed;
 
@@ -19,16 +23,17 @@ public class IntakeTransferCommand extends Command
    * @param intake The intake subsystem used by this command.
    * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SK24Launcher launcher) 
+  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SK24Launcher launcher, SKCANLight light) 
   {
     this.intake = intake;
     this.launcher = launcher;
+    this.light = light;
     this.intakeSpeed = intakeSpeed;
     this.transferSpeed = transferSpeed;
 
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    addRequirements(intake, launcher);
   }
 
   // Called when the command is initially scheduled.
@@ -51,10 +56,10 @@ public class IntakeTransferCommand extends Command
   {
     intake.stopIntake();
     launcher.stopTransfer();
-    // if(!interrupted)
-    // {
-    //   light.setOrange(100);
-    // } TODO - add back in lights as not a subsystem
+    if(!interrupted)
+    {
+      light.setOrange(100);
+    } 
   }
 
   // Returns true when the command should end.
