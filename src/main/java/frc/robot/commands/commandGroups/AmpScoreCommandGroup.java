@@ -3,19 +3,19 @@ package frc.robot.commands.commandGroups;
 import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
 
-import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.AmpCenterCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.ChurroLowerCommand;
 import frc.robot.commands.ChurroRaiseCommand;
+import frc.robot.commands.IntakeAutoCommand;
 import frc.robot.commands.LaunchCommandAuto;
+import frc.robot.commands.StopCommand;
 import frc.robot.subsystems.SK24Churro;
-import frc.robot.subsystems.SK24Drive;
+import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24Vision;
 
-public class AmpScoreCommandGroup extends ParallelCommandGroup{
+public class AmpScoreCommandGroup extends SequentialCommandGroup{
 
   /**
    * Command to score in the amp, moving the launcher angle to the right angle, 
@@ -23,11 +23,18 @@ public class AmpScoreCommandGroup extends ParallelCommandGroup{
    * @param arm Launcher angle subsystem to use
    * @param launcher Launcher subsystem to use
    */
-  public AmpScoreCommandGroup(Supplier<Double> forwardSpeed, SK24Launcher launcher, SK24Churro churro, SK24Drive drive, SK24Vision vision) {
+  public AmpScoreCommandGroup(SK24Launcher launcher, SK24Churro churro, SK24Intake intake) {
     addCommands(
-          new ChurroRaiseCommand(churro),
-          new LaunchCommandAuto(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed, launcher),
-          new AmpCenterCommand(forwardSpeed, drive, vision)
+          new ParallelCommandGroup(
+            new ChurroRaiseCommand(churro),
+            new LaunchCommandAuto(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed, launcher)
+          ),
+          new WaitCommand(1.5),
+          new IntakeAutoCommand(intake, launcher),
+          new WaitCommand(1.5),
+          new ParallelCommandGroup(
+            new StopCommand(intake, launcher),
+            new ChurroLowerCommand(churro))
         );
   }
 

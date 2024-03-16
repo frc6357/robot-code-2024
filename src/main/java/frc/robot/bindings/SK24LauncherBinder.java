@@ -27,6 +27,7 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
+import frc.robot.commands.AmpCenterCommand;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -103,7 +104,7 @@ public class SK24LauncherBinder implements CommandBinder
             SK24Launcher m_launcher = launcher.get();
 
             // Launch Speaker Button
-            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); //used to be .7 .8
+            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
         
             if(churro.isPresent())
@@ -120,6 +121,7 @@ public class SK24LauncherBinder implements CommandBinder
 
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
+
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
             }

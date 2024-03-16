@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
+import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.noteMeasurement;
 import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
 import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
@@ -15,6 +16,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -25,6 +27,8 @@ public class SK24Launcher extends SubsystemBase
     CANSparkFlex leftMotor;
     CANSparkFlex rightMotor;
     CANSparkFlex transferMotor;
+    double shuffleSpeed = 0.0;
+    boolean isTest = false;
 
     SparkPIDController leftPidController;
     SparkPIDController rightPidController;
@@ -56,7 +60,6 @@ public class SK24Launcher extends SubsystemBase
         encoderL = leftMotor.getEncoder();
         encoderR = rightMotor.getEncoder();
 
-        
     }
 
     /**
@@ -107,7 +110,12 @@ public class SK24Launcher extends SubsystemBase
      */    
     public void setTransferSpeed (double speed)
     {
-        transferMotor.set(speed);
+        if(!isTest)
+        {
+            transferMotor.set(speed);
+        }else{
+            transferMotor.set(shuffleSpeed);
+        }
     }
 
     //Return motor speeds
@@ -180,6 +188,18 @@ public class SK24Launcher extends SubsystemBase
         SmartDashboard.putNumber("Left Launcher Target Speed", getLeftTargetSpeed());
         SmartDashboard.putNumber("Right Launcher Target Speed", getRightTargetSpeed());
         SmartDashboard.putBoolean("Launcher Full Speed", isFullSpeed());
+
+    }
+    
+    public void testPeriodic()
+    {
+        shuffleSpeed = Preferences.getDouble("Transfer Speed", kTransferSpeed);
+    }
+    
+    public void testInit()
+    {
+        isTest = true;
+        Preferences.initDouble("Transfer Speed", kTransferSpeed);
     }
 
 }

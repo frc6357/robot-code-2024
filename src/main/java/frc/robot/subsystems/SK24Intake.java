@@ -1,11 +1,14 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.IntakeConstants.kIntakeAngle;
+import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,6 +18,8 @@ public class SK24Intake extends SubsystemBase
     CANSparkFlex bottomIntakeMotor;
     private boolean pastIntakeState;
     private boolean currIntakeState;
+    double shuffleSpeed;
+    boolean isTest = false;
 
     public SK24Intake()
     {
@@ -27,14 +32,17 @@ public class SK24Intake extends SubsystemBase
 
         currIntakeState = false;
         pastIntakeState = false;
-        SmartDashboard.putBoolean("Intaking", currIntakeState);
     }
 
     //Set motor speeds
     public void setIntakeSpeed (double speed)
     {
-        topIntakeMotor.set(speed);
-
+        if(!isTest)
+        {
+            topIntakeMotor.set(speed);
+        }else{
+            topIntakeMotor.set(shuffleSpeed);
+        }
     }
         
     //Return motor speeds
@@ -51,15 +59,16 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
-        if(Math.abs(getMotorSpeed()) < 0.05)
-        {
-            currIntakeState = true;
-        }else{
-            currIntakeState = false;
-        }
-        if(currIntakeState != pastIntakeState){
-            pastIntakeState = currIntakeState;
-            SmartDashboard.putBoolean("Intaking", currIntakeState);
-        }
+    }
+
+    public void testInit()
+    {
+        isTest = true;
+        Preferences.initDouble("Intake Speed", kIntakeSpeed);
+    }
+    
+    public void testPeriodic()
+    {
+        shuffleSpeed = Preferences.getDouble("Intake Speed", kIntakeSpeed);
     }
 }

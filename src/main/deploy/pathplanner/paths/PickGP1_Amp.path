@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2222753623604454,
-        "y": 6.6134838063596915
+        "x": 1.7580742853793416,
+        "y": 7.015396338484985
       },
       "isLocked": false,
       "linkedName": "Score1"
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Pick up",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,7 +57,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -146.94099090330286,
+    "rotation": -178.2687569065951,
     "rotateFast": false
   },
   "reversed": false,
