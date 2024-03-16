@@ -32,7 +32,7 @@ public class AutoLaunchAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    vision.setSpekerMode();
+    vision.setSpeakerMode();
     double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
     SmartDashboard.putNumber("Vison angle", launcherAngle);
     arm.setTargetAngle(launcherAngle);

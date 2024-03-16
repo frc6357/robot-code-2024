@@ -54,7 +54,7 @@ public class ReadyScoreCommand extends Command{
         PID.enableContinuousInput(-180, 180);
         PID.setTolerance(kDriveAngleTolerance);
 
-        vision.setSpekerMode();
+        vision.setSpeakerMode();
         
         addRequirements(drive, arm, vision);
     }
