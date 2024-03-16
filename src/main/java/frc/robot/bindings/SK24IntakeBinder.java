@@ -2,6 +2,7 @@ package frc.robot.bindings;
 
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
+import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 
 import java.util.Optional;
 
@@ -20,6 +21,7 @@ public class SK24IntakeBinder implements CommandBinder{
     Optional<SK24Launcher> m_launcher;
     SKCANLight light;
     Trigger intakeDriverButton;
+    Trigger launchAmpButton;
     Trigger intakeOperatorButton;
     Trigger ejectDriverButton;
     Trigger ejectOperatorButton;
@@ -30,6 +32,8 @@ public class SK24IntakeBinder implements CommandBinder{
         this.m_intake = intake;
         this.m_launcher = launcher;
         this.light = light;
+
+        this.launchAmpButton = kLaunchAmp.button;
         this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
         this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
         this.ejectDriverButton = Ports.DriverPorts.kEject.button;
@@ -53,7 +57,11 @@ public class SK24IntakeBinder implements CommandBinder{
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
 
             // Transfer Button
-            operatorTransferButton.onTrue(new IntakeAutoCommand(intake, launcher));
+            operatorTransferButton.and(launchAmpButton.negate()).onTrue(new IntakeAutoCommand(intake, launcher));
+
+            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed))); //TODO - determine if we need to change intake/transfer speeds for amp scoring
+            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
+            
             operatorTransferButton.onFalse(new StopCommand(intake, launcher));
             
             // Intake Buttons
