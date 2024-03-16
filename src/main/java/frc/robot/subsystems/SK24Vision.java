@@ -77,7 +77,7 @@ public class SK24Vision extends SubsystemBase
      }
 
      // Sets the speaker pipeline to red or blue based on the driverstation alliance color
-     public void setSpekerMode()
+     public void setSpeakerMode()
      {
          if(alliance.isPresent())
          {
@@ -124,5 +124,11 @@ public class SK24Vision extends SubsystemBase
      public double returnZOffset(double[] poseData)
      {
          return poseData[2];
+     }
+
+     // Force blink
+     public void blinky()
+     {
+        limelight.getEntry("ledMode").setNumber(2);
      }
 }

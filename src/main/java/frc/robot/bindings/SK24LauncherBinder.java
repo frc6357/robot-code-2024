@@ -114,6 +114,10 @@ public class SK24LauncherBinder implements CommandBinder
                 // Launch Amp Button
                 launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
+                if(vision.isPresent()) { 
+                    SK24Vision m_Vision = vision.get();
+                    launchAmpButton.onTrue(new InstantCommand(() -> m_Vision.blinky()));
+                }
 
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
@@ -126,6 +130,8 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
                 if(vision.isPresent())
                 {
+                    // SK24Vision m_vision = vision.get();
+
                     // Vision Angle Change Button
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
