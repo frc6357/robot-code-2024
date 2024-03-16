@@ -1,6 +1,9 @@
 package frc.robot.commands;
 
 
+import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
+import static frc.robot.Constants.LauncherConstants.kSlowTransferSpeed;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
@@ -46,7 +49,12 @@ public class IntakeTransferCommand extends Command
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    if (launcher.haveLowerNote())
+    {
+      light.setOrange();
+      intake.setIntakeSpeed(kSlowIntakeSpeed);
+      launcher.setTransferSpeed(kSlowTransferSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -55,15 +63,11 @@ public class IntakeTransferCommand extends Command
   {
     intake.stopIntake();
     launcher.stopTransfer();
-    if(!interrupted)
-    {
-      light.setOrange();
-    } 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcher.haveNote();
+    return launcher.haveHigherNote();
   }
 }

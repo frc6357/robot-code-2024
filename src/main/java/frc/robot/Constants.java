@@ -321,6 +321,7 @@ public final class Constants
     public static final class IntakeConstants
     {
         public static final double kIntakeSpeed = 0.3; 
+        public static final double kSlowIntakeSpeed = 0.05;
         public static final double kIntakeAngle = 40.0; 
         public static final double kIntakeSeconds = 10.0; //TODO - find speed to stop intake after if LaserCan fails
         public static final double kIntakeLauncherLeftSpeed = -0.1;
@@ -351,6 +352,7 @@ public final class Constants
         public static final double kLauncherRightSpeed = 0.6; 
 
         public static final double kTransferSpeed = 0.5; 
+        public static final double kSlowTransferSpeed = 0.05;
         public static final double noteMeasurement = 85;
         
         public static final double kSpeedTolerance = 0.03;

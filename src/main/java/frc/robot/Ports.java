@@ -106,8 +106,8 @@ public class Ports
         public static final CANPort kTransferMotor = new CANPort(42, busName);
         public static final CANPort kLauncherAngleMotor = new CANPort(43, busName);
         public static final CANPort kLauncherAngleFollowerMotor = new CANPort(44, busName);
-        public static final CANPort kLaserCanLauncher1 = new CANPort(46, busName);
-        public static final CANPort kLaserCanLauncher2 = new CANPort(47, busName);
+        public static final CANPort kLaserCanLauncherLower = new CANPort(46, busName);
+        public static final CANPort kLaserCanLauncherHigher = new CANPort(47, busName);
     }
 
     //Assign CAN ports to climb motors

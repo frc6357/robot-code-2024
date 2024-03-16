@@ -3,8 +3,8 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
 import static frc.robot.Constants.LauncherConstants.noteMeasurement;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncher1;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncher2;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
 import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
 import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
 import static frc.robot.Ports.launcherPorts.kTransferMotor;
@@ -30,8 +30,8 @@ public class SK24Launcher extends SubsystemBase
     SparkPIDController rightPidController;
     RelativeEncoder encoderL;
     RelativeEncoder encoderR;
-    private LaserCan laserCan1;
-    private LaserCan laserCan2;
+    private LaserCan laserCanLower;
+    private LaserCan laserCanHigher;
 
     double leftTargetSpeed;
     double rightTargetSpeed;
@@ -49,8 +49,8 @@ public class SK24Launcher extends SubsystemBase
         rightMotor.setInverted(false);
         transferMotor.setInverted(true);
         
-        laserCan1 = new LaserCan(kLaserCanLauncher1.ID);
-        laserCan2 = new LaserCan(kLaserCanLauncher2.ID);
+        laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
+        laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
 
         
         encoderL = leftMotor.getEncoder();
@@ -128,27 +128,32 @@ public class SK24Launcher extends SubsystemBase
         return transferMotor.get();
     }
     
-    public boolean haveNote()
+    public boolean haveLowerNote()
     {
-        LaserCan.Measurement measurement1 = laserCan1.getMeasurement();
-        LaserCan.Measurement measurement2 = laserCan2.getMeasurement();
+        LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
 
-        if ((measurement1 != null && measurement1.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
-            SmartDashboard.putNumber("LaserCan distance 1", measurement1.distance_mm);
-          if(measurement1.distance_mm < noteMeasurement)
+        if ((measurementLower != null && measurementLower.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance lower", measurementLower.distance_mm);
+          if(measurementLower.distance_mm < noteMeasurement)
           {
             return true;
           }
         } 
 
-        if ((measurement2 != null && measurement2.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
-            SmartDashboard.putNumber("LaserCan distance 2", measurement2.distance_mm);
-          if(measurement2.distance_mm < noteMeasurement)
-          {
-            return true;
-          }
-        } 
+        return false;
+    }
+
+    public boolean haveHigherNote()
+    {
+         LaserCan.Measurement measurementHigher = laserCanHigher.getMeasurement();
         
+        if ((measurementHigher != null && measurementHigher.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance higher", measurementHigher.distance_mm);
+          if(measurementHigher.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
         return false;
     }
 
@@ -168,7 +173,7 @@ public class SK24Launcher extends SubsystemBase
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveLauncherNote", haveNote());
+        SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
         SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
         SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
 
