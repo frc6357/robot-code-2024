@@ -204,6 +204,7 @@ public class RobotContainer {
         {
             SK24Launcher launcher = m_launcher.get();
             SK24Intake intake = m_intake.get();
+            SK24Light light = m_light.get();
             
             if(m_launcher_angle.isPresent())
             {
@@ -239,7 +240,9 @@ public class RobotContainer {
             
 
             NamedCommands.registerCommand("LauncherCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+
             NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake));
+
 
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
