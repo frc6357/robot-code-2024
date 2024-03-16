@@ -351,7 +351,7 @@ public final class Constants
         public static final double kLauncherLeftSpeed = 0.50; 
         public static final double kLauncherRightSpeed = 0.6; 
 
-        public static final double kTransferSpeed = 0.5; 
+        public static final double kTransferSpeed = 0.3; 
         public static final double kSlowTransferSpeed = 0.05;
         public static final double noteMeasurement = 85;
         

@@ -182,6 +182,7 @@ public class SK24Launcher extends SubsystemBase
     public void periodic()
     {
         SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
+        SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
         SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
         SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
 

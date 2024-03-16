@@ -7,6 +7,7 @@ import static frc.robot.Constants.LauncherConstants.kSlowTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Ports.OperatorPorts.kTransfer;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
@@ -54,6 +55,7 @@ public class IntakeTransferCommand extends Command
   public void execute() {
     if (launcher.haveLowerNote())
     {
+      System.out.println("Lower");
       light.setOrange();
       intake.setIntakeSpeed(kSlowIntakeSpeed);
       launcher.setTransferSpeed(kSlowTransferSpeed);
@@ -71,6 +73,6 @@ public class IntakeTransferCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcher.haveHigherNote();
+    return launcher.haveHigherNote() || launcher.haveLowerNote();
   }
 }

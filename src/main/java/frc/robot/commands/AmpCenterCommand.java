@@ -3,6 +3,7 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Vision;
@@ -39,7 +40,7 @@ public class AmpCenterCommand extends Command
         double ampRotation = drive.checkIsRed() ? -90 : 90;
         rotPID.setSetpoint(ampRotation);
 
-        transPID = new PIDController(0.13, 0, 0, 0.02);
+        transPID = new PIDController(1.3, 0, 0, 0.02);
         transPID.setSetpoint(0);
 
         addRequirements(drive, vision);
@@ -63,11 +64,11 @@ public class AmpCenterCommand extends Command
             double translation = transPID.calculate(vision.returnXOffset(vision.getTargetPose()));
             translation = Math.abs(translation) < transDeadband ? 0.0 : translation;
             currentTranslation = translation;
-            drive.drive(translation, manualSpeed.get(), currentRotation, false);
+            drive.drive(manualSpeed.get(), translation, currentRotation, false);
         }
         else
         {
-            drive.drive(0.0, 0.0, currentRotation, false);
+            drive.drive(manualSpeed.get(), 0.0, currentRotation, false);
         }
     }
 
