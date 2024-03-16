@@ -50,6 +50,7 @@ import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
+import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.IntakeTransferCommandGroupAuto;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
@@ -245,12 +246,11 @@ public class RobotContainer {
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
             NamedCommands.registerCommand("StopLauncherCommand", new InstantCommand(() -> launcher.stopLauncher()));
             NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> launcher.stopTransfer()));
-
+            
             if(m_churro.isPresent())
             {
-                //SK24Churro churro = m_churro.get();
-                
-                //Create button bindings for following on the fly paths
+                SK24Churro churro = m_churro.get();
+                NamedCommands.registerCommand("AmpScoreCommandGroup", new AmpScoreCommandGroup(launcher, churro, intake));
             }
             if(m_vision.isPresent())
             {
@@ -280,10 +280,25 @@ public class RobotContainer {
     }
 
     public void testPeriodic(){
-        
+        if(m_intake.isPresent())
+        {
+            m_intake.get().testPeriodic();
+        }
+
+        if(m_launcher.isPresent())
+        {
+            m_launcher.get().testPeriodic();
+        }
     }
     public void testInit(){
-        
+        if(m_intake.isPresent()){
+            m_intake.get().testInit();
+        }
+
+        if(m_launcher.isPresent())
+        {
+            m_launcher.get().testInit();
+        }
     }
 
     public void matchInit()
