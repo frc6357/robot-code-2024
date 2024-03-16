@@ -38,13 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score2_to_Score3"
+            "pathName": "Score2_to_GP3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP3"
+            "pathName": "GP3_to_Score2"
           }
         },
         {
