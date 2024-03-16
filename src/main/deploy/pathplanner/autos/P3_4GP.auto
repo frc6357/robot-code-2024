@@ -26,19 +26,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP3"
+            "pathName": "Score3_to_GP3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GP3_to_Score2"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "ShootCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Score3_to_Score2"
           }
         },
         {
@@ -56,13 +56,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score2_to_Score1"
+            "pathName": "Score2_to_GP1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP1"
+            "pathName": "GP1_to_Score2"
           }
         },
         {
