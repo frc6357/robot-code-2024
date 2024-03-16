@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.LauncherConstants.kLeftLauncherP;
-import static frc.robot.Constants.LauncherConstants.kRightLauncherP;
+
 import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
 import static frc.robot.Constants.LauncherConstants.noteMeasurement;
 import static frc.robot.Ports.launcherPorts.kLaserCanLauncher1;
@@ -10,7 +9,6 @@ import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
 import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
 import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
-import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
@@ -58,12 +56,6 @@ public class SK24Launcher extends SubsystemBase
         encoderL = leftMotor.getEncoder();
         encoderR = rightMotor.getEncoder();
 
-        //  //Pid setup
-        // leftPidController = leftMotor.getPIDController();
-        // rightPidController = rightMotor.getPIDController();
-
-        // leftPidController.setP(kLeftLauncherP);
-        // rightPidController.setP(kRightLauncherP);
         
     }
 
@@ -103,8 +95,6 @@ public class SK24Launcher extends SubsystemBase
     {
         leftTargetSpeed = speedLeft;
         rightTargetSpeed = speedRight;
-        // leftPidController.setReference(speedLeft, CANSparkBase.ControlType.kDutyCycle);
-        // rightPidController.setReference(speedRight, CANSparkBase.ControlType.kDutyCycle);
 
         rightMotor.set(speedRight);
         leftMotor.set(speedLeft);
@@ -165,6 +155,9 @@ public class SK24Launcher extends SubsystemBase
     //Stop motors
     public void stopLauncher()
     {
+        leftTargetSpeed = 0.0;
+        rightTargetSpeed = 0.0;
+
         leftMotor.stopMotor();
         rightMotor.stopMotor();
     }

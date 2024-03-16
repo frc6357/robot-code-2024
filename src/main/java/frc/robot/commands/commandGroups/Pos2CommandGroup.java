@@ -4,7 +4,6 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherAngleConstants.kPos2Angle;
 import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 

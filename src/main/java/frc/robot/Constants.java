@@ -203,7 +203,7 @@ public final class Constants
         public static final double kSourceRedFacing = 45.0; //TODO - find actual angle for source 
         public static final double kSourceBlueFacing = 135.0; //TODO - find actual angle for source 
 
-        public static final double kDriveAngleTolerance = 5.0; //TODO - set this drive angle tolerance value
+        public static final double kDriveAngleTolerance = 3.0; //TODO - set this drive angle tolerance value
 
         public static final double kFieldWidth = 16.58; //Width of the field longwise in meters for use in pointing drive towards speaker
         public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters from the amp side
@@ -235,7 +235,7 @@ public final class Constants
         public static final double kMinAngle = 0.0;
         public static final double kMaxAngle = 1.0;
     
-        public static final double kJoystickChange   = 0.1; // Manual setpoint value for units from 0.0 - 1.0 moved per second //TODO - find good value degrees per second angle launcher
+        public static final double kJoystickChange   = 0.1; // Manual setpoint value for units from 0.0 - 1.0 moved per second - TODO - find good value degrees per second angle launcher
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
@@ -282,7 +282,7 @@ public final class Constants
     public static final class LauncherAngleConstants
     {
         public static final PIDConstants kAnglePID = new PIDConstants(0.007, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kLauncherAngleFF = 0.011; //TODO - Tune launcher angle PID
+        public static final double kLauncherAngleFF = 0.011;
 
         public static final double kConversionFactor = (1.0 / 48.0) * 360.0;
         public static final double kAngleTolerance =  3.0; //TODO - find good angle tolerance launcher
@@ -297,9 +297,9 @@ public final class Constants
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
-        public static final double kAmpAngle = 44.0; //TODO - find launcher angle for the amp
+        public static final double kAmpAngle = 44.0; 
         public static final double kFloorAngle = 14.0; 
-        public static final double kSpeakerAngle = 48.0; //TODO - find launcher angle for the subwoofer
+        public static final double kSpeakerAngle = 48.0; 
         public static final double kWingAngle = 23.0;
 
         public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
@@ -320,8 +320,8 @@ public final class Constants
     
     public static final class IntakeConstants
     {
-        public static final double kIntakeSpeed = 0.3; //TODO - find intake speed
-        public static final double kIntakeAngle = 40.0; //TODO - find angle to intake note at
+        public static final double kIntakeSpeed = 0.3; 
+        public static final double kIntakeAngle = 40.0; 
         public static final double kIntakeSeconds = 10.0; //TODO - find speed to stop intake after if LaserCan fails
         public static final double kIntakeLauncherLeftSpeed = -0.1;
         public static final double kIntakeLauncherRightSpeed = -0.1;
@@ -330,19 +330,15 @@ public final class Constants
     public static final class ChurroConstants
     {
         public static final PIDConstants kChurroPID = new PIDConstants(0.001, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kAngleTolerance = 0.1; //Angle tolerance in rotations TODO - find churro angle tolerance
-        public static final double kChurroLowerPosition = 0.0; //TODO - find churro position in rotations for scoring amp
-        public static final double kChurroRaisePosition = 180.0; //TODO - find churro position in rotations for scoring amp
+        public static final double kAngleTolerance = 0.1; 
+        public static final double kChurroLowerPosition = 0.0; 
+        public static final double kChurroRaisePosition = 180.0; 
     	public static final double kChurroSpeed = 0.15;
         public static final double kChurroConversion= (1.0 / 49.0) * 360.0;
     }
     
     public static final class LauncherConstants
     {
-        public static final double kRightLauncherP = 0.0; //TODO - Tune launcher PID
-        public static final double kRightLauncherFF = 0.0; //TODO - Tune launcher PID
-        public static final double kLeftLauncherP = 0.0;
-        public static final double kLeftLauncherFF = 0.0;
         
         public static final double kSpeakerDefaultLeftSpeed = 0.5;
         public static final double kSpeakerDefaultRightSpeed = 0.6;
@@ -357,7 +353,7 @@ public final class Constants
         public static final double kTransferSpeed = 0.5; 
         public static final double noteMeasurement = 85;
         
-        public static final double kSpeedTolerance = 0.1;
+        public static final double kSpeedTolerance = 0.03;
     }
     
     /** The file that is used for system instantiation at runtime */

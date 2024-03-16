@@ -4,7 +4,6 @@ import static frc.robot.Constants.LauncherAngleConstants.kAnglePID;
 import static frc.robot.Constants.LauncherAngleConstants.kAngleTolerance;
 import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMaxOutput;
 import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMinOutput;
-import static frc.robot.Constants.LauncherAngleConstants.kConversionFactor;
 import static frc.robot.Constants.LauncherAngleConstants.kLauncherAngleFF;
 import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleFollowerMotor;
@@ -13,11 +12,8 @@ import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
 import java.util.function.Supplier;
 
 import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkFlexExternalEncoder.Type;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;

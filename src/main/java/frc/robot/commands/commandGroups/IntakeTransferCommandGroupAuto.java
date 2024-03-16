@@ -7,8 +7,6 @@ package frc.robot.commands.commandGroups;
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 
-import java.util.Optional;
-
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;

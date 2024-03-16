@@ -1,11 +1,6 @@
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.ChurroConstants.kChurroSpeed;
-import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AngleCommand;
 import frc.robot.commands.ChurroLowerCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -22,9 +17,8 @@ public class AmpScoreDownGroup extends SequentialCommandGroup{
    */
   public AmpScoreDownGroup(SK24LauncherAngle arm, SK24Launcher launcher, SK24Churro churro) {
     addCommands(
-        new ZeroPositionCommand(arm, launcher),
-        new WaitCommand(1.0),
-        new ChurroLowerCommand(churro, kChurroSpeed)
+        new ChurroLowerCommand(churro),
+        new ZeroPositionCommand(arm, launcher)
     );
   }
 

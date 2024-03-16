@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
@@ -58,7 +57,7 @@ public class IntakeTransferCommand extends Command
     launcher.stopTransfer();
     if(!interrupted)
     {
-      light.setOrange(100);
+      light.setOrange();
     } 
   }
 

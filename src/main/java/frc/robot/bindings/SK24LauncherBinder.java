@@ -12,7 +12,6 @@ import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kChurroDown;
@@ -28,18 +27,13 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
-import frc.robot.commands.ChurroLowerCommand;
-import frc.robot.commands.ChurroRaiseCommand;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
-import frc.robot.commands.commandGroups.AmpScoreDownGroup;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.filters.DeadbandFilter;
-import frc.robot.Constants.ChurroConstants;
-import frc.robot.Constants.ChurroConstants.*;
 public class SK24LauncherBinder implements CommandBinder
 {
     Optional<SK24Launcher> launcher;
@@ -47,7 +41,6 @@ public class SK24LauncherBinder implements CommandBinder
     Optional<SK24Vision> vision;
     Optional<SK24Churro> churro;
 
-    private Trigger manualLauncherButton;
     private Trigger angleOverrideButton;
     private Trigger defaultLauncherAngleButton;
     private Trigger floorAngleDriver;
@@ -58,7 +51,6 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger launchSpeakerButton;
     // private Trigger resetAngleButton;
     private Trigger visionAngle;
-    private Trigger launchSpeaker;
     private Trigger churroDownButton;
     private Trigger churroUpButton;
     private Trigger wingAngleButton;
@@ -120,10 +112,10 @@ public class SK24LauncherBinder implements CommandBinder
 
                 // Launch Amp Button
                 launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
-                launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroRaisePosition)));
+                launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
 
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-                launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroSpeed(kChurroLowerPosition)));
+                launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
             }

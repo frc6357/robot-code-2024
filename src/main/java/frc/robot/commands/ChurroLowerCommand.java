@@ -2,23 +2,23 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.SK24Churro;
 
+import static frc.robot.Constants.ChurroConstants.kChurroLowerPosition;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ChurroLowerCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Churro subsystem;
-  double speed;
 
   /**
    * Command to lower the churro for scoring in amp
    *
    * @param churro The churro subsystem used by this command.
    */
-  public ChurroLowerCommand(SK24Churro churro, double speed) 
+  public ChurroLowerCommand(SK24Churro churro) 
   {
     this.subsystem = churro;
-    this.speed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(churro);
@@ -28,7 +28,7 @@ public class ChurroLowerCommand extends Command
   @Override
   public void initialize() 
   {
-      subsystem.setChurroSpeed(-speed);
+      subsystem.setChurroPosition(kChurroLowerPosition);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -19,6 +19,7 @@ import com.ctre.phoenix.led.SingleFadeAnimation;
 import com.ctre.phoenix.led.StrobeAnimation;
 import com.ctre.phoenix.led.TwinkleAnimation;
 import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
+import static frc.robot.Constants.LightConstants.*;
 
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 
@@ -119,22 +120,22 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().animate(animation);}
     }
     
-    public void setOrange(int numLed){
-        setLight(255, 30, 0, numLed);
+    public void setOrange(){
+        setLight(255, 30, 0, numLedOnBot);
     }
 
-    public void setGreen(int numLed){
-        setLight(0, 255, 0, numLed);
+    public void setGreen(){
+        setLight(0, 255, 0, numLedOnBot);
     }
 
-    public void setTeamColor(int numLed)
+    public void setTeamColor()
     {
-        setLight(3, 168, 181, numLed);
+        setLight(3, 168, 181, numLedOnBot);
     }
 
-    public void setPartyMode(int numLed)
+    public void setPartyMode()
     {
-        RainbowAnimate(1.0, 0.7, numLed);
+        RainbowAnimate(1.0, 0.7, numLedOnBot);
     }
     
 

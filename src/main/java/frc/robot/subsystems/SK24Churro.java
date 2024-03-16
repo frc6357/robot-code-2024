@@ -40,7 +40,7 @@ public class SK24Churro extends SubsystemBase
      * Set churro speed to specified degrees
      * @param degrees degrees to set the churro to
      */
-    public void setChurroSpeed(double degrees)
+    public void setChurroPosition(double degrees)
     {
         SmartDashboard.putNumber("Churro target", degrees);
         pid.setReference(degrees, ControlType.kPosition);

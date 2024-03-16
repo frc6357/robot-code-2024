@@ -162,6 +162,6 @@ public class Ports
     {
         private static final String busName = "";
 
-        public static final CANPort kChurroMotor = new CANPort(45, busName); //TODO - configure spark max if we use churro
+        public static final CANPort kChurroMotor = new CANPort(45, busName); 
     }
 }

@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 /** An example command that uses an example subsystem. */

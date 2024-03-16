@@ -8,8 +8,6 @@ import static frc.robot.Constants.IntakeConstants.kIntakeSeconds;
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 
-import java.util.Optional;
-
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -43,7 +41,7 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
                 new WaitCommand(kIntakeSeconds)
             ),
             new WaitCommand(0.5),
-            new InstantCommand(() -> light.setTeamColor(100))
+            new InstantCommand(() -> light.setTeamColor())
         );
     }
 }
