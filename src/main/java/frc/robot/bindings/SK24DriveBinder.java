@@ -10,16 +10,18 @@ import static frc.robot.Ports.DriverPorts.kRotateLeft;
 import static frc.robot.Ports.DriverPorts.kRotateRight;
 import static frc.robot.Ports.DriverPorts.kRotateSource;
 import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
-import static frc.robot.Ports.DriverPorts.kRotationYPort;
+import static frc.robot.Ports.DriverPorts.kTranslationYPort;
 import static frc.robot.Ports.DriverPorts.kSlowMode;
 import static frc.robot.Ports.DriverPorts.kTranslationXPort;
 import static frc.robot.Ports.DriverPorts.kVelocityOmegaPort;
+import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.AmpCenterCommand;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.commands.ReadyScoreCommand;
@@ -46,6 +48,8 @@ public class SK24DriveBinder implements CommandBinder
     private final Trigger rotateLeft;
     private final Trigger rotateRight;
     private final Trigger rotateSource;
+    private final Trigger launchAmpButton;
+
     // private final Trigger centerStage;
     // private final Trigger leftStage;
     // private final Trigger rightStage;
@@ -62,6 +66,8 @@ public class SK24DriveBinder implements CommandBinder
         this.m_arm = m_arm;
         this.m_vision = m_vision;
         
+        launchAmpButton = kLaunchAmp.button;
+
         robotCentric    = kRobotCentricMode.button;
         slowmode = kSlowMode.button;
         resetButton = kResetGyroPos.button;
@@ -86,7 +92,7 @@ public class SK24DriveBinder implements CommandBinder
             kTranslationXPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
                 kJoystickDeadband, DriveConstants.kMaxSpeedMetersPerSecond, true));
 
-            kRotationYPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
+            kTranslationYPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
                 kJoystickDeadband, DriveConstants.kMaxSpeedMetersPerSecond, true));
             
             kVelocityOmegaPort.setFilter(new CubicDeadbandFilter(kRotationCoeff, kJoystickDeadband,
@@ -99,36 +105,42 @@ public class SK24DriveBinder implements CommandBinder
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
+            if(m_vision.isPresent())
+            {
+
+                launchAmpButton.whileTrue(new AmpCenterCommand(() -> kTranslationYPort.getFilteredAxis(), drive, m_vision.get()));
+            }
+
             if(m_arm.isPresent() && m_vision.isPresent())
             {
                 SK24LauncherAngle arm = m_arm.get();
                 SK24Vision vision = m_vision.get();
                 rotateSpeaker.whileTrue(
                     new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
-                        () -> kRotationYPort.getFilteredAxis(),
+                        () -> kTranslationYPort.getFilteredAxis(),
                         drive,arm, vision));
             }else
             {
                 rotateSpeaker.whileTrue(
                     new TurnSpeakerCommand(() -> kTranslationXPort.getFilteredAxis(),
-                        () -> kRotationYPort.getFilteredAxis(),
+                        () -> kTranslationYPort.getFilteredAxis(),
                         drive));
             }
             rotateLeft.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
+                    () -> kTranslationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 90.0, drive));
 
             rotateRight.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
+                    () -> kTranslationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 270.0, drive));
             rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
+                    () -> kTranslationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean,0.0, drive)); 
                     
             // centerStage.whileTrue(OnTheFly.centerStageCommand);
@@ -139,7 +151,7 @@ public class SK24DriveBinder implements CommandBinder
             drive.setDefaultCommand(
                 new DefaultSwerveCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kRotationYPort.getFilteredAxis(),
+                    () -> kTranslationYPort.getFilteredAxis(),
                     () -> kVelocityOmegaPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, drive));
 
@@ -158,7 +170,7 @@ public class SK24DriveBinder implements CommandBinder
         Filter translation = new CubicDeadbandFilter(kDriveCoeff, kJoystickDeadband,
             DriveConstants.kMaxSpeedMetersPerSecond * percent, true);
         kTranslationXPort.setFilter(translation);
-        kRotationYPort.setFilter(translation);
+        kTranslationYPort.setFilter(translation);
 
      
         Filter rotation = new CubicDeadbandFilter(kDriveCoeff, kJoystickDeadband,

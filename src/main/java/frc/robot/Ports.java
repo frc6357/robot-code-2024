@@ -21,7 +21,7 @@ public class Ports
         
         // Filtered axis (translation & rotation)
         public static final FilteredAxis kTranslationXPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftY.value));
-        public static final FilteredAxis kRotationYPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftX.value));
+        public static final FilteredAxis kTranslationYPort     = new FilteredAxis(() -> kDriver.getRawAxis(kLeftX.value));
         public static final FilteredAxis kVelocityOmegaPort = new FilteredAxis(() -> kDriver.getRawAxis(kRightX.value)); 
         
         // Switch modes
