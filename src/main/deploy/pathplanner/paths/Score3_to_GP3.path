@@ -3,37 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.044670391765889,
-        "y": 6.722020177278586
+        "x": 0.9626945359454185,
+        "y": 4.051949444840401
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2222753623604454,
-        "y": 6.6134838063596915
+        "x": 1.36086297850199,
+        "y": 4.098792791023527
       },
       "isLocked": false,
-      "linkedName": "Score1"
+      "linkedName": "Score3"
     },
     {
       "anchor": {
-        "x": 2.6841875081753006,
-        "y": 6.991369417831561
+        "x": 2.45,
+        "y": 4.2
       },
       "prevControl": {
-        "x": 2.6644536225536837,
-        "y": 6.991369417831561
+        "x": 1.8761397865163765,
+        "y": 4.157346973752435
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickGP1"
+      "linkedName": "PickGP3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Pick up",
-      "waypointRelativePos": 0.0,
+      "name": "Intake",
+      "waypointRelativePos": 0.65,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -146.94099090330286,
+    "rotation": -179.2623268625678,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 132.32457334397085,
+    "rotation": 117.48661962428797,
     "velocity": 0
   },
   "useDefaultConstraints": true

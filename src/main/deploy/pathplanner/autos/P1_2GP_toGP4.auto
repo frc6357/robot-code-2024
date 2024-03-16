@@ -5,7 +5,7 @@
       "x": 0.7284778050297884,
       "y": 6.651755158003897
     },
-    "rotation": -118.88658176691074
+    "rotation": -119.0819268340175
   },
   "command": {
     "type": "sequential",
@@ -38,25 +38,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score1_to_Score2"
+            "pathName": "Pick_GP4"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP2"
+            "pathName": "Pick_GP1"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "ShootCommand"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ZeroPositionCommand"
           }
         }
       ]

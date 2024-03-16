@@ -38,6 +38,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Score3_to_Score2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Pick_GP2"
           }
         },
@@ -45,6 +51,12 @@
           "type": "named",
           "data": {
             "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Score2_to_Score1"
           }
         },
         {

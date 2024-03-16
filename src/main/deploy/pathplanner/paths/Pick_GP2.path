@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7121880748754352,
-        "y": 5.54682190445462
+        "x": 1.735609747966998,
+        "y": 5.539225686154654
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9868878263341423,
-        "y": 5.54682190445462
+        "x": 2.0103094994257047,
+        "y": 5.539225686154654
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score2"
     },
     {
       "anchor": {
@@ -20,28 +20,28 @@
         "y": 5.54682190445462
       },
       "prevControl": {
-        "x": 2.3872155104413175,
-        "y": 5.54682190445462
+        "x": 2.426549104168107,
+        "y": 5.527514849608872
       },
       "nextControl": {
-        "x": 2.827215510441318,
-        "y": 5.54682190445462
+        "x": 2.7878819167145283,
+        "y": 5.566128959300368
       },
       "isLocked": false,
       "linkedName": "PickGP2"
     },
     {
       "anchor": {
-        "x": 1.7121880748754352,
-        "y": 5.54682190445462
+        "x": 1.735609747966998,
+        "y": 5.539225686154654
       },
       "prevControl": {
-        "x": 1.9483062399560758,
-        "y": 5.526164241757521
+        "x": 2.2734566688865447,
+        "y": 5.546821904454621
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score2"
     }
   ],
   "rotationTargets": [
@@ -55,7 +55,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.45,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {

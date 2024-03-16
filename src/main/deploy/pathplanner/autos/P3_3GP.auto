@@ -38,6 +38,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Score3_to_Score2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Pick_GP2"
           }
         },

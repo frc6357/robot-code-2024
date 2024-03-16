@@ -26,6 +26,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Score2_to_Score1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Pick_GP1"
           }
         },
@@ -33,6 +39,12 @@
           "type": "named",
           "data": {
             "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Score1_to_Score2"
           }
         },
         {
@@ -50,6 +62,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "Score2_to_Score3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "Pick_GP3"
           }
         },
@@ -57,6 +75,12 @@
           "type": "named",
           "data": {
             "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
