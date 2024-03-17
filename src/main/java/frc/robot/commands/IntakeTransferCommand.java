@@ -47,7 +47,7 @@ public class IntakeTransferCommand extends Command
   public void initialize() 
   {
       intake.setIntakeSpeed(intakeSpeed); 
-      launcher.setTransferSpeed(transferSpeed); 
+      launcher.setTransferSpeed(0.15); //TODO - add constant
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,7 +55,6 @@ public class IntakeTransferCommand extends Command
   public void execute() {
     if (launcher.haveLowerNote())
     {
-      System.out.println("Lower");
       light.setOrange();
       intake.setIntakeSpeed(kSlowIntakeSpeed);
       launcher.setTransferSpeed(kSlowTransferSpeed);

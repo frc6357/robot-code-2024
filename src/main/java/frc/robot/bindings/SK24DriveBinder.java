@@ -105,27 +105,33 @@ public class SK24DriveBinder implements CommandBinder
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
-            if(m_vision.isPresent())
-            {
+            // if(m_vision.isPresent())
+            // {
 
-                launchAmpButton.whileTrue(new AmpCenterCommand(() -> kTranslationYPort.getFilteredAxis(), drive, m_vision.get()));
-            }
+            //     launchAmpButton.whileTrue(new AmpCenterCommand(() -> kTranslationYPort.getFilteredAxis(), drive, m_vision.get()));
+            // }
 
-            if(m_arm.isPresent() && m_vision.isPresent())
-            {
-                SK24LauncherAngle arm = m_arm.get();
-                SK24Vision vision = m_vision.get();
-                rotateSpeaker.whileTrue(
-                    new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
-                        () -> kTranslationYPort.getFilteredAxis(),
-                        drive,arm, vision));
-            }else
-            {
-                rotateSpeaker.whileTrue(
-                    new TurnSpeakerCommand(() -> kTranslationXPort.getFilteredAxis(),
-                        () -> kTranslationYPort.getFilteredAxis(),
-                        drive));
-            }
+            // if(m_arm.isPresent() && m_vision.isPresent())
+            // {
+            //     SK24LauncherAngle arm = m_arm.get();
+            //     SK24Vision vision = m_vision.get();
+            //     rotateSpeaker.whileTrue(
+            //         new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
+            //             () -> kTranslationYPort.getFilteredAxis(),
+            //             drive,arm, vision));
+            // }else
+            // {
+            //     rotateSpeaker.whileTrue(
+            //         new TurnSpeakerCommand(() -> kTranslationXPort.getFilteredAxis(),
+            //             () -> kTranslationYPort.getFilteredAxis(),
+            //             drive));
+            // }
+
+            rotateSpeaker.whileTrue(
+                new DriveTurnCommand(() -> kTranslationXPort.getFilteredAxis(),
+                    () -> kTranslationYPort.getFilteredAxis(),
+                    robotCentric::getAsBoolean, 180.0, drive)
+            );
             rotateLeft.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
@@ -141,7 +147,7 @@ public class SK24DriveBinder implements CommandBinder
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kTranslationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean,0.0, drive)); 
+                    robotCentric::getAsBoolean,325.0, drive)); 
                     
             // centerStage.whileTrue(OnTheFly.centerStageCommand);
             // leftStage.whileTrue(OnTheFly.LeftStageCommand);

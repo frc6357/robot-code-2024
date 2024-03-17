@@ -168,7 +168,7 @@
               "Colors/Color when false": "#FFFFFFFF"
             }
           },
-          "2,2": {
+          "2,3": {
             "size": [
               1,
               1
@@ -247,15 +247,56 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "2,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/HaveLauncherLowerNote",
+              "_title": "/SmartDashboard/HaveLauncherLowerNote",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "7,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LaserCan distance higher",
+              "_title": "/SmartDashboard/LaserCan distance higher",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "8,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LaserCan distance lower",
+              "_title": "/SmartDashboard/LaserCan distance lower",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
     }
   ],
   "windowGeometry": {
-    "x": -7.199999809265137,
-    "y": -7.199999809265137,
-    "width": 1550.4000244140625,
+    "x": 1280.800048828125,
+    "y": 0.800000011920929,
+    "width": 1548.800048828125,
     "height": 830.4000244140625
   }
 }

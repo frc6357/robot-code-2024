@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.45,
-        "y": 4.2
+        "x": 2.43,
+        "y": 4.13
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6536338921465275,
-        "y": 4.637491272129477
+        "x": 1.6336338921465274,
+        "y": 4.567491272129477
       },
       "isLocked": false,
       "linkedName": "PickGP3"

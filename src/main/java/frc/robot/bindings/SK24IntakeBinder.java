@@ -26,6 +26,7 @@ public class SK24IntakeBinder implements CommandBinder{
     Trigger ejectDriverButton;
     Trigger ejectOperatorButton;
     Trigger operatorTransferButton;
+    Trigger stopButton;
 
 
     public SK24IntakeBinder(Optional<SK24Intake> intake, Optional<SK24Launcher> launcher, SKCANLight light){
@@ -35,6 +36,7 @@ public class SK24IntakeBinder implements CommandBinder{
 
         this.launchAmpButton = kLaunchAmp.button;
         this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
+        this.stopButton = Ports.DriverPorts.kStop.button;
         this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
         this.ejectDriverButton = Ports.DriverPorts.kEject.button;
         this.ejectOperatorButton = Ports.OperatorPorts.kEject.button;
@@ -59,7 +61,7 @@ public class SK24IntakeBinder implements CommandBinder{
             // Transfer Button
             operatorTransferButton.and(launchAmpButton.negate()).onTrue(new IntakeAutoCommand(intake, launcher));
 
-            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(kTransferSpeed))); //TODO - determine if we need to change intake/transfer speeds for amp scoring
+            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(0.25))); //TODO - determine if we need to change intake/transfer speeds for amp scoring
             operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             
             operatorTransferButton.onFalse(new StopCommand(intake, launcher));
@@ -70,7 +72,7 @@ public class SK24IntakeBinder implements CommandBinder{
            
 
             intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(launcher, intake, light)); //TODO - test intake transfer command
-            
+            //stopButton.onTrue(new StopCommand(intake, launcher));
         }
     }
 }

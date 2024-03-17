@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7284778050297884,
-      "y": 6.651755158003897
+      "x": 1.3142878194153342,
+      "y": 5.539225686154654
     },
-    "rotation": -120.78609875887473
+    "rotation": -178.66795743565808
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos1"
+            "pathName": "Pos2"
           }
         },
         {
@@ -26,13 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score1_to_GP1"
+            "pathName": "Score2_to_GP1"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
@@ -68,7 +68,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
