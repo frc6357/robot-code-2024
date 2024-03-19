@@ -21,12 +21,8 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
     
     public IntakeTransferCommandGroup(SK24Launcher launcher, SK24Intake intake, SKCANLight light)
     {
-        addCommands(
-            new ParallelRaceGroup(
+        addCommands(  
                 new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light)
-            ),
-            new WaitCommand(0.25),
-            new InstantCommand(() -> light.setTeamColor())
         );
     }
 }

@@ -82,6 +82,7 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().clearAnimation(1);}
     }
 
+    /* 
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
         ColorFlowAnimation animation = new ColorFlowAnimation( r,  g,  b,  0,  speed,  numLed,  direction, offset);
@@ -119,25 +120,24 @@ public class SKCANLight{
         TwinkleAnimation animation = new TwinkleAnimation(r, g, b, 0, 1.0, numLed, percent, 8);
         if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
-    
+    */
+
     public void setOrange(){
-        setLight(255, 30, 0, numLedOnBot);
+        setLight(255, 20, 0, numLedOnBot);
     }
 
-    public void setGreen(){
-        setLight(0, 255, 0, numLedOnBot);
+    public void setSilver(){
+        setLight(240,255,255,numLedOnBot);
     }
 
     public void setTeamColor()
     {
-        setLight(3, 168, 181, numLedOnBot);
+        setLight(0, 250, 150, numLedOnBot);
     }
 
     public void setPartyMode()
     {
         RainbowAnimate(1.0, 1.0, numLedOnBot);
     }
-    
-
 
 }

@@ -34,6 +34,7 @@ import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
+import frc.robot.utils.SKCANLight;
 import frc.robot.utils.filters.DeadbandFilter;
 public class SK24LauncherBinder implements CommandBinder
 {
@@ -41,6 +42,7 @@ public class SK24LauncherBinder implements CommandBinder
     Optional<SK24LauncherAngle> launcherAngle;
     Optional<SK24Vision> vision;
     Optional<SK24Churro> churro;
+    SKCANLight light;
 
     private Trigger angleOverrideButton;
     private Trigger defaultLauncherAngleButton;
@@ -66,12 +68,13 @@ public class SK24LauncherBinder implements CommandBinder
      *            The required drive subsystem for the commands
      * @return 
      */
-    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Vision> vision, Optional<SK24Churro> churro)
+    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Vision> vision, Optional<SK24Churro> churro, SKCANLight light)
     {
         this.launcher = launcher;
         this.launcherAngle = launcherAngle;
         this.vision = vision;
         this.churro = churro;
+        this.light = light;
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
@@ -106,6 +109,7 @@ public class SK24LauncherBinder implements CommandBinder
             // Launch Speaker Button
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
         
             if(churro.isPresent())
             {
@@ -114,13 +118,10 @@ public class SK24LauncherBinder implements CommandBinder
                 // Launch Amp Button
                 launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
-                if(vision.isPresent()) { 
-                    SK24Vision m_Vision = vision.get();
-                    launchAmpButton.onTrue(new InstantCommand(() -> m_Vision.blinky()));
-                }
 
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
+                launchAmpButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
 
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());

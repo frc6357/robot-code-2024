@@ -131,4 +131,11 @@ public class SK24Vision extends SubsystemBase
      {
         limelight.getEntry("ledMode").setNumber(2);
      }
+
+     // Turn off blink
+     public void noBlinky()
+     {
+        limelight.getEntry("ledMode").setNumber(0);
+     }
+     
 }
