@@ -1,6 +1,6 @@
 {
     "launcher": true,
-    "lights": false,
+    "lights": true,
     "intake": true,
     "climb": true,
     "launcher_arm": false,

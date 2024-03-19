@@ -75,49 +75,49 @@ public class SKCANLight{
 
     public void RainbowAnimate(double brightness, double speed, int numLed){
         RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed, false, 8);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void clearAnimate(){
-        if(candle.isPresent()){ candle.get().clearAnimation(0);}
+        if(candle.isPresent()){ candle.get().clearAnimation(1);}
     }
 
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
         ColorFlowAnimation animation = new ColorFlowAnimation( r,  g,  b,  0,  speed,  numLed,  direction, offset);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void FireAnimate(double brightness, double speed, int numLed, double sparking, double cooling){
         FireAnimation animation = new FireAnimation(brightness, speed, numLed, sparking, cooling, false, 8);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void LarsonAnimate(int r, int g, int b, int numLed){
         BounceMode mode = BounceMode.Center;
         LarsonAnimation animation = new LarsonAnimation(r, g, b, 0, 0.1, numLed, mode, numLed / 2, 8 );
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void RgbFadeAnimate(double brightness, double speed, int numLed){
         RgbFadeAnimation animation = new RgbFadeAnimation(brightness, speed, numLed, 8);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void SingleFadeAnimate(int r, int g, int b, double speed, int numLed){
         SingleFadeAnimation animation = new SingleFadeAnimation(r, g, b, 0, speed, numLed, 8);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void StrobeAnimate(int r, int g, int b, double speed, int numLed){
         StrobeAnimation animation = new StrobeAnimation(r, g, b, 0, speed, numLed, 8);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void TwinkleAnimate(int r, int g, int b, int numLed){
         TwinklePercent percent = TwinklePercent.Percent100;
         TwinkleAnimation animation = new TwinkleAnimation(r, g, b, 0, 1.0, numLed, percent, 8);
-        if(candle.isPresent()){ candle.get().animate(animation);}
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
     
     public void setOrange(){
@@ -135,7 +135,7 @@ public class SKCANLight{
 
     public void setPartyMode()
     {
-        RainbowAnimate(1.0, 0.7, numLedOnBot);
+        RainbowAnimate(1.0, 1.0, numLedOnBot);
     }
     
 

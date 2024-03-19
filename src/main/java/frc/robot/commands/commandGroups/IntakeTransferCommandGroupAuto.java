@@ -19,25 +19,11 @@ public class IntakeTransferCommandGroupAuto extends SequentialCommandGroup {
     
     public IntakeTransferCommandGroupAuto(SK24Launcher launcher, SK24Intake intake, SKCANLight light)
     {
-        // addCommands(
-        //     new ParallelRaceGroup(
-        //         new IntakeTransferCommand(intake, launcher),
-        //         new WaitCommand(kIntakeSeconds)
-        //     ),
-        //     new WaitCommand(0.5),
-        //     new LaunchCommand(-0.05, -0.05, launcher),
-        //     new WaitCommand(0.5),
-        //     new InstantCommand(() -> intake.stopIntake()),
-        //     new InstantCommand(() -> launcher.stopTransfer()),
-            
-        //     new InstantCommand(() -> launcher.stopLauncher())
-            
-        // );
 
         addCommands(
             new ParallelRaceGroup(
                 new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light),
-                new WaitCommand(1.125)
+                new WaitCommand(2.0)
             )
         );
     }

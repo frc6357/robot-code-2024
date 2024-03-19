@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.noteMeasurement;
@@ -17,6 +19,7 @@ import com.revrobotics.SparkPIDController;
 
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -59,6 +62,8 @@ public class SK24Launcher extends SubsystemBase
         
         encoderL = leftMotor.getEncoder();
         encoderR = rightMotor.getEncoder();
+        SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
+        SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
     }
 
@@ -101,6 +106,10 @@ public class SK24Launcher extends SubsystemBase
 
         rightMotor.set(speedRight);
         leftMotor.set(speedLeft);
+        // double left = SmartDashboard.getNumber("Left launcher", speedLeft);
+        // double right = SmartDashboard.getNumber("Right launcher", speedRight);
+        // rightMotor.set(right);
+        // leftMotor.set(left);
     }
 
 

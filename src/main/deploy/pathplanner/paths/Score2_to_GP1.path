@@ -17,41 +17,23 @@
     {
       "anchor": {
         "x": 2.6841875081753006,
-        "y": 6.991369417831561
+        "y": 7.096766946743594
       },
       "prevControl": {
         "x": 1.477971343959805,
-        "y": 7.014791090923124
+        "y": 7.120188619835157
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickGP1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.65,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeCommand"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

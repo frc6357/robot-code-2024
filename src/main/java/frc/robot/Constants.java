@@ -69,12 +69,13 @@ public final class Constants
         // When using closed-loop control, the drive motor uses the control
         // output type specified by SwerveModuleConstants.DriveMotorClosedLoopOutput
         private static final Slot0Configs driveGains = new Slot0Configs() //TODO - tune driving gains drive
-            .withKP(3).withKI(0).withKD(0)
+            .withKP(2.3).withKI(0).withKD(0)
             .withKS(0).withKV(0).withKA(0);                     
             
             // The closed-loop output type to use for the steer motors;
             // This affects the PID/FF gains for the steer motors
             private static final ClosedLoopOutputType steerClosedLoopOutput = ClosedLoopOutputType.Voltage;
+            
             // The closed-loop output type to use for the drive motors;
             // This affects the PID/FF gains for the drive motors
             private static final ClosedLoopOutputType driveClosedLoopOutput = ClosedLoopOutputType.Voltage;
@@ -132,42 +133,43 @@ public final class Constants
                 .withCouplingGearRatio(kCoupleRatio)
                 .withSteerMotorInverted(kSteerMotorReversed);
                 
-                // Front Left
-                private static final int kFrontLeftDriveMotorId = 13;
-        private static final int kFrontLeftSteerMotorId = 23;
-        private static final int kFrontLeftEncoderId = 33;
+       
 
-        private static final double kFrontLeftEncoderOffset = 0.205322265625;
+    // Front Left
+    private static final int kFrontLeftDriveMotorId = 13;
+    private static final int kFrontLeftSteerMotorId = 23;
+    private static final int kFrontLeftEncoderId = 33;
+    private static final double kFrontLeftEncoderOffset = 0.219970703125;
 
-        private static final double kFrontLeftXPosInches = 11.75;
-        private static final double kFrontLeftYPosInches = 11.75;
-        
-        // Front Right
-        private static final int kFrontRightDriveMotorId = 11;
-        private static final int kFrontRightSteerMotorId = 21;
-        private static final int kFrontRightEncoderId = 31;
-        private static final double kFrontRightEncoderOffset = 0.141845703125;
-        
-        private static final double kFrontRightXPosInches = 11.75;
-        private static final double kFrontRightYPosInches = -11.75;
-        
-        // Back Left
-        private static final int kBackLeftDriveMotorId = 12;
-        private static final int kBackLeftSteerMotorId = 22;
-        private static final int kBackLeftEncoderId = 32;
-        private static final double kBackLeftEncoderOffset = -0.29150390625;
+    private static final double kFrontLeftXPosInches = 10.875;
+    private static final double kFrontLeftYPosInches = 10.875;
 
-        private static final double kBackLeftXPosInches = -11.75;
-        private static final double kBackLeftYPosInches = 11.75;
+    // Front Right
+    private static final int kFrontRightDriveMotorId = 11;
+    private static final int kFrontRightSteerMotorId = 21;
+    private static final int kFrontRightEncoderId = 31;
+    private static final double kFrontRightEncoderOffset = 0.138916015625;
 
-        // Back Right
-        private static final int kBackRightDriveMotorId = 10;
-        private static final int kBackRightSteerMotorId = 20;
-        private static final int kBackRightEncoderId = 30;
-        private static final double kBackRightEncoderOffset = -0.092041015625;
+    private static final double kFrontRightXPosInches = 10.875;
+    private static final double kFrontRightYPosInches = -10.875;
 
-        private static final double kBackRightXPosInches = -11.75;
-        private static final double kBackRightYPosInches = -11.75;
+    // Back Left
+    private static final int kBackLeftDriveMotorId = 12;
+    private static final int kBackLeftSteerMotorId = 22;
+    private static final int kBackLeftEncoderId = 32;
+    private static final double kBackLeftEncoderOffset = -0.28515625;
+
+    private static final double kBackLeftXPosInches = -10.875;
+    private static final double kBackLeftYPosInches = 10.875;
+
+    // Back Right
+    private static final int kBackRightDriveMotorId = 10;
+    private static final int kBackRightSteerMotorId = 20;
+    private static final int kBackRightEncoderId = 30;
+    private static final double kBackRightEncoderOffset = -0.0859375;
+
+    private static final double kBackRightXPosInches = -10.875;
+    private static final double kBackRightYPosInches = -10.875;
         
         public static final SwerveModuleConstants FrontLeft = ConstantCreator.createModuleConstants(
                 kFrontLeftSteerMotorId, kFrontLeftDriveMotorId, kFrontLeftEncoderId, kFrontLeftEncoderOffset, Units.inchesToMeters(kFrontLeftXPosInches), Units.inchesToMeters(kFrontLeftYPosInches), kInvertLeftSide);
@@ -194,7 +196,7 @@ public final class Constants
         public static final double kWheelBase  = 0.5842;
         
         /** The max speed the drive wheels should be allowed to go */
-        public static final double kMaxSpeedMetersPerSecond = 5;
+        public static final double kMaxSpeedMetersPerSecond = 4.5;
         public static final double kMaxRotationDegreesPerSecond = 360.0;
         public static final double kStartAutoLength = 4;
 
@@ -203,7 +205,7 @@ public final class Constants
         public static final double kSourceRedFacing = 45.0; //TODO - find actual angle for source 
         public static final double kSourceBlueFacing = 135.0; //TODO - find actual angle for source 
 
-        public static final double kDriveAngleTolerance = 3.0; //TODO - set this drive angle tolerance value
+        public static final double kDriveAngleTolerance = 1.5; //TODO - set this drive angle tolerance value
 
         public static final double kFieldWidth = 16.58; //Width of the field longwise in meters for use in pointing drive towards speaker
         public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters from the amp side
@@ -315,7 +317,7 @@ public final class Constants
 
     public static final class LightConstants
     {
-        public static final int numLedOnBot = 100; //TODO - find actual number of LED on bot
+        public static final int numLedOnBot = 260; //TODO - find actual number of LED on bot
     }
     
     public static final class IntakeConstants
@@ -341,15 +343,15 @@ public final class Constants
     public static final class LauncherConstants
     {
         
-        public static final double kSpeakerDefaultLeftSpeed = 0.5;
-        public static final double kSpeakerDefaultRightSpeed = 0.6;
+        public static final double kSpeakerDefaultLeftSpeed = 0.4;
+        public static final double kSpeakerDefaultRightSpeed = 0.5;
         
         public static final double kAmpDefaultLeftSpeed = 0.21;
         public static final double kAmpDefaultRightSpeed = 0.21;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
-        public static final double kLauncherLeftSpeed = 0.50; 
-        public static final double kLauncherRightSpeed = 0.6; 
+        public static final double kLauncherLeftSpeed = 0.4; 
+        public static final double kLauncherRightSpeed = 0.5; 
 
         public static final double kTransferSpeed = 0.5; 
         public static final double kSlowTransferSpeed = 0.05;

@@ -270,8 +270,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LaserCan distance higher",
-              "_title": "/SmartDashboard/LaserCan distance higher",
+              "_source0": "network_table:///SmartDashboard/Right launcher",
+              "_title": "/SmartDashboard/Right launcher",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -283,8 +283,8 @@
             ],
             "content": {
               "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LaserCan distance lower",
-              "_title": "/SmartDashboard/LaserCan distance lower",
+              "_source0": "network_table:///SmartDashboard/Left launcher",
+              "_title": "/SmartDashboard/Left launcher",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -294,9 +294,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 1280.800048828125,
+    "x": 0.800000011920929,
     "y": 0.800000011920929,
-    "width": 1548.800048828125,
-    "height": 830.4000244140625
+    "width": 1534.4000244140625,
+    "height": 814.4000244140625
   }
 }

@@ -67,6 +67,11 @@ public class IntakeTransferCommand extends Command
   {
     intake.stopIntake();
     launcher.stopTransfer();
+    if(!interrupted)
+    {
+
+      light.setOrange();
+    }
   }
 
   // Returns true when the command should end.

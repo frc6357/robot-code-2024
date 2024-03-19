@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 2.64,
-        "y": 5.54682190445462
+        "x": 2.672476671629519,
+        "y": 5.539225686154654
       },
       "prevControl": {
-        "x": 2.4593335937267895,
-        "y": 5.527514849608872
+        "x": 2.4918102653563086,
+        "y": 5.519918631308906
       },
       "nextControl": {
-        "x": 2.8206664062732107,
-        "y": 5.566128959300368
+        "x": 2.85314307790273,
+        "y": 5.558532741000402
       },
       "isLocked": false,
       "linkedName": "PickGP2"
@@ -51,7 +51,19 @@
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.6,
+      "maxWaypointRelativePos": 1.5,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "Intake",
@@ -73,7 +85,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
