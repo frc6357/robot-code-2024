@@ -25,7 +25,7 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
             new ParallelRaceGroup(
                 new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light)
             ),
-            new WaitCommand(0.5),
+            new WaitCommand(0.25),
             new InstantCommand(() -> light.setTeamColor())
         );
     }

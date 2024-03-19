@@ -317,7 +317,7 @@ public final class Constants
 
     public static final class LightConstants
     {
-        public static final int numLedOnBot = 260; //TODO - find actual number of LED on bot
+        public static final int numLedOnBot = 240; //TODO - find actual number of LED on bot
     }
     
     public static final class IntakeConstants
