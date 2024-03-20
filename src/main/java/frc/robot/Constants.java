@@ -94,7 +94,7 @@ public final class Constants
             
             private static final double kDriveGearRatio = 6.746031746031747;
             private static final double kSteerGearRatio = 21.428571428571427;
-            private static final double kWheelRadiusInches = 2;
+            private static final double kWheelRadiusInches = 2.0 - 0.1;
             
             private static final boolean kSteerMotorReversed = true;
             private static final boolean kInvertLeftSide = false;
@@ -271,7 +271,7 @@ public final class Constants
 
         // PID Constants
         public static final PIDConstants kTranslationPIDConstants = new PIDConstants(6, 0, 0);
-        public static final PIDConstants kRotationPIDConstants    = new PIDConstants(1.75, 0, 0);
+        public static final PIDConstants kRotationPIDConstants    = new PIDConstants(6, 0.4, 0);
         public static final HolonomicPathFollowerConfig kAutoPathConfig = new HolonomicPathFollowerConfig(
             kTranslationPIDConstants,
             kRotationPIDConstants,
