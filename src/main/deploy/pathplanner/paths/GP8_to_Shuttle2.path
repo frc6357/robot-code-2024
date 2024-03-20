@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.735609747966998,
-        "y": 5.539225686154654
+        "x": 8.094593992326358,
+        "y": 0.7846260485673593
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8292964403332503,
-        "y": 4.789732147224637
+        "x": 7.544184674674627,
+        "y": 0.8900235774793938
       },
       "isLocked": false,
-      "linkedName": "Score2"
+      "linkedName": "PickGP8"
     },
     {
       "anchor": {
-        "x": 1.1149354110405783,
-        "y": 4.075371117931965
+        "x": 6.244281818092879,
+        "y": 1.5575412605889405
       },
       "prevControl": {
-        "x": 1.8058747672416873,
-        "y": 4.473539560488537
+        "x": 6.806401972290392,
+        "y": 1.2647703469444023
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score3"
+      "linkedName": "Shuttle2"
     }
   ],
   "rotationTargets": [],
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.16500780574127,
+    "rotation": 160.06300306054328,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 179.48383577023526,
+    "rotation": 178.42633594589745,
     "velocity": 0
   },
   "useDefaultConstraints": true

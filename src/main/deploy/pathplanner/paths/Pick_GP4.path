@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 8.223413194329954,
-        "y": 7.448092043117039
+        "x": 8.246834867421518,
+        "y": 6.956236908194216
       },
       "prevControl": {
-        "x": 7.8536250673663135,
-        "y": 7.437526668060935
+        "x": 7.877046740457877,
+        "y": 6.945671533138112
       },
       "nextControl": {
-        "x": 8.562026707060893,
-        "y": 7.457766714909352
+        "x": 8.585448380152457,
+        "y": 6.965911579986529
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 6.722020177278586
       },
       "prevControl": {
-        "x": 2.703434275574221,
-        "y": 7.012567991321447
+        "x": 2.325175361239001,
+        "y": 6.946312449001587
       },
       "nextControl": null,
       "isLocked": false,
@@ -60,7 +60,7 @@
   "eventMarkers": [
     {
       "name": "Pick Up",
-      "waypointRelativePos": 0.65,
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "parallel",
         "data": {
@@ -101,7 +101,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -128.472158992115,
+    "rotation": -127.87498365109813,
     "rotateFast": false
   },
   "reversed": false,

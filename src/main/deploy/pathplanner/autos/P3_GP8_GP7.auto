@@ -5,7 +5,7 @@
       "x": 0.7189571631051666,
       "y": 4.438868928628442
     },
-    "rotation": 119.48712567294147
+    "rotation": 118.73435704258014
   },
   "command": {
     "type": "sequential",
@@ -26,37 +26,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "Pick_GP8"
           }
         },
         {
-          "type": "path",
-          "data": {
-            "pathName": "Pick_GP3"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "ShootCommand"
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "Pick_GP7"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "ZeroPositionCommand"
+            "name": "ShootCommand"
           }
         }
       ]

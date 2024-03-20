@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7876751138117675,
-        "y": 7.279745042950645
+        "x": 2.649054998537956,
+        "y": 6.956236908194216
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8138348020468287,
-        "y": 7.513461666967523
+        "x": 2.4968141234427956,
+        "y": 6.967947744739999
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "PickGP1"
     },
     {
       "anchor": {
-        "x": 1.7876751138117675,
-        "y": 7.634854557240922
+        "x": 1.8058747672416873,
+        "y": 7.68230877403267
       },
       "prevControl": {
-        "x": 1.7943584167120892,
-        "y": 7.495090424258874
+        "x": 1.812558070142009,
+        "y": 7.542544641050622
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,7 +51,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 90.0,
+    "rotation": 179.5452811383069,
     "velocity": 0
   },
   "useDefaultConstraints": true

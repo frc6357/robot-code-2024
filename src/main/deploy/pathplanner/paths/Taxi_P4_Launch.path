@@ -3,64 +3,88 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.044670391765889,
-        "y": 6.722020177278586
+        "x": 0.5176827472057212,
+        "y": 2.1079505782406716
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2671762861357379,
-        "y": 6.815706869644838
+        "x": 0.7712517485522178,
+        "y": 2.1185159532967757
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.649054998537956,
-        "y": 6.956236908194216
+        "x": 3.7147411242040724,
+        "y": 1.0188427794829902
       },
       "prevControl": {
-        "x": 2.707609181266863,
-        "y": 6.89768272546531
+        "x": 2.0146175677780587,
+        "y": 1.1744096408553049
       },
       "nextControl": {
-        "x": 2.596031930932043,
-        "y": 7.009259975800129
+        "x": 5.506499115708644,
+        "y": 0.8548910678420494
       },
       "isLocked": false,
-      "linkedName": "PickGP1"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.044670391765889,
-        "y": 6.722020177278586
+        "x": 8.094593992326358,
+        "y": 0.7846260485673593
       },
       "prevControl": {
-        "x": 1.3023087957730821,
-        "y": 6.862550215827965
+        "x": 7.099172885934929,
+        "y": 0.8080477216589235
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score1"
+      "linkedName": "PickGP8"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.5,
-      "rotationDegrees": -178.8842869268312,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 1.05,
-      "rotationDegrees": 180.0,
+      "rotationDegrees": 90.33564999899492,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Angle",
-      "waypointRelativePos": 0.0,
+      "name": "Poop",
+      "waypointRelativePos": 0.5,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Dump"
+              }
+            },
+            {
+              "type": "wait",
+              "data": {
+                "waitTime": 1.0
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "StopLauncherCommand"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 1.1,
       "command": {
         "type": "parallel",
         "data": {
@@ -68,7 +92,7 @@
             {
               "type": "named",
               "data": {
-                "name": "GP1Command"
+                "name": "LauncherCommand"
               }
             }
           ]
@@ -77,7 +101,7 @@
     },
     {
       "name": "Intake",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 1.3,
       "command": {
         "type": "parallel",
         "data": {
@@ -101,13 +125,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -131.18592516570962,
+    "rotation": 179.03713637436385,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -131.18592516570962,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

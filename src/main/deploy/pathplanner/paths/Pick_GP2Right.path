@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9626945359454185,
-        "y": 4.051949444840401
+        "x": 1.7004772383296536,
+        "y": 5.3752739745137115
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1506936905696823,
-        "y": 3.957949867528269
+        "x": 1.9751769897883602,
+        "y": 5.3752739745137115
+      },
+      "isLocked": false,
+      "linkedName": "Score2RightDrift"
+    },
+    {
+      "anchor": {
+        "x": 2.6841875081753006,
+        "y": 5.152768080143863
+      },
+      "prevControl": {
+        "x": 2.50352110190209,
+        "y": 5.133461025298115
+      },
+      "nextControl": {
+        "x": 2.8648539144485112,
+        "y": 5.172075134989611
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4733924503512332,
-        "y": 4.051949444840401
+        "x": 1.7004772383296536,
+        "y": 5.3752739745137115
       },
       "prevControl": {
-        "x": 1.881720933346251,
-        "y": 4.159526084295852
-      },
-      "nextControl": {
-        "x": 2.60221165235483,
-        "y": 4.028527771748839
-      },
-      "isLocked": false,
-      "linkedName": "PickGP3"
-    },
-    {
-      "anchor": {
-        "x": 1.1149354110405783,
-        "y": 4.075371117931965
-      },
-      "prevControl": {
-        "x": 1.9346939692452838,
-        "y": 4.145636137206655
+        "x": 2.2383241592492005,
+        "y": 5.382870192813678
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score3"
+      "linkedName": "Score2RightDrift"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.25,
+      "waypointRelativePos": 1,
       "rotationDegrees": 180.0,
       "rotateFast": false
     }
@@ -54,8 +54,8 @@
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.7,
-      "maxWaypointRelativePos": 1.65,
+      "minWaypointRelativePos": 0.6,
+      "maxWaypointRelativePos": 1.5,
       "constraints": {
         "maxVelocity": 1.5,
         "maxAcceleration": 2.0,
@@ -66,8 +66,8 @@
   ],
   "eventMarkers": [
     {
-      "name": "Score",
-      "waypointRelativePos": 0.55,
+      "name": "Intake",
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {
@@ -90,14 +90,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 125.87304322004304,
+    "velocity": 0.0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 123.56052508712878,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

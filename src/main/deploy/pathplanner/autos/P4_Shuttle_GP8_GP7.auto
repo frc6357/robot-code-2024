@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7284778050297884,
-      "y": 6.651755158003897
+      "x": 0.5176827472057212,
+      "y": 2.1079505782406716
     },
-    "rotation": -120.78609875887473
+    "rotation": 179.11859600341785
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos1"
+            "pathName": "Taxi_P4_Launch"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GP8_to_Shuttle2"
           }
         },
         {
@@ -26,31 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score1_to_GP1_to_Score2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pick_GP2Right"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Score2_to_GP3_to_Score2"
+            "pathName": "Shuttle2_GP7_to_Shuttle2"
           }
         },
         {
