@@ -28,7 +28,7 @@ public class AmpScoreCommandGroup extends SequentialCommandGroup{
   public AmpScoreCommandGroup(SK24Launcher launcher, SK24Churro churro, SK24Intake intake) {
     addCommands(
           new ParallelDeadlineGroup(
-            new WaitCommand(1.5),
+            new WaitCommand(2.0),
             new ChurroRaiseCommand(churro),
             new LaunchCommandAuto(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed, launcher)
           ),
