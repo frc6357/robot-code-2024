@@ -132,6 +132,7 @@ public class RobotContainer {
             if(subsystems.isLightsPresent())
             {
                 m_light.init();
+                m_light.setTeamColor();
             }
             if(subsystems.isIntakePresent())
             {
