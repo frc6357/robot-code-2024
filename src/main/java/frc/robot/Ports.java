@@ -43,8 +43,8 @@ public class Ports
 
         // Climb
         public static final SKTrigger kClimbUp = new SKTrigger(kDriver, 0, POV);
-        public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbDown = new SKTrigger(kDriver, 180, POV);
+        public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
 
         // Launcher Zero Position
@@ -87,11 +87,11 @@ public class Ports
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
 
         // Churro 
-        public static final SKTrigger kChurroDown = new SKTrigger(kOperator, kX.value, BUTTON);
-        public static final SKTrigger kChurroUp = new SKTrigger(kOperator, kY.value, BUTTON);
         //public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Climb
+        public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kY.value, BUTTON);
+        public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kX.value, BUTTON);
         public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Party mode

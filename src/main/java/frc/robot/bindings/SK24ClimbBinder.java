@@ -1,9 +1,7 @@
 package frc.robot.bindings;
 
 import static frc.robot.Constants.ClimbConstants.*;
-import static frc.robot.Ports.DriverPorts.kClimbDown;
-import static frc.robot.Ports.DriverPorts.kClimbOverride;
-import static frc.robot.Ports.DriverPorts.kClimbUp;
+import static frc.robot.Constants.ChurroConstants.*;
 import static frc.robot.Ports.OperatorPorts.kClimbAxis;
 
 import java.util.Optional;
@@ -12,20 +10,28 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ClimbAngleCommand;
 import frc.robot.subsystems.SK24Climb;
+import frc.robot.subsystems.SK24Churro;
+import frc.robot.Ports;
 import frc.robot.utils.filters.DeadbandFilter;
 
 public class SK24ClimbBinder implements CommandBinder{
     Optional<SK24Climb> subsystem;
-    Trigger climbUpButton;
-    Trigger climbDownButton;
+    Optional<SK24Churro> churro;
+    Trigger climbUpDriverButton;
+    Trigger climbDownDriverButton;
+    Trigger climbUpOperatorButton;
+    Trigger climbDownOperatorButton;
     Trigger climbOverride;
 
 
-    public SK24ClimbBinder(Optional<SK24Climb> subsystem){
+    public SK24ClimbBinder(Optional<SK24Climb> subsystem, Optional<SK24Churro> churro){
         this.subsystem = subsystem;
-        this.climbUpButton = kClimbUp.button;
-        this.climbDownButton = kClimbDown.button;
-        this.climbOverride = kClimbOverride.button;
+        this.churro = churro;
+        this.climbUpDriverButton = Ports.DriverPorts.kClimbUp.button;
+        this.climbDownDriverButton = Ports.DriverPorts.kClimbDown.button;
+        this.climbUpOperatorButton = Ports.OperatorPorts.kClimbUp.button;
+        this.climbDownOperatorButton = Ports.OperatorPorts.kClimbDown.button;
+        this.climbOverride = Ports.DriverPorts.kClimbOverride.button;
     }
 
     public void bindButtons()
@@ -38,21 +44,29 @@ public class SK24ClimbBinder implements CommandBinder{
             double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
             kClimbAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
+            if (churro.isPresent())
+            {
+                SK24Churro m_Churro = churro.get();
+
+                climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> m_Churro.setChurroPosition(kChurroRaisePosition)));
+                climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> m_Churro.setChurroPosition(kChurroRaisePosition)));
+            }
+
             // Climb Up Buttons 
-            climbUpButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbUpSpeed))); //TODO - change values back to 1.0
-            climbUpButton.onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbUpSpeed))); //TODO - change values back to 1.0
+            climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbUpSpeed))); //TODO - change values back to 1.0
+            climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbUpSpeed))); //TODO - change values back to 1.0
             
-            climbUpButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0))); 
-            climbUpButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
+            climbUpDriverButton.or(climbUpOperatorButton).onFalse(new InstantCommand(() -> climb.runRightHook(0.0))); 
+            climbUpDriverButton.or(climbUpOperatorButton).onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
 
             // Climb Down Buttons
-            climbDownButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed))); //TODO - change values back to 1.0
-            climbDownButton.onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); //TODO - change values back to 1.0
+            climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed))); //TODO - change values back to 1.0
+            climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); //TODO - change values back to 1.0
             
-            climbDownButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
-            climbDownButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
+            climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
+            climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
             
-            climbUpButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
+            climbUpDriverButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 
             //climbButton.onTrue(new ClimbBalanceCommand(climb)); //TODO - add climb balancing command later
 

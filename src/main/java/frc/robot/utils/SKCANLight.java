@@ -126,6 +126,10 @@ public class SKCANLight{
         setLight(255, 20, 0, numLedOnBot);
     }
 
+    public void setPurple(){
+        setLight(128, 10, 128, numLedOnBot);
+    }
+
     public void setSilver(){
         setLight(240,255,255,numLedOnBot);
     }

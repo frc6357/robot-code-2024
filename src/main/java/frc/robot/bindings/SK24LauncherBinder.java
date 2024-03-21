@@ -14,8 +14,6 @@ import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
-import static frc.robot.Ports.OperatorPorts.kChurroDown;
-import static frc.robot.Ports.OperatorPorts.kChurroUp;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 //import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
@@ -28,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.AmpCenterCommand;
+import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -54,8 +53,6 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger launchSpeakerButton;
     // private Trigger resetAngleButton;
     private Trigger visionAngle;
-    private Trigger churroDownButton;
-    private Trigger churroUpButton;
     private Trigger wingAngleButton;
     //private Trigger launchAmp;
 
@@ -79,8 +76,6 @@ public class SK24LauncherBinder implements CommandBinder
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
         //visionAngle = kVisionAngle.button;
-        churroDownButton = kChurroDown.button;
-        churroUpButton = kChurroUp.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
@@ -93,9 +88,6 @@ public class SK24LauncherBinder implements CommandBinder
         wingAngleButton = Ports.OperatorPorts.kAngleWing.button;
 
         defaultLauncherAngleButton = kAngleSpeaker.button;
-
-       
-        
     }
 
     public void bindButtons()
@@ -107,9 +99,8 @@ public class SK24LauncherBinder implements CommandBinder
             SK24Launcher m_launcher = launcher.get();
 
             // Launch Speaker Button
-            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
+            launchSpeakerButton.onTrue(new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, m_launcher, light)); 
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
         
             if(churro.isPresent())
             {

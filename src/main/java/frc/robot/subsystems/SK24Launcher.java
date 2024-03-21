@@ -177,9 +177,6 @@ public class SK24Launcher extends SubsystemBase
     //Stop motors
     public void stopLauncher()
     {
-        leftTargetSpeed = 0.0;
-        rightTargetSpeed = 0.0;
-
         leftMotor.stopMotor();
         rightMotor.stopMotor();
     }
