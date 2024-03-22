@@ -102,8 +102,11 @@ public class SK24LauncherBinder implements CommandBinder
             // Launch Speaker Button
 
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
+            launchSpeakerButton.onTrue(new LightLauncherCommand(m_launcher::isFullSpeed, light));
+            launchSpeakerButton.onTrue(new InstantCommand(() -> light.setIsFinished(false)));
+            
+            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setIsFinished(true)));
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
         
             if(churro.isPresent())
             {

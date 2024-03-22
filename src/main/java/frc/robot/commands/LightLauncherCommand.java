@@ -8,12 +8,10 @@ import frc.robot.utils.SKCANLight;
 public class LightLauncherCommand extends Command{
     private SKCANLight light;
     private Supplier <Boolean> fullSpeed;
-    private boolean isDone;
-    public LightLauncherCommand(boolean isDone, Supplier<Boolean> fullSpeed, SKCANLight light)
+    public LightLauncherCommand(Supplier<Boolean> fullSpeed, SKCANLight light)
     {
         this.light = light;   
         this.fullSpeed = fullSpeed;
-        this.isDone = isDone;
     }
 
     @Override
@@ -25,7 +23,7 @@ public class LightLauncherCommand extends Command{
     {
         if (fullSpeed.get()) {light.setPurple();}
         else{
-            light.setTeamColor();
+            light.setOrange();
         }
     }
 
@@ -39,6 +37,6 @@ public class LightLauncherCommand extends Command{
     @Override
     public boolean isFinished()
     {
-        return isDone;
+        return light.isFinished();
     } 
 }

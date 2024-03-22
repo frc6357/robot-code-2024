@@ -56,7 +56,7 @@ public class SK24IntakeBinder implements CommandBinder{
             SK24Launcher launcher = m_launcher.get();
 
             operatorPartyButton.onFalse(new InstantCommand(() -> light.setPartyMode()));
-            driverPartyButton.onTrue(new InstantCommand(() -> light.clearAnimate()));
+            driverPartyButton.onTrue(new InstantCommand(() -> light.clearAnimate())); //TODO - look and see if this is being run repeatedly
             driverPartyButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
 
             // Eject Buttons

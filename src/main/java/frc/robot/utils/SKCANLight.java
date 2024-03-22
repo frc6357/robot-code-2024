@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 public class SKCANLight{
     Optional<CANdle> candle;
     SimpleWidget colorWidget;
+    boolean isFinished;
     
     public SKCANLight(){
         candle = Optional.empty();
@@ -82,6 +83,14 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().clearAnimation(1);}
     }
 
+    public boolean isFinished()
+    {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean finished){
+        isFinished = finished;
+    }
     /* 
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
