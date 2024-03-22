@@ -52,6 +52,9 @@ public class SKCANLight{
         
         candle.get().configAllSettings(config);
 
+        candle.get().clearAnimation(1);
+        this.setTeamColor();
+
         
     }
     
@@ -73,6 +76,7 @@ public class SKCANLight{
         
         if(candle.isPresent()){ candle.get().configBrightnessScalar(bright);}
     }
+
 
     public void RainbowAnimate(double brightness, double speed, int numLed){
         RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed, false, 8);

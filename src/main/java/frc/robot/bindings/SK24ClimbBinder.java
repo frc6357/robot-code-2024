@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ChurroRaiseCommand;
 import frc.robot.commands.ClimbAngleCommand;
 import frc.robot.subsystems.SK24Climb;
 import frc.robot.subsystems.SK24Churro;
@@ -48,8 +49,8 @@ public class SK24ClimbBinder implements CommandBinder{
             {
                 SK24Churro m_Churro = churro.get();
 
-                climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> m_Churro.setChurroPosition(kChurroRaisePosition)));
-                climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> m_Churro.setChurroPosition(kChurroRaisePosition)));
+                climbUpDriverButton.or(climbUpOperatorButton).onTrue(new ChurroRaiseCommand(m_Churro));
+                climbDownDriverButton.or(climbDownOperatorButton).onTrue(new ChurroRaiseCommand(m_Churro));
             }
 
             // Climb Up Buttons 

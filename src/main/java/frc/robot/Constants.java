@@ -333,7 +333,7 @@ public final class Constants
     public static final class ChurroConstants
     {
         public static final PIDConstants kChurroPID = new PIDConstants(0.001, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kAngleTolerance = 0.1; 
+        public static final double kAngleTolerance = 10.0; 
         public static final double kChurroLowerPosition = 0.0; 
         public static final double kChurroRaisePosition = 180.0; 
     	public static final double kChurroSpeed = 0.15;
