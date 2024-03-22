@@ -52,6 +52,7 @@ public class Ports
         
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
+        public static final SKTrigger kLightsOff = new SKTrigger(kDriver, 90, POV);
     }
     /**
      * Defines the button, controller, and axis IDs needed to get input from an external

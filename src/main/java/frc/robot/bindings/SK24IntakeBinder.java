@@ -3,6 +3,7 @@ package frc.robot.bindings;
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+import static frc.robot.Constants.LightConstants.*;
 
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class SK24IntakeBinder implements CommandBinder{
     Trigger driverPartyButton;
     Trigger operatorPartyButton;
     Trigger operatorTransferButton;
+    Trigger lightsOffButton;
     Trigger stopButton;
 
 
@@ -45,6 +47,7 @@ public class SK24IntakeBinder implements CommandBinder{
         this.driverPartyButton = Ports.DriverPorts.kPartyMode.button;
         this.operatorPartyButton = Ports.OperatorPorts.kPartyMode.button;
         operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
+        lightsOffButton = Ports.DriverPorts.kLightsOff.button;
     }
 
     public void bindButtons()
@@ -55,9 +58,14 @@ public class SK24IntakeBinder implements CommandBinder{
             SK24Intake intake = m_intake.get();
             SK24Launcher launcher = m_launcher.get();
 
+            operatorPartyButton.onFalse(new InstantCommand(() -> light.setBrightness(kLightsOnBrightness)));
             operatorPartyButton.onFalse(new InstantCommand(() -> light.setPartyMode()));
+            
             driverPartyButton.onTrue(new InstantCommand(() -> light.clearAnimate())); //TODO - look and see if this is being run repeatedly
             driverPartyButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
+            driverPartyButton.onFalse(new InstantCommand(() -> light.setBrightness(kLightsOnBrightness)));
+
+            lightsOffButton.onTrue(new InstantCommand(() -> light.setBrightness(kLightsOffBrightness)));
 
             // Eject Buttons
             ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
