@@ -28,6 +28,7 @@ import frc.robot.Ports;
 import frc.robot.commands.AmpCenterCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LightLauncherCommand;
+import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -101,13 +102,10 @@ public class SK24LauncherBinder implements CommandBinder
 
             // Launch Speaker Button
 
-            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setSpeakerRampRate()));
-            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
-            launchSpeakerButton.onTrue(new LightLauncherCommand(m_launcher::isFullSpeed, light));
-            launchSpeakerButton.onTrue(new InstantCommand(() -> light.setIsFinished(false)));
+            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(kLauncherLeftSpeed, kLauncherRightSpeed, m_launcher, light));
             
-            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setIsFinished(true)));
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
         
             if(churro.isPresent())
             {
