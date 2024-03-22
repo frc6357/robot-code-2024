@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
 
+import static frc.robot.Constants.LauncherConstants.kAmpRampSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerRampSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.noteMeasurement;
@@ -143,6 +145,23 @@ public class SK24Launcher extends SubsystemBase
     public double getTransferMotorSpeed()
     {
         return transferMotor.get();
+    }
+
+    public void setSpeakerRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+        leftMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+    }
+
+    public void setAmpRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kAmpRampSpeed);
+        leftMotor.setOpenLoopRampRate(kAmpRampSpeed);
+    }
+
+    public double getCurrentRampRate()
+    {
+        return rightMotor.getOpenLoopRampRate();
     }
     
     public boolean haveLowerNote()

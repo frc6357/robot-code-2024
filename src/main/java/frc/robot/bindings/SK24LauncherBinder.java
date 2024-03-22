@@ -101,6 +101,7 @@ public class SK24LauncherBinder implements CommandBinder
 
             // Launch Speaker Button
 
+            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setSpeakerRampRate()));
             launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
             launchSpeakerButton.onTrue(new LightLauncherCommand(m_launcher::isFullSpeed, light));
             launchSpeakerButton.onTrue(new InstantCommand(() -> light.setIsFinished(false)));
@@ -113,6 +114,7 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24Churro m_churro = churro.get();
 
                 // Launch Amp Button
+                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setAmpRampRate()));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
 

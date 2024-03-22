@@ -358,6 +358,9 @@ public final class Constants
         public static final double noteMeasurement = 85;
         
         public static final double kSpeedTolerance = 0.03;
+
+        public static final double kSpeakerRampSpeed = 2.0;
+        public static final double kAmpRampSpeed = 1.0;
     }
     
     /** The file that is used for system instantiation at runtime */
