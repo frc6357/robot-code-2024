@@ -64,6 +64,9 @@ public class SK24Launcher extends SubsystemBase
         
         encoderL = leftMotor.getEncoder();
         encoderR = rightMotor.getEncoder();
+
+        setSpeakerRampRate();
+        
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
