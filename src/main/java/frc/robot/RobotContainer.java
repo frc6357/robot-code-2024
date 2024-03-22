@@ -238,8 +238,6 @@ public class RobotContainer {
             NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake, launcher));
             
 
-            NamedCommands.registerCommand("LauncherCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher, m_light));
-
             NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake,m_light));
 
 

@@ -39,13 +39,17 @@ public class LaunchCommand extends Command {
 
     @Override
     public void initialize()
-    {}
+    {
+        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
+    }
 
     @Override
     public void execute()
     {
         if (launcher.isFullSpeed()) {light.setPurple();}
-        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
+        else{
+            light.setTeamColor();
+        }
     }
 
     @Override
