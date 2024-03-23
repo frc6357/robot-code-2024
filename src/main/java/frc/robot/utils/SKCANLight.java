@@ -139,12 +139,12 @@ public class SKCANLight{
         setLight(255, 24, 0, numLedOnBot);
     }
 
-    public void setPurple(){
-        setLight(128, 8, 128, numLedOnBot);
+    public void setGreen(){
+        setLight(0, 255, 0, numLedOnBot);
     }
 
-    public void setSilver(){
-        setLight(240,255,255,numLedOnBot);
+    public void setRed(){
+        setLight(255,0,0,numLedOnBot);
     }
 
     public void setTeamColor()

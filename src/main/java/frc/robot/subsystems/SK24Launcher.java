@@ -162,6 +162,12 @@ public class SK24Launcher extends SubsystemBase
         leftMotor.setOpenLoopRampRate(kAmpRampSpeed);
     }
 
+    public void rampDown()
+    {
+        rightMotor.setOpenLoopRampRate(10.0);
+        leftMotor.setOpenLoopRampRate(10.0);
+    }
+
     public double getCurrentRampRate()
     {
         return rightMotor.getOpenLoopRampRate();

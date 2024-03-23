@@ -21,7 +21,7 @@ public class LightLauncherCommand extends Command{
     @Override
     public void execute()
     {
-        if (fullSpeed.get()) {light.setPurple();}
+        if (fullSpeed.get()) {light.setGreen();}
         else{
             light.setOrange();
         }

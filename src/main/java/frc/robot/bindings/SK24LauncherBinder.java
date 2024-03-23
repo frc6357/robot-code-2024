@@ -104,9 +104,11 @@ public class SK24LauncherBinder implements CommandBinder
 
             launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(kLauncherLeftSpeed, kLauncherRightSpeed, m_launcher, light));
             
-            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
+            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.0, 0.0)));
             launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
-        
+            
+            
             if(churro.isPresent())
             {
                 SK24Churro m_churro = churro.get();
@@ -116,6 +118,7 @@ public class SK24LauncherBinder implements CommandBinder
                 launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
 
+                launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
                 launchAmpButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
