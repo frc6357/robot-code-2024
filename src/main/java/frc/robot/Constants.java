@@ -348,8 +348,10 @@ public final class Constants
         public static final double kSpeakerDefaultLeftSpeed = 0.4;
         public static final double kSpeakerDefaultRightSpeed = 0.5;
         
-        public static final double kAmpDefaultLeftSpeed = 0.21;
-        public static final double kAmpDefaultRightSpeed = 0.21;
+        public static final String kAmpDefaultLeftSpeedKey = "kAmpDefaultLeftSpeedKey";
+        public static final String kAmpDefaultRightSpeedKey = "kAmpDefaultRightSpeedKey";
+        public static final double kAmpDefaultLeftSpeed = 0.22;
+        public static final double kAmpDefaultRightSpeed = 0.22;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.4; 

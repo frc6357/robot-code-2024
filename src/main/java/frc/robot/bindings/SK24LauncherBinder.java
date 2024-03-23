@@ -24,11 +24,14 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.commands.AmpCenterCommand;
 import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LightLauncherCommand;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -57,6 +60,9 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger visionAngle;
     private Trigger wingAngleButton;
     //private Trigger launchAmp;
+
+    private final Pref<Double> ampSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultLeftSpeedKey, Constants.LauncherConstants.kAmpDefaultLeftSpeed);
+    private final Pref<Double> ampSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultRightSpeedKey, Constants.LauncherConstants.kAmpDefaultRightSpeed);
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -115,7 +121,7 @@ public class SK24LauncherBinder implements CommandBinder
 
                 // Launch Amp Button
                 launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setAmpRampRate()));
-                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
+                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get())));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
 
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
