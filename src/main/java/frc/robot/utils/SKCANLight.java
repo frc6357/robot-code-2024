@@ -147,6 +147,10 @@ public class SKCANLight{
         setLight(255,0,0,numLedOnBot);
     }
 
+    public void setPurple(){
+        setLight( 128, 10, 128, numLedOnBot);
+    }
+
     public void setTeamColor()
     {
         setLight(0, 250, 150, numLedOnBot);
