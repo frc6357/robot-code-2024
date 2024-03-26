@@ -1,18 +1,8 @@
 package frc.robot.subsystems;
 
 
-import static frc.robot.Constants.LauncherConstants.kAmpRampSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerRampSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
-import static frc.robot.Constants.LauncherConstants.noteMeasurement;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
-import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kTransferMotor;
+import static frc.robot.Constants.LauncherConstants.*;
+import static frc.robot.Ports.launcherPorts.*;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -72,16 +62,6 @@ public class SK24Launcher extends SubsystemBase
 
     }
 
-    /**
-     * Make a follower motor follow a leader motor
-     * @param followerMotor The motor controller that is following
-     * @param leaderMotor The motor controller that is being followed
-     **/
-    public void addFollower(CANSparkFlex followerMotor, CANSparkFlex leaderMotor)
-    {
-        followerMotor.follow(leaderMotor);
-    }
-
     public double getLeftTargetSpeed()
     {
         return leftTargetSpeed;
@@ -113,8 +93,6 @@ public class SK24Launcher extends SubsystemBase
         leftMotor.set(speedLeft);
         // double left = SmartDashboard.getNumber("Left launcher", speedLeft);
         // double right = SmartDashboard.getNumber("Right launcher", speedRight);
-        // rightMotor.set(right);
-        // leftMotor.set(left);
     }
 
 

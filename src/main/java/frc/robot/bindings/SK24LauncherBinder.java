@@ -15,7 +15,7 @@ import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
-//import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+import static frc.robot.Ports.OperatorPorts.kVisionAngle;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
@@ -82,7 +82,7 @@ public class SK24LauncherBinder implements CommandBinder
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
-        //visionAngle = kVisionAngle.button;
+        visionAngle = kVisionAngle.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
@@ -136,9 +136,11 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
                 if(vision.isPresent())
                 {
-                    // SK24Vision m_vision = vision.get();
+                    SK24Vision m_vision = vision.get();
 
                     // Vision Angle Change Button
+                    visionAngle.onTrue(new InstantCommand(() -> m_vision.setSpeakerMode()));
+                    visionAngle.onFalse(new InstantCommand(() -> m_vision.setAllTagMode()));
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
 
