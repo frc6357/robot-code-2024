@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
@@ -17,7 +15,7 @@ public class ZeroPositionCommand extends Command {
     private final SK24Launcher launcher;
 
     /**
-     *         
+     * Command to zero the position of the launcher angle and turn off the launcher motors
      * @param arm
      *            Launcher Angle Subsystem used for this command
      * @param launcher
@@ -27,6 +25,7 @@ public class ZeroPositionCommand extends Command {
     {
         this.arm = arm;
         this.launcher = launcher;
+        
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(arm, launcher);
     }
@@ -39,6 +38,7 @@ public class ZeroPositionCommand extends Command {
     public void execute()
     {
         arm.zeroPosition();
+        launcher.stopTransfer();
         launcher.stopLauncher();
     }
 

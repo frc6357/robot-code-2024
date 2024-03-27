@@ -1,5 +1,9 @@
-package frc.robot.subsystems;
+package frc.robot.utils;
 
+
+import static frc.robot.Ports.intakePorts.kCandle;
+
+import java.util.Optional;
 
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
@@ -15,17 +19,26 @@ import com.ctre.phoenix.led.SingleFadeAnimation;
 import com.ctre.phoenix.led.StrobeAnimation;
 import com.ctre.phoenix.led.TwinkleAnimation;
 import com.ctre.phoenix.led.TwinkleAnimation.TwinklePercent;
+import static frc.robot.Constants.LightConstants.*;
 
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class SK24Light extends SubsystemBase{
-    CANdle candle;
+public class SKCANLight{
+    Optional<CANdle> candle;
     SimpleWidget colorWidget;
+    boolean isFinished;
     
-    public SK24Light(){
+    public SKCANLight(){
+        candle = Optional.empty();
+    }
 
-        candle = new CANdle(3); // creates a new CANdle with ID 3
+    /**
+     * Initializes the optional CANdle object with the an actual CANdle object. Useful for simplifying light commands
+     * while keeping functionality for turning off lights in subsystem json
+     */
+    public void init()
+    {
+        candle = Optional.of(new CANdle(kCandle.ID)); // creates a new CANdle with ID 3
         
         CANdleConfiguration config = new CANdleConfiguration();
         
@@ -36,8 +49,11 @@ public class SK24Light extends SubsystemBase{
     
         config.brightnessScalar = 1.0; // dim the LEDs to half brightness
         config.v5Enabled = false;
-    
-        candle.configAllSettings(config);
+        
+        candle.get().configAllSettings(config);
+
+        candle.get().clearAnimation(1);
+        this.setTeamColor();
 
         
     }
@@ -49,8 +65,7 @@ public class SK24Light extends SubsystemBase{
      * @param blue The amount of Blue to set, range is [0, 255]
      */
     public void setLight(int red, int green, int blue, int numLed){
-        candle.setLEDs(red, green, blue, 0, 8, numLed); 
-        
+        if(candle.isPresent()){ candle.get().setLEDs(red, green, blue, 0, 8, numLed);} 
     }
 
     /**
@@ -59,63 +74,90 @@ public class SK24Light extends SubsystemBase{
      */
     public void setBrightness(double bright){
         
-        candle.configBrightnessScalar(bright);
+        if(candle.isPresent()){ candle.get().configBrightnessScalar(bright);}
     }
 
     public void RainbowAnimate(double brightness, double speed, int numLed){
-        RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed);
-        candle.animate(animation);
+        RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed, false, 8);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void clearAnimate(){
-        candle.clearAnimation(0);
+        if(candle.isPresent()){ candle.get().clearAnimation(1);}
     }
 
+    public boolean isFinished()
+    {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean finished){
+        isFinished = finished;
+    }
+
+    public void setOrange(){
+        setLight(255, 24, 0, numLedOnBot);
+    }
+
+    public void setGreen(){
+        setLight(0, 255, 0, numLedOnBot);
+    }
+
+    public void setRed(){
+        setLight(255,0,0,numLedOnBot);
+    }
+
+    public void setPurple(){
+        setLight( 128, 10, 128, numLedOnBot);
+    }
+
+    public void setTeamColor()
+    {
+        setLight(0, 250, 150, numLedOnBot);
+    }
+
+    public void setPartyMode()
+    {
+        RainbowAnimate(1.0, 1.0, numLedOnBot);
+    }
+    
+    /* 
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
         ColorFlowAnimation animation = new ColorFlowAnimation( r,  g,  b,  0,  speed,  numLed,  direction, offset);
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void FireAnimate(double brightness, double speed, int numLed, double sparking, double cooling){
         FireAnimation animation = new FireAnimation(brightness, speed, numLed, sparking, cooling, false, 8);
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void LarsonAnimate(int r, int g, int b, int numLed){
         BounceMode mode = BounceMode.Center;
         LarsonAnimation animation = new LarsonAnimation(r, g, b, 0, 0.1, numLed, mode, numLed / 2, 8 );
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void RgbFadeAnimate(double brightness, double speed, int numLed){
         RgbFadeAnimation animation = new RgbFadeAnimation(brightness, speed, numLed, 8);
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void SingleFadeAnimate(int r, int g, int b, double speed, int numLed){
         SingleFadeAnimation animation = new SingleFadeAnimation(r, g, b, 0, speed, numLed, 8);
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void StrobeAnimate(int r, int g, int b, double speed, int numLed){
         StrobeAnimation animation = new StrobeAnimation(r, g, b, 0, speed, numLed, 8);
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
 
     public void TwinkleAnimate(int r, int g, int b, int numLed){
         TwinklePercent percent = TwinklePercent.Percent100;
         TwinkleAnimation animation = new TwinkleAnimation(r, g, b, 0, 1.0, numLed, percent, 8);
-        candle.animate(animation);
+        if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
-    
-    public void setOrange(int numLed){
-        setLight(255, 30, 0, numLed);
-    }
-
-    public void setGreen(int numLed){
-        setLight(0, 255, 0, numLed);
-    }
-    
-
+    */
 }

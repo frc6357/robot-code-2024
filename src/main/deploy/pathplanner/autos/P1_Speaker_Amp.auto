@@ -2,25 +2,68 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7417791758660457,
-      "y": 6.551650026376976
+      "x": 0.7284778050297884,
+      "y": 6.651755158003897
     },
-    "rotation": -118.46516214265486
+    "rotation": -121.05427111635277
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Pos1"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Pos1CommandGroup"
+            "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "StopLauncherCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "PickGP1_Amp"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCommand"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "AmpScore"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AmpScoreCommandGroup"
           }
         }
       ]

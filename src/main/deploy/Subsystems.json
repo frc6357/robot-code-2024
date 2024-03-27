@@ -1,11 +1,11 @@
 {
-    "launcher": false,
-    "lights": false,
-    "intake": false,
-    "climb": false,
-    "launcher_arm": false,
-    "churro": false,
-    "vision": false,
+    "launcher": true,
+    "lights": true,
+    "intake": true,
+    "climb": true,
+    "launcher_arm": true,
+    "churro": true,
+    "vision": true,
     "drive": true,
     "telemetry": false
 }

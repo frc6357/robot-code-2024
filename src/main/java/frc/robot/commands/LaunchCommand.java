@@ -6,49 +6,63 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.utils.SKCANLight;
 /** An example command that uses an example subsystem. */
 public class LaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private final SK24Launcher launcher;
-    private double TopSpeed;
-    private double BottomSpeed;
+    private final SKCANLight light;
+    private double LeftSpeed;
+    private double RightSpeed;
 
     
 
     /**
-     * @param arm
-     *            Subsystem used for this command
+     * Command that will launch a note at speeds top and bottom speeds
+     * @param LeftSpeed
+     *            Speed for the left side of the launchers
+     * @param RightSpeed
+     *            Speed for the right side of the launchers
+     * @param launcher
+     *            Launcher angle used for this command
      */
-    public LaunchCommand(double TopSpeed, double BottomSpeed, SK24Launcher launcher)
+    public LaunchCommand(double LeftSpeed, double RightSpeed, SK24Launcher launcher, SKCANLight light)
     {
-        this.TopSpeed = TopSpeed;
-        this.BottomSpeed = BottomSpeed;
+        this.LeftSpeed = LeftSpeed;
+        this.RightSpeed = RightSpeed;
         this.launcher = launcher;
+        this.light = light;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(launcher);
     }
 
     @Override
     public void initialize()
-    {}
+    {
+        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
+    }
 
     @Override
     public void execute()
     {
-        launcher.setLauncherSpeed(TopSpeed, BottomSpeed);
+        if (launcher.isFullSpeed()) {light.setGreen();}
+        else{
+            light.setTeamColor();
+        }
     }
 
     @Override
     public void end(boolean interrupted)
     {
-
+        launcher.stopLauncher();
+        light.setTeamColor();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished()
     {
-        return true;
+        return false;
     }
 }

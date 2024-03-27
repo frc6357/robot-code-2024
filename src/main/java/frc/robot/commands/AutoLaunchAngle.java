@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
@@ -17,10 +18,10 @@ public class AutoLaunchAngle extends Command {
   double speedBottom;
 
   /**
-   * Creates a new ExampleCommand.
-   *
-   * @param launcher The subsystem used by this command.
-   */
+     * Command to set the target angle of the launcher to score in speaker based on vision 
+     * @param arm Launcher angle subsysystem to use
+     * @param vision Vision subsystem to use
+     */
   public AutoLaunchAngle(SK24LauncherAngle arm, SK24Vision vision) {
     this.arm = arm;
     this.vision = vision;
@@ -31,7 +32,9 @@ public class AutoLaunchAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    vision.setSpeakerMode();
     double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
+    SmartDashboard.putNumber("Vison angle", launcherAngle);
     arm.setTargetAngle(launcherAngle);
   }
 

@@ -3,56 +3,56 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.152302612297534,
-        "y": 6.571383911998593
+        "x": 1.044670391765889,
+        "y": 6.722020177278586
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.564352239485593,
-        "y": 6.571383911998593
+        "x": 1.4567200189539478,
+        "y": 6.722020177278586
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.027252914222688,
-        "y": 7.4591547896094506
+        "x": 8.246834867421518,
+        "y": 6.956236908194216
       },
       "prevControl": {
-        "x": 7.657464787259047,
-        "y": 7.448589414553346
+        "x": 7.877046740457877,
+        "y": 6.945671533138112
       },
       "nextControl": {
-        "x": 8.365866426953627,
-        "y": 7.468829461401763
+        "x": 8.585448380152457,
+        "y": 6.965911579986529
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.15,
-        "y": 6.46
+        "x": 1.044670391765889,
+        "y": 6.722020177278586
       },
       "prevControl": {
-        "x": 6.808763883808332,
-        "y": 6.750547814042861
+        "x": 2.325175361239001,
+        "y": 6.946312449001587
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score456"
+      "linkedName": "Score1"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.1,
+      "waypointRelativePos": 0.3,
       "rotationDegrees": 180.0,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 2.0,
-      "rotationDegrees": -163.38557551087362,
+      "waypointRelativePos": 1.65,
+      "rotationDegrees": 180.0,
       "rotateFast": false
     }
   ],
@@ -60,7 +60,7 @@
   "eventMarkers": [
     {
       "name": "Pick Up",
-      "waypointRelativePos": 1.05,
+      "waypointRelativePos": 0.7,
       "command": {
         "type": "parallel",
         "data": {
@@ -76,10 +76,10 @@
       }
     },
     {
-      "name": "Score",
-      "waypointRelativePos": 2.0,
+      "name": "SetAngle",
+      "waypointRelativePos": 0.15,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
@@ -95,19 +95,19 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -162.78392641220927,
+    "rotation": -127.87498365109813,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": -126.38435181583588,
     "velocity": 0
   },
   "useDefaultConstraints": true

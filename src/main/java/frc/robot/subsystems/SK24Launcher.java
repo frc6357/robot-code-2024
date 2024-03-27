@@ -1,14 +1,19 @@
 package frc.robot.subsystems;
 
+
+import static frc.robot.Constants.LauncherConstants.*;
+import static frc.robot.Ports.launcherPorts.*;
+
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
 
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import static frc.robot.Ports.launcherPorts.*;
-import static frc.robot.Constants.LauncherConstants.*;
 
 
 public class SK24Launcher extends SubsystemBase
@@ -17,9 +22,18 @@ public class SK24Launcher extends SubsystemBase
     CANSparkFlex leftMotor;
     CANSparkFlex rightMotor;
     CANSparkFlex transferMotor;
-    private boolean currLauncherState;
-    private boolean pastLauncherState;
-    private LaserCan laserCan;
+    double shuffleSpeed = 0.0;
+    boolean isTest = false;
+
+    SparkPIDController leftPidController;
+    SparkPIDController rightPidController;
+    RelativeEncoder encoderL;
+    RelativeEncoder encoderR;
+    private LaserCan laserCanLower;
+    private LaserCan laserCanHigher;
+
+    double leftTargetSpeed;
+    double rightTargetSpeed;
 
 
     //Constructor for public command access
@@ -30,33 +44,70 @@ public class SK24Launcher extends SubsystemBase
         rightMotor = new CANSparkFlex(kRightLauncherMotor.ID, MotorType.kBrushless);
         transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
 
-        laserCan = new LaserCan(kLaserCanLauncher.ID);
+        leftMotor.setInverted(true);
+        rightMotor.setInverted(false);
+        transferMotor.setInverted(true);
+        
+        laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
+        laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
 
-        currLauncherState = false;
-        pastLauncherState = false;
-        SmartDashboard.putBoolean("Launching", currLauncherState);
+        
+        encoderL = leftMotor.getEncoder();
+        encoderR = rightMotor.getEncoder();
+
+        setSpeakerRampRate();
+        
+        SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
+        SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
+
     }
+
+    public double getLeftTargetSpeed()
+    {
+        return leftTargetSpeed;
+    }
+
+    public double getRightTargetSpeed()
+    {
+        return rightTargetSpeed;
+    }
+
+
+    public boolean isFullSpeed()
+    {
+        return (Math.abs(getRightMotorSpeed() - getRightTargetSpeed()) < kSpeedTolerance) && (Math.abs(getLeftMotorSpeed() - getLeftTargetSpeed()) < kSpeedTolerance);
+    }
+    
 
     /**
-     * Make a follower motor follow a leader motor
-     * @param followerMotor The motor controller that is following
-     * @param leaderMotor The motor controller that is being followed
-     **/
-    public void addFollower(CANSparkFlex followerMotor, CANSparkFlex leaderMotor)
-    {
-        followerMotor.follow(leaderMotor);
-    }
-
-    //Set motor speeds
+     * Sets the speed of the launcher
+     * @param speedLeft The speed to set for left. Value should be between -1.0 and 1.0.
+     * @param speedRight The speed to set for right. Value should be between -1.0 and 1.0.
+     */
     public void setLauncherSpeed (double speedLeft, double speedRight)
     {
-        leftMotor.set(speedLeft);
+        leftTargetSpeed = speedLeft;
+        rightTargetSpeed = speedRight;
+
         rightMotor.set(speedRight);
+        leftMotor.set(speedLeft);
+        // double left = SmartDashboard.getNumber("Left launcher", speedLeft);
+        // double right = SmartDashboard.getNumber("Right launcher", speedRight);
     }
-        
+
+
+    /**
+     * Sets the speed of the transfer
+     * @param speed The speed to set for left. Value should be between -1.0 and 1.0.
+     */    
     public void setTransferSpeed (double speed)
     {
-        transferMotor.set(speed);
+        if(!isTest)
+        {
+            transferMotor.set(speed);
+        }else{
+            transferMotor.set(shuffleSpeed);
+        }
     }
 
     //Return motor speeds
@@ -70,17 +121,58 @@ public class SK24Launcher extends SubsystemBase
     {
         return rightMotor.get();
     }
+
     //Return motor speeds
     public double getTransferMotorSpeed()
     {
         return transferMotor.get();
     }
-    
-    public boolean haveNote()
+
+    public void setSpeakerRampRate()
     {
-        LaserCan.Measurement measurement = laserCan.getMeasurement();
-        if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-          if(measurement.distance_mm < noteMeasurement)
+        rightMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+        leftMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+    }
+
+    public void setAmpRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kAmpRampSpeed);
+        leftMotor.setOpenLoopRampRate(kAmpRampSpeed);
+    }
+
+    public void rampDown()
+    {
+        rightMotor.setOpenLoopRampRate(kRampDownSpeed);
+        leftMotor.setOpenLoopRampRate(kRampDownSpeed);
+    }
+
+    public double getCurrentRampRate()
+    {
+        return rightMotor.getOpenLoopRampRate();
+    }
+    
+    public boolean haveLowerNote()
+    {
+        LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
+
+        if ((measurementLower != null && measurementLower.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance lower", measurementLower.distance_mm);
+          if(measurementLower.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
+
+        return false;
+    }
+
+    public boolean haveHigherNote()
+    {
+         LaserCan.Measurement measurementHigher = laserCanHigher.getMeasurement();
+        
+        if ((measurementHigher != null && measurementHigher.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance higher", measurementHigher.distance_mm);
+          if(measurementHigher.distance_mm < noteMeasurement)
           {
             return true;
           }
@@ -101,15 +193,26 @@ public class SK24Launcher extends SubsystemBase
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveLauncherNote", haveNote());
-        if(getLeftMotorSpeed() != 0.0 || getRightMotorSpeed() != 0.0)
-        {
-            currLauncherState = true;
-        }
-        if(currLauncherState != pastLauncherState){
-            pastLauncherState = currLauncherState;
-            SmartDashboard.putBoolean("Launching", currLauncherState);
-        }
+        SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
+        SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
+        SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
+        SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
+
+        SmartDashboard.putNumber("Left Launcher Target Speed", getLeftTargetSpeed());
+        SmartDashboard.putNumber("Right Launcher Target Speed", getRightTargetSpeed());
+        SmartDashboard.putBoolean("Launcher Full Speed", isFullSpeed());
+
+    }
+    
+    public void testPeriodic()
+    {
+        shuffleSpeed = Preferences.getDouble("Transfer Speed", kTransferSpeed);
+    }
+    
+    public void testInit()
+    {
+        isTest = true;
+        Preferences.initDouble("Transfer Speed", kTransferSpeed);
     }
 
 }

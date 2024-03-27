@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8009808327308976,
-      "y": 6.541783083566167
+      "x": 0.7284778050297884,
+      "y": 6.651755158003897
     },
     "rotation": -120.84658741214861
   },
@@ -12,9 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "Pos1"
+          }
+        },
+        {
           "type": "named",
           "data": {
-            "name": "Pos1CommandGroup"
+            "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroPositionCommand"
           }
         }
       ]

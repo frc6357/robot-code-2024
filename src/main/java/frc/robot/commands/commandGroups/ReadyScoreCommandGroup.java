@@ -4,8 +4,6 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Ports.DriverPorts.kRobotCentricMode;
-
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -14,9 +12,14 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24LauncherAngle;
-/** An example command that uses an example subsystem. */
+
 public class ReadyScoreCommandGroup extends SequentialCommandGroup {
     
+    /**
+     * Command group that will turn robot to speaker and change the launcher angle to shoot in the speaker
+     * @param launcher Launcher subsystem to use
+     * @param arm Launcher angle subsystem to use
+     */
     public ReadyScoreCommandGroup(Supplier<Double> xSpeed, Supplier<Double> ySpeed, SK24Drive drive, SK24LauncherAngle arm)
     {
         addCommands(

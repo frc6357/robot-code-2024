@@ -4,8 +4,9 @@ import static frc.robot.Constants.LauncherAngleConstants.kAnglePID;
 import static frc.robot.Constants.LauncherAngleConstants.kAngleTolerance;
 import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMaxOutput;
 import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMinOutput;
-import static frc.robot.Constants.LauncherAngleConstants.kConversionFactor;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherAngleFF;
 import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
+import static frc.robot.Ports.launcherPorts.kLauncherAngleFollowerMotor;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
 
 import java.util.function.Supplier;
@@ -13,14 +14,14 @@ import java.util.function.Supplier;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.Ports.launcherPorts.*;
 
 
 public class SK24LauncherAngle extends SubsystemBase
@@ -30,10 +31,12 @@ public class SK24LauncherAngle extends SubsystemBase
     CANSparkFlex    followerMotor;
     int             joystickCount;
     double          targetAngle;
-    double          currentAngle;
-    RelativeEncoder encoder;
+    DutyCycleEncoder lEncoder;
+    DigitalInput lLimitSwitch;
     PIDController   PID;
     SlewRateLimiter accelLimit;
+    double FeedForward;
+    
 
     //Constructor for public command access
     public SK24LauncherAngle()
@@ -42,22 +45,20 @@ public class SK24LauncherAngle extends SubsystemBase
         motor = new CANSparkFlex(kLauncherAngleMotor.ID, MotorType.kBrushless);
         followerMotor = new CANSparkFlex(kLauncherAngleFollowerMotor.ID, MotorType.kBrushless);
         followerMotor.follow(motor, true);
+        //lLimitSwitch = new DigitalInput(); //TODO - find actual limit switch channel
 
         PID = new PIDController(kAnglePID.kP, kAnglePID.kI, kAnglePID.kD);
-        PID.setIntegratorRange(-kAnglePID.iZone, kAnglePID.iZone);
         PID.setSetpoint(kMinAngle);
+        FeedForward = kLauncherAngleFF;
 
-        motor.restoreFactoryDefaults();
         motor.setIdleMode(IdleMode.kBrake); 
+
+        motor.setInverted(true);
         
 
         targetAngle = kMinAngle;
-        currentAngle = kMinAngle;
-        encoder = motor.getEncoder();
-        
-        encoder.setPositionConversionFactor(kConversionFactor);
-
-        encoder.setPosition(kMinAngle);
+        lEncoder = new DutyCycleEncoder(0);
+        lEncoder.setDistancePerRotation(360.0);
 
     }
 
@@ -80,6 +81,7 @@ public class SK24LauncherAngle extends SubsystemBase
     public boolean isAtTargetAngle()
     {
         return Math.abs(getCurrentAngle() - getTargetAngle()) < kAngleTolerance;
+        
     }
 
     /**
@@ -87,7 +89,8 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public double getCurrentAngle()
     {
-        return encoder.getPosition();
+        return lEncoder.getDistance(); //TODO - determine if launcher up is negative
+        // return Math.abs(encoder.getAbsolutePosition());
     }
 
     /**
@@ -103,12 +106,33 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public void resetAngle()
     {
-        encoder.setPosition(kMinAngle);
+        lEncoder.setPositionOffset(kMinAngle);
+    }
+
+    public void resetEncoderAngle()
+    {
+        lEncoder.reset();
     }
 
     public void zeroPosition()
     {
         setTargetAngle(kMinAngle);
+    }
+
+   // public boolean hitZeroPos()
+   // {
+   //     return lLimitSwitch.get();
+   // }
+
+    /**
+     * Calculates feedforward value of arm by multiplying cosine of angle degrees by feed forward constant
+     * @param angle Target angle of the launcher arm in degrees
+     * @return feed forward value to be used in PID control loop
+     * 
+     */
+    public double calculateFF(double angle)
+    {
+        return Math.cos(Math.toRadians(angle)) * FeedForward;
     }
 
     @Override
@@ -119,11 +143,11 @@ public class SK24LauncherAngle extends SubsystemBase
         double target_angle = getTargetAngle();
 
         // Calculates motor speed and puts it within operating range
-        double speed = MathUtil.clamp(PID.calculate(current_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        double speed = MathUtil.clamp(PID.calculate(current_angle) + calculateFF(target_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
         // speed = accelLimit.calculate(speed);
-        motor.set(speed); 
+        //motor.set(speed); TODO- add back when we want to move launcher angle
 
-        SmartDashboard.putNumber("Current Launcher Angle", current_angle);
+        SmartDashboard.putNumber("Current Launcher Angle", getCurrentAngle());
         SmartDashboard.putNumber("Target Launcher Angle", target_angle);
         SmartDashboard.putBoolean("Arm at Setpoint", isAtTargetAngle());
     }

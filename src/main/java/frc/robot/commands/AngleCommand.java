@@ -5,9 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.SK24LauncherAngle;
-import static frc.robot.Constants.LauncherAngleConstants.*;
 /** An example command that uses an example subsystem. */
 public class AngleCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -16,9 +14,9 @@ public class AngleCommand extends Command {
     private double angle;
 
     /**
-     *         
-     * @param arm
-     *            Subsystem used for this command
+     * Command to set the launcher angle to the angle parameter
+     * @param angle The specified angle to set the launcher to - In degrees, up is positive
+     * @param arm Launcher angle subsysystem to use
      */
     public AngleCommand(double angle, SK24LauncherAngle arm)
     {

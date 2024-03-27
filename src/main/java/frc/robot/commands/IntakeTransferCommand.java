@@ -1,9 +1,18 @@
 package frc.robot.commands;
 
+
+import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
+import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
+import static frc.robot.Constants.LauncherConstants.kSlowTransferSpeed;
+import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
+import static frc.robot.Ports.OperatorPorts.kTransfer;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.utils.SKCANLight;
 
 
 public class IntakeTransferCommand extends Command
@@ -11,46 +20,45 @@ public class IntakeTransferCommand extends Command
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
   private final SK24Launcher launcher;
+  private final SKCANLight light;
   double intakeSpeed;
   double transferSpeed;
 
   /**
-   * Creates a new ExampleCommand.
+   * Command to intake the note using intake and transfer
    *
-   * @param subsystem The subsystem used by this command.
+   * @param intake The intake subsystem used by this command.
+   * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeTransferCommand(SK24Intake intake, SK24Launcher launcher) 
+  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SK24Launcher launcher, SKCANLight light) 
   {
     this.intake = intake;
     this.launcher = launcher;
-    this.intakeSpeed = Constants.IntakeConstants.kIntakeSpeed;
-    this.transferSpeed = Constants.LauncherConstants.kTransferSpeed;
+    this.light = light;
+    this.intakeSpeed = intakeSpeed;
+    this.transferSpeed = transferSpeed;
+
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    addRequirements(intake, launcher);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-      intake.setIntakeSpeed(intakeSpeed);
-      launcher.setTransferSpeed(transferSpeed);
+      intake.setIntakeSpeed(intakeSpeed); 
+      launcher.setTransferSpeed(0.15); //TODO - add constant
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(!launcher.haveNote())
+    if (launcher.haveLowerNote())
     {
-      if(intake.haveNote())
-      {
-        intake.setIntakeSpeed(intakeSpeed);
-        launcher.setTransferSpeed(transferSpeed);
-      }else{
-        intake.setIntakeSpeed(intakeSpeed / 2.0);
-        launcher.setTransferSpeed(transferSpeed / 2.0);
-      }
+      light.setOrange();
+      intake.setIntakeSpeed(kSlowIntakeSpeed);
+      launcher.setTransferSpeed(kSlowTransferSpeed);
     }
   }
 
@@ -60,11 +68,12 @@ public class IntakeTransferCommand extends Command
   {
     intake.stopIntake();
     launcher.stopTransfer();
+    if(!interrupted) {light.setOrange();}
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcher.haveNote();
+    return launcher.haveHigherNote() || launcher.haveLowerNote();
   }
 }

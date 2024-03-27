@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7812469471092803,
-        "y": 4.509192864539576
+        "x": 0.7189571631051666,
+        "y": 4.438868928628442
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.5065471956505757,
-        "y": 2.3538563530943515
+        "x": 0.44425741164646193,
+        "y": 2.283532417183218
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Pos3"
     },
     {
       "anchor": {
@@ -33,7 +33,7 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 122.73522627210761,
+    "rotation": 118.07248693585296,
     "velocity": 0
   },
   "useDefaultConstraints": true

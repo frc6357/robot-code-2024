@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7713800042984719,
-      "y": 4.568394521404429
+      "x": 1.3142878194153342,
+      "y": 5.539225686154654
     },
-    "rotation": 122.24669974542432
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -14,19 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos3"
+            "pathName": "Pos2"
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Pick_GP5"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Pick_GP6"
+            "name": "ShootCommand"
           }
         }
       ]

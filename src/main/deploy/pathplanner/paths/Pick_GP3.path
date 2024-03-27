@@ -3,57 +3,79 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.1846005081971556,
-        "y": 4.416326773451488
+        "x": 0.9626945359454185,
+        "y": 4.051949444840401
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5015617598802766,
-        "y": 4.39519602333928
+        "x": 1.1506936905696823,
+        "y": 3.957949867528269
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.702303885946254,
-        "y": 4.268411522666031
+        "x": 2.4733924503512332,
+        "y": 4.051949444840401
       },
       "prevControl": {
-        "x": 2.448734884599757,
-        "y": 4.34236914805876
+        "x": 1.881720933346251,
+        "y": 4.159526084295852
+      },
+      "nextControl": {
+        "x": 2.60221165235483,
+        "y": 4.028527771748839
+      },
+      "isLocked": false,
+      "linkedName": "PickGP3"
+    },
+    {
+      "anchor": {
+        "x": 1.1149354110405783,
+        "y": 4.075371117931965
+      },
+      "prevControl": {
+        "x": 1.9346939692452838,
+        "y": 4.145636137206655
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Score3"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 148.80578643645754,
+      "waypointRelativePos": 1.25,
+      "rotationDegrees": 180.0,
       "rotateFast": false
     }
   ],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "New Constraints Zone",
+      "minWaypointRelativePos": 0.7,
+      "maxWaypointRelativePos": 1.65,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    }
+  ],
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 1.0,
+      "waypointRelativePos": 0.55,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
                 "name": "IntakeCommand"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "AutoLaunchCommand"
               }
             }
           ]
@@ -63,19 +85,19 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 150.4001709995294,
+    "rotation": 125.87304322004304,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 123.56052508712878,
     "velocity": 0
   },
   "useDefaultConstraints": true

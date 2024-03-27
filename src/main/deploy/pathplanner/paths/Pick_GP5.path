@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 5.15,
-        "y": 6.46
+        "x": 5.152302612297534,
+        "y": 7.307562004567661
       },
       "prevControl": {
-        "x": 6.365018131451964,
-        "y": 6.259257873934024
+        "x": 6.367320743749498,
+        "y": 7.1068198785016845
       },
       "nextControl": null,
       "isLocked": false,
@@ -60,9 +60,9 @@
   "eventMarkers": [
     {
       "name": "Pick UP",
-      "waypointRelativePos": 1.1,
+      "waypointRelativePos": 0.75,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -70,14 +70,20 @@
               "data": {
                 "name": "IntakeCommand"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LauncherCommand"
+              }
             }
           ]
         }
       }
     },
     {
-      "name": "Score",
-      "waypointRelativePos": 2.0,
+      "name": "SetAngle",
+      "waypointRelativePos": 0.25,
       "command": {
         "type": "sequential",
         "data": {
@@ -95,7 +101,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },

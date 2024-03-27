@@ -3,15 +3,19 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import java.util.*;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SK24Vision extends SubsystemBase
 {
      NetworkTableInstance instance = NetworkTableInstance.getDefault();
      private NetworkTable limelight;
-     public double[] robotPosition;
-     public double[] targetPosition;
-     public Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
+     private double[] robotPosition;
+     private double[] targetPosition;
+     private double targetAngle = 0;
+     private Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
      // Creates a vision class that interacts with the limelight AprilTag data using Networktables
      public SK24Vision()
@@ -76,23 +80,14 @@ public class SK24Vision extends SubsystemBase
      }
 
      // Sets the speaker pipeline to red or blue based on the driverstation alliance color
-     public void setSpekerMode()
+     public void setSpeakerMode()
      {
          if(alliance.isPresent())
          {
-             if (alliance.get() == DriverStation.Alliance.Red)
-             {
-                 setRedSpeakerMode();
-             }
-             else
-             {
-                 setBlueSpeakerMode();
-             }
+             if (alliance.get() == DriverStation.Alliance.Red) {setRedSpeakerMode();}
+             else {setBlueSpeakerMode();}
          }
-         else
-         {
-             setAllTagMode();
-         }
+         else {setAllTagMode();}
      }
 
      // Sets the pipeline to 4 which is used to recognize the shooting location for the trap on the stage using AprilTags 11 through 16
@@ -104,8 +99,11 @@ public class SK24Vision extends SubsystemBase
      // Returns the target angle of the launcher using the pitch provided by the limelight data
      public double returnTargetAngle(double[] poseData)
      {
-         return poseData[4];
+        targetAngle = (-1.0 * poseData[3] ) + Constants.VisionConstants.limelightStartingAngle;
+        SmartDashboard.putNumber( "Limelight Target Angle", targetAngle);
+        return targetAngle;
      }
+     
 
      // Returns the x offset from the center of the robot
      public double returnXOffset(double[] poseData)
@@ -123,5 +121,17 @@ public class SK24Vision extends SubsystemBase
      public double returnZOffset(double[] poseData)
      {
          return poseData[2];
+     }
+
+     // Force blink
+     public void blinky()
+     {
+        limelight.getEntry("ledMode").setNumber(2);
+     }
+
+     // Turn off blink
+     public void noBlinky()
+     {
+        limelight.getEntry("ledMode").setNumber(0);
      }
 }

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7713800042984719,
-      "y": 6.561516969187785
+      "x": 0.7284778050297884,
+      "y": 6.651755158003897
     },
     "rotation": -118.88658176691074
   },
@@ -18,15 +18,45 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ShootCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Pick_GP1"
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Score1_to_Score2"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Pick_GP2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ZeroPositionCommand"
           }
         }
       ]
