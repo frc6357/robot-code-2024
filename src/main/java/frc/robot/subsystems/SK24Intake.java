@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.IntakeConstants.noteMeasurement;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kLaserCanIntake;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
@@ -11,6 +10,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.Constants.IntakeConstants.*;
 
 public class SK24Intake extends SubsystemBase
 {
@@ -36,36 +36,25 @@ public class SK24Intake extends SubsystemBase
         SmartDashboard.putBoolean("Intaking", currIntakeState);
     }
 
-    /**
-     * Sets the top intake motors to a specified speed
-     * @param speed The speed to set. Value should be between -1.0 and 1.0
-     **/
+    //Set motor speeds
     public void setIntakeSpeed (double speed)
     {
         topIntakeMotor.set(speed);
 
     }
         
-    /**
-     * Gets the top intake motor speed.
-     * @return The current set speed. Value is between -1.0 and 1.0.
-     **/
+    //Return motor speeds
     public double getMotorSpeed ()
     {
         return topIntakeMotor.get();
     }
     
-    /**
-     * Stop the top intake motor
-     **/
+    //Stop motors
     public void stopIntake()
     {
         topIntakeMotor.stopMotor();
     }
-    /**
-     * Check if we have a note stored in the intake
-     * @return True when note detected, false when not detected
-     **/
+
     public boolean haveNote()
     {
         LaserCan.Measurement measurement = laserCan.getMeasurement();
@@ -77,9 +66,7 @@ public class SK24Intake extends SubsystemBase
         } 
         return false;
     }
-    /**
-     * Periodically check if we have a note and check if we are intaking, then put these statuses in smartdashboard 
-     **/
+
     public void periodic()
     {
         SmartDashboard.putBoolean("HaveIntakeNote", haveNote());

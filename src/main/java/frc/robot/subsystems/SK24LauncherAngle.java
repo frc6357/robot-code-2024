@@ -61,20 +61,12 @@ public class SK24LauncherAngle extends SubsystemBase
 
     }
 
-    /**
-     * Sets the target angle for the launcher to reach
-     * @param angle The target angle for the launcher to reach
-     */
     public void setTargetAngle(double angle)
     {
         targetAngle = angle;
         PID.setSetpoint(targetAngle);
     }
 
-    /**
-     * Sets the target angle for the launcher to reach
-     * @param angle The supplier of target angle for the launcher to reach
-     */
     public void setTargetAngle(Supplier<Double> angle)
     {
         targetAngle = angle.get();
@@ -83,8 +75,7 @@ public class SK24LauncherAngle extends SubsystemBase
 
     
     /**
-     * Determines if launcher has reached target angle 
-     * @return true if at target angle, false if not at target angle
+     * {@inheritDoc}
      */
     public boolean isAtTargetAngle()
     {
@@ -92,8 +83,7 @@ public class SK24LauncherAngle extends SubsystemBase
     }
 
     /**
-     *  Retrives the current angle of the launcher
-     * @return double value of encoder position in degrees
+     * {@inheritDoc}
      */
     public double getCurrentAngle()
     {
@@ -101,8 +91,7 @@ public class SK24LauncherAngle extends SubsystemBase
     }
 
     /**
-     *  Gets the target angle of the launcher
-     * @return double value of encoder position in degrees
+     * {@inheritDoc}
      */
     public double getTargetAngle()
     {
@@ -110,16 +99,13 @@ public class SK24LauncherAngle extends SubsystemBase
     }
 
     /**
-     * Resets the launcher encoder's angle to the kMinAngle constant
+     * {@inheritDoc}
      */
-    public void resetEncoderAngle()
+    public void resetAngle()
     {
         encoder.setPosition(kMinAngle);
     }
 
-    /**
-     * Resets the angle of the launcher to the kMinAngle constant
-     */
     public void zeroPosition()
     {
         setTargetAngle(kMinAngle);

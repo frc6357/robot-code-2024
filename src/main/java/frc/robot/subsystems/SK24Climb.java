@@ -1,16 +1,10 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.ClimbConstants.climbConversion;
-import static frc.robot.Constants.ClimbConstants.kClimbMotorMaxOutput;
-import static frc.robot.Constants.ClimbConstants.kClimbMotorMinOutput;
-import static frc.robot.Constants.ClimbConstants.kPositionTolerance;
-import static frc.robot.Constants.ClimbConstants.rightClimb;
-import static frc.robot.Ports.climbPorts.kRightClimbMotor;
-
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import static frc.robot.Constants.ClimbConstants.*;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
@@ -72,10 +66,7 @@ public class SK24Climb extends SubsystemBase
 
 
     }
-    /**
-     * Set the location of the right hook
-     * @param location The location you want the right hook
-     **/
+
     public void setRightHook(double location)
     {
         RtargetPosition = location;
@@ -88,18 +79,11 @@ public class SK24Climb extends SubsystemBase
     //     lPID.setSetpoint(location);
     // }
 
-    /**
-     * Make the left hook run at a specific speed
-     * @param speed The speed to set. Value should be between -1.0 and 1.0.
-     **/
     public void runLeftHook(double speed)
     {
         motorL.set(speed);
     }
-    /**
-     * Make the right hook run at a specific speed
-     * @param speed The speed to set. Value should be between -1.0 and 1.0.
-     **/
+
     public void runRightHook(double speed)
     {
         motorR.set(speed);
@@ -109,38 +93,31 @@ public class SK24Climb extends SubsystemBase
     //     return encoderL.getPosition();
     // }
     
-    /**
-     * Get the current position of the right hook
-     * @return The number of rotations of the motor
-     **/
     public double getRightPosition()
     {
         return encoderR.getPosition();
     }
 
+    public double getRightCurrentPosition(){
+        return RcurrentPosition;
+    }
+
     // public double getLeftCurrentPosition(){
     //     return LcurrentPosition;
     // }
-    
-    /**
-     * Get the target position of the right hook
-     * @return The current position between 0.0 and 1.0
-     **/
+
     public double getRightTargetPosition(){
-        return RtargetPosition;
+        return RcurrentPosition;
     }
 
     // public double getLeftTargetPosition(){
     //     return LcurrentPosition;
     // }
 
-    /**
-     * Check if the right hook is at the target position
-     * @return True if it is at the target position, false if it is not at the target position
-     **/
+
     public boolean isRightAtTargetPosition()
     {
-        return Math.abs(getRightPosition() - getRightTargetPosition()) < kPositionTolerance;
+        return Math.abs(getRightCurrentPosition() - getRightTargetPosition()) < kPositionTolerance;
     }
 
     // public boolean isLeftAtTargetPosition()
@@ -152,28 +129,20 @@ public class SK24Climb extends SubsystemBase
     //     encoderL.setPosition(0.0);
     // }
 
-    /**
-     * Resets the right position to a specified position
-     */
     public void resetRightPosition(){
         encoderR.setPosition(0.0);
     }
 
-    /**
-     * Stops the hooks (climb mechanism) from moving
-     */
     public void stopHooks()
     {
         // motorL.stopMotor();
         motorR.stopMotor();
     }
-    /**
-     * Periodically check on the current position, target position, and run necessary calculations.
-     */
+
     @Override
     public void periodic(){
         
-        double r_current_position = getRightPosition();
+        double r_current_position = getRightCurrentPosition();
         double r_target_position = getRightTargetPosition();
 
         // double l_current_position = getLeftCurrentPosition();
