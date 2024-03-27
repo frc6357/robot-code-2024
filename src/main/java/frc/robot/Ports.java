@@ -2,12 +2,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.utils.SKTrigger;
+import frc.robot.utils.SKTrigger.INPUT_TYPE;
 import frc.robot.utils.filters.FilteredXboxController;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.AXIS;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.BUTTON;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.POV;
+import static frc.robot.utils.SKTrigger.INPUT_TYPE.ROCKBAND;
 
 import frc.robot.utils.CANPort;
 import frc.robot.utils.filters.FilteredAxis;
@@ -108,38 +110,38 @@ public class Ports
 
         // Launch at target
         //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
-        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kGuitar, kB.value, BUTTON);
-        public static final SKTrigger kLaunchAmp = new SKTrigger(kGuitar, kA.value, BUTTON);
+        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kGuitar, kB.value, ROCKBAND);
+        public static final SKTrigger kLaunchAmp = new SKTrigger(kGuitar, kA.value, ROCKBAND);
     
         // Party mode
-        public static final SKTrigger kPartyMode = new SKTrigger(kGuitar, kBack.value, BUTTON);
+        public static final SKTrigger kPartyMode = new SKTrigger(kGuitar, kBack.value, ROCKBAND);
 
         // Zero position
-        public static final SKTrigger kZeroPos = new SKTrigger(kGuitar, kStart.value, BUTTON); 
+        public static final SKTrigger kZeroPos = new SKTrigger(kGuitar, kStart.value, ROCKBAND); 
 
         // Intake
-        public static final SKTrigger kIntake = new SKTrigger(kGuitar, kRightTrigger.value, BUTTON);
-        public static final SKTrigger kTransfer  = new SKTrigger(kGuitar, kLeftTrigger.value, AXIS); 
+        public static final SKTrigger kIntake = new SKTrigger(kGuitar, kRightTrigger.value, ROCKBAND);
+        public static final SKTrigger kTransfer  = new SKTrigger(kGuitar, kLeftTrigger.value, ROCKBAND); 
 
-        public static final SKTrigger kLaunchSub = new SKTrigger(kGuitar, kX.value, BUTTON);
+        public static final SKTrigger kLaunchSub = new SKTrigger(kGuitar, kX.value, ROCKBAND);
 
 
         // Change angle launcher to speaker
-        public static final SKTrigger kAngleSpeaker = new SKTrigger(kGuitar, 0, BUTTON);
+        public static final SKTrigger kAngleSpeaker = new SKTrigger(kGuitar, 0, ROCKBAND);
 
         // Run subsystem manually
-        public static final SKTrigger kManualLauncher = new SKTrigger(kGuitar, 90, POV);
-        public static final SKTrigger kManualAmp = new SKTrigger(kGuitar, 270, POV);
+        public static final SKTrigger kManualLauncher = new SKTrigger(kGuitar, 90, ROCKBAND);
+        public static final SKTrigger kManualAmp = new SKTrigger(kGuitar, 270, ROCKBAND);
         //public static final SKTrigger kManualTrap = new SKTrigger(kGuitar, 180, POV); TODO - set up if we end up using trap
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kGuitar.getRawAxis(kLeftY.value));
         public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kGuitar.getRawAxis(kRightY.value));
 
         // Reset launcher encoder
-        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kGuitar, kRightStick.value, BUTTON);
-        public static final SKTrigger kLauncherOverride = new SKTrigger(kGuitar, kLeftStick.value, BUTTON);
+        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kGuitar, kRightStick.value, ROCKBAND);
+        public static final SKTrigger kLauncherOverride = new SKTrigger(kGuitar, kLeftStick.value, ROCKBAND);
 
         // Run Churro 
-        public static final SKTrigger kChurro = new SKTrigger(kGuitar, kRightStick.value, BUTTON); //TODO - button here used twice
+        public static final SKTrigger kChurro = new SKTrigger(kGuitar, kRightStick.value, ROCKBAND); //TODO - button here used twice
     }
 
 
