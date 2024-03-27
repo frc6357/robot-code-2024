@@ -54,6 +54,7 @@ public class Ports
         public static final SKTrigger kTransfer  = new SKTrigger(kDriver, kLeftTrigger.value, AXIS); 
 
     }
+    
     /**
      * Defines the button, controller, and axis IDs needed to get input from an external
      * controller
@@ -100,6 +101,47 @@ public class Ports
         public static final SKTrigger kChurro = new SKTrigger(kOperator, kRightStick.value, BUTTON); //TODO - button here used twice
     }
     
+    public static class GuitarPorts
+    {
+        // Operator controller set to xbox controller
+        public static final GenericHID kGuitar = new FilteredXboxController(1).getHID();
+
+        // Launch at target
+        //public static final SKTrigger kLaunchTrap = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
+        public static final SKTrigger kLaunchSpeaker = new SKTrigger(kGuitar, kB.value, BUTTON);
+        public static final SKTrigger kLaunchAmp = new SKTrigger(kGuitar, kA.value, BUTTON);
+    
+        // Party mode
+        public static final SKTrigger kPartyMode = new SKTrigger(kGuitar, kBack.value, BUTTON);
+
+        // Zero position
+        public static final SKTrigger kZeroPos = new SKTrigger(kGuitar, kStart.value, BUTTON); 
+
+        // Intake
+        public static final SKTrigger kIntake = new SKTrigger(kGuitar, kRightTrigger.value, BUTTON);
+        public static final SKTrigger kTransfer  = new SKTrigger(kGuitar, kLeftTrigger.value, AXIS); 
+
+        public static final SKTrigger kLaunchSub = new SKTrigger(kGuitar, kX.value, BUTTON);
+
+
+        // Change angle launcher to speaker
+        public static final SKTrigger kAngleSpeaker = new SKTrigger(kGuitar, 0, BUTTON);
+
+        // Run subsystem manually
+        public static final SKTrigger kManualLauncher = new SKTrigger(kGuitar, 90, POV);
+        public static final SKTrigger kManualAmp = new SKTrigger(kGuitar, 270, POV);
+        //public static final SKTrigger kManualTrap = new SKTrigger(kGuitar, 180, POV); TODO - set up if we end up using trap
+        public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kGuitar.getRawAxis(kLeftY.value));
+        public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kGuitar.getRawAxis(kRightY.value));
+
+        // Reset launcher encoder
+        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kGuitar, kRightStick.value, BUTTON);
+        public static final SKTrigger kLauncherOverride = new SKTrigger(kGuitar, kLeftStick.value, BUTTON);
+
+        // Run Churro 
+        public static final SKTrigger kChurro = new SKTrigger(kGuitar, kRightStick.value, BUTTON); //TODO - button here used twice
+    }
+
 
     public static class launcherPorts
     {
