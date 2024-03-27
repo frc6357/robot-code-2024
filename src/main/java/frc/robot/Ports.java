@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import frc.robot.utils.SKTrigger;
 import frc.robot.utils.filters.FilteredXboxController;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;

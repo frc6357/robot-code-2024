@@ -15,10 +15,9 @@ public class IntakeTransferCommand extends Command
   double transferSpeed;
 
   /**
-   * Command to intake the note using intake and transfer
+   * Creates a new ExampleCommand.
    *
-   * @param intake The intake subsystem used by this command.
-   * @param launcher The launcher subsystem used by this command.
+   * @param subsystem The subsystem used by this command.
    */
   public IntakeTransferCommand(SK24Intake intake, SK24Launcher launcher) 
   {

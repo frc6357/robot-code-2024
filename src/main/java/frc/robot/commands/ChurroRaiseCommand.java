@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.SK24Churro;
 
+import static frc.robot.Constants.ChurroConstants.*;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ChurroRaiseCommand extends Command
@@ -11,10 +13,10 @@ public class ChurroRaiseCommand extends Command
   double speed;
 
   /**
-  * Command to raise the churro for retracting back into robot
-  *
-  * @param churro The churro subsystem used by this command.
-  */
+   * Creates a new ExampleCommand.
+   *
+   * @param subsystem The subsystem used by this command.
+   */
   public ChurroRaiseCommand(SK24Churro subsystem, double speed) 
   {
     this.subsystem = subsystem;
