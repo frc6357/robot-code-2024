@@ -132,6 +132,7 @@ public class RobotContainer {
             if(subsystems.isLightsPresent())
             {
                 m_light.init();
+                //m_light.setTeamColor(); //TODO - check if this is causing any problems
             }
             if(subsystems.isIntakePresent())
             {
@@ -186,7 +187,7 @@ public class RobotContainer {
         buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision, m_churro, m_light));
         buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision));
         buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher, m_light));
-        buttonBinders.add(new SK24ClimbBinder(m_climb));
+        buttonBinders.add(new SK24ClimbBinder(m_climb, m_churro));
 
 
         // Traversing through all the binding classes to actually bind the buttons
@@ -236,8 +237,6 @@ public class RobotContainer {
             NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
             NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake, launcher));
             
-
-            NamedCommands.registerCommand("LauncherCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
 
             NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake,m_light));
 

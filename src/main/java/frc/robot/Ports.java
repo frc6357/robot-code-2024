@@ -43,8 +43,8 @@ public class Ports
 
         // Climb
         public static final SKTrigger kClimbUp = new SKTrigger(kDriver, 0, POV);
-        public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbDown = new SKTrigger(kDriver, 180, POV);
+        public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
 
         // Launcher Zero Position
@@ -52,6 +52,7 @@ public class Ports
         
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
+        public static final SKTrigger kLightsOff = new SKTrigger(kDriver, 90, POV);
     }
     /**
      * Defines the button, controller, and axis IDs needed to get input from an external
@@ -80,18 +81,18 @@ public class Ports
         public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
         public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        //public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
+        public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
 
         // Churro 
-        public static final SKTrigger kChurroDown = new SKTrigger(kOperator, kX.value, BUTTON);
-        public static final SKTrigger kChurroUp = new SKTrigger(kOperator, kY.value, BUTTON);
         //public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Climb
+        public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kY.value, BUTTON);
+        public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kX.value, BUTTON);
         public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
 
         // Party mode

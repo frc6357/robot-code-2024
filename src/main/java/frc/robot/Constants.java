@@ -318,6 +318,8 @@ public final class Constants
     public static final class LightConstants
     {
         public static final int numLedOnBot = 240; //TODO - find actual number of LED on bot
+        public static final double kLightsOffBrightness = 0.0;
+        public static final double kLightsOnBrightness = 1.0;
     }
     
     public static final class IntakeConstants
@@ -333,7 +335,7 @@ public final class Constants
     public static final class ChurroConstants
     {
         public static final PIDConstants kChurroPID = new PIDConstants(0.001, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kAngleTolerance = 0.1; 
+        public static final double kAngleTolerance = 10.0; 
         public static final double kChurroLowerPosition = 0.0; 
         public static final double kChurroRaisePosition = 180.0; 
     	public static final double kChurroSpeed = 0.15;
@@ -346,8 +348,10 @@ public final class Constants
         public static final double kSpeakerDefaultLeftSpeed = 0.4;
         public static final double kSpeakerDefaultRightSpeed = 0.5;
         
-        public static final double kAmpDefaultLeftSpeed = 0.21;
-        public static final double kAmpDefaultRightSpeed = 0.21;
+        public static final String kAmpDefaultLeftSpeedKey = "kAmpDefaultLeftSpeedKey";
+        public static final String kAmpDefaultRightSpeedKey = "kAmpDefaultRightSpeedKey";
+        public static final double kAmpDefaultLeftSpeed = 0.22;
+        public static final double kAmpDefaultRightSpeed = 0.22;
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.4; 
@@ -358,6 +362,10 @@ public final class Constants
         public static final double noteMeasurement = 85;
         
         public static final double kSpeedTolerance = 0.03;
+
+        public static final double kSpeakerRampSpeed = 1.8;
+        public static final double kAmpRampSpeed = 1.0;
+        public static final double kRampDownSpeed = 12.0;
     }
     
     /** The file that is used for system instantiation at runtime */

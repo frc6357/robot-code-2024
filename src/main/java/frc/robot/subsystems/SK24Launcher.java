@@ -1,16 +1,8 @@
 package frc.robot.subsystems;
 
 
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
-import static frc.robot.Constants.LauncherConstants.noteMeasurement;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
-import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kTransferMotor;
+import static frc.robot.Constants.LauncherConstants.*;
+import static frc.robot.Ports.launcherPorts.*;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -62,19 +54,12 @@ public class SK24Launcher extends SubsystemBase
         
         encoderL = leftMotor.getEncoder();
         encoderR = rightMotor.getEncoder();
+
+        setSpeakerRampRate();
+        
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
-    }
-
-    /**
-     * Make a follower motor follow a leader motor
-     * @param followerMotor The motor controller that is following
-     * @param leaderMotor The motor controller that is being followed
-     **/
-    public void addFollower(CANSparkFlex followerMotor, CANSparkFlex leaderMotor)
-    {
-        followerMotor.follow(leaderMotor);
     }
 
     public double getLeftTargetSpeed()
@@ -108,8 +93,6 @@ public class SK24Launcher extends SubsystemBase
         leftMotor.set(speedLeft);
         // double left = SmartDashboard.getNumber("Left launcher", speedLeft);
         // double right = SmartDashboard.getNumber("Right launcher", speedRight);
-        // rightMotor.set(right);
-        // leftMotor.set(left);
     }
 
 
@@ -144,6 +127,29 @@ public class SK24Launcher extends SubsystemBase
     {
         return transferMotor.get();
     }
+
+    public void setSpeakerRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+        leftMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+    }
+
+    public void setAmpRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kAmpRampSpeed);
+        leftMotor.setOpenLoopRampRate(kAmpRampSpeed);
+    }
+
+    public void rampDown()
+    {
+        rightMotor.setOpenLoopRampRate(kRampDownSpeed);
+        leftMotor.setOpenLoopRampRate(kRampDownSpeed);
+    }
+
+    public double getCurrentRampRate()
+    {
+        return rightMotor.getOpenLoopRampRate();
+    }
     
     public boolean haveLowerNote()
     {
@@ -177,9 +183,6 @@ public class SK24Launcher extends SubsystemBase
     //Stop motors
     public void stopLauncher()
     {
-        leftTargetSpeed = 0.0;
-        rightTargetSpeed = 0.0;
-
         leftMotor.stopMotor();
         rightMotor.stopMotor();
     }

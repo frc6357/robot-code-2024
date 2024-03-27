@@ -6,11 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.utils.SKCANLight;
 /** An example command that uses an example subsystem. */
 public class LaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
     private final SK24Launcher launcher;
+    private final SKCANLight light;
     private double LeftSpeed;
     private double RightSpeed;
 
@@ -25,29 +27,36 @@ public class LaunchCommand extends Command {
      * @param launcher
      *            Launcher angle used for this command
      */
-    public LaunchCommand(double LeftSpeed, double RightSpeed, SK24Launcher launcher)
+    public LaunchCommand(double LeftSpeed, double RightSpeed, SK24Launcher launcher, SKCANLight light)
     {
         this.LeftSpeed = LeftSpeed;
         this.RightSpeed = RightSpeed;
         this.launcher = launcher;
+        this.light = light;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(launcher);
     }
 
     @Override
     public void initialize()
-    {}
+    {
+        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
+    }
 
     @Override
     public void execute()
     {
-        launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
+        if (launcher.isFullSpeed()) {light.setGreen();}
+        else{
+            light.setTeamColor();
+        }
     }
 
     @Override
     public void end(boolean interrupted)
     {
         launcher.stopLauncher();
+        light.setTeamColor();
     }
 
     // Returns true when the command should end.

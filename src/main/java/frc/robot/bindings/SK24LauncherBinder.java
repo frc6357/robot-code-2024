@@ -14,10 +14,8 @@ import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
-import static frc.robot.Ports.OperatorPorts.kChurroDown;
-import static frc.robot.Ports.OperatorPorts.kChurroUp;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
-//import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
+import static frc.robot.Ports.OperatorPorts.kVisionAngle;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
@@ -26,8 +24,13 @@ import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
 import frc.robot.Ports;
 import frc.robot.commands.AmpCenterCommand;
+import frc.robot.commands.LaunchCommand;
+import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -53,11 +56,11 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger ampAngleButton;
     private Trigger launchSpeakerButton;
     // private Trigger resetAngleButton;
-    private Trigger visionAngle;
-    private Trigger churroDownButton;
-    private Trigger churroUpButton;
+    private Trigger visionAngleButton;
     private Trigger wingAngleButton;
-    //private Trigger launchAmp;
+
+    private final Pref<Double> ampSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultLeftSpeedKey, Constants.LauncherConstants.kAmpDefaultLeftSpeed);
+    private final Pref<Double> ampSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultRightSpeedKey, Constants.LauncherConstants.kAmpDefaultRightSpeed);
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -78,9 +81,7 @@ public class SK24LauncherBinder implements CommandBinder
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
-        //visionAngle = kVisionAngle.button;
-        churroDownButton = kChurroDown.button;
-        churroUpButton = kChurroUp.button;
+        visionAngleButton = kVisionAngle.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
@@ -93,9 +94,6 @@ public class SK24LauncherBinder implements CommandBinder
         wingAngleButton = Ports.OperatorPorts.kAngleWing.button;
 
         defaultLauncherAngleButton = kAngleSpeaker.button;
-
-       
-        
     }
 
     public void bindButtons()
@@ -107,18 +105,24 @@ public class SK24LauncherBinder implements CommandBinder
             SK24Launcher m_launcher = launcher.get();
 
             // Launch Speaker Button
-            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed))); 
-            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
+
+            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(kLauncherLeftSpeed, kLauncherRightSpeed, m_launcher, light));
+            
+            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
+            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.0, 0.0)));
             launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
-        
+            
+            
             if(churro.isPresent())
             {
                 SK24Churro m_churro = churro.get();
 
                 // Launch Amp Button
-                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed)));
+                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setAmpRampRate()));
+                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get())));
                 launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
 
+                launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
                 launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
                 launchAmpButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
@@ -131,9 +135,11 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
                 if(vision.isPresent())
                 {
-                    // SK24Vision m_vision = vision.get();
+                    SK24Vision m_vision = vision.get();
 
                     // Vision Angle Change Button
+                    visionAngleButton.onTrue(new InstantCommand(() -> m_vision.setSpeakerMode()));
+                    visionAngleButton.onFalse(new InstantCommand(() -> m_vision.setAllTagMode()));
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
 

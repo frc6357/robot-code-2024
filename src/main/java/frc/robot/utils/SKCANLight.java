@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 public class SKCANLight{
     Optional<CANdle> candle;
     SimpleWidget colorWidget;
+    boolean isFinished;
     
     public SKCANLight(){
         candle = Optional.empty();
@@ -50,6 +51,9 @@ public class SKCANLight{
         config.v5Enabled = false;
         
         candle.get().configAllSettings(config);
+
+        candle.get().clearAnimation(1);
+        this.setTeamColor();
 
         
     }
@@ -82,6 +86,41 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().clearAnimation(1);}
     }
 
+    public boolean isFinished()
+    {
+        return isFinished;
+    }
+
+    public void setIsFinished(boolean finished){
+        isFinished = finished;
+    }
+
+    public void setOrange(){
+        setLight(255, 24, 0, numLedOnBot);
+    }
+
+    public void setGreen(){
+        setLight(0, 255, 0, numLedOnBot);
+    }
+
+    public void setRed(){
+        setLight(255,0,0,numLedOnBot);
+    }
+
+    public void setPurple(){
+        setLight( 128, 10, 128, numLedOnBot);
+    }
+
+    public void setTeamColor()
+    {
+        setLight(0, 250, 150, numLedOnBot);
+    }
+
+    public void setPartyMode()
+    {
+        RainbowAnimate(1.0, 1.0, numLedOnBot);
+    }
+    
     /* 
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
@@ -121,23 +160,4 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
     */
-
-    public void setOrange(){
-        setLight(255, 20, 0, numLedOnBot);
-    }
-
-    public void setSilver(){
-        setLight(240,255,255,numLedOnBot);
-    }
-
-    public void setTeamColor()
-    {
-        setLight(0, 250, 150, numLedOnBot);
-    }
-
-    public void setPartyMode()
-    {
-        RainbowAnimate(1.0, 1.0, numLedOnBot);
-    }
-
 }
