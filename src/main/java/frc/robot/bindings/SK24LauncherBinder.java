@@ -56,9 +56,8 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger ampAngleButton;
     private Trigger launchSpeakerButton;
     // private Trigger resetAngleButton;
-    private Trigger visionAngle;
+    private Trigger visionAngleButton;
     private Trigger wingAngleButton;
-    //private Trigger launchAmp;
 
     private final Pref<Double> ampSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultLeftSpeedKey, Constants.LauncherConstants.kAmpDefaultLeftSpeed);
     private final Pref<Double> ampSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultRightSpeedKey, Constants.LauncherConstants.kAmpDefaultRightSpeed);
@@ -82,7 +81,7 @@ public class SK24LauncherBinder implements CommandBinder
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
-        visionAngle = kVisionAngle.button;
+        visionAngleButton = kVisionAngle.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
@@ -139,8 +138,8 @@ public class SK24LauncherBinder implements CommandBinder
                     SK24Vision m_vision = vision.get();
 
                     // Vision Angle Change Button
-                    visionAngle.onTrue(new InstantCommand(() -> m_vision.setSpeakerMode()));
-                    visionAngle.onFalse(new InstantCommand(() -> m_vision.setAllTagMode()));
+                    visionAngleButton.onTrue(new InstantCommand(() -> m_vision.setSpeakerMode()));
+                    visionAngleButton.onFalse(new InstantCommand(() -> m_vision.setAllTagMode()));
                     //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
                 }
 

@@ -77,7 +77,6 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().configBrightnessScalar(bright);}
     }
 
-
     public void RainbowAnimate(double brightness, double speed, int numLed){
         RainbowAnimation animation = new RainbowAnimation(brightness, speed, numLed, false, 8);
         if(candle.isPresent()){ candle.get().animate(animation, 1);}
@@ -95,6 +94,33 @@ public class SKCANLight{
     public void setIsFinished(boolean finished){
         isFinished = finished;
     }
+
+    public void setOrange(){
+        setLight(255, 24, 0, numLedOnBot);
+    }
+
+    public void setGreen(){
+        setLight(0, 255, 0, numLedOnBot);
+    }
+
+    public void setRed(){
+        setLight(255,0,0,numLedOnBot);
+    }
+
+    public void setPurple(){
+        setLight( 128, 10, 128, numLedOnBot);
+    }
+
+    public void setTeamColor()
+    {
+        setLight(0, 250, 150, numLedOnBot);
+    }
+
+    public void setPartyMode()
+    {
+        RainbowAnimate(1.0, 1.0, numLedOnBot);
+    }
+    
     /* 
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
@@ -134,31 +160,4 @@ public class SKCANLight{
         if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
     */
-
-    public void setOrange(){
-        setLight(255, 24, 0, numLedOnBot);
-    }
-
-    public void setGreen(){
-        setLight(0, 255, 0, numLedOnBot);
-    }
-
-    public void setRed(){
-        setLight(255,0,0,numLedOnBot);
-    }
-
-    public void setPurple(){
-        setLight( 128, 10, 128, numLedOnBot);
-    }
-
-    public void setTeamColor()
-    {
-        setLight(0, 250, 150, numLedOnBot);
-    }
-
-    public void setPartyMode()
-    {
-        RainbowAnimate(1.0, 1.0, numLedOnBot);
-    }
-
 }
