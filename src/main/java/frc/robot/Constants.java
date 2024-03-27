@@ -359,7 +359,7 @@ public final class Constants
 
         public static final double kTransferSpeed = 0.5; 
         public static final double kSlowTransferSpeed = 0.05;
-        public static final double noteMeasurement = 85;
+        public static final double noteMeasurement = 200;
         
         public static final double kSpeedTolerance = 0.03;
 
