@@ -291,8 +291,8 @@ public final class Constants
         public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
-        public static final double kMinAngle = 14.0; //TODO - put minumum launcher angle
-        public static final double kMaxAngle = 51.0;//TODO - put maximum launcher angle
+        public static final double kMinAngle = 14.0; //TODO - change to zero
+        public static final double kMaxAngle = 51.0;//TODO - find maximum launcher angle
     
         public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second //TODO - find good value degrees per second angle launcher
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband

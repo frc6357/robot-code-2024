@@ -21,12 +21,12 @@ public class SK24Churro extends SubsystemBase
     CANSparkFlex cMotor;
     RelativeEncoder cEncoder;
     SparkPIDController pid;
-    DigitalInput limitSwitch;
+    DigitalInput cLimitSwitch;
 
     public SK24Churro()
     {
         //Initialize motor object
-        limitSwitch = new DigitalInput(1);
+        cLimitSwitch = new DigitalInput(1);
         cMotor = new CANSparkFlex(kChurroMotor.ID, MotorType.kBrushless);
         cMotor.setInverted(true);
         cEncoder = cMotor.getEncoder();
@@ -71,7 +71,7 @@ public class SK24Churro extends SubsystemBase
      */
     public boolean hitLimitSwitch()
     {
-        return limitSwitch.get();
+        return cLimitSwitch.get();
     }
 
     //Boolean true if churro at lower pos

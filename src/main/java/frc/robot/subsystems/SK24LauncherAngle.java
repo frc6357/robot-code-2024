@@ -18,6 +18,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,7 +31,8 @@ public class SK24LauncherAngle extends SubsystemBase
     CANSparkFlex    followerMotor;
     int             joystickCount;
     double          targetAngle;
-    DutyCycleEncoder encoder;
+    DutyCycleEncoder lEncoder;
+    DigitalInput lLimitSwitch;
     PIDController   PID;
     SlewRateLimiter accelLimit;
     double FeedForward;
@@ -43,6 +45,7 @@ public class SK24LauncherAngle extends SubsystemBase
         motor = new CANSparkFlex(kLauncherAngleMotor.ID, MotorType.kBrushless);
         followerMotor = new CANSparkFlex(kLauncherAngleFollowerMotor.ID, MotorType.kBrushless);
         followerMotor.follow(motor, true);
+        //lLimitSwitch = new DigitalInput(); //TODO - find actual limit switch channel
 
         PID = new PIDController(kAnglePID.kP, kAnglePID.kI, kAnglePID.kD);
         PID.setSetpoint(kMinAngle);
@@ -54,8 +57,8 @@ public class SK24LauncherAngle extends SubsystemBase
         
 
         targetAngle = kMinAngle;
-        encoder = new DutyCycleEncoder(0);
-        encoder.setDistancePerRotation(360.0);
+        lEncoder = new DutyCycleEncoder(0);
+        lEncoder.setDistancePerRotation(360.0);
 
     }
 
@@ -78,6 +81,7 @@ public class SK24LauncherAngle extends SubsystemBase
     public boolean isAtTargetAngle()
     {
         return Math.abs(getCurrentAngle() - getTargetAngle()) < kAngleTolerance;
+        
     }
 
     /**
@@ -85,7 +89,8 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public double getCurrentAngle()
     {
-        return encoder.getDistance();
+        return lEncoder.getDistance(); //TODO - determine if launcher up is negative
+        // return Math.abs(encoder.getAbsolutePosition());
     }
 
     /**
@@ -101,13 +106,23 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public void resetAngle()
     {
-        encoder.setPositionOffset(kMinAngle);
+        lEncoder.setPositionOffset(kMinAngle);
+    }
+
+    public void resetEncoderAngle()
+    {
+        lEncoder.reset();
     }
 
     public void zeroPosition()
     {
         setTargetAngle(kMinAngle);
     }
+
+   // public boolean hitZeroPos()
+   // {
+   //     return lLimitSwitch.get();
+   // }
 
     /**
      * Calculates feedforward value of arm by multiplying cosine of angle degrees by feed forward constant
