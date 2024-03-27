@@ -2,6 +2,8 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.SK24Churro;
 
+import static frc.robot.Constants.ChurroConstants.*;
+
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class ChurroLowerCommand extends Command
@@ -11,17 +13,17 @@ public class ChurroLowerCommand extends Command
   double speed;
 
   /**
-   * Command to lower the churro for scoring in amp
+   * Creates a new ExampleCommand.
    *
-   * @param churro The churro subsystem used by this command.
+   * @param subsystem The subsystem used by this command.
    */
-  public ChurroLowerCommand(SK24Churro churro, double speed) 
+  public ChurroLowerCommand(SK24Churro subsystem, double speed) 
   {
-    this.subsystem = churro;
+    this.subsystem = subsystem;
     this.speed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(churro);
+    addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
