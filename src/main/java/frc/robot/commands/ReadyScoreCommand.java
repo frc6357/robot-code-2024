@@ -21,7 +21,8 @@ public class ReadyScoreCommand extends Command{
     
     private SK24Drive              drive;
     private SK24Vision              vision;
-    private PIDController          PID;
+    private PIDController          PID_NoVision;
+    private PIDController          PID_Vision;
     
     // In radians per second
     private double maxRot = 4;
@@ -50,9 +51,13 @@ public class ReadyScoreCommand extends Command{
 
         this.drive = drive;
 
-        PID = new PIDController(0.1, 0, 0, 0.02);
-        PID.enableContinuousInput(-180, 180);
-        PID.setTolerance(kDriveAngleTolerance);
+        PID_NoVision = new PIDController(0.1, 0, 0, 0.02);
+        PID_NoVision.enableContinuousInput(-180, 180);
+        PID_NoVision.setTolerance(kDriveAngleTolerance);
+        
+        PID_Vision = new PIDController(0.0008, 0, 0, 0.02); //TODO - tune PID for turning
+        PID_Vision.enableContinuousInput(-180, 180);
+        PID_Vision.setTolerance(kDriveAngleTolerance);
 
         vision.setSpeakerMode();
         
@@ -63,10 +68,16 @@ public class ReadyScoreCommand extends Command{
     @Override
     public void execute()
     {
-
-        PID.setSetpoint(MathUtil.inputModulus(drive.getSpeakerAngle(), -180, 180));
-        double rot = PID.calculate(drive.getPose().getRotation().getDegrees());
-        rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
+        double rot = 0.0;
+        if(vision.tagPresent()){
+            PID_NoVision.setSetpoint(MathUtil.inputModulus(0.0, -180, 180));
+            rot = PID_NoVision.calculate(vision.returnXOffset(vision.getTargetPose()));
+            rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
+        }else{
+            PID_NoVision.setSetpoint(MathUtil.inputModulus(drive.getSpeakerAngle(), -180, 180));
+            rot = PID_NoVision.calculate(drive.getPose().getRotation().getDegrees());
+            rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
+        }
         drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
 
         double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
