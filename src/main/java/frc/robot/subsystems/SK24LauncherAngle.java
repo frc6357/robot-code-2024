@@ -1,10 +1,12 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.LauncherAngleConstants.kAngleOffset;
 import static frc.robot.Constants.LauncherAngleConstants.kAnglePID;
 import static frc.robot.Constants.LauncherAngleConstants.kAngleTolerance;
 import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMaxOutput;
 import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMinOutput;
 import static frc.robot.Constants.LauncherAngleConstants.kLauncherAngleFF;
+import static frc.robot.Constants.LauncherAngleConstants.kMaxAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleFollowerMotor;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
@@ -60,18 +62,6 @@ public class SK24LauncherAngle extends SubsystemBase
 
         targetAngle = kMinAngle;
         lEncoder = new DutyCycleEncoder(0);
-        lEncoder.setDistancePerRotation(360.0);
-        lEncoder.setPositionOffset(0.034);
-        lEncoder.reset();
-
-        double one = (wrapValue(1000.0, -180.0, 180.0));
-        double two =(wrapValue(200.0, -180.0, 180.0));
-        double three = (wrapValue(90.0, -180.0, 180.0));
-        double four = (wrapValue(0.0, -180.0, 180.0));
-        double five = (wrapValue(-90.0, -180.0, 180.0));
-        double six = (wrapValue(-200.0, -180.0, 180.0));
-        double seven = (wrapValue(-1000.0, -180.0, 180.0));
-
 
     }
 
@@ -98,16 +88,19 @@ public class SK24LauncherAngle extends SubsystemBase
     }
 
     /**
-     * {@inheritDoc}
+     * Gets the current angle of the encoder in degrees. 
+     * Wrapped in between -180 and 180, and limited to minimum and maximum angle constants. 
+     * Upward movement of the launcheris positive.
+     * @return Current angle of the encoder in degrees.
      */
     public double getCurrentAngle()
     {
-        // return lEncoder.getDistance(); //TODO - determine if launcher up is negative
-        double absolutePosition = lEncoder.getAbsolutePosition();
-
-        return wrapValue(360.0 - ((lEncoder.getAbsolutePosition() * 360.0) - 14.74), -180.0, 180.0);
-
-
+        //Gets absolute position of encoder an converts it into degrees
+        double absolutePosition = lEncoder.getAbsolutePosition() * 360.0;
+        //Converts the encoder position so upward movement from zero increases with offset, wrapping value from -180 to 180 degrees
+        double wrappedPosition = wrapValue((360.0 - absolutePosition) - kAngleOffset, -180.0, 180.0);
+        //Returns the angle with it clamped between minimum angle and maximum angle to avoid running through the hard stops.
+        return MathUtil.clamp(wrappedPosition, kMinAngle, kMaxAngle);
     }
 
     /**
