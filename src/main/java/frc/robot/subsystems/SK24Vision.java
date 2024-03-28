@@ -1,13 +1,19 @@
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.LauncherAngleConstants.kMaxAngle;
+import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
+
+import java.util.Optional;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.DriverStation;
-import java.util.*;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SK24Vision extends SubsystemBase
 {
      NetworkTableInstance instance = NetworkTableInstance.getDefault();
@@ -16,10 +22,13 @@ public class SK24Vision extends SubsystemBase
      private double[] targetPosition;
      private double targetAngle = 0;
      private Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
+     private Optional<SK24Drive> drive = Optional.empty();
+     private int odometryCounter = 0;
 
      // Creates a vision class that interacts with the limelight AprilTag data using Networktables
-     public SK24Vision()
+     public SK24Vision(Optional<SK24Drive> drive)
      {
+        this.drive = drive;
         limelight = instance.getTable("limelight");
 
         limelight.getEntry("camMode").setNumber(0);
@@ -99,9 +108,14 @@ public class SK24Vision extends SubsystemBase
      // Returns the target angle of the launcher using the pitch provided by the limelight data
      public double returnTargetAngle(double[] poseData)
      {
-        targetAngle = (-1.0 * poseData[3] ) + Constants.VisionConstants.limelightStartingAngle;
-        SmartDashboard.putNumber( "Limelight Target Angle", targetAngle);
-        return targetAngle;
+         if(tagPresent())
+         {
+            targetAngle = (-1.0 * poseData[3] ) + Constants.VisionConstants.limelightStartingAngle;
+            return targetAngle;
+         }else
+         {
+            return kSpeakerAngle;
+         }
      }
      
 
@@ -133,5 +147,22 @@ public class SK24Vision extends SubsystemBase
      public void noBlinky()
      {
         limelight.getEntry("ledMode").setNumber(0);
+     }
+
+     public void periodic()
+     {
+         if(drive.isPresent())
+         {
+            if(odometryCounter < 25){odometryCounter++;}
+
+            if(tagPresent() && odometryCounter >= 25){
+            odometryCounter++;
+            double[] array = getPose();
+            Pose2d robotPose = new Pose2d(array[0], array[1], new Rotation2d(array[5]));
+         
+            drive.get().addVisionMeasurement(robotPose, Timer.getFPGATimestamp());
+            odometryCounter = 0;
+            }
+         }
      }
 }

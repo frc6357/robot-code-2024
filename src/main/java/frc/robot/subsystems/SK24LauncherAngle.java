@@ -25,8 +25,6 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import static frc.robot.utils.ContinuousInput.*;
-
 
 public class SK24LauncherAngle extends SubsystemBase
 {
@@ -98,7 +96,7 @@ public class SK24LauncherAngle extends SubsystemBase
         //Gets absolute position of encoder an converts it into degrees
         double absolutePosition = lEncoder.getAbsolutePosition() * 360.0;
         //Converts the encoder position so upward movement from zero increases with offset, wrapping value from -180 to 180 degrees
-        double wrappedPosition = wrapValue((360.0 - absolutePosition) - kAngleOffset, -180.0, 180.0);
+        double wrappedPosition = MathUtil.inputModulus((360.0 - absolutePosition) - kAngleOffset, -180.0, 180.0);
         //Returns the angle with it clamped between minimum angle and maximum angle to avoid running through the hard stops.
         return MathUtil.clamp(wrappedPosition, kMinAngle, kMaxAngle);
     }

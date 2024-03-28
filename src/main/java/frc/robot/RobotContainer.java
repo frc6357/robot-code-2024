@@ -161,7 +161,7 @@ public class RobotContainer {
             }
             if(subsystems.isVisionPresent())
             {
-                m_vision = Optional.of(new SK24Vision());
+                m_vision = Optional.of(new SK24Vision(m_drive));
             }
             if(subsystems.isClimbPresent())
             {
