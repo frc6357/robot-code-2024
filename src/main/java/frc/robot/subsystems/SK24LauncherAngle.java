@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import static frc.robot.utils.ContinuousInput.*;
+
 
 public class SK24LauncherAngle extends SubsystemBase
 {
@@ -59,6 +61,17 @@ public class SK24LauncherAngle extends SubsystemBase
         targetAngle = kMinAngle;
         lEncoder = new DutyCycleEncoder(0);
         lEncoder.setDistancePerRotation(360.0);
+        lEncoder.setPositionOffset(0.034);
+        lEncoder.reset();
+
+        double one = (wrapValue(1000.0, -180.0, 180.0));
+        double two =(wrapValue(200.0, -180.0, 180.0));
+        double three = (wrapValue(90.0, -180.0, 180.0));
+        double four = (wrapValue(0.0, -180.0, 180.0));
+        double five = (wrapValue(-90.0, -180.0, 180.0));
+        double six = (wrapValue(-200.0, -180.0, 180.0));
+        double seven = (wrapValue(-1000.0, -180.0, 180.0));
+
 
     }
 
@@ -89,8 +102,12 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public double getCurrentAngle()
     {
-        return lEncoder.getDistance(); //TODO - determine if launcher up is negative
-        // return Math.abs(encoder.getAbsolutePosition());
+        // return lEncoder.getDistance(); //TODO - determine if launcher up is negative
+        double absolutePosition = lEncoder.getAbsolutePosition();
+
+        return wrapValue(360.0 - ((lEncoder.getAbsolutePosition() * 360.0) - 14.74), -180.0, 180.0);
+
+
     }
 
     /**
