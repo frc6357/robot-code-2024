@@ -84,6 +84,7 @@ public class SK24IntakeBinder implements CommandBinder{
             operatorTransferButton.onFalse(new StopIntakingCommand(intake, launcher));
 
             intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(launcher, intake, light));
+           
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
         }
     }
