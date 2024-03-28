@@ -345,7 +345,8 @@ public final class Constants
     
     public static final class LauncherConstants
     {
-        
+        public static final String kSpeakerDefaultLeftSpeedKey = "kSpeakerDefaultLeftSpeedKey";
+        public static final String kSpeakerDefaultRightSpeedKey = "kSpeakerDefaultRightSpeedKey";
         public static final double kSpeakerDefaultLeftSpeed = 0.4;
         public static final double kSpeakerDefaultRightSpeed = 0.5;
         

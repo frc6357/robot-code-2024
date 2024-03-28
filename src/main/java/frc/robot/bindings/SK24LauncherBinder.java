@@ -61,6 +61,9 @@ public class SK24LauncherBinder implements CommandBinder
 
     private final Pref<Double> ampSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultLeftSpeedKey, Constants.LauncherConstants.kAmpDefaultLeftSpeed);
     private final Pref<Double> ampSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultRightSpeedKey, Constants.LauncherConstants.kAmpDefaultRightSpeed);
+   
+    private final Pref<Double> speakerSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey, Constants.LauncherConstants.kSpeakerDefaultLeftSpeed);
+    private final Pref<Double> speakerSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey, Constants.LauncherConstants.kSpeakerDefaultRightSpeed);
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -106,7 +109,7 @@ public class SK24LauncherBinder implements CommandBinder
 
             // Launch Speaker Button
 
-            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(kLauncherLeftSpeed, kLauncherRightSpeed, m_launcher, light));
+            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(speakerSpeedLeft.get(), speakerSpeedRight.get(), m_launcher, light));
             
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.0, 0.0)));
