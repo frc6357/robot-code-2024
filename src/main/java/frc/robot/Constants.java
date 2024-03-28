@@ -24,6 +24,8 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical
@@ -202,10 +204,8 @@ public final class Constants
 
         public static final double kAmpRedFacing = 270.0;
         public static final double kAmpBlueFacing = 90.0;
-        public static final double kSourceRedFacing = 45.0; //TODO - find actual angle for source 
-        public static final double kSourceBlueFacing = 135.0; //TODO - find actual angle for source 
 
-        public static final double kDriveAngleTolerance = 1.5; //TODO - set this drive angle tolerance value
+        public static final double kDriveAngleTolerance = 1.5;
 
         public static final double kFieldWidth = 16.58; //Width of the field longwise in meters for use in pointing drive towards speaker
         public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters from the amp side
@@ -283,19 +283,23 @@ public final class Constants
     }
     public static final class LauncherAngleConstants
     {
+        public static final String kLauncherAngleWingKey = "kLauncherAngleWing";
+        public static final double kWingAngle = 23.0;
+        public static final Pref<Double> launcherAngleWing = SKPreferences.attach(kLauncherAngleWingKey, kWingAngle);
+
         public static final PIDConstants kAnglePID = new PIDConstants(0.007, 0.0, 0.0); //TODO - Tune launcher angle PID
         public static final double kLauncherAngleFF = 0.011;
 
         public static final double kConversionFactor = (1.0 / 48.0) * 360.0;
-        public static final double kAngleTolerance =  3.0; //TODO - find good angle tolerance launcher
+        public static final double kAngleTolerance =  3.0;
         public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
-        public static final double kMinAngle = -20.0; //TODO - change to zero
-        public static final double kMaxAngle = 60.0;//TODO - find maximum launcher angle
+        public static final double kMinAngle = 0.0; //TODO - change to zero
+        public static final double kMaxAngle = 55.0;//TODO - find maximum launcher angle
         public static final double kAngleOffset = 14.74; //Offset of launcher angle in degrees
     
-        public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second //TODO - find good value degrees per second angle launcher
+        public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second 
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
@@ -303,7 +307,6 @@ public final class Constants
         public static final double kAmpAngle = 44.0; 
         public static final double kFloorAngle = 14.0; 
         public static final double kSpeakerAngle = 48.0; 
-        public static final double kWingAngle = 23.0;
 
         public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
         public static final double kPos2Angle = 40.0; //TODO - find launcher angle for position 2
@@ -318,7 +321,7 @@ public final class Constants
 
     public static final class LightConstants
     {
-        public static final int numLedOnBot = 240; //TODO - find actual number of LED on bot
+        public static final int numLedOnBot = 240;
         public static final double kLightsOffBrightness = 0.0;
         public static final double kLightsOnBrightness = 1.0;
     }
@@ -328,7 +331,6 @@ public final class Constants
         public static final double kIntakeSpeed = 0.3; 
         public static final double kSlowIntakeSpeed = 0.05;
         public static final double kIntakeAngle = 40.0; 
-        public static final double kIntakeSeconds = 10.0; //TODO - find speed to stop intake after if LaserCan fails
         public static final double kIntakeLauncherLeftSpeed = -0.1;
         public static final double kIntakeLauncherRightSpeed = -0.1;
     }
@@ -345,21 +347,28 @@ public final class Constants
     
     public static final class LauncherConstants
     {
+        
+        
         public static final String kSpeakerDefaultLeftSpeedKey = "kSpeakerDefaultLeftSpeedKey";
         public static final String kSpeakerDefaultRightSpeedKey = "kSpeakerDefaultRightSpeedKey";
         public static final double kSpeakerDefaultLeftSpeed = 0.4;
         public static final double kSpeakerDefaultRightSpeed = 0.5;
+        public static final Pref<Double> speakerSpeedLeft = SKPreferences.attach(kSpeakerDefaultLeftSpeedKey, kSpeakerDefaultLeftSpeed);
+        public static final Pref<Double> speakerSpeedRight = SKPreferences.attach(kSpeakerDefaultRightSpeedKey, kSpeakerDefaultRightSpeed);
         
         public static final String kAmpDefaultLeftSpeedKey = "kAmpDefaultLeftSpeedKey";
         public static final String kAmpDefaultRightSpeedKey = "kAmpDefaultRightSpeedKey";
         public static final double kAmpDefaultLeftSpeed = 0.22;
         public static final double kAmpDefaultRightSpeed = 0.22;
+        public static final Pref<Double> ampSpeedLeft = SKPreferences.attach(kAmpDefaultLeftSpeedKey, kAmpDefaultLeftSpeed);
+        public static final Pref<Double> ampSpeedRight = SKPreferences.attach(kAmpDefaultRightSpeedKey, kAmpDefaultRightSpeed);
         
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.4; 
         public static final double kLauncherRightSpeed = 0.5; 
 
         public static final double kTransferSpeed = 0.5; 
+        public static final double kIntakeTransferSpeed = 0.15;
         public static final double kSlowTransferSpeed = 0.05;
         public static final double noteMeasurement = 200;
         

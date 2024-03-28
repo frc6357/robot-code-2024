@@ -6,12 +6,10 @@ import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kFloorAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherAngleWingKey;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kWingAngle;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.launcherAngleWing;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
@@ -19,18 +17,14 @@ import static frc.robot.Ports.OperatorPorts.kVisionAngle;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
+import static frc.robot.Constants.LauncherConstants.*;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants;
 import frc.robot.Ports;
-import frc.robot.commands.AmpCenterCommand;
-import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
-import frc.robot.preferences.Pref;
-import frc.robot.preferences.SKPreferences;
 import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.subsystems.SK24Churro;
@@ -58,12 +52,6 @@ public class SK24LauncherBinder implements CommandBinder
     // private Trigger resetAngleButton;
     private Trigger visionAngleButton;
     private Trigger wingAngleButton;
-
-    private final Pref<Double> ampSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultLeftSpeedKey, Constants.LauncherConstants.kAmpDefaultLeftSpeed);
-    private final Pref<Double> ampSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kAmpDefaultRightSpeedKey, Constants.LauncherConstants.kAmpDefaultRightSpeed);
-   
-    private final Pref<Double> speakerSpeedLeft = SKPreferences.attach(Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey, Constants.LauncherConstants.kSpeakerDefaultLeftSpeed);
-    private final Pref<Double> speakerSpeedRight = SKPreferences.attach(Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey, Constants.LauncherConstants.kSpeakerDefaultRightSpeed);
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -108,6 +96,7 @@ public class SK24LauncherBinder implements CommandBinder
             SK24Launcher m_launcher = launcher.get();
 
             // Launch Speaker Button
+            
 
             launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(speakerSpeedLeft.get(), speakerSpeedRight.get(), m_launcher, light));
             
@@ -153,7 +142,7 @@ public class SK24LauncherBinder implements CommandBinder
                 defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle))); // 48 deg
                 defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle))); // 14 deg
                 ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle))); // 44 deg
-                wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kWingAngle))); // 23 deg
+                wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(launcherAngleWing.get()))); // 23 deg
 
                 // resetAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.resetAngle()));
 
