@@ -19,7 +19,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,7 +35,6 @@ public class SK24LauncherAngle extends SubsystemBase
     DutyCycleEncoder lEncoder;
     DigitalInput lLimitSwitch;
     PIDController   PID;
-    SlewRateLimiter accelLimit;
     double FeedForward;
     
 
@@ -114,7 +112,7 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public void resetAngle()
     {
-        lEncoder.setPositionOffset(kMinAngle);
+        lEncoder.reset();
     }
 
     public void resetEncoderAngle()
@@ -152,8 +150,7 @@ public class SK24LauncherAngle extends SubsystemBase
 
         // Calculates motor speed and puts it within operating range
         double speed = MathUtil.clamp(PID.calculate(current_angle) + calculateFF(target_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
-        // speed = accelLimit.calculate(speed);
-        //motor.set(speed); TODO- add back when we want to move launcher angle
+        motor.set(speed);
 
         SmartDashboard.putNumber("Current Launcher Angle", getCurrentAngle());
         SmartDashboard.putNumber("Target Launcher Angle", target_angle);

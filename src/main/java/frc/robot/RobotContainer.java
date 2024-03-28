@@ -46,7 +46,6 @@ import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.IntakeAutoCommand;
-import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
@@ -132,7 +131,6 @@ public class RobotContainer {
             if(subsystems.isLightsPresent())
             {
                 m_light.init();
-                //m_light.setTeamColor(); //TODO - check if this is causing any problems
             }
             if(subsystems.isIntakePresent())
             {

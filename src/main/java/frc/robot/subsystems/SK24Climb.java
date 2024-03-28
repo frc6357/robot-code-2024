@@ -41,7 +41,7 @@ public class SK24Climb extends SubsystemBase
         motorR = new CANSparkFlex(kRightClimbMotor.ID, MotorType.kBrushless);
         motorL = new CANSparkFlex(kLeftClimbMotor.ID, MotorType.kBrushless);
 
-        motorL.setInverted(false); //TODO - make it true 
+        motorL.setInverted(false);
         motorR.setInverted(true);
         encoderL = motorL.getEncoder();
         encoderR = motorR.getEncoder();

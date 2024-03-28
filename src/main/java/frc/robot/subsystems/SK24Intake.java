@@ -1,23 +1,17 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.IntakeConstants.kIntakeAngle;
-import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SK24Intake extends SubsystemBase
 {
     CANSparkFlex topIntakeMotor;
     CANSparkFlex bottomIntakeMotor;
-    private boolean pastIntakeState;
-    private boolean currIntakeState;
     double shuffleSpeed;
     boolean isTest = false;
 
@@ -29,9 +23,6 @@ public class SK24Intake extends SubsystemBase
         topIntakeMotor.setInverted(false);
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
-
-        currIntakeState = false;
-        pastIntakeState = false;
     }
 
     //Set motor speeds
@@ -63,12 +54,9 @@ public class SK24Intake extends SubsystemBase
 
     public void testInit()
     {
-        isTest = true;
-        Preferences.initDouble("Intake Speed", kIntakeSpeed);
     }
     
     public void testPeriodic()
     {
-        shuffleSpeed = Preferences.getDouble("Intake Speed", kIntakeSpeed);
     }
 }

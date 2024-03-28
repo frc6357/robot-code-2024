@@ -121,7 +121,7 @@ public class SKCANLight{
         RainbowAnimate(1.0, 1.0, numLedOnBot);
     }
     
-    /* 
+    
     public void FlowAnimate(int r, int g, int b, double speed, int numLed, Direction direction, int offset){
 
         ColorFlowAnimation animation = new ColorFlowAnimation( r,  g,  b,  0,  speed,  numLed,  direction, offset);
@@ -159,5 +159,5 @@ public class SKCANLight{
         TwinkleAnimation animation = new TwinkleAnimation(r, g, b, 0, 1.0, numLed, percent, 8);
         if(candle.isPresent()){ candle.get().animate(animation, 1);}
     }
-    */
+    
 }

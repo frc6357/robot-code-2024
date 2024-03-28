@@ -61,7 +61,7 @@ public class SK24IntakeBinder implements CommandBinder{
             operatorPartyButton.onFalse(new InstantCommand(() -> light.setBrightness(kLightsOnBrightness)));
             operatorPartyButton.onFalse(new InstantCommand(() -> light.setPartyMode()));
             
-            driverPartyButton.onTrue(new InstantCommand(() -> light.clearAnimate())); //TODO - look and see if this is being run repeatedly
+            driverPartyButton.onTrue(new InstantCommand(() -> light.clearAnimate()));
             driverPartyButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
             driverPartyButton.onFalse(new InstantCommand(() -> light.setBrightness(kLightsOnBrightness)));
 
@@ -78,12 +78,12 @@ public class SK24IntakeBinder implements CommandBinder{
             // Transfer Button
             operatorTransferButton.and(launchAmpButton.negate()).onTrue(new IntakeAutoCommand(intake, launcher));
 
-            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(0.25))); //TODO - determine if we need to change intake/transfer speeds for amp scoring
+            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(0.25)));
             operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             
             operatorTransferButton.onFalse(new StopIntakingCommand(intake, launcher));
 
-            intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(launcher, intake, light)); //TODO - test intake transfer command
+            intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(launcher, intake, light));
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
         }
     }

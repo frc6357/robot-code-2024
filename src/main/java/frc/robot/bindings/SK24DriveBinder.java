@@ -14,18 +14,15 @@ import static frc.robot.Ports.DriverPorts.kTranslationYPort;
 import static frc.robot.Ports.DriverPorts.kSlowMode;
 import static frc.robot.Ports.DriverPorts.kTranslationXPort;
 import static frc.robot.Ports.DriverPorts.kVelocityOmegaPort;
-import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.AmpCenterCommand;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.commands.ReadyScoreCommand;
-import frc.robot.commands.TurnSpeakerCommand;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
@@ -48,7 +45,6 @@ public class SK24DriveBinder implements CommandBinder
     private final Trigger rotateLeft;
     private final Trigger rotateRight;
     private final Trigger rotateSource;
-    private final Trigger launchAmpButton;
 
     // private final Trigger centerStage;
     // private final Trigger leftStage;
@@ -66,8 +62,6 @@ public class SK24DriveBinder implements CommandBinder
         this.m_arm = m_arm;
         this.m_vision = m_vision;
         
-        launchAmpButton = kLaunchAmp.button;
-
         robotCentric    = kRobotCentricMode.button;
         slowmode = kSlowMode.button;
         resetButton = kResetGyroPos.button;
@@ -105,33 +99,24 @@ public class SK24DriveBinder implements CommandBinder
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
-            // if(m_vision.isPresent())
-            // {
 
-            //     launchAmpButton.whileTrue(new AmpCenterCommand(() -> kTranslationYPort.getFilteredAxis(), drive, m_vision.get()));
-            // }
-
-            // if(m_arm.isPresent() && m_vision.isPresent())
-            // {
-            //     SK24LauncherAngle arm = m_arm.get();
-            //     SK24Vision vision = m_vision.get();
-            //     rotateSpeaker.whileTrue(
-            //         new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
-            //             () -> kTranslationYPort.getFilteredAxis(),
-            //             drive,arm, vision));
-            // }else
-            // {
-            //     rotateSpeaker.whileTrue(
-            //         new TurnSpeakerCommand(() -> kTranslationXPort.getFilteredAxis(),
-            //             () -> kTranslationYPort.getFilteredAxis(),
-            //             drive));
-            // }
-
-            rotateSpeaker.whileTrue(
+            if(m_arm.isPresent() && m_vision.isPresent())
+            {
+                SK24LauncherAngle arm = m_arm.get();
+                SK24Vision vision = m_vision.get();
+                rotateSpeaker.whileTrue(
+                    new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
+                        () -> kTranslationYPort.getFilteredAxis(),
+                        drive,arm, vision));
+            }else
+            {
+                rotateSpeaker.whileTrue(
                 new DriveTurnCommand(() -> kTranslationXPort.getFilteredAxis(),
                     () -> kTranslationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 180.0, drive)
-            );
+                );
+            }
+
             rotateLeft.and(robotCentric.negate()).whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),

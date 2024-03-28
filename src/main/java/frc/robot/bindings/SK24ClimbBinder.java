@@ -1,7 +1,6 @@
 package frc.robot.bindings;
 
 import static frc.robot.Constants.ClimbConstants.*;
-import static frc.robot.Constants.ChurroConstants.*;
 import static frc.robot.Ports.OperatorPorts.kClimbAxis;
 
 import java.util.Optional;
@@ -54,22 +53,22 @@ public class SK24ClimbBinder implements CommandBinder{
             }
 
             // Climb Up Buttons 
-            climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbUpSpeed))); //TODO - change values back to 1.0
-            climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbUpSpeed))); //TODO - change values back to 1.0
+            climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbUpSpeed))); 
+            climbUpDriverButton.or(climbUpOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbUpSpeed))); 
             
             climbUpDriverButton.or(climbUpOperatorButton).onFalse(new InstantCommand(() -> climb.runRightHook(0.0))); 
             climbUpDriverButton.or(climbUpOperatorButton).onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
 
             // Climb Down Buttons
-            climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed))); //TODO - change values back to 1.0
-            climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); //TODO - change values back to 1.0
+            climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed))); 
+            climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); 
             
             climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
             climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
             
             climbUpDriverButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 
-            //climbButton.onTrue(new ClimbBalanceCommand(climb)); //TODO - add climb balancing command later
+            //climbButton.onTrue(new ClimbBalanceCommand(climb)); //TODO - Possibly add climb balancing command later
 
               climb.setDefaultCommand(
                          // Vertical movement of the arm is controlled by the Y axis of the right stick.

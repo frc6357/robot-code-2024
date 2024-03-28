@@ -10,8 +10,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 import au.grapplerobotics.LaserCan;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -206,13 +204,10 @@ public class SK24Launcher extends SubsystemBase
     
     public void testPeriodic()
     {
-        shuffleSpeed = Preferences.getDouble("Transfer Speed", kTransferSpeed);
     }
     
     public void testInit()
     {
-        isTest = true;
-        Preferences.initDouble("Transfer Speed", kTransferSpeed);
     }
 
 }

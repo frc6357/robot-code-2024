@@ -1,15 +1,11 @@
 package frc.robot.commands;
 
 
-import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
+import static frc.robot.Constants.LauncherConstants.kIntakeTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.kSlowTransferSpeed;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
-import static frc.robot.Ports.OperatorPorts.kTransfer;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.utils.SKCANLight;
@@ -48,7 +44,7 @@ public class IntakeTransferCommand extends Command
   public void initialize() 
   {
       intake.setIntakeSpeed(intakeSpeed); 
-      launcher.setTransferSpeed(0.15); //TODO - add constant
+      launcher.setTransferSpeed(kIntakeTransferSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
