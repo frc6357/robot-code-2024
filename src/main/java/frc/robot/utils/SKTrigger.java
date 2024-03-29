@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.utils.SKControllerMapper.ControllerType;
 
 public class SKTrigger
 {
@@ -29,7 +30,7 @@ public class SKTrigger
                 break;
 
             case BUTTON:
-                button = new JoystickButton(controller, port);
+                button = SKControllerMapper.mapController(controller, port, ControllerType.XBOX, type);
                 break;
 
             case POV:
