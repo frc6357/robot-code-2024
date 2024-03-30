@@ -1,8 +1,21 @@
 package frc.robot.subsystems;
 
 
-import static frc.robot.Constants.LauncherConstants.*;
-import static frc.robot.Ports.launcherPorts.*;
+import static frc.robot.Constants.LauncherConstants.kAmpRampSpeed;
+import static frc.robot.Constants.LauncherConstants.kRampDownSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey;
+import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
+import static frc.robot.Constants.LauncherConstants.noteMeasurement;
+import static frc.robot.Constants.LauncherConstants.restingRampSpeed;
+import static frc.robot.Constants.LauncherConstants.speakerRampSpeed;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
+import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -10,18 +23,26 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.interp.SKInterpolatable;
+import frc.robot.interp.SKInterpolator;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
+
 
 
 public class SK24Launcher extends SubsystemBase
 {
     // Create memory objects for both motors for public use
+
     CANSparkFlex leftMotor;
     CANSparkFlex rightMotor;
     CANSparkFlex transferMotor;
-    double shuffleSpeed = 0.0;
-    boolean isTest = false;
 
     SparkPIDController leftPidController;
     SparkPIDController rightPidController;
@@ -32,6 +53,8 @@ public class SK24Launcher extends SubsystemBase
 
     double leftTargetSpeed;
     double rightTargetSpeed;
+
+    private SKInterpolator<N3, LaunchConfig> interpolator = new SKInterpolator<>(LaunchConfig::new);
 
 
     //Constructor for public command access
@@ -57,6 +80,14 @@ public class SK24Launcher extends SubsystemBase
         
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
+
+        interpolator.put(0.123f, new LaunchConfig(55.0, 0.4, 0.5));
+        LaunchConfig config = interpolator.get(0.123f);
+
+        SmartDashboard.putNumber("Interpolator Angle", config.angle);
+        SmartDashboard.putNumber("Interpolator Left Speed", config.speedLeft);
+        SmartDashboard.putNumber("Interpolator Right Speed", config.speedRight);
+        
 
     }
 
@@ -100,12 +131,7 @@ public class SK24Launcher extends SubsystemBase
      */    
     public void setTransferSpeed (double speed)
     {
-        if(!isTest)
-        {
-            transferMotor.set(speed);
-        }else{
-            transferMotor.set(shuffleSpeed);
-        }
+        transferMotor.set(speed);
     }
 
     //Return motor speeds
@@ -128,8 +154,14 @@ public class SK24Launcher extends SubsystemBase
 
     public void setSpeakerRampRate()
     {
-        rightMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
-        leftMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+        rightMotor.setOpenLoopRampRate(speakerRampSpeed.get());
+        leftMotor.setOpenLoopRampRate(speakerRampSpeed.get());
+    }
+
+    public void setRestingRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(restingRampSpeed.get());
+        leftMotor.setOpenLoopRampRate(restingRampSpeed.get());
     }
 
     public void setAmpRampRate()
@@ -210,4 +242,20 @@ public class SK24Launcher extends SubsystemBase
     {
     }
 
+    static record LaunchConfig(double angle, double speedLeft, double speedRight) implements SKInterpolatable<N3, LaunchConfig> {
+
+        public LaunchConfig() {
+            this(0, 0, 0);
+        }
+
+        @Override
+        public LaunchConfig fromMatrix(Matrix<N1, N3> sourceData) {
+            return new LaunchConfig(sourceData.get(0, 0), sourceData.get(0, 1), sourceData.get(0, 2));
+        }
+
+        @Override
+        public Matrix<N1, N3> toMatrix() {
+            return new Matrix<>(Nat.N1(), Nat.N3(), new double[] {angle, speedLeft, speedRight});
+        }
+    }
 }

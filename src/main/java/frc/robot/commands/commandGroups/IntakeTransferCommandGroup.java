@@ -5,20 +5,27 @@
 package frc.robot.commands.commandGroups;
 
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
+import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.AngleCommand;
 import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.SKCANLight;
 
 public class IntakeTransferCommandGroup extends SequentialCommandGroup {
     
-    public IntakeTransferCommandGroup(SK24Launcher launcher, SK24Intake intake, SKCANLight light)
+    public IntakeTransferCommandGroup(SK24LauncherAngle arm, SK24Launcher launcher, SK24Intake intake, SKCANLight light)
     {
         addCommands(  
+                new AngleCommand(kSpeakerAngle, arm),
+                // new InstantCommand(() -> launcher.setRestingRampRate()),
                 new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light)
+                // new WaitCommand(0.2),
+                // new InstantCommand(() -> launcher.setLauncherSpeed(speakerRestingSpeedLeft.get(), speakerRestingSpeedRight.get()))
         );
     }
 }

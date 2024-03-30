@@ -213,7 +213,7 @@ public final class Constants
     }
     public static final class VisionConstants
     {
-        public static final double limelightStartingAngle = 15.0;
+        public static final double limelightStartingAngle = 19.0;
     }
     public static final class ClimbConstants
     {
@@ -283,21 +283,27 @@ public final class Constants
     }
     public static final class LauncherAngleConstants
     {
-        public static final String kLauncherAngleWingKey = "kLauncherAngleWing";
+        public static final String kLauncherAngleWingKey = "kLauncherAngleWingKey";
         public static final double kWingAngle = 23.0;
-        public static final Pref<Double> launcherAngleWing = SKPreferences.attach(kLauncherAngleWingKey, kWingAngle);
 
-        public static final PIDConstants kAnglePID = new PIDConstants(0.007, 0.0, 0.0); //TODO - Tune launcher angle PID
-        public static final double kLauncherAngleFF = 0.011;
+        public static final String kLauncherAnglePKey = "kLauncherAnglePKey";
+        public static final String kLauncherAngleIKey = "kLauncherAngleIKey";
+        public static final String kLauncherAngleDKey = "kLauncherAngleDKey";
+        public static final String kLauncherAngleFFKey = "kLauncherAngleFFKey";
+        public static final double kLauncherAngleP = 0.0075;
+        public static final double kLauncherAngleI = 0.0003;
+        public static final double kLauncherAngleD = 0.00003;
+        public static final double kLauncherAngleFF = 0.0155;
 
         public static final double kConversionFactor = (1.0 / 48.0) * 360.0;
         public static final double kAngleTolerance =  3.0;
         public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
         public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
     
-        public static final double kMinAngle = 0.0; //TODO - change to zero
+        public static final double kMinAngle = -15.0; //TODO - change to zero
+        public static final double kZeroAngle = 0.0; //TODO - change to zero
         public static final double kMaxAngle = 55.0;//TODO - find maximum launcher angle
-        public static final double kAngleOffset = 14.74; //Offset of launcher angle in degrees
+        public static final double kAngleOffset = 16.14; //Offset of launcher angle in degrees
     
         public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second 
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
@@ -306,7 +312,7 @@ public final class Constants
 
         public static final double kAmpAngle = 44.0; 
         public static final double kFloorAngle = 14.0; 
-        public static final double kSpeakerAngle = 48.0; 
+        public static final double kSpeakerAngle = 42.0; 
 
         public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
         public static final double kPos2Angle = 40.0; //TODO - find launcher angle for position 2
@@ -356,6 +362,13 @@ public final class Constants
         public static final Pref<Double> speakerSpeedLeft = SKPreferences.attach(kSpeakerDefaultLeftSpeedKey, kSpeakerDefaultLeftSpeed);
         public static final Pref<Double> speakerSpeedRight = SKPreferences.attach(kSpeakerDefaultRightSpeedKey, kSpeakerDefaultRightSpeed);
         
+        public static final String kSpeakerRestingLeftSpeedKey = "kSpeakerRestingLeftSpeedKey";
+        public static final String kSpeakerRestingRightSpeedKey = "kSpeakerRestingRightSpeedKey";
+        public static final double kSpeakerRestingLeftSpeed = 0.4;
+        public static final double kSpeakerRestingRightSpeed = 0.5;
+        public static final Pref<Double> speakerRestingSpeedLeft = SKPreferences.attach(kSpeakerRestingLeftSpeedKey, kSpeakerRestingLeftSpeed);
+        public static final Pref<Double> speakerRestingSpeedRight = SKPreferences.attach(kSpeakerRestingRightSpeedKey, kSpeakerRestingRightSpeed);
+        
         public static final String kAmpDefaultLeftSpeedKey = "kAmpDefaultLeftSpeedKey";
         public static final String kAmpDefaultRightSpeedKey = "kAmpDefaultRightSpeedKey";
         public static final double kAmpDefaultLeftSpeed = 0.22;
@@ -374,7 +387,14 @@ public final class Constants
         
         public static final double kSpeedTolerance = 0.03;
 
+        public static final String kSpeakerRampSpeedKey = "kSpeakerRampSpeedKey";
         public static final double kSpeakerRampSpeed = 1.8;
+        public static final Pref<Double> speakerRampSpeed = SKPreferences.attach(kSpeakerRampSpeedKey, kSpeakerRampSpeed);
+
+        public static final String kRestingRampSpeedKey = "kRestingRampSpeedKey";
+        public static final double kRestingRampSpeed = 1.0;
+        public static final Pref<Double> restingRampSpeed = SKPreferences.attach(kRestingRampSpeedKey, kRestingRampSpeed);
+
         public static final double kAmpRampSpeed = 1.0;
         public static final double kRampDownSpeed = 12.0;
     }

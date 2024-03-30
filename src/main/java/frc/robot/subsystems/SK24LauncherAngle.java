@@ -1,13 +1,6 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.LauncherAngleConstants.kAngleOffset;
-import static frc.robot.Constants.LauncherAngleConstants.kAnglePID;
-import static frc.robot.Constants.LauncherAngleConstants.kAngleTolerance;
-import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMaxOutput;
-import static frc.robot.Constants.LauncherAngleConstants.kArmMotorMinOutput;
-import static frc.robot.Constants.LauncherAngleConstants.kLauncherAngleFF;
-import static frc.robot.Constants.LauncherAngleConstants.kMaxAngle;
-import static frc.robot.Constants.LauncherAngleConstants.kMinAngle;
+import static frc.robot.Constants.LauncherAngleConstants.*;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleFollowerMotor;
 import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
 
@@ -23,6 +16,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 
 
 public class SK24LauncherAngle extends SubsystemBase
@@ -34,8 +29,15 @@ public class SK24LauncherAngle extends SubsystemBase
     double          targetAngle;
     DutyCycleEncoder lEncoder;
     DigitalInput lLimitSwitch;
-    PIDController   PID;
+
     double FeedForward;
+    PIDController PID = new PIDController(kLauncherAngleP, kLauncherAngleI, kLauncherAngleD);
+    
+    Pref<Double> launcherAngleP = SKPreferences.attach(kLauncherAnglePKey, kLauncherAngleP).onChange(PID::setP);
+    Pref<Double> launcherAngleI = SKPreferences.attach(kLauncherAngleIKey, kLauncherAngleI).onChange(PID::setI);
+    Pref<Double> launcherAngleD = SKPreferences.attach(kLauncherAngleDKey, kLauncherAngleD).onChange(PID::setD);
+    Pref<Double> launcherAngleFF = SKPreferences.attach(kLauncherAngleFFKey, kLauncherAngleFF);
+
     
 
     //Constructor for public command access
@@ -45,10 +47,11 @@ public class SK24LauncherAngle extends SubsystemBase
         motor = new CANSparkFlex(kLauncherAngleMotor.ID, MotorType.kBrushless);
         followerMotor = new CANSparkFlex(kLauncherAngleFollowerMotor.ID, MotorType.kBrushless);
         followerMotor.follow(motor, true);
+        followerMotor.setIdleMode(IdleMode.kBrake);
         //lLimitSwitch = new DigitalInput(); //TODO - find actual limit switch channel
 
-        PID = new PIDController(kAnglePID.kP, kAnglePID.kI, kAnglePID.kD);
-        PID.setSetpoint(kMinAngle);
+
+        PID.setSetpoint(kZeroAngle);
         FeedForward = kLauncherAngleFF;
 
         motor.setIdleMode(IdleMode.kBrake); 
@@ -56,7 +59,7 @@ public class SK24LauncherAngle extends SubsystemBase
         motor.setInverted(true);
         
 
-        targetAngle = kMinAngle;
+        targetAngle = kZeroAngle;
         lEncoder = new DutyCycleEncoder(0);
 
     }
@@ -64,12 +67,14 @@ public class SK24LauncherAngle extends SubsystemBase
     public void setTargetAngle(double angle)
     {
         targetAngle = angle;
+        PID.reset();
         PID.setSetpoint(targetAngle);
     }
 
     public void setTargetAngle(Supplier<Double> angle)
     {
         targetAngle = angle.get();
+        PID.reset();
         PID.setSetpoint(targetAngle);
     }
 
@@ -94,7 +99,7 @@ public class SK24LauncherAngle extends SubsystemBase
         //Gets absolute position of encoder an converts it into degrees
         double absolutePosition = lEncoder.getAbsolutePosition() * 360.0;
         //Converts the encoder position so upward movement from zero increases with offset, wrapping value from -180 to 180 degrees
-        double wrappedPosition = MathUtil.inputModulus((360.0 - absolutePosition) - kAngleOffset, -180.0, 180.0);
+        double wrappedPosition = MathUtil.inputModulus(360.0 - (absolutePosition - kAngleOffset), -180.0, 180.0);
         //Returns the angle with it clamped between minimum angle and maximum angle to avoid running through the hard stops.
         return MathUtil.clamp(wrappedPosition, kMinAngle, kMaxAngle);
     }
@@ -122,7 +127,7 @@ public class SK24LauncherAngle extends SubsystemBase
 
     public void zeroPosition()
     {
-        setTargetAngle(kMinAngle);
+        setTargetAngle(kZeroAngle);
     }
 
    // public boolean hitZeroPos()
@@ -138,7 +143,7 @@ public class SK24LauncherAngle extends SubsystemBase
      */
     public double calculateFF(double angle)
     {
-        return Math.cos(Math.toRadians(angle)) * FeedForward;
+        return Math.cos(Math.toRadians(angle)) * launcherAngleFF.get();
     }
 
     @Override

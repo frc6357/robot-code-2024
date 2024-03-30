@@ -6,10 +6,15 @@ import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kFloorAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
+import static frc.robot.Constants.LauncherAngleConstants.kLauncherAngleWingKey;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
-import static frc.robot.Constants.LauncherAngleConstants.launcherAngleWing;
+import static frc.robot.Constants.LauncherAngleConstants.kWingAngle;
 import static frc.robot.Constants.LauncherConstants.ampSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.ampSpeedRight;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey;
 import static frc.robot.Constants.LauncherConstants.speakerSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.speakerSpeedRight;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
@@ -27,10 +32,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.LaunchAngleCommand;
+import frc.robot.commands.ReadyScoreCommandAngle;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.commands.commandGroups.ChurroLowerCommandGroup;
 import frc.robot.commands.commandGroups.ChurroRaiseCommandGroup;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
@@ -59,6 +67,9 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger visionAngleButton;
     private Trigger wingAngleButton;
     private final Trigger readyShoot;
+
+    Pref<Double> launcherAngleWing = SKPreferences.attach(kLauncherAngleWingKey, kWingAngle);
+
 
     /**
      * The class that is used to bind all the commands for the arm subsystem
@@ -109,8 +120,7 @@ public class SK24LauncherBinder implements CommandBinder
             // Launch Speaker Button
             
 
-            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(speakerSpeedLeft.get(), speakerSpeedRight.get(), m_launcher, light));
-            
+            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(m_launcher, light));
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
             launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.0, 0.0)));
             launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
@@ -158,10 +168,10 @@ public class SK24LauncherBinder implements CommandBinder
                     // Vision Angle Change Button
                     visionAngleButton.onTrue(new InstantCommand(() -> m_vision.setSpeakerMode()));
                     visionAngleButton.onFalse(new InstantCommand(() -> m_vision.setAllTagMode()));
-                    //visionAngle.onTrue(new AutoLaunchAngle(m_launcherAngle, vision.get()));
+                    visionAngleButton.whileTrue(new ReadyScoreCommandAngle(m_launcherAngle, vision.get()));
                 }
 
-                intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
+                //intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
                 intakeDriverButton.and(launchSpeakerButton.negate()).onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
 
                 readyShoot.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
