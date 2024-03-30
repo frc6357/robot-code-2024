@@ -47,7 +47,7 @@ public class SKCANLight{
         config.disableWhenLOS = true;
         config.statusLedOffWhenActive = true;
     
-        config.brightnessScalar = 1.0; // dim the LEDs to half brightness
+        config.brightnessScalar = 0.5; // dim the LEDs to half brightness
         config.v5Enabled = false;
         
         candle.get().configAllSettings(config);
