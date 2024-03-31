@@ -140,6 +140,8 @@ public class SK24LauncherBinder implements CommandBinder
 
                 if(launcherAngle.isPresent()){
                     SK24LauncherAngle m_launcherAngle = launcherAngle.get();
+                    launchAmpButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
+                    launchAmpButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
                     launchAmpButton.onTrue(new ChurroRaiseCommandGroup(m_launcherAngle, m_churro));
                     launchAmpButton.onFalse(new ChurroLowerCommandGroup(m_launcherAngle, m_churro));
 
@@ -161,12 +163,6 @@ public class SK24LauncherBinder implements CommandBinder
             if(launcherAngle.isPresent())
             {
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
-                if(churro.isPresent())
-                {
-                    launchAmpButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                    launchAmpButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
-                    
-                }
                 if(vision.isPresent())
                 {
                     SK24Vision m_vision = vision.get();
