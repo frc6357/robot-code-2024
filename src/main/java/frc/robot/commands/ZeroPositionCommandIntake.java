@@ -30,7 +30,7 @@ public class ZeroPositionCommandIntake extends Command {
         this.launcher = launcher;
         
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(arm, launcher);
+        addRequirements(arm, launcher, intake);
     }
 
     @Override
