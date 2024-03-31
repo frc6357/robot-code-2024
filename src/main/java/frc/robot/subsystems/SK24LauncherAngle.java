@@ -28,8 +28,6 @@ public class SK24LauncherAngle extends SubsystemBase
     int             joystickCount;
     double          targetAngle;
     DutyCycleEncoder lEncoder;
-    DigitalInput lLimitSwitch;
-
     double FeedForward;
     PIDController PID = new PIDController(kLauncherAngleP, kLauncherAngleI, kLauncherAngleD);
     
@@ -66,15 +64,22 @@ public class SK24LauncherAngle extends SubsystemBase
 
     public void setTargetAngle(double angle)
     {
+        if (angle == targetAngle) return;
+        if (Math.abs(angle - targetAngle) > kAngleTolerance) {
+            PID.reset();
+        }
         targetAngle = angle;
-        PID.reset();
         PID.setSetpoint(targetAngle);
     }
 
     public void setTargetAngle(Supplier<Double> angle)
     {
+        if (angle.get() == targetAngle) return;
+        if (Math.abs(angle.get() - targetAngle) > kAngleTolerance) {
+            PID.reset();
+        }
+
         targetAngle = angle.get();
-        PID.reset();
         PID.setSetpoint(targetAngle);
     }
 
@@ -154,11 +159,16 @@ public class SK24LauncherAngle extends SubsystemBase
         double target_angle = getTargetAngle();
 
         // Calculates motor speed and puts it within operating range
-        double speed = MathUtil.clamp(PID.calculate(current_angle) + calculateFF(target_angle), kArmMotorMinOutput, kArmMotorMaxOutput);
+        double closedLoopOutput = PID.calculate(current_angle);
+        double openLoopOutput = calculateFF(target_angle);
+        
+        double speed = MathUtil.clamp(closedLoopOutput + openLoopOutput, kArmMotorMinOutput, kArmMotorMaxOutput);
         motor.set(speed);
 
         SmartDashboard.putNumber("Current Launcher Angle", getCurrentAngle());
         SmartDashboard.putNumber("Target Launcher Angle", target_angle);
+        SmartDashboard.putNumber("Angle Open Loop Out", openLoopOutput);
+        SmartDashboard.putNumber("Angle Closed Loop Out", closedLoopOutput);
         SmartDashboard.putBoolean("Arm at Setpoint", isAtTargetAngle());
     }
 

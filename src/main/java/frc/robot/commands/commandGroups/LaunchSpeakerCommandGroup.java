@@ -25,9 +25,9 @@ public class LaunchSpeakerCommandGroup extends SequentialCommandGroup{
     public LaunchSpeakerCommandGroup(SK24Launcher launcher, SKCANLight light)
     {
         addCommands(
-            new InstantCommand(() -> launcher.setSpeakerRampRate()),
+            new InstantCommand(() -> launcher.setSpeakerRampRate(), launcher),
             new InstantCommand(() -> light.setRed()),
-            new InstantCommand(() -> launcher.setLauncherSpeed(speakerSpeedLeft.get(), speakerSpeedRight.get())),
+            new InstantCommand(() -> launcher.setLauncherSpeed(speakerSpeedLeft.get(), speakerSpeedRight.get()), launcher),
             new WaitCommand(launcher.getCurrentRampRate()),
             new InstantCommand(() -> light.setGreen())
         );

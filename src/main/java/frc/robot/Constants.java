@@ -297,8 +297,8 @@ public final class Constants
 
         public static final double kConversionFactor = (1.0 / 48.0) * 360.0;
         public static final double kAngleTolerance =  3.0;
-        public static final double kArmMotorMinOutput =  -1.0; //TODO - Find motor minimum output
-        public static final double kArmMotorMaxOutput =  1.0; //TODO - Find motor maximum output
+        public static final double kArmMotorMinOutput =  -0.2; //TODO - Find motor minimum output
+        public static final double kArmMotorMaxOutput =  0.2; //TODO - Find motor maximum output
     
         public static final double kMinAngle = -15.0; //TODO - change to zero
         public static final double kZeroAngle = 0.0; //TODO - change to zero
@@ -388,7 +388,7 @@ public final class Constants
         public static final double kSpeedTolerance = 0.03;
 
         public static final String kSpeakerRampSpeedKey = "kSpeakerRampSpeedKey";
-        public static final double kSpeakerRampSpeed = 1.8;
+        public static final double kSpeakerRampSpeed = 2.0;
         public static final Pref<Double> speakerRampSpeed = SKPreferences.attach(kSpeakerRampSpeedKey, kSpeakerRampSpeed);
 
         public static final String kRestingRampSpeedKey = "kRestingRampSpeedKey";

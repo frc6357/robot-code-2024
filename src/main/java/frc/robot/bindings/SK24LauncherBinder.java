@@ -121,9 +121,11 @@ public class SK24LauncherBinder implements CommandBinder
             
 
             launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(m_launcher, light));
-            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
-            launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.0, 0.0)));
-            launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
+            launchSpeakerButton.onFalse(new InstantCommand(() -> {
+                m_launcher.rampDown();
+                m_launcher.setLauncherSpeed(0.0, 0.0);
+                light.setTeamColor();
+            }, m_launcher));
             
             
             if(churro.isPresent())
@@ -131,8 +133,10 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24Churro m_churro = churro.get();
 
                 // Launch Amp Button
-                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setAmpRampRate()));
-                launchAmpButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get())));
+                launchAmpButton.onTrue(new InstantCommand(() -> {
+                    m_launcher.setAmpRampRate();
+                    m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get());
+                }, m_launcher));
 
                 if(launcherAngle.isPresent()){
                     SK24LauncherAngle m_launcherAngle = launcherAngle.get();
@@ -145,9 +149,11 @@ public class SK24LauncherBinder implements CommandBinder
                     launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
                 }
                 
-                launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.rampDown()));
-                launchAmpButton.onFalse(new InstantCommand(() -> m_launcher.stopLauncher()));
-                launchAmpButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
+                launchAmpButton.onFalse(new InstantCommand(() -> {
+                    m_launcher.rampDown();
+                    m_launcher.stopLauncher();
+                    light.setTeamColor();
+                }, m_launcher));
                 
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
@@ -172,7 +178,7 @@ public class SK24LauncherBinder implements CommandBinder
                 }
 
                 //intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                intakeDriverButton.and(launchSpeakerButton.negate()).onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
+                intakeDriverButton.and(launchSpeakerButton.negate()).onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle), m_launcherAngle));
 
                 readyShoot.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
                 launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
@@ -181,7 +187,7 @@ public class SK24LauncherBinder implements CommandBinder
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));
 
                 // Launch Angle Buttons
-                defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle))); // 42 deg
+                defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle), m_launcherAngle)); // 42 deg
                 defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle))); // 14 deg
                 ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle))); // 44 deg
                 wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(launcherAngleWing.get()))); // 23 deg
@@ -196,13 +202,13 @@ public class SK24LauncherBinder implements CommandBinder
                 floorAngleDriver.or(floorAngleOperator).onTrue(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
 
                 
-                m_launcherAngle.setDefaultCommand(
-                        // Vertical movement of the arm is controlled by the Y axis of the right stick.
-                        // Up on joystick moving arm up and down on stick moving arm down.
-                        new LaunchAngleCommand(
-                            () -> {return kLauncherAxis.getFilteredAxis();},
-                            angleOverrideButton::getAsBoolean,
-                            m_launcherAngle));
+                // m_launcherAngle.setDefaultCommand(
+                //         // Vertical movement of the arm is controlled by the Y axis of the right stick.
+                //         // Up on joystick moving arm up and down on stick moving arm down.
+                //         new LaunchAngleCommand(
+                //             () -> {return kLauncherAxis.getFilteredAxis();},
+                //             angleOverrideButton::getAsBoolean,
+                //             m_launcherAngle));
                 
                 //launchAmp.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher));
                 
