@@ -86,12 +86,6 @@
               "data": {
                 "name": "IntakeCommand"
               }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "LauncherCommand"
-              }
             }
           ]
         }

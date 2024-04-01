@@ -163,8 +163,9 @@ public class SK24LauncherAngle extends SubsystemBase
         double openLoopOutput = calculateFF(target_angle);
         
         double speed = MathUtil.clamp(closedLoopOutput + openLoopOutput, kArmMotorMinOutput, kArmMotorMaxOutput);
-        motor.set(speed);
+        //motor.set(speed);
 
+        SmartDashboard.putNumber("Launcher Angle Speed", speed);
         SmartDashboard.putNumber("Current Launcher Angle", getCurrentAngle());
         SmartDashboard.putNumber("Target Launcher Angle", target_angle);
         SmartDashboard.putNumber("Angle Open Loop Out", openLoopOutput);

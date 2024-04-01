@@ -154,8 +154,8 @@ public class SK24Launcher extends SubsystemBase
 
     public void setSpeakerRampRate()
     {
-        rightMotor.setOpenLoopRampRate(speakerRampSpeed.get());
-        leftMotor.setOpenLoopRampRate(speakerRampSpeed.get());
+        rightMotor.setOpenLoopRampRate(2.0);
+        leftMotor.setOpenLoopRampRate(2.0);
     }
 
     public void setRestingRampRate()

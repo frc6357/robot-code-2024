@@ -120,7 +120,9 @@ public class SK24LauncherBinder implements CommandBinder
             // Launch Speaker Button
             
 
-            launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(m_launcher, light));
+            //launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(m_launcher, light));
+            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setSpeakerRampRate()));
+            launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setLauncherSpeed(0.5, 0.6)));
             launchSpeakerButton.onFalse(new InstantCommand(() -> {
                 m_launcher.rampDown();
                 m_launcher.setLauncherSpeed(0.0, 0.0);

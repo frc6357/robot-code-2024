@@ -6,6 +6,7 @@ import static frc.robot.Ports.churroPorts.kChurroMotor;
 
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkFlex;
+import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
@@ -18,7 +19,7 @@ import frc.robot.Constants;
 public class SK24Churro extends SubsystemBase
 {
     //memory variable for motor
-    CANSparkFlex cMotor;
+    CANSparkMax cMotor;
     RelativeEncoder cEncoder;
     SparkPIDController pid;
     DigitalInput cLimitSwitch;
@@ -27,7 +28,7 @@ public class SK24Churro extends SubsystemBase
     {
         //Initialize motor object
         cLimitSwitch = new DigitalInput(1);
-        cMotor = new CANSparkFlex(kChurroMotor.ID, MotorType.kBrushless);
+        cMotor = new CANSparkMax(kChurroMotor.ID, MotorType.kBrushless);
         cMotor.setInverted(true);
         cEncoder = cMotor.getEncoder();
         cEncoder.setPosition(0.0);
