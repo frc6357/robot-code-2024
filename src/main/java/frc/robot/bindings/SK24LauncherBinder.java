@@ -140,6 +140,8 @@ public class SK24LauncherBinder implements CommandBinder
                     m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get());
                 }, m_launcher));
                     launchAmpButton.onTrue(new ChurroRaiseCommandGroup(m_launcherAngle, m_churro));
+                    launchAmpButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
+                    launchAmpButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
                     launchAmpButton.onFalse(new ChurroLowerCommandGroup(m_launcherAngle, m_churro));
                     launchAmpButton.onFalse(new InstantCommand(() -> {
                     m_launcher.rampDown();
