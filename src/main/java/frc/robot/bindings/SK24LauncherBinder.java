@@ -133,27 +133,33 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24Churro m_churro = churro.get();
 
                 // Launch Amp Button
-                launchAmpButton.onTrue(new InstantCommand(() -> {
+                if(launcherAngle.isPresent()){
+                    SK24LauncherAngle m_launcherAngle = launcherAngle.get();
+                    launchAmpButton.onTrue(new InstantCommand(() -> {
                     m_launcher.setAmpRampRate();
                     m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get());
                 }, m_launcher));
-
-                if(launcherAngle.isPresent()){
-                    SK24LauncherAngle m_launcherAngle = launcherAngle.get();
                     launchAmpButton.onTrue(new ChurroRaiseCommandGroup(m_launcherAngle, m_churro));
                     launchAmpButton.onFalse(new ChurroLowerCommandGroup(m_launcherAngle, m_churro));
-
-                }else{
-
-                    launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
-                    launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
-                }
-                
-                launchAmpButton.onFalse(new InstantCommand(() -> {
+                    launchAmpButton.onFalse(new InstantCommand(() -> {
                     m_launcher.rampDown();
                     m_launcher.stopLauncher();
                     light.setTeamColor();
                 }, m_launcher));
+
+                }else{
+                    launchAmpButton.onTrue(new InstantCommand(() -> {
+                    m_launcher.setAmpRampRate();
+                    m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get());
+                }, m_launcher));
+                    launchAmpButton.onTrue(new InstantCommand(() -> m_churro.setChurroPosition(kChurroRaisePosition)));
+                    launchAmpButton.onFalse(new InstantCommand(() -> m_churro.setChurroPosition(kChurroLowerPosition)));
+                    launchAmpButton.onFalse(new InstantCommand(() -> {
+                    m_launcher.rampDown();
+                    m_launcher.stopLauncher();
+                    light.setTeamColor();
+                }, m_launcher));
+                }
                 
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
