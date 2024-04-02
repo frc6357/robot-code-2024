@@ -24,7 +24,6 @@ import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
-import static frc.robot.Ports.OperatorPorts.kVisionAngle;
 
 import java.util.Optional;
 
@@ -65,7 +64,6 @@ public class SK24LauncherBinder implements CommandBinder
     private Trigger ampAngleButton;
     private Trigger launchSpeakerButton;
     // private Trigger resetAngleButton;
-    private Trigger visionAngleButton;
     private Trigger wingAngleButton;
     private final Trigger readyShoot;
 
@@ -95,7 +93,6 @@ public class SK24LauncherBinder implements CommandBinder
 
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
-        visionAngleButton = kVisionAngle.button;
 
         readyShoot = kRotateSpeaker.button;
 
@@ -169,15 +166,6 @@ public class SK24LauncherBinder implements CommandBinder
             if(launcherAngle.isPresent())
             {
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
-                if(vision.isPresent())
-                {
-                    SK24Vision m_vision = vision.get();
-
-                    // Vision Angle Change Button
-                    visionAngleButton.onTrue(new InstantCommand(() -> m_vision.setSpeakerMode()));
-                    visionAngleButton.onFalse(new InstantCommand(() -> m_vision.setAllTagMode()));
-                    visionAngleButton.whileTrue(new ReadyScoreCommandAngle(m_launcherAngle, vision.get()));
-                }
 
                 //intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
                 intakeDriverButton.and(launchSpeakerButton.negate()).onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle), m_launcherAngle));

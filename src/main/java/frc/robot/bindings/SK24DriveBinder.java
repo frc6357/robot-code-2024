@@ -14,6 +14,7 @@ import static frc.robot.Ports.DriverPorts.kSlowMode;
 import static frc.robot.Ports.DriverPorts.kTranslationXPort;
 import static frc.robot.Ports.DriverPorts.kTranslationYPort;
 import static frc.robot.Ports.DriverPorts.kVelocityOmegaPort;
+import static frc.robot.Ports.OperatorPorts.kReadyShoot;
 
 import java.util.Optional;
 
@@ -47,6 +48,7 @@ public class SK24DriveBinder implements CommandBinder
     private final Trigger rotateLeft;
     private final Trigger rotateRight;
     private final Trigger rotateSource;
+    private final Trigger readyScoreOp;
 
     // private final Trigger centerStage;
     // private final Trigger leftStage;
@@ -72,6 +74,7 @@ public class SK24DriveBinder implements CommandBinder
         rotateLeft = kRotateLeft.button;
         rotateRight = kRotateRight.button;
         rotateSource = kRotateSource.button;
+        readyScoreOp = kReadyShoot.button;
         // centerStage = kCenterStage.button;
         // leftStage = kCenterStage.button;
         // rightStage = kCenterStage.button;
@@ -107,9 +110,9 @@ public class SK24DriveBinder implements CommandBinder
             {
                 SK24LauncherAngle arm = m_arm.get();
                 SK24Vision vision = m_vision.get();
-                rotateSpeaker.whileTrue(
+                rotateSpeaker.or(readyScoreOp).whileTrue(
                     new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
-                        () -> kTranslationYPort.getFilteredAxis(),
+                        () -> kTranslationYPort.getFilteredAxis(), () -> kVelocityOmegaPort.getFilteredAxis(),
                         drive,arm, m_launcher.get(), vision));
             }else
             {

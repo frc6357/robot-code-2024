@@ -74,15 +74,14 @@ public class SK24Launcher extends SubsystemBase
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
-        interpolator.put(0.1f, new LaunchConfig(0.0, 0.4, 0.1));
-        interpolator.put(0.5f, new LaunchConfig(25.0, 0.5, 0.2));
-        interpolator.put(0.9f, new LaunchConfig(50.0, 0.6, 0.3));
-        LaunchConfig config = interpolator.get(0.123f);
-        SmartDashboard.putNumber("Interpolator Angle", config.angle);
-        SmartDashboard.putNumber("Interpolator Left Speed", config.speedLeft);
-        SmartDashboard.putNumber("Interpolator Right Speed", config.speedRight);
-        
-
+        interpolator.put(1.74f, new LaunchConfig(42.0, 0.4, 0.1));
+        interpolator.put(2.7, new LaunchConfig(36.0, 0.4, 0.5));
+        interpolator.put(2.8f, new LaunchConfig(33.5, 0.4, 0.5));
+        interpolator.put(3.6f, new LaunchConfig(27.5, 0.4, 0.5));
+        interpolator.put(4.6f, new LaunchConfig(25.0, 0.45, 0.55));
+        interpolator.put(2.5f, new LaunchConfig(35.0, 0.4, 0.5));
+        interpolator.put(2.4f, new LaunchConfig(34.0, 0.4, 0.5));
+        interpolator.put(5.4f, new LaunchConfig(22.5, 0.55, 0.65));
     }
 
     public LaunchConfig getInterpolatedValues(double distance){

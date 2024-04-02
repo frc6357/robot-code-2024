@@ -41,6 +41,10 @@ public class SK24Vision extends SubsystemBase
         return limelight.getEntry("tid").getDouble(0);
      }
 
+     public double getTx(){
+        return limelight.getEntry("tx").getDouble(0);
+     }
+
      // Returns a double array containing {X,Y,Z,Roll,Pitch,Yaw} of the robot in the field space
      public double[] getPose()
      {

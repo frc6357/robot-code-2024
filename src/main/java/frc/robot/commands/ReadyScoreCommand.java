@@ -1,18 +1,15 @@
 package frc.robot.commands;
 
-import static frc.robot.Constants.DriveConstants.kDriveAngleTolerance;
-
 import java.util.function.Supplier;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24Launcher.LaunchConfig;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
-import frc.robot.subsystems.SK24Launcher.LaunchConfig;
 
 
 public class ReadyScoreCommand extends Command{
@@ -25,6 +22,7 @@ public class ReadyScoreCommand extends Command{
     private SK24Vision              vision;
     private SK24Launcher            launcher;
     private PIDController          PID;
+    private Supplier<Double>              rotation;
     
     // In radians per second
     private double maxRot = 4;
@@ -37,6 +35,8 @@ public class ReadyScoreCommand extends Command{
      *            The supplier for the robot x axis speed
      * @param ySpeed
      *            The supplier for the robot y axis speed
+     * @param rotation
+     *            The supplier for the robot rotational speed
      * @param drive
      *            The subsystem required to control the drivetrain
      * @param arm
@@ -46,19 +46,19 @@ public class ReadyScoreCommand extends Command{
      * @param vision
      *            The subsystem to control vision
      */
-    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, SK24Drive drive, SK24LauncherAngle arm, SK24Launcher launcher, SK24Vision vision)
+    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> rotation, SK24Drive drive, SK24LauncherAngle arm, SK24Launcher launcher, SK24Vision vision)
     {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.arm = arm;
         this.vision = vision;
+        this.rotation = rotation;
 
         this.drive = drive;
         this.launcher = launcher;
 
-        PID = new PIDController(0.1, 0, 0, 0.02);
-        PID.enableContinuousInput(-180, 180);
-        PID.setTolerance(kDriveAngleTolerance);
+        PID = new PIDController(0.01, 0, 0, 0.02);
+        PID.setTolerance(0.05);
 
         vision.setSpeakerMode();
         
@@ -67,19 +67,40 @@ public class ReadyScoreCommand extends Command{
     
     // Called every time the scheduler runs while the command is scheduled.
     @Override
+    public void initialize()
+    {
+        launcher.setSpeakerRampRate();
+        
+    }
+    @Override
     public void execute()
     {
 
-        PID.setSetpoint(MathUtil.inputModulus(drive.getSpeakerAngle(vision.returnXOffset(vision.getPose()), vision.returnYOffset(vision.getPose())), -180, 180));
-        double rot = PID.calculate(drive.getPose().getRotation().getDegrees());
-        rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
-        drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
+        if(vision.tagPresent()){
+            PID.setSetpoint(0.0);
+            double rot = PID.calculate(vision.getTx());
+            rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
+            drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
 
-        LaunchConfig config = launcher.getInterpolatedValues(vision.returnZOffset(vision.getPoseTargetSpace()));
-        SmartDashboard.putNumber("Vison angle", config.angle());
-        arm.setTargetAngle(config.angle());
-        launcher.setSpeakerRampRate();
-        launcher.setLauncherSpeed(config.speedLeft(), config.speedRight());
+            double distance = Math.hypot(
+                    vision.returnZOffset(vision.getPoseTargetSpace()), 
+                    vision.returnXOffset(vision.getPoseTargetSpace()));
+
+            LaunchConfig config = launcher.getInterpolatedValues(distance);
+                
+            SmartDashboard.putNumber("Distance", distance);
+    
+            SmartDashboard.putNumber("Vison angle", config.angle());
+            arm.setTargetAngle(config.angle());
+    
+            SmartDashboard.putNumber("Vision Launcher Speed Left", config.speedLeft());
+            SmartDashboard.putNumber("Vision Launcher Speed Right", config.speedRight());
+    
+            launcher.setLauncherSpeed(config.speedLeft(), config.speedRight());
+        }else{
+            drive.drive(xSpeed.get(), ySpeed.get(), rotation.get(), true);
+        }
+
         
     }
 
@@ -88,9 +109,9 @@ public class ReadyScoreCommand extends Command{
     public void end(boolean interrupted)
     {
         drive.drive(0, 0, 0, false);
-        arm.zeroPosition();
-        launcher.rampDown();
-        launcher.stopLauncher();
+        // arm.zeroPosition();
+        // launcher.rampDown();
+        // launcher.stopLauncher();
         vision.setAllTagMode();
     }
 

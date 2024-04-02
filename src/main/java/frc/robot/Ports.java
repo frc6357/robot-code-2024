@@ -81,7 +81,7 @@ public class Ports
         public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
         public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
+        public static final SKTrigger kReadyShoot = new SKTrigger(kOperator, kB.value, BUTTON);
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
