@@ -27,9 +27,9 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
         addCommands(  
                 new AngleCommand(kSpeakerAngle, arm),
                 // new InstantCommand(() -> launcher.setRestingRampRate()),
-                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, light),
-                new WaitCommand(0.2),
-                new InstantCommand(() -> launcher.setLauncherSpeed(speakerRestingSpeedLeft.get(), speakerRestingSpeedRight.get()))
+                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, light)
+                // new WaitCommand(0.2),
+                // new InstantCommand(() -> launcher.setLauncherSpeed(speakerRestingSpeedLeft.get(), speakerRestingSpeedRight.get()))
         );
     }
 }

@@ -52,30 +52,32 @@ public class SK24LauncherAngle extends SubsystemBase
         //lLimitSwitch = new DigitalInput(); //TODO - find actual limit switch channel
 
 
-        PID.setSetpoint(kZeroAngle);
         FeedForward = kLauncherAngleFF;
-
+        
         motor.setIdleMode(IdleMode.kBrake); 
-
+        
         motor.setInverted(true);
-
+        
         motor.setSmartCurrentLimit(30);
         followerMotor.setSmartCurrentLimit(30);
         
         motor.burnFlash();
         followerMotor.burnFlash();
-
-        targetAngle = kZeroAngle;
+        
+        targetAngle = kSpeakerAngle;
+        PID.setSetpoint(targetAngle);
         lEncoder = new DutyCycleEncoder(1);
 
     }
 
+    public void resetPID()
+    {
+        PID.reset();
+    }
     public void setTargetAngle(double angle)
     {
         if (angle == targetAngle) return;
-        if (Math.abs(angle - targetAngle) > kAngleTolerance) {
-            PID.reset();
-        }
+        PID.reset();
         targetAngle = angle;
         PID.setSetpoint(targetAngle);
     }
@@ -83,9 +85,7 @@ public class SK24LauncherAngle extends SubsystemBase
     public void setTargetAngle(Supplier<Double> angle)
     {
         if (angle.get() == targetAngle) return;
-        if (Math.abs(angle.get() - targetAngle) > kAngleTolerance) {
-            PID.reset();
-        }
+        PID.reset();
 
         targetAngle = angle.get();
         PID.setSetpoint(targetAngle);

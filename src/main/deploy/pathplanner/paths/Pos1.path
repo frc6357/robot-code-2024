@@ -43,6 +43,12 @@
               "data": {
                 "name": "Pos1CommandGroup"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "StartLauncherCommand"
+              }
             }
           ]
         }

@@ -30,6 +30,8 @@ public class LaunchCommandAuto extends Command {
         this.LeftSpeed = LeftSpeed;
         this.RightSpeed = RightSpeed;
         this.launcher = launcher;
+
+    
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(launcher);
     }
@@ -37,6 +39,7 @@ public class LaunchCommandAuto extends Command {
     @Override
     public void initialize()
     {
+        launcher.setSpeakerRampRate();
         launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
     }
 

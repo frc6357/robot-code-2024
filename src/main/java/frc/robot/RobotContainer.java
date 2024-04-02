@@ -226,6 +226,7 @@ public class RobotContainer {
             }
 
             //Register commands for use in auto
+            NamedCommands.registerCommand("StartLauncherCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
             NamedCommands.registerCommand("GP1Command", new DoNothingCommand());
             NamedCommands.registerCommand("GP2Command", new DoNothingCommand());
             NamedCommands.registerCommand("GP3Command", new DoNothingCommand());
@@ -302,5 +303,12 @@ public class RobotContainer {
     public void matchInit()
     {
     
+    }
+
+    public void teleopInit()
+    {
+        if(m_launcher_angle.isPresent()){
+            m_launcher_angle.get().resetPID();
+        }
     }
 }

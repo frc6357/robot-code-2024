@@ -75,7 +75,7 @@ public class ReadyScoreCommand extends Command{
         rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
         drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
 
-        LaunchConfig config = launcher.getInterpolatedValues(vision.returnYOffset(vision.getPose()));
+        LaunchConfig config = launcher.getInterpolatedValues(vision.returnZOffset(vision.getPoseTargetSpace()));
         SmartDashboard.putNumber("Vison angle", config.angle());
         arm.setTargetAngle(config.angle());
         launcher.setSpeakerRampRate();

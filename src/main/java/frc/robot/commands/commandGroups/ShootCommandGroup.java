@@ -14,8 +14,8 @@ public class ShootCommandGroup extends SequentialCommandGroup {
             new WaitCommand(0.5),
             new IntakeAutoCommand(intake),
             new WaitCommand(0.5),
-            new InstantCommand(() -> intake.stopIntake()),
-            new InstantCommand(() -> intake.stopTransfer())
+            new InstantCommand(() -> intake.stopIntake(), intake),
+            new InstantCommand(() -> intake.stopTransfer(), intake)
         );
     }
 }

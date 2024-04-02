@@ -372,8 +372,8 @@ public final class Constants
         
         public static final String kSpeakerRestingLeftSpeedKey = "kSpeakerRestingLeftSpeedKey";
         public static final String kSpeakerRestingRightSpeedKey = "kSpeakerRestingRightSpeedKey";
-        public static final double kSpeakerRestingLeftSpeed = 0.4;
-        public static final double kSpeakerRestingRightSpeed = 0.5;
+        public static final double kSpeakerRestingLeftSpeed = 0.2;
+        public static final double kSpeakerRestingRightSpeed = 0.2;
         public static final Pref<Double> speakerRestingSpeedLeft = SKPreferences.attach(kSpeakerRestingLeftSpeedKey, kSpeakerRestingLeftSpeed);
         public static final Pref<Double> speakerRestingSpeedRight = SKPreferences.attach(kSpeakerRestingRightSpeedKey, kSpeakerRestingRightSpeed);
         
