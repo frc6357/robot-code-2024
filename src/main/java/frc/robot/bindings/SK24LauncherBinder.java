@@ -56,6 +56,7 @@ public class SK24LauncherBinder implements CommandBinder
     Trigger intakeDriverButton;
     Trigger intakeOperatorButton;
     private Trigger angleOverrideButton;
+    Trigger angleUpDriverButton;
     private Trigger defaultLauncherAngleButton;
     private Trigger floorAngleDriver;
     private Trigger floorAngleOperator;
@@ -90,6 +91,8 @@ public class SK24LauncherBinder implements CommandBinder
 
         this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
         this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
+        angleUpDriverButton = Ports.DriverPorts.kRobotCentricMode.button;
+
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
         visionAngleButton = kVisionAngle.button;
@@ -119,7 +122,6 @@ public class SK24LauncherBinder implements CommandBinder
 
             // Launch Speaker Button
             
-
             launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(m_launcher, light));
             launchSpeakerButton.onFalse(new InstantCommand(() -> {
                 m_launcher.rampDown();
@@ -140,8 +142,6 @@ public class SK24LauncherBinder implements CommandBinder
                     m_launcher.setLauncherSpeed(ampSpeedLeft.get(), ampSpeedRight.get());
                 }, m_launcher));
                     launchAmpButton.onTrue(new ChurroRaiseCommandGroup(m_launcherAngle, m_churro));
-                    launchAmpButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                    launchAmpButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
                     launchAmpButton.onFalse(new ChurroLowerCommandGroup(m_launcherAngle, m_churro));
                     launchAmpButton.onFalse(new InstantCommand(() -> {
                     m_launcher.rampDown();
@@ -169,12 +169,6 @@ public class SK24LauncherBinder implements CommandBinder
             if(launcherAngle.isPresent())
             {
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
-                if(churro.isPresent())
-                {
-                    launchAmpButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                    launchAmpButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
-                    
-                }
                 if(vision.isPresent())
                 {
                     SK24Vision m_vision = vision.get();
@@ -196,6 +190,7 @@ public class SK24LauncherBinder implements CommandBinder
 
                 // Launch Angle Buttons
                 defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle), m_launcherAngle)); // 42 deg
+                angleUpDriverButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle), m_launcherAngle)); // 42 deg
                 defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle))); // 14 deg
                 ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle))); // 44 deg
                 wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(launcherAngleWing.get()))); // 23 deg
@@ -210,13 +205,13 @@ public class SK24LauncherBinder implements CommandBinder
                 floorAngleDriver.or(floorAngleOperator).onTrue(new ZeroPositionCommand(m_launcherAngle, launcher.get()));
 
                 
-                // m_launcherAngle.setDefaultCommand(
-                //         // Vertical movement of the arm is controlled by the Y axis of the right stick.
-                //         // Up on joystick moving arm up and down on stick moving arm down.
-                //         new LaunchAngleCommand(
-                //             () -> {return kLauncherAxis.getFilteredAxis();},
-                //             angleOverrideButton::getAsBoolean,
-                //             m_launcherAngle));
+                m_launcherAngle.setDefaultCommand(
+                        // Vertical movement of the arm is controlled by the Y axis of the right stick.
+                        // Up on joystick moving arm up and down on stick moving arm down.
+                        new LaunchAngleCommand(
+                            () -> {return kLauncherAxis.getFilteredAxis();},
+                            angleOverrideButton::getAsBoolean,
+                            m_launcherAngle));
                 
                 //launchAmp.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher));
                 

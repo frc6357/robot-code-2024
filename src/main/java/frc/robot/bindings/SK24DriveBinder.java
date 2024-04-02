@@ -144,7 +144,7 @@ public class SK24DriveBinder implements CommandBinder
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kTranslationYPort.getFilteredAxis(),
                     () -> kVelocityOmegaPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, drive));
+                    () -> {return false;}, drive));
 
         }
     } 

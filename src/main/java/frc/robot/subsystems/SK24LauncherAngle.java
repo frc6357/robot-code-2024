@@ -44,6 +44,9 @@ public class SK24LauncherAngle extends SubsystemBase
         //Initialize motor objects
         motor = new CANSparkFlex(kLauncherAngleMotor.ID, MotorType.kBrushless);
         followerMotor = new CANSparkFlex(kLauncherAngleFollowerMotor.ID, MotorType.kBrushless);
+
+        motor.restoreFactoryDefaults();
+        followerMotor.restoreFactoryDefaults();
         followerMotor.follow(motor, true);
         followerMotor.setIdleMode(IdleMode.kBrake);
         //lLimitSwitch = new DigitalInput(); //TODO - find actual limit switch channel
@@ -55,10 +58,15 @@ public class SK24LauncherAngle extends SubsystemBase
         motor.setIdleMode(IdleMode.kBrake); 
 
         motor.setInverted(true);
+
+        motor.setSmartCurrentLimit(30);
+        followerMotor.setSmartCurrentLimit(30);
         
+        motor.burnFlash();
+        followerMotor.burnFlash();
 
         targetAngle = kZeroAngle;
-        lEncoder = new DutyCycleEncoder(0);
+        lEncoder = new DutyCycleEncoder(1);
 
     }
 

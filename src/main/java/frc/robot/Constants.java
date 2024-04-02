@@ -290,9 +290,9 @@ public final class Constants
         public static final String kLauncherAngleIKey = "kLauncherAngleIKey";
         public static final String kLauncherAngleDKey = "kLauncherAngleDKey";
         public static final String kLauncherAngleFFKey = "kLauncherAngleFFKey";
-        public static final double kLauncherAngleP = 0.0075;
-        public static final double kLauncherAngleI = 0.0003;
-        public static final double kLauncherAngleD = 0.00003;
+        public static final double kLauncherAngleP = 0.0075; //0.0065
+        public static final double kLauncherAngleI = 0.0003; //0.00015
+        public static final double kLauncherAngleD = 0.00003; //0.0003
         public static final double kLauncherAngleFF = 0.0155;
 
         public static final double kConversionFactor = (1.0 / 48.0) * 360.0;
@@ -303,15 +303,15 @@ public final class Constants
         public static final double kMinAngle = -15.0; //TODO - change to zero
         public static final double kZeroAngle = 0.0; //TODO - change to zero
         public static final double kMaxAngle = 55.0;//TODO - find maximum launcher angle
-        public static final double kAngleOffset = 16.14; //Offset of launcher angle in degrees
+        public static final double kAngleOffset = 11.14; //Offset of launcher angle in degrees
     
         public static final double kJoystickChange   = 10.0; // Manual setpoint value for degrees moved per second 
         public static final double kJoystickDeadband = 0.3;  // Manual arm movement axis deadband
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
-        public static final double kAmpAngle = 44.0; 
-        public static final double kFloorAngle = 14.0; 
+        public static final double kAmpAngle = 48.2;
+        public static final double kFloorAngle = -13.4; 
         public static final double kSpeakerAngle = 42.0; 
 
         public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
@@ -343,6 +343,14 @@ public final class Constants
     
     public static final class ChurroConstants
     {
+        public static final String kChurroPKey = "kLauncherAnglePKey";
+        public static final String kChurroIKey = "kLauncherAngleIKey";
+        public static final String kChurroDKey = "kLauncherAngleDKey";
+
+        public static final double kChurroP = 0.001;
+        public static final double kChurroI = 0.0;
+        public static final double kChurroD = 0.0;
+        
         public static final PIDConstants kChurroPID = new PIDConstants(0.001, 0.0, 0.0); //TODO - Tune launcher angle PID
         public static final double kAngleTolerance = 10.0; 
         public static final double kChurroLowerPosition = 0.0; 
