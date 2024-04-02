@@ -3,14 +3,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.SK24Intake;
-import frc.robot.subsystems.SK24Launcher;
 
 
 public class IntakeAutoCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
-  private final SK24Launcher launcher;
   double intakeSpeed;
   double transferSpeed;
 
@@ -20,15 +18,14 @@ public class IntakeAutoCommand extends Command
    * @param intake The intake subsystem used by this command.
    * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeAutoCommand(SK24Intake intake, SK24Launcher launcher) 
+  public IntakeAutoCommand(SK24Intake intake) 
   {
     this.intake = intake;
-    this.launcher = launcher;
     this.intakeSpeed = Constants.IntakeConstants.kIntakeSpeed;
     this.transferSpeed = Constants.LauncherConstants.kTransferSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake, launcher);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -36,7 +33,7 @@ public class IntakeAutoCommand extends Command
   public void initialize() 
   {
       intake.setIntakeSpeed(intakeSpeed);
-      launcher.setTransferSpeed(transferSpeed);
+      intake.setTransferSpeed(transferSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

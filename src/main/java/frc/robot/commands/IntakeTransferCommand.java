@@ -15,7 +15,6 @@ public class IntakeTransferCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
-  private final SK24Launcher launcher;
   private final SKCANLight light;
   double intakeSpeed;
   double transferSpeed;
@@ -26,17 +25,16 @@ public class IntakeTransferCommand extends Command
    * @param intake The intake subsystem used by this command.
    * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SK24Launcher launcher, SKCANLight light) 
+  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SKCANLight light) 
   {
     this.intake = intake;
-    this.launcher = launcher;
     this.light = light;
     this.intakeSpeed = intakeSpeed;
     this.transferSpeed = transferSpeed;
 
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake, launcher);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -44,17 +42,17 @@ public class IntakeTransferCommand extends Command
   public void initialize() 
   {
       intake.setIntakeSpeed(intakeSpeed); 
-      launcher.setTransferSpeed(kIntakeTransferSpeed);
+      intake.setTransferSpeed(kIntakeTransferSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (launcher.haveLowerNote())
+    if (intake.haveLowerNote())
     {
       light.setOrange();
       intake.setIntakeSpeed(kSlowIntakeSpeed);
-      launcher.setTransferSpeed(kSlowTransferSpeed);
+      intake.setTransferSpeed(kSlowTransferSpeed);
     }
   }
 
@@ -63,13 +61,13 @@ public class IntakeTransferCommand extends Command
   public void end(boolean interrupted) 
   {
     intake.stopIntake();
-    launcher.stopTransfer();
+    intake.stopTransfer();
     if(!interrupted) {light.setOrange();}
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return launcher.haveHigherNote() || launcher.haveLowerNote();
+    return intake.haveHigherNote() || intake.haveLowerNote();
   }
 }

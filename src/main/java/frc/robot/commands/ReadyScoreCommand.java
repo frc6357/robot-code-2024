@@ -9,8 +9,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Drive;
+import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
+import frc.robot.subsystems.SK24Launcher.LaunchConfig;
 
 
 public class ReadyScoreCommand extends Command{
@@ -21,6 +23,7 @@ public class ReadyScoreCommand extends Command{
     
     private SK24Drive              drive;
     private SK24Vision              vision;
+    private SK24Launcher            launcher;
     private PIDController          PID;
     
     // In radians per second
@@ -38,10 +41,12 @@ public class ReadyScoreCommand extends Command{
      *            The subsystem required to control the drivetrain
      * @param arm
      *            The subsystem to control launcher angle
+     * @param launcher
+     *            The subsystem to control launcher
      * @param vision
      *            The subsystem to control vision
      */
-    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, SK24Drive drive, SK24LauncherAngle arm, SK24Vision vision)
+    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, SK24Drive drive, SK24LauncherAngle arm, SK24Launcher launcher, SK24Vision vision)
     {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
@@ -49,6 +54,7 @@ public class ReadyScoreCommand extends Command{
         this.vision = vision;
 
         this.drive = drive;
+        this.launcher = launcher;
 
         PID = new PIDController(0.1, 0, 0, 0.02);
         PID.enableContinuousInput(-180, 180);
@@ -56,7 +62,7 @@ public class ReadyScoreCommand extends Command{
 
         vision.setSpeakerMode();
         
-        addRequirements(drive, arm, vision);
+        addRequirements(drive, arm, vision, launcher);
     }
     
     // Called every time the scheduler runs while the command is scheduled.
@@ -64,14 +70,16 @@ public class ReadyScoreCommand extends Command{
     public void execute()
     {
 
-        PID.setSetpoint(MathUtil.inputModulus(drive.getSpeakerAngle(), -180, 180));
+        PID.setSetpoint(MathUtil.inputModulus(drive.getSpeakerAngle(vision.returnXOffset(vision.getPose()), vision.returnYOffset(vision.getPose())), -180, 180));
         double rot = PID.calculate(drive.getPose().getRotation().getDegrees());
         rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
         drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
 
-        double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
-        SmartDashboard.putNumber("Vison angle", launcherAngle);
-        arm.setTargetAngle(launcherAngle);
+        LaunchConfig config = launcher.getInterpolatedValues(vision.returnYOffset(vision.getPose()));
+        SmartDashboard.putNumber("Vison angle", config.angle());
+        arm.setTargetAngle(config.angle());
+        launcher.setSpeakerRampRate();
+        launcher.setLauncherSpeed(config.speedLeft(), config.speedRight());
         
     }
 
@@ -81,6 +89,8 @@ public class ReadyScoreCommand extends Command{
     {
         drive.drive(0, 0, 0, false);
         arm.zeroPosition();
+        launcher.rampDown();
+        launcher.stopLauncher();
         vision.setAllTagMode();
     }
 

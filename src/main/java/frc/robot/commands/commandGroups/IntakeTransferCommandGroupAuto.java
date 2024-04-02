@@ -11,17 +11,16 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.subsystems.SK24Intake;
-import frc.robot.subsystems.SK24Launcher;
 import frc.robot.utils.SKCANLight;
 
 public class IntakeTransferCommandGroupAuto extends SequentialCommandGroup {
     
-    public IntakeTransferCommandGroupAuto(SK24Launcher launcher, SK24Intake intake, SKCANLight light)
+    public IntakeTransferCommandGroupAuto(SK24Intake intake, SKCANLight light)
     {
 
         addCommands(
             new ParallelRaceGroup(
-                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, launcher, light)
+                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, light)
             )
         );
     }

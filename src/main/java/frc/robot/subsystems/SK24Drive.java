@@ -183,12 +183,9 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     return this.m_odometry.getEstimatedPosition();
   }
 
-  public double getSpeakerAngle(){
-      Pose2d currentPose = getPose();
-      double x = currentPose.getX();
-      double y = currentPose.getY();
-      double distanceX = checkIsRed() ? kFieldWidth - x : x;
-      double distanceY = kSpeakerLocation - y;
+  public double getSpeakerAngle(double xPos, double yPos){
+      double distanceX = checkIsRed() ? kFieldWidth - xPos : xPos;
+      double distanceY = kSpeakerLocation - yPos;
       return checkIsRed() ? Math.toDegrees(Math.atan(distanceY / distanceX)) : 180 + Math.toDegrees(Math.atan(distanceY / distanceX) * -1);
   }
 

@@ -31,7 +31,7 @@ public class AmpScoreCommandGroup extends SequentialCommandGroup{
             new ChurroRaiseCommand(churro),
             new LaunchCommandAuto(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed, launcher)
           ),
-          new IntakeAutoCommand(intake, launcher),
+          new IntakeAutoCommand(intake),
           new WaitCommand(1.0),
           new ParallelCommandGroup(
             new StopCommand(intake, launcher),

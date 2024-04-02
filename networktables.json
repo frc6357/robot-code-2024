@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "name": "/Preferences/kSpeakerDefaultLeftSpeedKey",
+    "type": "double",
+    "value": 0.4,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kSpeakerDefaultRightSpeedKey",
+    "type": "double",
+    "value": 0.5,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kSpeakerRestingLeftSpeedKey",
+    "type": "double",
+    "value": 0.4,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kSpeakerRestingRightSpeedKey",
+    "type": "double",
+    "value": 0.5,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kAmpDefaultLeftSpeedKey",
+    "type": "double",
+    "value": 0.22,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kAmpDefaultRightSpeedKey",
+    "type": "double",
+    "value": 0.22,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kSpeakerRampSpeedKey",
+    "type": "double",
+    "value": 2.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kRestingRampSpeedKey",
+    "type": "double",
+    "value": 1.0,
+    "properties": {
+      "persistent": true
+    }
+  }
+]

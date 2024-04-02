@@ -38,7 +38,7 @@ public class ZeroPositionCommandIntake extends Command {
     {
 
         arm.zeroPosition();
-        launcher.stopTransfer();
+        intake.stopTransfer();
         launcher.stopLauncher();
         intake.stopIntake();
     }

@@ -42,14 +42,12 @@ public class SK24Launcher extends SubsystemBase
 
     CANSparkFlex leftMotor;
     CANSparkFlex rightMotor;
-    CANSparkFlex transferMotor;
 
     SparkPIDController leftPidController;
     SparkPIDController rightPidController;
     RelativeEncoder encoderL;
     RelativeEncoder encoderR;
-    private LaserCan laserCanLower;
-    private LaserCan laserCanHigher;
+    
 
     double leftTargetSpeed;
     double rightTargetSpeed;
@@ -63,14 +61,9 @@ public class SK24Launcher extends SubsystemBase
         //Initialize motor objects
         leftMotor = new CANSparkFlex(kLeftLauncherMotor.ID, MotorType.kBrushless);
         rightMotor = new CANSparkFlex(kRightLauncherMotor.ID, MotorType.kBrushless);
-        transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
 
         leftMotor.setInverted(true);
         rightMotor.setInverted(false);
-        transferMotor.setInverted(true);
-        
-        laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
-        laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
 
         
         encoderL = leftMotor.getEncoder();
@@ -81,9 +74,10 @@ public class SK24Launcher extends SubsystemBase
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
-        interpolator.put(0.123f, new LaunchConfig(55.0, 0.4, 0.5));
+        interpolator.put(0.1f, new LaunchConfig(0.0, 0.4, 0.1));
+        interpolator.put(0.5f, new LaunchConfig(25.0, 0.5, 0.2));
+        interpolator.put(0.9f, new LaunchConfig(50.0, 0.6, 0.3));
         LaunchConfig config = interpolator.get(0.123f);
-
         SmartDashboard.putNumber("Interpolator Angle", config.angle);
         SmartDashboard.putNumber("Interpolator Left Speed", config.speedLeft);
         SmartDashboard.putNumber("Interpolator Right Speed", config.speedRight);
@@ -91,6 +85,9 @@ public class SK24Launcher extends SubsystemBase
 
     }
 
+    public LaunchConfig getInterpolatedValues(double distance){
+        return interpolator.get(distance);
+    }
     public double getLeftTargetSpeed()
     {
         return leftTargetSpeed;
@@ -125,14 +122,7 @@ public class SK24Launcher extends SubsystemBase
     }
 
 
-    /**
-     * Sets the speed of the transfer
-     * @param speed The speed to set for left. Value should be between -1.0 and 1.0.
-     */    
-    public void setTransferSpeed (double speed)
-    {
-        transferMotor.set(speed);
-    }
+    
 
     //Return motor speeds
     public double getLeftMotorSpeed()
@@ -146,11 +136,7 @@ public class SK24Launcher extends SubsystemBase
         return rightMotor.get();
     }
 
-    //Return motor speeds
-    public double getTransferMotorSpeed()
-    {
-        return transferMotor.get();
-    }
+    
 
     public void setSpeakerRampRate()
     {
@@ -181,35 +167,7 @@ public class SK24Launcher extends SubsystemBase
         return rightMotor.getOpenLoopRampRate();
     }
     
-    public boolean haveLowerNote()
-    {
-        LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
-
-        if ((measurementLower != null && measurementLower.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
-            SmartDashboard.putNumber("LaserCan distance lower", measurementLower.distance_mm);
-          if(measurementLower.distance_mm < noteMeasurement)
-          {
-            return true;
-          }
-        } 
-
-        return false;
-    }
-
-    public boolean haveHigherNote()
-    {
-         LaserCan.Measurement measurementHigher = laserCanHigher.getMeasurement();
-        
-        if ((measurementHigher != null && measurementHigher.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
-            SmartDashboard.putNumber("LaserCan distance higher", measurementHigher.distance_mm);
-          if(measurementHigher.distance_mm < noteMeasurement)
-          {
-            return true;
-          }
-        } 
-        return false;
-    }
-
+   
     //Stop motors
     public void stopLauncher()
     {
@@ -217,14 +175,11 @@ public class SK24Launcher extends SubsystemBase
         rightMotor.stopMotor();
     }
 
-    public void stopTransfer(){
-        transferMotor.stopMotor();
-    }
+    
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
-        SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
+        
         SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
         SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
 
@@ -242,7 +197,7 @@ public class SK24Launcher extends SubsystemBase
     {
     }
 
-    static record LaunchConfig(double angle, double speedLeft, double speedRight) implements SKInterpolatable<N3, LaunchConfig> {
+    public static record LaunchConfig(double angle, double speedLeft, double speedRight) implements SKInterpolatable<N3, LaunchConfig> {
 
         public LaunchConfig() {
             this(0, 0, 0);

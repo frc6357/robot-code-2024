@@ -25,8 +25,7 @@ public class Pos3CommandGroup extends ParallelCommandGroup {
     {
         addCommands(
             new AngleCommandAuto(kPos3Angle, arm),
-            new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
-            new WaitCommand(0.25)
+            new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)
         );
     }
 

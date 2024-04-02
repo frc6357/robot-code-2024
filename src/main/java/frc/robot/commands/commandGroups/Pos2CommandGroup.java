@@ -4,6 +4,7 @@
 
 package frc.robot.commands.commandGroups;
 
+import static frc.robot.Constants.LauncherAngleConstants.kPos2Angle;
 import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
@@ -23,9 +24,8 @@ public class Pos2CommandGroup extends ParallelCommandGroup {
     public Pos2CommandGroup(SK24Launcher launcher, SK24LauncherAngle arm)
     {
         addCommands(
-            new AngleCommandAuto(50.0, arm),
-            new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher),
-            new WaitCommand(0.25)
+            new AngleCommandAuto(kPos2Angle, arm),
+            new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)
         );
     }
 

@@ -314,15 +314,15 @@ public final class Constants
         public static final double kFloorAngle = -13.4; 
         public static final double kSpeakerAngle = 42.0; 
 
-        public static final double kPos1Angle = 40.0; //TODO - find launcher angle for position 1
-        public static final double kPos2Angle = 40.0; //TODO - find launcher angle for position 2
-        public static final double kPos3Angle = 40.0; //TODO - find launcher angle for position 3
+        public static final double kPos1Angle = 42.0; //TODO - find launcher angle for position 1
+        public static final double kPos2Angle = 42.0; //TODO - find launcher angle for position 2
+        public static final double kPos3Angle = 42.0; //TODO - find launcher angle for position 3
 
-        public static final double GP1Angle = 37.0; //TODO - find launcher angle for gp1
-        public static final double GP2Angle = 37.0; //TODO - find launcher angle for gp2
-        public static final double GP3Angle = 37.0; //TODO - find launcher angle for gp3
-        public static final double GP456Angle = 40.0; //TODO - find launcher angle for gp456
-        public static final double GP78Angle = 40.0; //TODO - find launcher angle for gp78
+        public static final double GP1Angle = 42.0; //TODO - find launcher angle for gp1
+        public static final double GP2Angle = 42.0; //TODO - find launcher angle for gp2
+        public static final double GP3Angle = 42.0; //TODO - find launcher angle for gp3
+        public static final double GP456Angle = 42.0; //TODO - find launcher angle for gp456
+        public static final double GP78Angle = 42.0; //TODO - find launcher angle for gp78
     }
 
     public static final class LightConstants

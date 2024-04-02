@@ -73,21 +73,21 @@ public class SK24IntakeBinder implements CommandBinder{
 
             // Eject Buttons
             ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
-            ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(-kTransferSpeed)));
+            ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(-kTransferSpeed)));
 
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
-            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> launcher.stopTransfer()));
+            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopTransfer()));
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> light.setTeamColor()));
 
             // Transfer Button
-            operatorTransferButton.and(launchAmpButton.negate()).onTrue(new IntakeAutoCommand(intake, launcher));
+            operatorTransferButton.and(launchAmpButton.negate()).onTrue(new IntakeAutoCommand(intake));
 
-            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> launcher.setTransferSpeed(0.25)));
+            operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(0.25)));
             operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             
-            operatorTransferButton.onFalse(new StopIntakingCommand(intake, launcher));
+            operatorTransferButton.onFalse(new StopIntakingCommand(intake));
 
-            intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(arm, launcher, intake, light));
+            intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(arm, intake, launcher, light));
            
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
         }
