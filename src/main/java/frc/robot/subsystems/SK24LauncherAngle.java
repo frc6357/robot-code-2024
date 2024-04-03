@@ -140,7 +140,7 @@ public class SK24LauncherAngle extends SubsystemBase
 
     public void zeroPosition()
     {
-        setTargetAngle(kZeroAngle);
+        setTargetAngle(kFloorAngle);
     }
 
    // public boolean hitZeroPos()

@@ -43,6 +43,12 @@
               "data": {
                 "name": "Pos3CommandGroup"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "StartLauncherCommand"
+              }
             }
           ]
         }

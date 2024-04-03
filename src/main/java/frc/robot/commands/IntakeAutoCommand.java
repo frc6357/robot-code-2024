@@ -22,7 +22,7 @@ public class IntakeAutoCommand extends Command
   {
     this.intake = intake;
     this.intakeSpeed = Constants.IntakeConstants.kIntakeSpeed;
-    this.transferSpeed = Constants.LauncherConstants.kTransferSpeed;
+    this.transferSpeed = Constants.IntakeConstants.kTransferSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);

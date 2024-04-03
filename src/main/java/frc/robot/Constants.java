@@ -210,6 +210,14 @@ public final class Constants
         public static final double kFieldWidth = 16.58; //Width of the field longwise in meters for use in pointing drive towards speaker
         public static final double kSpeakerLocation = 5.55; //Location of the center speaker in meters from the amp side
         public static final double kSpeakerHeight = 1.6 - 0.0; //Height of the center of the speaker opening in meters minus height of launcher pivot point
+
+        public static final String kDriveRotationPKey = "kDriveRotationPKey";
+        public static final String kDriveRotationIKey = "kDriveRotationIKey";
+        public static final String kDriveRotationDKey = "kDriveRotationDKey";
+
+        public static final double kDriveRotationP = 0.04;
+        public static final double kDriveRotationI = 0.005;
+        public static final double kDriveRotationD = 0.0;
     }
     public static final class VisionConstants
     {
@@ -339,13 +347,18 @@ public final class Constants
         public static final double kIntakeAngle = 40.0; 
         public static final double kIntakeLauncherLeftSpeed = -0.1;
         public static final double kIntakeLauncherRightSpeed = -0.1;
+
+        public static final double kTransferSpeed = 0.5; 
+        public static final double kIntakeTransferSpeed = 0.15;
+        public static final double kSlowTransferSpeed = 0.05;
+        public static final double noteMeasurement = 200;
     }
     
     public static final class ChurroConstants
     {
-        public static final String kChurroPKey = "kLauncherAnglePKey";
-        public static final String kChurroIKey = "kLauncherAngleIKey";
-        public static final String kChurroDKey = "kLauncherAngleDKey";
+        public static final String kChurroPKey = "kChurroPKey";
+        public static final String kChurroIKey = "kChurroIKey";
+        public static final String kChurroDKey = "kChurroDKey";
 
         public static final double kChurroP = 0.001;
         public static final double kChurroI = 0.0;
@@ -387,11 +400,6 @@ public final class Constants
         //TODO - determine how to get launcher speeds for any position on field - Either fixed fast speed or dynamic speeds
         public static final double kLauncherLeftSpeed = 0.4; 
         public static final double kLauncherRightSpeed = 0.5; 
-
-        public static final double kTransferSpeed = 0.5; 
-        public static final double kIntakeTransferSpeed = 0.15;
-        public static final double kSlowTransferSpeed = 0.05;
-        public static final double noteMeasurement = 200;
         
         public static final double kSpeedTolerance = 0.03;
 

@@ -1,6 +1,6 @@
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
+import static frc.robot.Constants.IntakeConstants.kTransferSpeed;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;

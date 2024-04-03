@@ -6,7 +6,7 @@ package frc.robot.commands.commandGroups;
 
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
+import static frc.robot.Constants.IntakeConstants.kTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.speakerRestingSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.speakerRestingSpeedRight;
 
@@ -28,8 +28,6 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
                 new AngleCommand(kSpeakerAngle, arm),
                 // new InstantCommand(() -> launcher.setRestingRampRate()),
                 new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, light)
-                // new WaitCommand(0.2),
-                // new InstantCommand(() -> launcher.setLauncherSpeed(speakerRestingSpeedLeft.get(), speakerRestingSpeedRight.get()))
         );
     }
 }

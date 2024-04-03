@@ -11,10 +11,13 @@ import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kWingAngle;
 import static frc.robot.Constants.LauncherConstants.ampSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.ampSpeedRight;
+import static frc.robot.Constants.LauncherConstants.kRestingRampSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey;
+import static frc.robot.Constants.LauncherConstants.kSpeakerRestingLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerRestingRightSpeed;
 import static frc.robot.Constants.LauncherConstants.speakerSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.speakerSpeedRight;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
@@ -168,8 +171,12 @@ public class SK24LauncherBinder implements CommandBinder
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
 
                 //intakeDriverButton.or(intakeOperatorButton).onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                intakeDriverButton.and(launchSpeakerButton.negate()).onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle), m_launcherAngle));
+                launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setRunning(true)));
+                launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setRunning(false)));
 
+                intakeDriverButton.onFalse(new InstantCommand(() -> {if(!m_launcher.getRunning()){m_launcherAngle.setTargetAngle(kFloorAngle); m_launcher.setLauncherSpeed(kSpeakerRestingLeftSpeed, kSpeakerRestingRightSpeed);}}, m_launcherAngle));
+        
+                
                 readyShoot.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
                 launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
 

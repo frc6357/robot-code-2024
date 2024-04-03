@@ -4,25 +4,18 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.LauncherConstants.kAmpRampSpeed;
 import static frc.robot.Constants.LauncherConstants.kRampDownSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey;
 import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
-import static frc.robot.Constants.LauncherConstants.noteMeasurement;
 import static frc.robot.Constants.LauncherConstants.restingRampSpeed;
 import static frc.robot.Constants.LauncherConstants.speakerRampSpeed;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
 import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
 import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
-import au.grapplerobotics.LaserCan;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.Nat;
 import edu.wpi.first.math.numbers.N1;
@@ -31,8 +24,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.interp.SKInterpolatable;
 import frc.robot.interp.SKInterpolator;
-import frc.robot.preferences.Pref;
-import frc.robot.preferences.SKPreferences;
 
 
 
@@ -51,6 +42,7 @@ public class SK24Launcher extends SubsystemBase
 
     double leftTargetSpeed;
     double rightTargetSpeed;
+    boolean running;
 
     private SKInterpolator<N3, LaunchConfig> interpolator = new SKInterpolator<>(LaunchConfig::new);
 
@@ -74,14 +66,15 @@ public class SK24Launcher extends SubsystemBase
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
-        interpolator.put(1.74f, new LaunchConfig(42.0, 0.4, 0.1));
-        interpolator.put(2.7, new LaunchConfig(36.0, 0.4, 0.5));
-        interpolator.put(2.8f, new LaunchConfig(33.5, 0.4, 0.5));
-        interpolator.put(3.6f, new LaunchConfig(27.5, 0.4, 0.5));
-        interpolator.put(4.6f, new LaunchConfig(25.0, 0.45, 0.55));
-        interpolator.put(2.5f, new LaunchConfig(35.0, 0.4, 0.5));
-        interpolator.put(2.4f, new LaunchConfig(34.0, 0.4, 0.5));
-        interpolator.put(5.4f, new LaunchConfig(22.5, 0.55, 0.65));
+        interpolator.put(1.74, new LaunchConfig(42.0, 0.4, 0.5));
+        //interpolator.put(2.7, new LaunchConfig(36.0, 0.4, 0.5)); TODO - check value
+        interpolator.put(2.8, new LaunchConfig(33.5, 0.4, 0.5));
+        interpolator.put(3.6, new LaunchConfig(27.5, 0.4, 0.5));
+        interpolator.put(4.6, new LaunchConfig(25.0, 0.45, 0.55));
+        interpolator.put(2.9, new LaunchConfig(35.0, 0.4, 0.5)); 
+        // interpolator.put(5.9, new LaunchConfig(22.5, 0.55, 0.65));
+
+        running = false;
     }
 
     public LaunchConfig getInterpolatedValues(double distance){
@@ -97,6 +90,14 @@ public class SK24Launcher extends SubsystemBase
         return rightTargetSpeed;
     }
 
+    public void setRunning(boolean running)
+    {
+        this.running = running;
+    }
+
+    public boolean getRunning(){
+        return running;
+    }
 
     public boolean isFullSpeed()
     {

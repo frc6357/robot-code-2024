@@ -5,11 +5,15 @@ import java.util.function.Supplier;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24Launcher.LaunchConfig;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
+import static frc.robot.Constants.DriveConstants.*;
+import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 
 
 public class ReadyScoreCommand extends Command{
@@ -23,6 +27,10 @@ public class ReadyScoreCommand extends Command{
     private SK24Launcher            launcher;
     private PIDController          PID;
     private Supplier<Double>              rotation;
+
+    Pref<Double> driveRotationP; 
+    Pref<Double> driveRotationI;
+    Pref<Double> driveRotationD;
     
     // In radians per second
     private double maxRot = 4;
@@ -56,11 +64,15 @@ public class ReadyScoreCommand extends Command{
 
         this.drive = drive;
         this.launcher = launcher;
+        
+        PID = new PIDController(kDriveRotationP, kDriveRotationI, kDriveRotationD, 0.02);
 
-        PID = new PIDController(0.01, 0, 0, 0.02);
-        PID.setTolerance(0.05);
+        driveRotationP = SKPreferences.attach(kDriveRotationPKey, kDriveRotationP).onChange(PID::setP);
+        driveRotationI = SKPreferences.attach(kDriveRotationIKey, kDriveRotationI).onChange(PID::setI);
+        driveRotationD = SKPreferences.attach(kDriveRotationDKey, kDriveRotationD).onChange(PID::setD);
 
-        vision.setSpeakerMode();
+        PID.setTolerance(0.1);
+        PID.setIZone(5.0);
         
         addRequirements(drive, arm, vision, launcher);
     }
@@ -69,7 +81,14 @@ public class ReadyScoreCommand extends Command{
     @Override
     public void initialize()
     {
+        vision.setSpeakerMode();
+
         launcher.setSpeakerRampRate();
+        arm.setTargetAngle(kSpeakerAngle);
+
+        PID.setP(driveRotationP.get());
+        PID.setI(driveRotationI.get());
+        PID.setD(driveRotationD.get());
         
     }
     @Override
@@ -79,6 +98,7 @@ public class ReadyScoreCommand extends Command{
         if(vision.tagPresent()){
             PID.setSetpoint(0.0);
             double rot = PID.calculate(vision.getTx());
+            SmartDashboard.putNumber("Tx", vision.getTx());
             rot = Math.abs(rot) > maxRot ? Math.copySign(maxRot, rot) : rot;
             drive.drive(xSpeed.get(), ySpeed.get(), rot, true);
 
@@ -109,9 +129,9 @@ public class ReadyScoreCommand extends Command{
     public void end(boolean interrupted)
     {
         drive.drive(0, 0, 0, false);
-        // arm.zeroPosition();
-        // launcher.rampDown();
-        // launcher.stopLauncher();
+        arm.zeroPosition();
+        launcher.rampDown();
+        launcher.setLauncherSpeed(0.0, 0.0);
         vision.setAllTagMode();
     }
 

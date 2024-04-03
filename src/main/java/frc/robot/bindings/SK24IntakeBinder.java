@@ -1,9 +1,10 @@
 package frc.robot.bindings;
 
 import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
-import static frc.robot.Constants.LauncherConstants.kTransferSpeed;
+import static frc.robot.Constants.IntakeConstants.kTransferSpeed;
+import static frc.robot.Constants.LightConstants.kLightsOffBrightness;
+import static frc.robot.Constants.LightConstants.kLightsOnBrightness;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
-import static frc.robot.Constants.LightConstants.*;
 
 import java.util.Optional;
 
@@ -80,7 +81,7 @@ public class SK24IntakeBinder implements CommandBinder{
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> light.setTeamColor()));
 
             // Transfer Button
-            operatorTransferButton.and(launchAmpButton.negate()).onTrue(new IntakeAutoCommand(intake));
+            operatorTransferButton.and(launchAmpButton.negate()).onTrue(new InstantCommand(() -> intake.setTransferSpeed(kTransferSpeed)));
 
             operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(0.25)));
             operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
