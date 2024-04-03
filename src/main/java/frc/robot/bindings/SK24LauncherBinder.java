@@ -122,6 +122,7 @@ public class SK24LauncherBinder implements CommandBinder
 
             // Launch Speaker Button
             
+            readyShoot.onTrue(new LightLauncherCommandGroup(light));
             launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(m_launcher, light));
             launchSpeakerButton.onFalse(new InstantCommand(() -> {
                 m_launcher.rampDown();
