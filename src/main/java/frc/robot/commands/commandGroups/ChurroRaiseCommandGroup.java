@@ -1,6 +1,7 @@
 package frc.robot.commands.commandGroups;
 
 import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
+import static frc.robot.Constants.LauncherAngleConstants.kAmpAnglePref;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -20,7 +21,7 @@ public class ChurroRaiseCommandGroup extends SequentialCommandGroup{
    */
   public ChurroRaiseCommandGroup(SK24LauncherAngle arm, SK24Churro churro) {
     addCommands(
-            new AngleCommandAuto(kAmpAngle, arm),
+            new AngleCommandAuto(kAmpAnglePref.get(), arm),
             new WaitCommand(1.0),
             new ChurroRaiseCommand(churro));
   }

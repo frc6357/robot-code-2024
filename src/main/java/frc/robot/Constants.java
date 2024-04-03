@@ -318,7 +318,10 @@ public final class Constants
     
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
+        public static final String kAmpAngleKey = "kAmpAngleKey";
         public static final double kAmpAngle = 48.2;
+
+        public static final Pref<Double> kAmpAnglePref = SKPreferences.attach(kAmpAngleKey, kAmpAngle);
         public static final double kFloorAngle = -13.4; 
         public static final double kSpeakerAngle = 42.0; 
 

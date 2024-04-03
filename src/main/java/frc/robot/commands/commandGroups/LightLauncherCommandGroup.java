@@ -15,9 +15,9 @@ import frc.robot.preferences.Pref;
 import frc.robot.preferences.SKPreferences;
 import frc.robot.utils.SKCANLight;
 
-public class LaunchSpeakerCommandGroup extends SequentialCommandGroup{
+public class LightLauncherCommandGroup extends SequentialCommandGroup{
 
-    public LaunchSpeakerCommandGroup(SKCANLight light)
+    public LightLauncherCommandGroup(SKCANLight light)
     {
         addCommands(
             new InstantCommand(() -> light.setRed()),

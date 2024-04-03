@@ -3,6 +3,7 @@ package frc.robot.bindings;
 import static frc.robot.Constants.ChurroConstants.kChurroLowerPosition;
 import static frc.robot.Constants.ChurroConstants.kChurroRaisePosition;
 import static frc.robot.Constants.LauncherAngleConstants.kAmpAngle;
+import static frc.robot.Constants.LauncherAngleConstants.kAmpAnglePref;
 import static frc.robot.Constants.LauncherAngleConstants.kFloorAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickChange;
 import static frc.robot.Constants.LauncherAngleConstants.kJoystickReversed;
@@ -11,15 +12,8 @@ import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kWingAngle;
 import static frc.robot.Constants.LauncherConstants.ampSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.ampSpeedRight;
-import static frc.robot.Constants.LauncherConstants.kRestingRampSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeedKey;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
-import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeedKey;
 import static frc.robot.Constants.LauncherConstants.kSpeakerRestingLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerRestingRightSpeed;
-import static frc.robot.Constants.LauncherConstants.speakerSpeedLeft;
-import static frc.robot.Constants.LauncherConstants.speakerSpeedRight;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
@@ -34,11 +28,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.LaunchAngleCommand;
-import frc.robot.commands.ReadyScoreCommandAngle;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.commands.commandGroups.ChurroLowerCommandGroup;
 import frc.robot.commands.commandGroups.ChurroRaiseCommandGroup;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
+import frc.robot.commands.commandGroups.LightLauncherCommandGroup;
 import frc.robot.preferences.Pref;
 import frc.robot.preferences.SKPreferences;
 import frc.robot.subsystems.SK24Churro;
@@ -188,7 +182,7 @@ public class SK24LauncherBinder implements CommandBinder
                 defaultLauncherAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle), m_launcherAngle)); // 42 deg
                 angleUpDriverButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle), m_launcherAngle)); // 42 deg
                 defaultFloorAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle))); // 14 deg
-                ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAngle))); // 44 deg
+                ampAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kAmpAnglePref.get()))); // 44 deg
                 wingAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(launcherAngleWing.get()))); // 23 deg
 
                 // resetAngleButton.onTrue(new InstantCommand(() -> m_launcherAngle.resetAngle()));
