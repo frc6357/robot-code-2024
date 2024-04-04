@@ -319,7 +319,7 @@ public final class Constants
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
         public static final String kAmpAngleKey = "kAmpAngleKey";
-        public static final double kAmpAngle = 45.5;
+        public static final double kAmpAngle = 44.0;
 
         public static final Pref<Double> kAmpAnglePref = SKPreferences.attach(kAmpAngleKey, kAmpAngle);
         public static final double kFloorAngle = -13.4; 
@@ -346,14 +346,14 @@ public final class Constants
     public static final class IntakeConstants
     {
         public static final double kIntakeSpeed = 0.3; 
-        public static final double kSlowIntakeSpeed = 0.05;
+        public static final double kSlowIntakeSpeed = 0.03;
         public static final double kIntakeAngle = 40.0; 
         public static final double kIntakeLauncherLeftSpeed = -0.1;
         public static final double kIntakeLauncherRightSpeed = -0.1;
 
         public static final double kTransferSpeed = 0.5; 
         public static final double kIntakeTransferSpeed = 0.15;
-        public static final double kSlowTransferSpeed = 0.03;
+        public static final double kSlowTransferSpeed = 0.05;
         public static final double noteMeasurement = 200;
     }
     

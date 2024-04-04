@@ -83,7 +83,7 @@ public class ReadyScoreCommand extends Command{
     {
         vision.setSpeakerMode();
 
-        launcher.setSpeakerRampRate();
+        launcher.setRestingRampRate();
         arm.setTargetAngle(kSpeakerAngle);
 
         PID.setP(driveRotationP.get());

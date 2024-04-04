@@ -86,6 +86,8 @@ public class Robot extends TimedRobot
         {
             m_autonomousCommand.schedule();
         }
+
+        m_robotContainer.autonomousInit();
     }
 
     /** This function is called periodically during autonomous. */

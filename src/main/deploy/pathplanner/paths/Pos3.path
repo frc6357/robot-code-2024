@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {

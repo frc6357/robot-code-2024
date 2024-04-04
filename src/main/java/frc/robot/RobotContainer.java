@@ -311,4 +311,10 @@ public class RobotContainer {
             m_launcher_angle.get().resetPID();
         }
     }
+    public void autonomousInit()
+    {
+        if(m_launcher_angle.isPresent()){
+            m_launcher_angle.get().resetPID();
+        }
+    }
 }

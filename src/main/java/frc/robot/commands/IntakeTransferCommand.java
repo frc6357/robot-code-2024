@@ -68,5 +68,6 @@ public class IntakeTransferCommand extends Command
   @Override
   public boolean isFinished() {
     return intake.haveHigherNote();
+    // return intake.haveHigherNote() || intake.haveLowerNote();
   }
 }
