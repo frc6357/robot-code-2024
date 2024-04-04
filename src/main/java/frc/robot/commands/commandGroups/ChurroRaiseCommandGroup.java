@@ -21,7 +21,7 @@ public class ChurroRaiseCommandGroup extends SequentialCommandGroup{
    */
   public ChurroRaiseCommandGroup(SK24LauncherAngle arm, SK24Churro churro) {
     addCommands(
-            new AngleCommandAuto(kAmpAnglePref.get(), arm),
+            new AngleCommandAuto(kAmpAngle, arm),
             new WaitCommand(1.0),
             new ChurroRaiseCommand(churro));
   }

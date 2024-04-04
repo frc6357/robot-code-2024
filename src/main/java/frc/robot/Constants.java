@@ -319,7 +319,7 @@ public final class Constants
         public static final boolean kJoystickReversed = true;  // Determines if the joystick movement is reversed
 
         public static final String kAmpAngleKey = "kAmpAngleKey";
-        public static final double kAmpAngle = 48.2;
+        public static final double kAmpAngle = 45.5;
 
         public static final Pref<Double> kAmpAnglePref = SKPreferences.attach(kAmpAngleKey, kAmpAngle);
         public static final double kFloorAngle = -13.4; 
@@ -353,7 +353,7 @@ public final class Constants
 
         public static final double kTransferSpeed = 0.5; 
         public static final double kIntakeTransferSpeed = 0.15;
-        public static final double kSlowTransferSpeed = 0.05;
+        public static final double kSlowTransferSpeed = 0.03;
         public static final double noteMeasurement = 200;
     }
     
@@ -363,14 +363,14 @@ public final class Constants
         public static final String kChurroIKey = "kChurroIKey";
         public static final String kChurroDKey = "kChurroDKey";
 
-        public static final double kChurroP = 0.001;
+        public static final double kChurroP = 0.003;
         public static final double kChurroI = 0.0;
         public static final double kChurroD = 0.0;
         
         public static final PIDConstants kChurroPID = new PIDConstants(0.001, 0.0, 0.0); //TODO - Tune launcher angle PID
         public static final double kAngleTolerance = 10.0; 
         public static final double kChurroLowerPosition = 0.0; 
-        public static final double kChurroRaisePosition = 180.0; 
+        public static final double kChurroRaisePosition = 225.0; 
     	public static final double kChurroSpeed = 0.15;
         public static final double kChurroConversion= (1.0 / 49.0) * 360.0;
     }
