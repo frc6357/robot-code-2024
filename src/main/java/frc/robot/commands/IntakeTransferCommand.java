@@ -47,7 +47,7 @@ public class IntakeTransferCommand extends Command
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (intake.haveLowerNote())
+    if (intake.haveLowerNote() || intake.haveHigherNote())
     {
       light.setOrange();
       intake.setIntakeSpeed(kSlowIntakeSpeed);
@@ -61,7 +61,6 @@ public class IntakeTransferCommand extends Command
   {
     intake.stopIntake();
     intake.stopTransfer();
-    if(!interrupted) {light.setOrange();}
   }
 
   // Returns true when the command should end.
