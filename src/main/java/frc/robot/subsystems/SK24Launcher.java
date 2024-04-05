@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 
 import static frc.robot.Constants.LauncherConstants.kAmpRampSpeed;
+import static frc.robot.Constants.LauncherConstants.kQuickRampSpeed;
 import static frc.robot.Constants.LauncherConstants.kRampDownSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
@@ -148,6 +149,11 @@ public class SK24Launcher extends SubsystemBase
     {
         rightMotor.setOpenLoopRampRate(restingRampSpeed.get());
         leftMotor.setOpenLoopRampRate(restingRampSpeed.get());
+    }
+    public void setQuickRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kQuickRampSpeed);
+        leftMotor.setOpenLoopRampRate(kQuickRampSpeed);
     }
 
     public void setAmpRampRate()

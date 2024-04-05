@@ -415,6 +415,7 @@ public final class Constants
         public static final Pref<Double> restingRampSpeed = SKPreferences.attach(kRestingRampSpeedKey, kRestingRampSpeed);
 
         public static final double kAmpRampSpeed = 1.0;
+        public static final double kQuickRampSpeed = 0.4;
         public static final double kRampDownSpeed = 12.0;
     }
     

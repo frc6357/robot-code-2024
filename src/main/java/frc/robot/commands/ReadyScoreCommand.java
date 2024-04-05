@@ -14,6 +14,8 @@ import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import static frc.robot.Constants.DriveConstants.*;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
+import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 
 public class ReadyScoreCommand extends Command{
@@ -85,6 +87,7 @@ public class ReadyScoreCommand extends Command{
 
         launcher.setRestingRampRate();
         arm.setTargetAngle(kSpeakerAngle);
+        launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed);
 
         PID.setP(driveRotationP.get());
         PID.setI(driveRotationI.get());
@@ -115,7 +118,8 @@ public class ReadyScoreCommand extends Command{
     
             SmartDashboard.putNumber("Vision Launcher Speed Left", config.speedLeft());
             SmartDashboard.putNumber("Vision Launcher Speed Right", config.speedRight());
-    
+
+            launcher.setQuickRampRate();
             launcher.setLauncherSpeed(config.speedLeft(), config.speedRight());
         }else{
             drive.drive(xSpeed.get(), ySpeed.get(), rotation.get(), true);
