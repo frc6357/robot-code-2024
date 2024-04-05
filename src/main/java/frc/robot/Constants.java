@@ -340,7 +340,7 @@ public final class Constants
     {
         public static final int numLedOnBot = 240;
         public static final double kLightsOffBrightness = 0.0;
-        public static final double kLightsOnBrightness = 1.0;
+        public static final double kLightsOnBrightness = 0.5;
     }
     
     public static final class IntakeConstants
@@ -354,7 +354,7 @@ public final class Constants
         public static final double kTransferSpeed = 0.5; 
         public static final double kIntakeTransferSpeed = 0.15;
         public static final double kSlowTransferSpeed = 0.05;
-        public static final double noteMeasurement = 200;
+        public static final double noteMeasurement = 150;                         
     }
     
     public static final class ChurroConstants
