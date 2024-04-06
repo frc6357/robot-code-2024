@@ -68,13 +68,13 @@ public class SK24ClimbBinder implements CommandBinder{
             climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); 
 
             rightClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed)));
-            leftClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed)));
+            leftClimbButton.onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed)));
             
             climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
             climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
 
-            rightClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(0.0)));
-            leftClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(0.0)));
+            rightClimbButton.onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
+            leftClimbButton.onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
             
             climbUpDriverButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 
