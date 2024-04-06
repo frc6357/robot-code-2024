@@ -4,7 +4,7 @@
     "intake": true,
     "climb": true,
     "launcher_arm": true,
-    "churro": false,
+    "churro": true,
     "vision": true,
     "drive": true,
     "telemetry": false
