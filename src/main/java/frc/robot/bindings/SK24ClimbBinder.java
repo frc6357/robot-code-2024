@@ -19,6 +19,8 @@ public class SK24ClimbBinder implements CommandBinder{
     Optional<SK24Churro> churro;
     Trigger climbUpDriverButton;
     Trigger climbDownDriverButton;
+    Trigger rightClimbButton;
+    Trigger leftClimbButton;
     Trigger climbUpOperatorButton;
     Trigger climbDownOperatorButton;
     Trigger climbOverride;
@@ -32,6 +34,8 @@ public class SK24ClimbBinder implements CommandBinder{
         this.climbUpOperatorButton = Ports.OperatorPorts.kClimbUp.button;
         this.climbDownOperatorButton = Ports.OperatorPorts.kClimbDown.button;
         this.climbOverride = Ports.DriverPorts.kClimbOverride.button;
+        this.rightClimbButton = Ports.DriverPorts.kClimbRight.button;
+        this.leftClimbButton = Ports.DriverPorts.kClimbLeft.button;
     }
 
     public void bindButtons()
@@ -62,9 +66,15 @@ public class SK24ClimbBinder implements CommandBinder{
             // Climb Down Buttons
             climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed))); 
             climbDownDriverButton.or(climbDownOperatorButton).onTrue(new InstantCommand(() -> climb.runLeftHook(kClimbDownSpeed))); 
+
+            rightClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed)));
+            leftClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(kClimbDownSpeed)));
             
             climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runLeftHook(0.0)));
             climbDownDriverButton.or(climbDownOperatorButton).onFalse(new InstantCommand(() -> climb.runRightHook(0.0)));
+
+            rightClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(0.0)));
+            leftClimbButton.onTrue(new InstantCommand(() -> climb.runRightHook(0.0)));
             
             climbUpDriverButton.and(climbOverride).onTrue(new InstantCommand(() -> climb.resetPosition(1.0)));
 

@@ -44,6 +44,9 @@ public class Ports
         // Climb
         public static final SKTrigger kClimbUp = new SKTrigger(kDriver, 0, POV);
         public static final SKTrigger kClimbDown = new SKTrigger(kDriver, 180, POV);
+        public static final SKTrigger kClimbRight = new SKTrigger(kDriver, 90, POV);
+        public static final SKTrigger kClimbLeft = new SKTrigger(kDriver, 270, POV);
+
         public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
 
