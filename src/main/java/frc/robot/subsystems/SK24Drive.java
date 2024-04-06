@@ -11,8 +11,10 @@ import static frc.robot.Constants.DriveConstants.kSpeakerHeight;
 import static frc.robot.Constants.DriveConstants.kSpeakerLocation;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
@@ -56,6 +58,17 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   StructPublisher<Rotation2d> odomPublisher = NetworkTableInstance.getDefault().getStructTopic("Rotation", Rotation2d.struct).publish();
     public SK24Drive(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
+
+        for (int i = 0; i  <4; i++) {
+          SwerveModule module = getModule(i);
+          module.getDriveMotor().getConfigurator().apply(
+            new CurrentLimitsConfigs()
+            .withSupplyCurrentLimitEnable(true)
+            .withSupplyCurrentLimit(60)
+            .withSupplyCurrentThreshold(80)
+            .withSupplyTimeThreshold(0.5)
+          );
+        }
 
         this.m_pigeon2.reset();
         checkIsRed();
