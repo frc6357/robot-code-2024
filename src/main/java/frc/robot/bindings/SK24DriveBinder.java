@@ -21,6 +21,7 @@ import java.util.Optional;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Ports;
 import frc.robot.commands.DefaultSwerveCommand;
 import frc.robot.commands.DriveTurnCommand;
 import frc.robot.commands.ReadyScoreCommand;
@@ -49,7 +50,8 @@ public class SK24DriveBinder implements CommandBinder
     private final Trigger rotateRight;
     private final Trigger rotateSource;
     private final Trigger readyScoreOp;
-
+    private final Trigger operatorPartyButton;
+    private final Trigger driverPartyButton;
     // private final Trigger centerStage;
     // private final Trigger leftStage;
     // private final Trigger rightStage;
@@ -68,6 +70,8 @@ public class SK24DriveBinder implements CommandBinder
         this.m_launcher = m_launcher;
         
         robotCentric    = kRobotCentricMode.button;
+        operatorPartyButton = Ports.OperatorPorts.kPartyMode.button;
+        driverPartyButton = Ports.DriverPorts.kPartyMode.button;
         slowmode = kSlowMode.button;
         resetButton = kResetGyroPos.button;
         rotateSpeaker = kRotateSpeaker.button;
@@ -87,6 +91,7 @@ public class SK24DriveBinder implements CommandBinder
         if (m_drive.isPresent())
         {
             SK24Drive drive = m_drive.get();
+            setGainCommand(kSlowModePercent);
 
             // Sets filters for driving axes
             kTranslationXPort.setFilter(new CubicDeadbandFilter(kDriveCoeff,
@@ -99,12 +104,14 @@ public class SK24DriveBinder implements CommandBinder
                 Math.toRadians(DriveConstants.kMaxModuleAngularSpeedDegreesPerSecond), true));
 
             slowmode.
-                onTrue(new InstantCommand(() -> {setGainCommand(kSlowModePercent);}, drive))
-                .onFalse(new InstantCommand(() -> {setGainCommand(1);}, drive));
+                onFalse(new InstantCommand(() -> {setGainCommand(kSlowModePercent);}, drive))
+                .onTrue(new InstantCommand(() -> {setGainCommand(1);}, drive));
 
             // Resets gyro angles
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
+            operatorPartyButton.onTrue(new InstantCommand(() -> drive.playMusic()));
+            driverPartyButton.onFalse(new InstantCommand(() -> drive.stopMusic()));
 
             if(m_arm.isPresent() && m_vision.isPresent() && m_launcher.isPresent())
             {

@@ -10,6 +10,7 @@ import static frc.robot.Constants.DriveConstants.kFieldWidth;
 import static frc.robot.Constants.DriveConstants.kSpeakerHeight;
 import static frc.robot.Constants.DriveConstants.kSpeakerLocation;
 
+import com.ctre.phoenix6.Orchestra;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
@@ -40,7 +41,10 @@ import frc.robot.utils.SK24AutoBuilder;
 
 public class SK24Drive extends SwerveDrivetrain implements Subsystem
 {
-
+    public Orchestra music1 = new Orchestra();
+    public Orchestra music2 = new Orchestra();
+    public Orchestra music3 = new Orchestra();
+    public Orchestra music4 = new Orchestra();
     private static final double kSimLoopPeriod = 0.005; // 5 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
@@ -65,6 +69,19 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
   StructPublisher<Rotation2d> odomPublisher = NetworkTableInstance.getDefault().getStructTopic("Rotation", Rotation2d.struct).publish();
     public SK24Drive(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
+        music1.addInstrument(getModule(0).getDriveMotor());
+        music2.addInstrument(getModule(1).getDriveMotor());
+        music3.addInstrument(getModule(2).getDriveMotor());
+        music4.addInstrument(getModule(3).getDriveMotor());
+        music1.addInstrument(getModule(0).getSteerMotor());
+        music2.addInstrument(getModule(1).getSteerMotor());
+        music3.addInstrument(getModule(2).getSteerMotor());
+        music4.addInstrument(getModule(3).getSteerMotor());
+
+        music1.loadMusic("party.chrp");
+        music2.loadMusic("party.chrp");
+        music3.loadMusic("party.chrp");
+        music4.loadMusic("party.chrp");
 
         updateCurrentLimit();
 
@@ -76,6 +93,19 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
           startSimThread();
       }
 
+    }
+
+    public void playMusic(){
+      music1.play();
+      music2.play();
+      music3.play();
+      music4.play();
+    }
+    public void stopMusic(){
+      music1.stop();
+      music2.stop();
+      music3.stop();
+      music4.stop();
     }
     public void updateCurrentLimit()
     {

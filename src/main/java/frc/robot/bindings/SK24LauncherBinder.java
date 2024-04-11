@@ -169,11 +169,11 @@ public class SK24LauncherBinder implements CommandBinder
                 launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setRunning(true)));
                 launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setRunning(false)));
 
-                intakeDriverButton.onFalse(new InstantCommand(() -> {if(!m_launcher.getRunning()){m_launcherAngle.setTargetAngle(kFloorAngle); m_launcher.setLauncherSpeed(kSpeakerRestingLeftSpeed, kSpeakerRestingRightSpeed);}}, m_launcherAngle));
+                //intakeDriverButton.onFalse(new InstantCommand(() -> {if(!m_launcher.getRunning()){m_launcherAngle.setTargetAngle(kFloorAngle); m_launcher.setLauncherSpeed(kSpeakerRestingLeftSpeed, kSpeakerRestingRightSpeed);}}, m_launcherAngle));
         
                 
                 readyShoot.onTrue(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kSpeakerAngle)));
-                launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
+                //launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcherAngle.setTargetAngle(kFloorAngle)));
 
                 double joystickGain = kJoystickReversed ? -kJoystickChange : kJoystickChange;
                     kLauncherAxis.setFilter(new DeadbandFilter(kJoystickDeadband, joystickGain));

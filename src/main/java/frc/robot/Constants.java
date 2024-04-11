@@ -239,8 +239,8 @@ public final class Constants
         public static final double kClimbMotorMinOutput = -1.0;
         public static final double kClimbMotorMaxOutput = 1.0;
 
-        public static final double kClimbUpSpeed = 1.0;
-        public static final double kClimbDownSpeed = -1.0;
+        public static final double kClimbUpSpeed = 0.3;
+        public static final double kClimbDownSpeed = -0.3;
         
         public static final double kMinAngle = 0.0;
         public static final double kMaxAngle = 1.0;
@@ -381,8 +381,8 @@ public final class Constants
         
         public static final String kSpeakerDefaultLeftSpeedKey = "kSpeakerDefaultLeftSpeedKey";
         public static final String kSpeakerDefaultRightSpeedKey = "kSpeakerDefaultRightSpeedKey";
-        public static final double kSpeakerDefaultLeftSpeed = 0.4;
-        public static final double kSpeakerDefaultRightSpeed = 0.5;
+        public static final double kSpeakerDefaultLeftSpeed = 0.2;
+        public static final double kSpeakerDefaultRightSpeed = 0.3;
         public static final Pref<Double> speakerSpeedLeft = SKPreferences.attach(kSpeakerDefaultLeftSpeedKey, kSpeakerDefaultLeftSpeed);
         public static final Pref<Double> speakerSpeedRight = SKPreferences.attach(kSpeakerDefaultRightSpeedKey, kSpeakerDefaultRightSpeed);
         
