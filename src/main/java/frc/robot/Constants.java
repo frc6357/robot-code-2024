@@ -141,7 +141,7 @@ public final class Constants
     private static final int kFrontLeftDriveMotorId = 13;
     private static final int kFrontLeftSteerMotorId = 23;
     private static final int kFrontLeftEncoderId = 33;
-    private static final double kFrontLeftEncoderOffset = 0.219970703125;
+    private static final double kFrontLeftEncoderOffset = 0.19482421875; //0.219970703125;
 
     private static final double kFrontLeftXPosInches = 10.875;
     private static final double kFrontLeftYPosInches = 10.875;
@@ -150,7 +150,7 @@ public final class Constants
     private static final int kFrontRightDriveMotorId = 11;
     private static final int kFrontRightSteerMotorId = 21;
     private static final int kFrontRightEncoderId = 31;
-    private static final double kFrontRightEncoderOffset = 0.138916015625;
+    private static final double kFrontRightEncoderOffset = 0.141845703125; //0.138916015625;
 
     private static final double kFrontRightXPosInches = 10.875;
     private static final double kFrontRightYPosInches = -10.875;
@@ -159,7 +159,7 @@ public final class Constants
     private static final int kBackLeftDriveMotorId = 12;
     private static final int kBackLeftSteerMotorId = 22;
     private static final int kBackLeftEncoderId = 32;
-    private static final double kBackLeftEncoderOffset = -0.28515625;
+    private static final double kBackLeftEncoderOffset = -0.277099609375; //-0.28515625;
 
     private static final double kBackLeftXPosInches = -10.875;
     private static final double kBackLeftYPosInches = 10.875;
@@ -168,7 +168,7 @@ public final class Constants
     private static final int kBackRightDriveMotorId = 10;
     private static final int kBackRightSteerMotorId = 20;
     private static final int kBackRightEncoderId = 30;
-    private static final double kBackRightEncoderOffset = -0.0859375;
+    private static final double kBackRightEncoderOffset = -0.087646484375; //-0.0859375;
 
     private static final double kBackRightXPosInches = -10.875;
     private static final double kBackRightYPosInches = -10.875;
