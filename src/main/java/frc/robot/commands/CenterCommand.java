@@ -13,13 +13,10 @@ public class CenterCommand extends Command
     private SK24Vision vision;
 
     private PIDController    transPID;
-    private PIDController    rotPID;
 
     // Meters per second
     private double transDeadband = 0.005;
 
-    private double currentTranslation;
-    private double currentRotation;
     public double maxRot = 4.0;
     public Supplier<Double> manualSpeed;
 
@@ -53,7 +50,6 @@ public class CenterCommand extends Command
         {
             double translation = transPID.calculate(vision.returnXOffset(vision.getTargetPose()));
             translation = Math.abs(translation) < transDeadband ? 0.0 : translation;
-            currentTranslation = translation;
             drive.drive(translation, manualSpeed.get(), 0.0, false);
         }
     }

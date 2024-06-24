@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Score",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.05,
       "command": {
         "type": "sequential",
         "data": {
@@ -42,6 +42,12 @@
               "type": "named",
               "data": {
                 "name": "Pos3CommandGroup"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "StartLauncherCommand"
               }
             }
           ]

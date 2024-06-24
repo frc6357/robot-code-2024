@@ -28,12 +28,14 @@ public class AngleCommand extends Command {
 
     @Override
     public void initialize()
-    {}
+    {
+
+        arm.setTargetAngle(angle);
+    }
 
     @Override
     public void execute()
     {
-        arm.setTargetAngle(angle);
     }
 
     @Override

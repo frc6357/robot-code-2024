@@ -44,6 +44,9 @@ public class Ports
         // Climb
         public static final SKTrigger kClimbUp = new SKTrigger(kDriver, 0, POV);
         public static final SKTrigger kClimbDown = new SKTrigger(kDriver, 180, POV);
+        public static final SKTrigger kClimbRight = new SKTrigger(kDriver, 90, POV);
+        public static final SKTrigger kClimbLeft = new SKTrigger(kDriver, 270, POV);
+
         public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
 
@@ -81,7 +84,7 @@ public class Ports
         public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
         public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
+        public static final SKTrigger kReadyShoot = new SKTrigger(kOperator, kB.value, BUTTON);
 
         // Reset launcher encoder
         public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
@@ -153,8 +156,8 @@ public class Ports
     public static class intakePorts 
     {
         private static final String busName = "";
-        public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
-        public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
+        public static final CANPort kBottomIntakeMotor = new CANPort(50, busName);
+        public static final CANPort kTopIntakeMotor = new CANPort(51, busName);
         public static final CANPort kCandle = new CANPort(48, busName);
 
         

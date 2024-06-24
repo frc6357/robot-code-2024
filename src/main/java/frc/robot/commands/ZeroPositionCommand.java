@@ -38,7 +38,6 @@ public class ZeroPositionCommand extends Command {
     public void execute()
     {
         arm.zeroPosition();
-        launcher.stopTransfer();
         launcher.stopLauncher();
     }
 

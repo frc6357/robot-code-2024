@@ -46,7 +46,6 @@ import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.IntakeAutoCommand;
-import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
@@ -132,7 +131,6 @@ public class RobotContainer {
             if(subsystems.isLightsPresent())
             {
                 m_light.init();
-                //m_light.setTeamColor(); //TODO - check if this is causing any problems
             }
             if(subsystems.isIntakePresent())
             {
@@ -185,8 +183,8 @@ public class RobotContainer {
 
         // Adding all the binding classes to the list
         buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision, m_churro, m_light));
-        buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision));
-        buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher, m_light));
+        buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision, m_launcher));
+        buttonBinders.add(new SK24IntakeBinder(m_launcher_angle, m_intake, m_launcher, m_light));
         buttonBinders.add(new SK24ClimbBinder(m_climb, m_churro));
 
 
@@ -214,37 +212,39 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
                 NamedCommands.registerCommand("ZeroPositionCommand", new ZeroPositionCommandIntake(launcherAngle, launcher, intake));
                 
-                NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
-                NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
-                NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
-                NamedCommands.registerCommand("GP456Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP456Angle)));
-                NamedCommands.registerCommand("GP78Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP78Angle)));
+                // NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
+                // NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
+                // NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
+                // NamedCommands.registerCommand("GP456Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP456Angle)));
+                // NamedCommands.registerCommand("GP78Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP78Angle)));
             }else{
                 NamedCommands.registerCommand("Pos1CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
                 NamedCommands.registerCommand("Pos2CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
                 NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)); //Switched values since it's on other side              
                 NamedCommands.registerCommand("ZeroPositionCommand", new StopCommand(intake, launcher));
                 
-                NamedCommands.registerCommand("GP1Command", new DoNothingCommand());
-                NamedCommands.registerCommand("GP2Command", new DoNothingCommand());
-                NamedCommands.registerCommand("GP3Command", new DoNothingCommand());
-                NamedCommands.registerCommand("GP456Command", new DoNothingCommand());
-                NamedCommands.registerCommand("GP78Command", new DoNothingCommand());
             }
+
             //Register commands for use in auto
+            NamedCommands.registerCommand("StartLauncherCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+            NamedCommands.registerCommand("GP1Command", new DoNothingCommand());
+            NamedCommands.registerCommand("GP2Command", new DoNothingCommand());
+            NamedCommands.registerCommand("GP3Command", new DoNothingCommand());
+            NamedCommands.registerCommand("GP456Command", new DoNothingCommand());
+            NamedCommands.registerCommand("GP78Command", new DoNothingCommand());
             
-            NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake, launcher));
+            NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake));
             NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
-            NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake, launcher));
+            NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake));
             
 
-            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(launcher, intake,m_light));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(intake, m_light));
 
 
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
             NamedCommands.registerCommand("StopLauncherCommand", new InstantCommand(() -> launcher.stopLauncher()));
-            NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> launcher.stopTransfer()));
+            NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> intake.stopTransfer()));
             
             if(m_churro.isPresent())
             {
@@ -303,5 +303,18 @@ public class RobotContainer {
     public void matchInit()
     {
     
+    }
+
+    public void teleopInit()
+    {
+        if(m_launcher_angle.isPresent()){
+            m_launcher_angle.get().resetPID();
+        }
+    }
+    public void autonomousInit()
+    {
+        if(m_launcher_angle.isPresent()){
+            m_launcher_angle.get().resetPID();
+        }
     }
 }

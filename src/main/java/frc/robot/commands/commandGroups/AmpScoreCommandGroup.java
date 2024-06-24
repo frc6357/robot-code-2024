@@ -5,7 +5,6 @@ import static frc.robot.Constants.LauncherConstants.kAmpDefaultRightSpeed;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.ChurroLowerCommand;
@@ -32,7 +31,7 @@ public class AmpScoreCommandGroup extends SequentialCommandGroup{
             new ChurroRaiseCommand(churro),
             new LaunchCommandAuto(kAmpDefaultLeftSpeed, kAmpDefaultRightSpeed, launcher)
           ),
-          new IntakeAutoCommand(intake, launcher),
+          new IntakeAutoCommand(intake),
           new WaitCommand(1.0),
           new ParallelCommandGroup(
             new StopCommand(intake, launcher),

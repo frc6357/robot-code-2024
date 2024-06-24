@@ -2,19 +2,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
-import frc.robot.subsystems.SK24Launcher;
 
 
 public class StopIntakingCommand extends Command{
     private SK24Intake intake;
-    private SK24Launcher launcher;
-    public StopIntakingCommand(SK24Intake intake, SK24Launcher launcher)
+    public StopIntakingCommand(SK24Intake intake)
     {
         this.intake = intake;
-        this.launcher = launcher;
         
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(intake, launcher);
+        addRequirements(intake);
     }
 
     @Override
@@ -25,7 +22,7 @@ public class StopIntakingCommand extends Command{
     public void execute()
     {
         intake.stopIntake();
-        launcher.stopTransfer();
+        intake.stopTransfer();
     }
 
     @Override

@@ -11,10 +11,11 @@ import static frc.robot.Constants.DriveConstants.kSpeakerHeight;
 import static frc.robot.Constants.DriveConstants.kSpeakerLocation;
 
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrain;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModule;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
@@ -32,6 +33,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
 import frc.robot.utils.SK24AutoBuilder;
 
 
@@ -47,6 +50,11 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
     private final Rotation2d RedAlliancePerspectiveRotation = Rotation2d.fromDegrees(180);
 
+    Pref<Double> supplyCurrent = SKPreferences.attach("supplyCurrentKey", 60.0).onChange((unused) -> updateCurrentLimit());
+    Pref<Double> supplyCurrentThreshold = SKPreferences.attach("supplyCurrentThresholdKey", 80.0).onChange((unused) -> updateCurrentLimit());
+    Pref<Double> supplyTimeThreshold = SKPreferences.attach("supplyTimeThresholdKey", 0.5).onChange((unused) -> updateCurrentLimit());
+    Pref<Double> statorCurrentLimit = SKPreferences.attach("statorCurrentLimitKey", 70.0).onChange((unused) -> updateCurrentLimit());
+
 
     StructArrayPublisher<SwerveModuleState> currentPublisher = NetworkTableInstance.getDefault()
   .getStructArrayTopic("MyCurrentStates", SwerveModuleState.struct).publish();
@@ -58,6 +66,8 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     public SK24Drive(SwerveDrivetrainConstants driveTrainConstants, SwerveModuleConstants... modules) {
         super(driveTrainConstants, modules);
 
+        updateCurrentLimit();
+
         this.m_pigeon2.reset();
         checkIsRed();
         setupPathPlanner();
@@ -67,7 +77,21 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
       }
 
     }
-  
+    public void updateCurrentLimit()
+    {
+      for (int i = 0; i  <4; i++) {
+          SwerveModule module = getModule(i);
+          module.getDriveMotor().getConfigurator().apply(
+            new CurrentLimitsConfigs()
+            .withSupplyCurrentLimitEnable(true)
+            .withSupplyCurrentLimit(supplyCurrent.get())
+            .withSupplyCurrentThreshold(supplyCurrentThreshold.get())
+            .withSupplyTimeThreshold(supplyTimeThreshold.get())
+            .withStatorCurrentLimit(statorCurrentLimit.get())
+            .withStatorCurrentLimitEnable(true)
+          );
+        }
+    }
     private void startSimThread() {
         m_lastSimTime = Utils.getCurrentTimeSeconds();
 
@@ -184,12 +208,9 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     return this.m_odometry.getEstimatedPosition();
   }
 
-  public double getSpeakerAngle(){
-      Pose2d currentPose = getPose();
-      double x = currentPose.getX();
-      double y = currentPose.getY();
-      double distanceX = checkIsRed() ? kFieldWidth - x : x;
-      double distanceY = kSpeakerLocation - y;
+  public double getSpeakerAngle(double xPos, double yPos){
+      double distanceX = checkIsRed() ? kFieldWidth - xPos : xPos;
+      double distanceY = kSpeakerLocation - yPos;
       return checkIsRed() ? Math.toDegrees(Math.atan(distanceY / distanceX)) : 180 + Math.toDegrees(Math.atan(distanceY / distanceX) * -1);
   }
 

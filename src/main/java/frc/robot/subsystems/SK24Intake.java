@@ -1,14 +1,16 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.IntakeConstants.kIntakeAngle;
-import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
+import static frc.robot.Constants.IntakeConstants.noteMeasurement;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
+import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Preferences;
+import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,10 +18,11 @@ public class SK24Intake extends SubsystemBase
 {
     CANSparkFlex topIntakeMotor;
     CANSparkFlex bottomIntakeMotor;
-    private boolean pastIntakeState;
-    private boolean currIntakeState;
-    double shuffleSpeed;
-    boolean isTest = false;
+    CANSparkFlex transferMotor;
+
+    private LaserCan laserCanLower;
+    private LaserCan laserCanHigher;
+
 
     public SK24Intake()
     {
@@ -30,19 +33,67 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
-        currIntakeState = false;
-        pastIntakeState = false;
+        transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
+        transferMotor.setInverted(true);
+
+        laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
+        laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
+
+
+    }
+
+     public boolean haveLowerNote()
+    {
+        LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
+
+        if ((measurementLower != null && measurementLower.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance lower", measurementLower.distance_mm);
+          if(measurementLower.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
+
+        return false;
+    }
+
+    public boolean haveHigherNote()
+    {
+         LaserCan.Measurement measurementHigher = laserCanHigher.getMeasurement();
+        
+        if ((measurementHigher != null && measurementHigher.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance higher", measurementHigher.distance_mm);
+          if(measurementHigher.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
+        return false;
+    }
+
+
+    /**
+     * Sets the speed of the transfer
+     * @param speed The speed to set for left. Value should be between -1.0 and 1.0.
+     */    
+    public void setTransferSpeed (double speed)
+    {
+        transferMotor.set(speed);
+    }
+
+    //Return motor speeds
+    public double getTransferMotorSpeed()
+    {
+        return transferMotor.get();
+    }
+    public void stopTransfer(){
+        transferMotor.stopMotor();
     }
 
     //Set motor speeds
     public void setIntakeSpeed (double speed)
     {
-        if(!isTest)
-        {
-            topIntakeMotor.set(speed);
-        }else{
-            topIntakeMotor.set(shuffleSpeed);
-        }
+        topIntakeMotor.set(speed);
     }
         
     //Return motor speeds
@@ -59,16 +110,15 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
+        SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
+        SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
     }
 
     public void testInit()
     {
-        isTest = true;
-        Preferences.initDouble("Intake Speed", kIntakeSpeed);
     }
     
     public void testPeriodic()
     {
-        shuffleSpeed = Preferences.getDouble("Intake Speed", kIntakeSpeed);
     }
 }

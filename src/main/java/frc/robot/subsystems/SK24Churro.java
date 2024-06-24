@@ -14,9 +14,17 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.preferences.Pref;
+import frc.robot.preferences.SKPreferences;
+import static frc.robot.Constants.ChurroConstants.*;
 
 public class SK24Churro extends SubsystemBase
 {
+
+    Pref<Double> launcherAngleP;
+    Pref<Double> launcherAngleI; 
+    Pref<Double> launcherAngleD; 
+
     //memory variable for motor
     CANSparkFlex cMotor;
     RelativeEncoder cEncoder;
@@ -26,7 +34,7 @@ public class SK24Churro extends SubsystemBase
     public SK24Churro()
     {
         //Initialize motor object
-        cLimitSwitch = new DigitalInput(1);
+        cLimitSwitch = new DigitalInput(0);
         cMotor = new CANSparkFlex(kChurroMotor.ID, MotorType.kBrushless);
         cMotor.setInverted(true);
         cEncoder = cMotor.getEncoder();
@@ -34,6 +42,11 @@ public class SK24Churro extends SubsystemBase
         cEncoder.setPositionConversionFactor(kChurroConversion);
 
         pid = cMotor.getPIDController();
+
+        launcherAngleP = SKPreferences.attach(kChurroPKey, kChurroP).onChange(pid::setP);
+        launcherAngleI = SKPreferences.attach(kChurroIKey, kChurroI).onChange(pid::setI);
+        launcherAngleD = SKPreferences.attach(kChurroDKey, kChurroD).onChange(pid::setD);
+
         pid.setP(kChurroPID.kP);
         pid.setI(kChurroPID.kI);
         pid.setD(kChurroPID.kD);

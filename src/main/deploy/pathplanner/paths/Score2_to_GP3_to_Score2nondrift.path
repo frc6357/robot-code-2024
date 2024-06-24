@@ -3,37 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7284778050297884,
-        "y": 6.651755158003897
+        "x": 1.735609747966998,
+        "y": 5.539225686154654
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.857297007033385,
-        "y": 6.616622648366552
+        "x": 1.7707422576043426,
+        "y": 4.6960454548583845
       },
       "isLocked": false,
-      "linkedName": "Pos1"
+      "linkedName": "Score2"
     },
     {
       "anchor": {
-        "x": 1.044670391765889,
-        "y": 6.722020177278586
+        "x": 2.4733924503512332,
+        "y": 4.051949444840401
       },
       "prevControl": {
-        "x": 0.9509836993996368,
-        "y": 6.745441850370149
+        "x": 1.8175856037874687,
+        "y": 4.133925300660873
+      },
+      "nextControl": {
+        "x": 2.71096440100803,
+        "y": 4.022252951008301
+      },
+      "isLocked": false,
+      "linkedName": "PickGP3"
+    },
+    {
+      "anchor": {
+        "x": 1.735609747966998,
+        "y": 5.539225686154654
+      },
+      "prevControl": {
+        "x": 1.5131038535971493,
+        "y": 4.555515416309007
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score1"
+      "linkedName": "Score2"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Score",
-      "waypointRelativePos": 0.05,
+      "name": "Intake",
+      "waypointRelativePos": 0.55,
       "command": {
         "type": "parallel",
         "data": {
@@ -41,13 +57,7 @@
             {
               "type": "named",
               "data": {
-                "name": "Pos1CommandGroup"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "StartLauncherCommand"
+                "name": "IntakeCommand"
               }
             }
           ]
@@ -62,14 +72,14 @@
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": -124.77783136636387,
+    "velocity": 0,
+    "rotation": -179.2623268625678,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": -121.34958086524304,
+    "rotation": 179.20427644726084,
     "velocity": 0
   },
   "useDefaultConstraints": true

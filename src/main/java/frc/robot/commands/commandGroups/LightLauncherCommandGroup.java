@@ -13,22 +13,15 @@ import static frc.robot.Constants.LauncherConstants.speakerSpeedRight;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.preferences.Pref;
 import frc.robot.preferences.SKPreferences;
-import frc.robot.subsystems.SK24Launcher;
 import frc.robot.utils.SKCANLight;
 
-public class LaunchSpeakerCommandGroup extends SequentialCommandGroup{
-    Pref<Double> speakerSpeedLeft = SKPreferences.attach(kSpeakerDefaultLeftSpeedKey, kSpeakerDefaultLeftSpeed);
-    Pref<Double> speakerSpeedRight = SKPreferences.attach(kSpeakerDefaultRightSpeedKey, kSpeakerDefaultRightSpeed);
-    double LauncherRightSpeed;
-    double LauncherLeftSpeed;
+public class LightLauncherCommandGroup extends SequentialCommandGroup{
 
-    public LaunchSpeakerCommandGroup(SK24Launcher launcher, SKCANLight light)
+    public LightLauncherCommandGroup(SKCANLight light)
     {
         addCommands(
-            new InstantCommand(() -> launcher.setSpeakerRampRate(), launcher),
             new InstantCommand(() -> light.setRed()),
-            new InstantCommand(() -> launcher.setLauncherSpeed(speakerSpeedLeft.get(), speakerSpeedRight.get()), launcher),
-            new WaitCommand(launcher.getCurrentRampRate()),
+            new WaitCommand(1.0),
             new InstantCommand(() -> light.setGreen())
         );
     }

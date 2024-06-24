@@ -15,7 +15,6 @@ public class SK24Vision extends SubsystemBase
      private double[] robotPosition;
      private double[] targetPosition;
      private double targetAngle = 0;
-     private Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
      // Creates a vision class that interacts with the limelight AprilTag data using Networktables
      public SK24Vision()
@@ -41,10 +40,21 @@ public class SK24Vision extends SubsystemBase
         return limelight.getEntry("tid").getDouble(0);
      }
 
+     public double getTx(){
+        return limelight.getEntry("tx").getDouble(0);
+     }
+
      // Returns a double array containing {X,Y,Z,Roll,Pitch,Yaw} of the robot in the field space
      public double[] getPose()
      {
         robotPosition = limelight.getEntry("botpose").getDoubleArray(new double[6]);
+        return robotPosition;
+     }
+
+     // Returns a double array containing {X,Y,Z,Roll,Pitch,Yaw} of the robot in the field space
+     public double[] getPoseTargetSpace()
+     {
+        robotPosition = limelight.getEntry("botpose_targetspace").getDoubleArray(new double[6]);
         return robotPosition;
      }
 
@@ -82,12 +92,13 @@ public class SK24Vision extends SubsystemBase
      // Sets the speaker pipeline to red or blue based on the driverstation alliance color
      public void setSpeakerMode()
      {
-         if(alliance.isPresent())
+         var alliance = DriverStation.getAlliance();
+         boolean isRed = alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
+         if(isRed)
          {
-             if (alliance.get() == DriverStation.Alliance.Red) {setRedSpeakerMode();}
-             else {setBlueSpeakerMode();}
+            setRedSpeakerMode();
          }
-         else {setAllTagMode();}
+         else {setBlueSpeakerMode();}
      }
 
      // Sets the pipeline to 4 which is used to recognize the shooting location for the trap on the stage using AprilTags 11 through 16

@@ -1,39 +1,51 @@
 package frc.robot.subsystems;
 
 
-import static frc.robot.Constants.LauncherConstants.*;
-import static frc.robot.Ports.launcherPorts.*;
+import static frc.robot.Constants.LauncherConstants.kAmpRampSpeed;
+import static frc.robot.Constants.LauncherConstants.kQuickRampSpeed;
+import static frc.robot.Constants.LauncherConstants.kRampDownSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeedTolerance;
+import static frc.robot.Constants.LauncherConstants.restingRampSpeed;
+import static frc.robot.Constants.LauncherConstants.speakerRampSpeed;
+import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
-import au.grapplerobotics.LaserCan;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.Nat;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.interp.SKInterpolatable;
+import frc.robot.interp.SKInterpolator;
+
 
 
 public class SK24Launcher extends SubsystemBase
 {
     // Create memory objects for both motors for public use
+
     CANSparkFlex leftMotor;
     CANSparkFlex rightMotor;
-    CANSparkFlex transferMotor;
-    double shuffleSpeed = 0.0;
-    boolean isTest = false;
 
     SparkPIDController leftPidController;
     SparkPIDController rightPidController;
     RelativeEncoder encoderL;
     RelativeEncoder encoderR;
-    private LaserCan laserCanLower;
-    private LaserCan laserCanHigher;
+    
 
     double leftTargetSpeed;
     double rightTargetSpeed;
+    boolean running;
+
+    private SKInterpolator<N3, LaunchConfig> interpolator = new SKInterpolator<>(LaunchConfig::new);
 
 
     //Constructor for public command access
@@ -42,14 +54,9 @@ public class SK24Launcher extends SubsystemBase
         //Initialize motor objects
         leftMotor = new CANSparkFlex(kLeftLauncherMotor.ID, MotorType.kBrushless);
         rightMotor = new CANSparkFlex(kRightLauncherMotor.ID, MotorType.kBrushless);
-        transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
 
         leftMotor.setInverted(true);
         rightMotor.setInverted(false);
-        transferMotor.setInverted(true);
-        
-        laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
-        laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
 
         
         encoderL = leftMotor.getEncoder();
@@ -60,8 +67,20 @@ public class SK24Launcher extends SubsystemBase
         SmartDashboard.putNumber("Left launcher", kSpeakerDefaultLeftSpeed);
         SmartDashboard.putNumber("Right launcher", kSpeakerDefaultRightSpeed);
 
+        interpolator.put(1.74, new LaunchConfig(42.0, 0.4, 0.5));
+        //interpolator.put(2.7, new LaunchConfig(36.0, 0.4, 0.5)); TODO - check value
+        interpolator.put(2.8, new LaunchConfig(33.5, 0.4, 0.5));
+        interpolator.put(3.6, new LaunchConfig(27.5, 0.4, 0.5));
+        interpolator.put(4.6, new LaunchConfig(25.0, 0.45, 0.55));
+        interpolator.put(2.9, new LaunchConfig(35.0, 0.4, 0.5)); 
+        // interpolator.put(5.9, new LaunchConfig(22.5, 0.55, 0.65));
+
+        running = false;
     }
 
+    public LaunchConfig getInterpolatedValues(double distance){
+        return interpolator.get(distance);
+    }
     public double getLeftTargetSpeed()
     {
         return leftTargetSpeed;
@@ -72,6 +91,14 @@ public class SK24Launcher extends SubsystemBase
         return rightTargetSpeed;
     }
 
+    public void setRunning(boolean running)
+    {
+        this.running = running;
+    }
+
+    public boolean getRunning(){
+        return running;
+    }
 
     public boolean isFullSpeed()
     {
@@ -96,19 +123,7 @@ public class SK24Launcher extends SubsystemBase
     }
 
 
-    /**
-     * Sets the speed of the transfer
-     * @param speed The speed to set for left. Value should be between -1.0 and 1.0.
-     */    
-    public void setTransferSpeed (double speed)
-    {
-        if(!isTest)
-        {
-            transferMotor.set(speed);
-        }else{
-            transferMotor.set(shuffleSpeed);
-        }
-    }
+    
 
     //Return motor speeds
     public double getLeftMotorSpeed()
@@ -122,16 +137,23 @@ public class SK24Launcher extends SubsystemBase
         return rightMotor.get();
     }
 
-    //Return motor speeds
-    public double getTransferMotorSpeed()
-    {
-        return transferMotor.get();
-    }
+    
 
     public void setSpeakerRampRate()
     {
-        rightMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
-        leftMotor.setOpenLoopRampRate(kSpeakerRampSpeed);
+        rightMotor.setOpenLoopRampRate(speakerRampSpeed.get());
+        leftMotor.setOpenLoopRampRate(speakerRampSpeed.get());
+    }
+
+    public void setRestingRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(restingRampSpeed.get());
+        leftMotor.setOpenLoopRampRate(restingRampSpeed.get());
+    }
+    public void setQuickRampRate()
+    {
+        rightMotor.setOpenLoopRampRate(kQuickRampSpeed);
+        leftMotor.setOpenLoopRampRate(kQuickRampSpeed);
     }
 
     public void setAmpRampRate()
@@ -151,35 +173,7 @@ public class SK24Launcher extends SubsystemBase
         return rightMotor.getOpenLoopRampRate();
     }
     
-    public boolean haveLowerNote()
-    {
-        LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
-
-        if ((measurementLower != null && measurementLower.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
-            SmartDashboard.putNumber("LaserCan distance lower", measurementLower.distance_mm);
-          if(measurementLower.distance_mm < noteMeasurement)
-          {
-            return true;
-          }
-        } 
-
-        return false;
-    }
-
-    public boolean haveHigherNote()
-    {
-         LaserCan.Measurement measurementHigher = laserCanHigher.getMeasurement();
-        
-        if ((measurementHigher != null && measurementHigher.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
-            SmartDashboard.putNumber("LaserCan distance higher", measurementHigher.distance_mm);
-          if(measurementHigher.distance_mm < noteMeasurement)
-          {
-            return true;
-          }
-        } 
-        return false;
-    }
-
+   
     //Stop motors
     public void stopLauncher()
     {
@@ -187,14 +181,11 @@ public class SK24Launcher extends SubsystemBase
         rightMotor.stopMotor();
     }
 
-    public void stopTransfer(){
-        transferMotor.stopMotor();
-    }
+    
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
-        SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
+        
         SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
         SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
 
@@ -206,13 +197,26 @@ public class SK24Launcher extends SubsystemBase
     
     public void testPeriodic()
     {
-        shuffleSpeed = Preferences.getDouble("Transfer Speed", kTransferSpeed);
     }
     
     public void testInit()
     {
-        isTest = true;
-        Preferences.initDouble("Transfer Speed", kTransferSpeed);
     }
 
+    public static record LaunchConfig(double angle, double speedLeft, double speedRight) implements SKInterpolatable<N3, LaunchConfig> {
+
+        public LaunchConfig() {
+            this(0, 0, 0);
+        }
+
+        @Override
+        public LaunchConfig fromMatrix(Matrix<N1, N3> sourceData) {
+            return new LaunchConfig(sourceData.get(0, 0), sourceData.get(0, 1), sourceData.get(0, 2));
+        }
+
+        @Override
+        public Matrix<N1, N3> toMatrix() {
+            return new Matrix<>(Nat.N1(), Nat.N3(), new double[] {angle, speedLeft, speedRight});
+        }
+    }
 }
