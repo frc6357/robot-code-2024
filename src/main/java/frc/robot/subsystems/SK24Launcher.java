@@ -70,8 +70,8 @@ public class SK24Launcher extends SubsystemBase
         interpolator.put(1.74, new LaunchConfig(42.0, 0.4, 0.5));
         //interpolator.put(2.7, new LaunchConfig(36.0, 0.4, 0.5)); TODO - check value
         interpolator.put(2.8, new LaunchConfig(33.5, 0.4, 0.5));
-        interpolator.put(3.6, new LaunchConfig(27.5, 0.4, 0.5));
-        interpolator.put(4.6, new LaunchConfig(25.0, 0.45, 0.55));
+        interpolator.put(3.6, new LaunchConfig(28.0, 0.4, 0.5)); //27.5
+        interpolator.put(4.6, new LaunchConfig(24.7, 0.45, 0.55)); //25.0
         interpolator.put(2.9, new LaunchConfig(35.0, 0.4, 0.5)); 
         // interpolator.put(5.9, new LaunchConfig(22.5, 0.55, 0.65));
 

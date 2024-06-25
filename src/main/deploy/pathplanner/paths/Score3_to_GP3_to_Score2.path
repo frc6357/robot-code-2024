@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.1149354110405783,
-        "y": 4.075371117931965
+        "x": 1.5248146901429311,
+        "y": 4.11050362756931
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7590314210585611,
-        "y": 4.169057810298217
+        "x": 2.1689107001609145,
+        "y": 4.204190319935562
       },
       "isLocked": false,
       "linkedName": "Score3"
@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 2.4733924503512332,
-        "y": 4.051949444840401
+        "y": 4.227611993027124
       },
       "prevControl": {
         "x": 2.155254044715755,
-        "y": 4.051949444840401
+        "y": 4.227611993027124
       },
       "nextControl": {
         "x": 2.60221165235483,
-        "y": 4.051949444840401
+        "y": 4.227611993027124
       },
       "isLocked": false,
       "linkedName": "PickGP3"
@@ -111,7 +111,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.2,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -119,7 +119,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": -179.68691142497934,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": null,

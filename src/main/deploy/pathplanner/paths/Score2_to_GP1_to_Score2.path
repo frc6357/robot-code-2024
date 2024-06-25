@@ -16,19 +16,19 @@
     },
     {
       "anchor": {
-        "x": 2.649054998537956,
-        "y": 6.956236908194216
+        "x": 2.719320017812645,
+        "y": 7.178742802564065
       },
       "prevControl": {
-        "x": 1.8410072768790318,
-        "y": 6.956236908194216
+        "x": 1.6793166524790033,
+        "y": 6.543185190415731
       },
       "nextControl": {
-        "x": 2.890480078750961,
-        "y": 6.956236908194216
+        "x": 2.9301150756367123,
+        "y": 7.307562004567661
       },
       "isLocked": false,
-      "linkedName": "PickGP1"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -63,7 +63,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.65,
-      "rotationDegrees": 179.61803368307645,
+      "rotationDegrees": -154.02521970350998,
       "rotateFast": false
     }
   ],
@@ -100,7 +100,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.2,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0

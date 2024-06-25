@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 2.4733924503512332,
-        "y": 4.051949444840401
+        "y": 4.227611993027124
       },
       "prevControl": null,
       "nextControl": {
         "x": 1.6770263424977605,
-        "y": 4.489440716969878
+        "y": 4.665103265156601
       },
       "isLocked": false,
       "linkedName": "PickGP3"
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.2,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0

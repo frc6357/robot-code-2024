@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5176827472057212,
-      "y": 2.1079505782406716
+      "x": 0.7189571631051666,
+      "y": 4.438868928628442
     },
-    "rotation": 179.11859600341785
+    "rotation": 120.9804534227473
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Taxi_P4_Launch"
+            "pathName": "Pos3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "POS3to_GP8"
           }
         },
         {

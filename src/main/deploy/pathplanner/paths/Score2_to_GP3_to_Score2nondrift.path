@@ -17,15 +17,15 @@
     {
       "anchor": {
         "x": 2.4733924503512332,
-        "y": 4.051949444840401
+        "y": 4.227611993027124
       },
       "prevControl": {
         "x": 1.8175856037874687,
-        "y": 4.133925300660873
+        "y": 4.309587848847595
       },
       "nextControl": {
         "x": 2.71096440100803,
-        "y": 4.022252951008301
+        "y": 4.197915499195024
       },
       "isLocked": false,
       "linkedName": "PickGP3"
@@ -66,7 +66,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.2,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
