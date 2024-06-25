@@ -328,6 +328,7 @@ public final class Constants
         public static final double kPos1Angle = 42.0; //TODO - find launcher angle for position 1
         public static final double kPos2Angle = 42.0; //TODO - find launcher angle for position 2
         public static final double kPos3Angle = 42.0; //TODO - find launcher angle for position 3
+        public static final double kAngleFloor = 20.0;
 
         public static final double GP1Angle = 42.0; //TODO - find launcher angle for gp1
         public static final double GP2Angle = 42.0; //TODO - find launcher angle for gp2

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.094593992326358,
-        "y": 0.7846260485673593
+        "x": 8.539605781066056,
+        "y": 1.4521437316769061
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.544184674674627,
-        "y": 0.8900235774793938
+        "x": 7.989196463414325,
+        "y": 1.5575412605889405
       },
       "isLocked": false,
       "linkedName": "PickGP8"
@@ -30,7 +30,18 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.2,
     "maxAcceleration": 2.5,

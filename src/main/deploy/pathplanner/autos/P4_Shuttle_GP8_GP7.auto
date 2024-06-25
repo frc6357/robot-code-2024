@@ -30,6 +30,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "LauncherCommand"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "GP8_to_Shuttle2"
@@ -51,6 +57,12 @@
           "type": "named",
           "data": {
             "name": "ShootCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Shuttle2_GP6"
           }
         },
         {
