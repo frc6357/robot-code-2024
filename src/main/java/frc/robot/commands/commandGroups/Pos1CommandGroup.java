@@ -16,7 +16,7 @@ import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 
 public class Pos1CommandGroup extends ParallelCommandGroup {
-   
+
     /**
      * Shoot note into speaker from starting position 1
      * @param launcher Launcher subsystem to use

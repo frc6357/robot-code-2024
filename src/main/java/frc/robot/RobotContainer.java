@@ -50,11 +50,14 @@ import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
 import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
+import frc.robot.commands.commandGroups.AngleFloorCommand;
 import frc.robot.commands.commandGroups.IntakeTransferCommandGroupAuto;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
 import frc.robot.commands.commandGroups.Pos3CommandGroup;
+import frc.robot.commands.commandGroups.Score2AngleCommand;
 import frc.robot.commands.commandGroups.ShootCommandGroup;
+import frc.robot.commands.commandGroups.StageAngleCommand;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Climb;
 import frc.robot.subsystems.SK24Drive;
@@ -211,7 +214,12 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
                 NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
                 NamedCommands.registerCommand("ZeroPositionCommand", new ZeroPositionCommandIntake(launcherAngle, launcher, intake));
-                
+                NamedCommands.registerCommand("AngleFloorCommand", new AngleFloorCommand(launcher, launcherAngle));
+                NamedCommands.registerCommand("StageAngleCommand", new StageAngleCommand(launcher, launcherAngle));
+                NamedCommands.registerCommand("Score2AngleCommand", new Score2AngleCommand(launcher, launcherAngle));
+
+
+
                 // NamedCommands.registerCommand("GP1Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP1Angle)));
                 // NamedCommands.registerCommand("GP2Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP2Angle)));
                 // NamedCommands.registerCommand("GP3Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP3Angle)));
@@ -222,7 +230,9 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Pos2CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
                 NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)); //Switched values since it's on other side              
                 NamedCommands.registerCommand("ZeroPositionCommand", new StopCommand(intake, launcher));
-                
+                NamedCommands.registerCommand("AngleFloorCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                NamedCommands.registerCommand("StageAngleCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                NamedCommands.registerCommand("Score2AngleCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
             }
 
             //Register commands for use in auto
@@ -239,8 +249,7 @@ public class RobotContainer {
             
 
             NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(intake, m_light));
-
-
+            NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake));
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
             NamedCommands.registerCommand("StopLauncherCommand", new InstantCommand(() -> launcher.stopLauncher()));

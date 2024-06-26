@@ -4,7 +4,7 @@
 
 package frc.robot.commands.commandGroups;
 
-import static frc.robot.Constants.LauncherAngleConstants.kAngleFloor;
+import static frc.robot.Constants.LauncherAngleConstants.kAngleScore2;
 import static frc.robot.Constants.LauncherAngleConstants.kPos3Angle;
 import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
@@ -16,17 +16,17 @@ import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24LauncherAngle;
 
-public class AngleFloorCommand extends ParallelCommandGroup {
+public class Score2AngleCommand extends ParallelCommandGroup {
     
    /**
      * Shoot note into speaker from starting position 3
      * @param launcher Launcher subsystem to use
      * @param arm Launcher angle subsystem to use
      */
-    public AngleFloorCommand(SK24Launcher launcher, SK24LauncherAngle arm)
+    public Score2AngleCommand(SK24Launcher launcher, SK24LauncherAngle arm)
     {
         addCommands(
-            new AngleCommandAuto(kAngleFloor, arm)
+            new AngleCommandAuto(kAngleScore2, arm)
         );
     }
 

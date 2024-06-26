@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.034348684081985,
-        "y": 5.539225686154654
+        "x": 8.58599871045896,
+        "y": 4.301987065512593
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3973846170012116,
-        "y": 5.550936522700434
+        "x": 7.717707743107795,
+        "y": 1.8845860768644638
       },
       "isLocked": false,
-      "linkedName": "Score2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.882905765811533,
-        "y": 5.539225686154654
+        "x": 4.086672788730195,
+        "y": 5.535354916863679
       },
       "prevControl": {
-        "x": 2.613556525258558,
-        "y": 5.515804013063089
+        "x": 4.086672788730195,
+        "y": 5.535354916863679
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickGP2"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,15 +33,15 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.85,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "Score2AngleCommand"
+                "name": "StageAngleCommand"
               }
             }
           ]
@@ -50,15 +50,15 @@
     },
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "IntakeAutoCommand"
+                "name": "IntakeCommand"
               }
             }
           ]
@@ -74,13 +74,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 179.3891664203303,
+    "rotation": 179.31793960682742,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 179.20427644726084,
+    "rotation": 179.3904934233248,
     "velocity": 0
   },
   "useDefaultConstraints": true
