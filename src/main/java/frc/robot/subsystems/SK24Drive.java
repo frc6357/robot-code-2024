@@ -53,7 +53,7 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     Pref<Double> supplyCurrent = SKPreferences.attach("supplyCurrentKey", 60.0).onChange((unused) -> updateCurrentLimit());
     Pref<Double> supplyCurrentThreshold = SKPreferences.attach("supplyCurrentThresholdKey", 80.0).onChange((unused) -> updateCurrentLimit());
     Pref<Double> supplyTimeThreshold = SKPreferences.attach("supplyTimeThresholdKey", 0.5).onChange((unused) -> updateCurrentLimit());
-    Pref<Double> statorCurrentLimit = SKPreferences.attach("statorCurrentLimitKey", 70.0).onChange((unused) -> updateCurrentLimit());
+    Pref<Double> statorCurrentLimit = SKPreferences.attach("statorCurrentLimitKey", 60.0).onChange((unused) -> updateCurrentLimit());
 
 
     StructArrayPublisher<SwerveModuleState> currentPublisher = NetworkTableInstance.getDefault()
