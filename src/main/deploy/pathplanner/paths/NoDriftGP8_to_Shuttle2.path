@@ -3,48 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5248146901429311,
-        "y": 4.11050362756931
+        "x": 8.293678213604645,
+        "y": 0.772915212021579
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2040432097982583,
-        "y": 3.548383473371797
+        "x": 7.743268895952914,
+        "y": 0.878312740933614
       },
       "isLocked": false,
-      "linkedName": "Score3"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.293678213604645,
-        "y": 1.0539752891203358
+        "x": 6.244281818092879,
+        "y": 1.5575412605889405
       },
       "prevControl": {
-        "x": 6.806401972290393,
-        "y": 0.3864576060107914
+        "x": 6.806401972290392,
+        "y": 1.2647703469444023
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickGP8"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Intake",
-      "waypointRelativePos": 0.85,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
       "command": {
         "type": "parallel",
         "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeCommand"
-              }
-            }
-          ]
+          "commands": []
         }
       }
     }
@@ -57,13 +50,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
-    "rotateFast": true
+    "rotation": 160.06300306054328,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 126.86989764584402,
+    "rotation": 178.42633594589745,
     "velocity": 0
   },
   "useDefaultConstraints": true

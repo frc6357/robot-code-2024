@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5248146901429311,
-        "y": 4.11050362756931
+        "x": 6.244281818092879,
+        "y": 1.5575412605889405
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.2040432097982583,
-        "y": 3.548383473371797
+        "x": 7.4973413284915,
+        "y": 3.314166742456167
       },
       "isLocked": false,
-      "linkedName": "Score3"
+      "linkedName": "Shuttle2"
     },
     {
       "anchor": {
-        "x": 8.293678213604645,
-        "y": 1.0539752891203358
+        "x": 8.281967377058862,
+        "y": 4.11050362756931
       },
       "prevControl": {
-        "x": 6.806401972290393,
-        "y": 0.3864576060107914
+        "x": 8.424786862412525,
+        "y": 4.03438319002173
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "PickGP8"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,7 +33,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.85,
+      "waypointRelativePos": 0.4,
       "command": {
         "type": "parallel",
         "data": {
@@ -57,13 +57,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": -124.9920201985588,
     "rotateFast": true
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 126.86989764584402,
+    "rotation": 154.02560603756868,
     "velocity": 0
   },
   "useDefaultConstraints": true

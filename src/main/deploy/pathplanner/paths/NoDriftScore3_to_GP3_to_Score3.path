@@ -1,0 +1,115 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.5248146901429311,
+        "y": 4.11050362756931
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1454890270693507,
+        "y": 3.9465519159283673
+      },
+      "isLocked": false,
+      "linkedName": "Score3"
+    },
+    {
+      "anchor": {
+        "x": 2.496814123442796,
+        "y": 4.11050362756931
+      },
+      "prevControl": {
+        "x": 2.8146243821053014,
+        "y": 4.12494954841761
+      },
+      "nextControl": {
+        "x": 2.239175719435603,
+        "y": 4.098792791023526
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.5248146901429311,
+        "y": 4.11050362756931
+      },
+      "prevControl": {
+        "x": 2.1571997594455956,
+        "y": 4.075369242930504
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.8,
+      "rotationDegrees": 179.61803368307645,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Slow",
+      "minWaypointRelativePos": 0.7,
+      "maxWaypointRelativePos": 1.45,
+      "constraints": {
+        "maxVelocity": 1.2,
+        "maxAcceleration": 2.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0
+      }
+    },
+    {
+      "name": "Turn",
+      "minWaypointRelativePos": 0.35,
+      "maxWaypointRelativePos": 1.1,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 2.5,
+        "maxAngularVelocity": 360.0,
+        "maxAngularAcceleration": 500.0
+      }
+    }
+  ],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.65,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeCommand"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.2,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 133.1523897340055,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 128.53018001482684,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
