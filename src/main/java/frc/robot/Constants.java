@@ -410,7 +410,7 @@ public final class Constants
         public static final double kSpeedTolerance = 0.03;
 
         public static final String kSpeakerRampSpeedKey = "kSpeakerRampSpeedKey";
-        public static final double kSpeakerRampSpeed = 2.0;
+        public static final double kSpeakerRampSpeed = 1.2;
         public static final Pref<Double> speakerRampSpeed = SKPreferences.attach(kSpeakerRampSpeedKey, kSpeakerRampSpeed);
 
         public static final String kRestingRampSpeedKey = "kRestingRampSpeedKey";

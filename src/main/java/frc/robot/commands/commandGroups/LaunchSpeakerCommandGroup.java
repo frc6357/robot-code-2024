@@ -26,7 +26,7 @@ public class LaunchSpeakerCommandGroup extends SequentialCommandGroup{
     {
         addCommands(
             new InstantCommand(() -> launcher.setSpeakerRampRate(), launcher),
-            new InstantCommand(() -> light.setRed()),
+            new InstantCommand(() -> light.setPurple()),
             new InstantCommand(() -> launcher.setLauncherSpeed(speakerSpeedLeft.get(), speakerSpeedRight.get()), launcher),
             new WaitCommand(launcher.getCurrentRampRate()),
             new InstantCommand(() -> light.setGreen())

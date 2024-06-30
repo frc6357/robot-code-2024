@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5248146901429311,
-        "y": 4.11050362756931
+        "x": 1.7824530941501242,
+        "y": 3.9582627524741496
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8995614596079393,
-        "y": 3.712335185012739
+        "x": 2.1571998636151326,
+        "y": 3.5600943099175786
       },
       "isLocked": false,
       "linkedName": "Score3"
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 8.27025654051308,
-        "y": 2.48269734770568
+        "x": 8.340521559787769,
+        "y": 2.248480616790049
       },
       "prevControl": {
-        "x": 7.900468413549439,
-        "y": 2.4721319726495765
+        "x": 7.970733432824128,
+        "y": 2.2379152417339454
       },
       "nextControl": {
-        "x": 8.60887005324402,
-        "y": 2.4923720194979935
+        "x": 8.67913507251871,
+        "y": 2.2581552885823624
       },
       "isLocked": false,
       "linkedName": null
@@ -64,12 +64,12 @@
     },
     {
       "anchor": {
-        "x": 1.5248146901429311,
-        "y": 4.11050362756931
+        "x": 1.6419230556007463,
+        "y": 3.993395262111494
       },
       "prevControl": {
-        "x": 2.179867943621381,
-        "y": 3.5294079994835874
+        "x": 2.2969763090791946,
+        "y": 3.4122996340257714
       },
       "nextControl": null,
       "isLocked": false,
@@ -104,7 +104,7 @@
   "eventMarkers": [
     {
       "name": "PickUp",
-      "waypointRelativePos": 1.4,
+      "waypointRelativePos": 1.55,
       "command": {
         "type": "sequential",
         "data": {
@@ -128,13 +128,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 130.91438322002517,
+    "rotation": 128.01151027001652,
     "rotateFast": false
   },
   "reversed": false,
   "folder": null,
   "previewStartingState": {
-    "rotation": 128.96045801083645,
+    "rotation": 127.53729141488964,
     "velocity": 0
   },
   "useDefaultConstraints": true

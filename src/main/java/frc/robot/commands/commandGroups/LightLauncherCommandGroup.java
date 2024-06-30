@@ -20,7 +20,7 @@ public class LightLauncherCommandGroup extends SequentialCommandGroup{
     public LightLauncherCommandGroup(SKCANLight light)
     {
         addCommands(
-            new InstantCommand(() -> light.setRed()),
+            new InstantCommand(() -> light.setPurple()),
             new WaitCommand(1.0),
             new InstantCommand(() -> light.setGreen())
         );
