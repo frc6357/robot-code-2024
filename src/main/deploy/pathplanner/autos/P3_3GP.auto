@@ -26,13 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score3_to_GP3"
+            "pathName": "Driftless_Pick_GP3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "GP3_to_Score2"
+            "pathName": "P2_GP3_P2"
           }
         },
         {
@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP2"
+            "pathName": "P2_Pick_GP2_Modified"
           }
         },
         {
@@ -62,6 +62,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 3",
   "choreoAuto": false
 }

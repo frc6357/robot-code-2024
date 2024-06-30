@@ -2,10 +2,21 @@
   "robotWidth": 0.8382,
   "robotLength": 0.8382,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "Driftless",
+    "Other",
+    "Position 1",
+    "Position 2",
+    "Position 3",
+    "Position 4"
+  ],
   "autoFolders": [
-    "New Folder",
-    "New New Folder"
+    "Driftless",
+    "Other",
+    "Position 1",
+    "Position 2",
+    "Position 3",
+    "Position 4"
   ],
   "defaultMaxVel": 3.2,
   "defaultMaxAccel": 2.5,

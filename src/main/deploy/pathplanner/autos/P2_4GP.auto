@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score2_to_GP1"
+            "pathName": "P2_Pick_GP1_Modified"
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GP1_to_Score2"
+            "pathName": "P2_GP1_P2"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP2"
+            "pathName": "P2_Pick_GP2_Modified"
           }
         },
         {
@@ -62,7 +62,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Score2_to_GP3"
+            "pathName": "P2_Pick_GP3"
           }
         },
         {
@@ -74,7 +74,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GP3_to_Score2"
+            "pathName": "P2_GP3_P2"
           }
         },
         {
@@ -98,6 +98,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 2",
   "choreoAuto": false
 }

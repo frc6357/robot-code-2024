@@ -20,12 +20,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Taxi_P3"
+            "pathName": "P3_Taxi"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 3",
   "choreoAuto": false
 }

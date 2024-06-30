@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP1"
+            "pathName": "P1_Pick_GP1_Modified"
           }
         },
         {
@@ -38,6 +38,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 1",
   "choreoAuto": false
 }

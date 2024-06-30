@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Taxi_P4"
+            "pathName": "P4_Taxi"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 4",
   "choreoAuto": false
 }

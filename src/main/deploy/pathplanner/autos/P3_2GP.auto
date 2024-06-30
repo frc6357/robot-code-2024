@@ -26,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pick_GP3"
+            "pathName": "P3_Pick_GP3"
           }
         },
         {
@@ -44,6 +44,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 3",
   "choreoAuto": false
 }
