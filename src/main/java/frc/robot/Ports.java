@@ -29,10 +29,11 @@ public class Ports
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
         // Rotate to specified position
+        public static final SKTrigger kDriverShoot = new SKTrigger(kDriver, kB.value, BUTTON);
         public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kA.value, BUTTON);
         public static final SKTrigger kRotateLeft = new SKTrigger(kDriver, kX.value, BUTTON);
-        public static final SKTrigger kRotateRight = new SKTrigger(kDriver, kB.value, BUTTON);
         public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kY.value, BUTTON);
+        public static final SKTrigger kRotateRight = new SKTrigger(kDriver, kB.value, BUTTON);
 
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kLeftStick.value, BUTTON);

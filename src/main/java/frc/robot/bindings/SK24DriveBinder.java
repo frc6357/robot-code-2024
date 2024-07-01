@@ -128,17 +128,18 @@ public class SK24DriveBinder implements CommandBinder
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kTranslationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean, 90.0, drive));
-
-            rotateRight.and(robotCentric.negate()).whileTrue(
-                new DriveTurnCommand(
-                    () -> kTranslationXPort.getFilteredAxis(),
-                    () -> kTranslationYPort.getFilteredAxis(),
-                    robotCentric::getAsBoolean, 270.0, drive));
+        
+            //rotateRight.and(robotCentric.negate()).whileTrue(
+                //new DriveTurnCommand(
+                    //() -> kTranslationXPort.getFilteredAxis(),
+                    //() -> kTranslationYPort.getFilteredAxis(),
+                    //robotCentric::getAsBoolean, 270.0, drive));
             rotateSource.whileTrue(
                 new DriveTurnCommand(
                     () -> kTranslationXPort.getFilteredAxis(),
                     () -> kTranslationYPort.getFilteredAxis(),
                     robotCentric::getAsBoolean,325.0, drive)); 
+        
                     
             // centerStage.whileTrue(OnTheFly.centerStageCommand);
             // leftStage.whileTrue(OnTheFly.LeftStageCommand);
