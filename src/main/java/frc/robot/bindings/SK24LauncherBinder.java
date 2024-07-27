@@ -15,12 +15,14 @@ import static frc.robot.Constants.LauncherConstants.ampSpeedRight;
 import static frc.robot.Constants.LauncherConstants.kSpeakerRestingLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerRestingRightSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
+import static frc.robot.Ports.DriverPorts.kDriverShoot;
 import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
 import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
 import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
+import static frc.robot.Ports.OperatorPorts.kReadyShoot;
 
 import java.util.Optional;
 
@@ -91,7 +93,7 @@ public class SK24LauncherBinder implements CommandBinder
         launchSpeakerButton = kLaunchSpeaker.button;
         launchAmpButton = kLaunchAmp.button;
 
-        readyShoot = kRotateSpeaker.button;
+        readyShoot = kDriverShoot.button;
 
         angleOverrideButton = kLauncherOverride.button;
 
