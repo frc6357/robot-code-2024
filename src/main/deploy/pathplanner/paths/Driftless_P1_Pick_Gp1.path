@@ -3,55 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.309440738710292,
-        "y": 5.574358195791997
+        "x": 1.6887664017838722,
+        "y": 6.75715268691593
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3445732483476363,
-        "y": 4.7311779644957275
+        "x": 2.688766401783872,
+        "y": 6.75715268691593
       },
       "isLocked": false,
-      "linkedName": "Score2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.4733924503512332,
-        "y": 4.227611993027124
+        "x": 2.883271729453586,
+        "y": 6.75715268691593
       },
       "prevControl": {
-        "x": 1.8175856037874687,
-        "y": 4.309587848847595
+        "x": 2.906693402545148,
+        "y": 6.663465994549678
       },
       "nextControl": {
-        "x": 2.71096440100803,
-        "y": 4.197915499195024
+        "x": 2.839823569627347,
+        "y": 6.930945326220893
       },
       "isLocked": false,
-      "linkedName": "PickGP3"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.309440738710292,
-        "y": 5.574358195791997
+        "x": 1.6887664017838722,
+        "y": 6.75715268691593
       },
       "prevControl": {
-        "x": 2.086934844340443,
-        "y": 4.5906479259463495
+        "x": 2.522525243338645,
+        "y": 7.108477783289375
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score2"
+      "linkedName": "Score1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.45,
+      "rotationDegrees": -140.88212962390136,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.45,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
@@ -73,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -179.2623268625678,
+    "rotation": -137.86240522611175,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Driftless",
   "previewStartingState": {
-    "rotation": 179.20427644726084,
+    "rotation": -143.56914187983762,
     "velocity": 0
   },
   "useDefaultConstraints": true

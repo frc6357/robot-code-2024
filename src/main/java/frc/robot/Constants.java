@@ -323,7 +323,7 @@ public final class Constants
 
         public static final Pref<Double> kAmpAnglePref = SKPreferences.attach(kAmpAngleKey, kAmpAngle);
         public static final double kFloorAngle = -13.4; 
-        public static final double kSpeakerAngle = 42.0;
+        public static final double kSpeakerAngle = 46.0;  //Speaker Angle originaly 42.0, currently testing 46.0
         public static final double kAngleStage = 27.0;
         public static final double kAngleScore2 = 33.0;
 
