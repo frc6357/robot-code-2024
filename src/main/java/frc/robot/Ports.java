@@ -55,8 +55,8 @@ public class Ports
         public static final SKTrigger kAngleFloor = new SKTrigger(kDriver, kStart.value, BUTTON); 
         
         // Party mode
-        public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
-        public static final SKTrigger kLightsOff = new SKTrigger(kDriver, 90, POV);
+        //public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
+        //public static final SKTrigger kLightsOff = new SKTrigger(kDriver, 90, POV);
     }
     /**
      * Defines the button, controller, and axis IDs needed to get input from an external
@@ -88,7 +88,7 @@ public class Ports
         public static final SKTrigger kReadyShoot = new SKTrigger(kOperator, kB.value, BUTTON);
 
         // Reset launcher encoder
-        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
+        //public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
         public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
 
         // Churro 
@@ -101,6 +101,7 @@ public class Ports
 
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kOperator, kBack.value, BUTTON);
+        public static final SKTrigger kLightsOff = new SKTrigger(kOperator, kStart.value, POV);
     }
     
 

@@ -48,10 +48,10 @@ public class SK24IntakeBinder implements CommandBinder{
         this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
         this.ejectDriverButton = Ports.DriverPorts.kEject.button;
         this.ejectOperatorButton = Ports.OperatorPorts.kEject.button;
-        this.driverPartyButton = Ports.DriverPorts.kPartyMode.button;
+        //this.driverPartyButton = Ports.DriverPorts.kPartyMode.button;
         this.operatorPartyButton = Ports.OperatorPorts.kPartyMode.button;
         operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
-        lightsOffButton = Ports.DriverPorts.kLightsOff.button;
+        lightsOffButton = Ports.OperatorPorts.kLightsOff.button;
     }
 
     public void bindButtons()
