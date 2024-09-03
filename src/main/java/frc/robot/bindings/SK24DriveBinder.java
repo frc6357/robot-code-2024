@@ -14,7 +14,7 @@ import static frc.robot.Ports.DriverPorts.kSlowMode;
 import static frc.robot.Ports.DriverPorts.kTranslationXPort;
 import static frc.robot.Ports.DriverPorts.kTranslationYPort;
 import static frc.robot.Ports.DriverPorts.kVelocityOmegaPort;
-import static frc.robot.Ports.OperatorPorts.kReadyShoot;
+//import static frc.robot.Ports.OperatorPorts.kReadyShoot;
 
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ import frc.robot.commands.DriveTurnCommand;
 import frc.robot.commands.ReadyScoreCommand;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.filters.CubicDeadbandFilter;
 import frc.robot.utils.filters.Filter;
@@ -34,7 +34,7 @@ import frc.robot.utils.filters.Filter;
 public class SK24DriveBinder implements CommandBinder
 {
     Optional<SK24Drive>  m_drive;
-    Optional<SK24LauncherAngle>  m_arm;
+    //Optional<SK24LauncherAngle>  m_arm;
     Optional<SK24Vision>  m_vision;
     Optional<SK24Launcher>  m_launcher;
     
@@ -60,10 +60,10 @@ public class SK24DriveBinder implements CommandBinder
      * @param m_drive
      *            The required drive subsystem for the commands
      */
-    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24LauncherAngle> m_arm, Optional<SK24Vision> m_vision, Optional<SK24Launcher> m_launcher)
+    public SK24DriveBinder(Optional<SK24Drive> m_drive, Optional<SK24Vision> m_vision, Optional<SK24Launcher> m_launcher)  //previously Optional<SK24LauncherAngle> m_arm
     {
         this.m_drive  = m_drive;
-        this.m_arm = m_arm;
+        //this.m_arm = m_arm;
         this.m_vision = m_vision;
         this.m_launcher = m_launcher;
         
@@ -74,7 +74,7 @@ public class SK24DriveBinder implements CommandBinder
         rotateLeft = kRotateLeft.button;
         rotateRight = kRotateRight.button;
         rotateSource = kRotateSource.button;
-        readyScoreOp = kReadyShoot.button;
+        readyScoreOp = null;  //kReadyShoot.button;
         // centerStage = kCenterStage.button;
         // leftStage = kCenterStage.button;
         // rightStage = kCenterStage.button;
@@ -106,14 +106,14 @@ public class SK24DriveBinder implements CommandBinder
             resetButton.onTrue(new InstantCommand(drive::setFront));
             
 
-            if(m_arm.isPresent() && m_vision.isPresent() && m_launcher.isPresent())
+            if(m_vision.isPresent() && m_launcher.isPresent())  //previously m_arm.isPresent() condition which must be ture in addition to launcher and vision
             {
-                SK24LauncherAngle arm = m_arm.get();
+                //SK24LauncherAngle arm = m_arm.get();
                 SK24Vision vision = m_vision.get();
-                rotateSpeaker.or(readyScoreOp).whileTrue(
+                rotateSpeaker.or(readyScoreOp).whileTrue(    //readyScoreOp is currently null
                     new ReadyScoreCommand(() -> kTranslationXPort.getFilteredAxis(),
                         () -> kTranslationYPort.getFilteredAxis(), () -> kVelocityOmegaPort.getFilteredAxis(),
-                        drive,arm, m_launcher.get(), vision));
+                        drive, m_launcher.get(), vision));   //previously arm parameter
             }else
             {
                 rotateSpeaker.whileTrue(

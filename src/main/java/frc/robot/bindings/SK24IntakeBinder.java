@@ -16,13 +16,13 @@ import frc.robot.commands.StopIntakingCommand;
 import frc.robot.commands.commandGroups.IntakeTransferCommandGroup;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.utils.SKCANLight;
 
 public class SK24IntakeBinder implements CommandBinder{
     Optional<SK24Intake> m_intake;
     Optional<SK24Launcher> m_launcher;
-    Optional<SK24LauncherAngle> m_launcherAngle;
+    //Optional<SK24LauncherAngle> m_launcherAngle;
     SKCANLight light;
     Trigger intakeDriverButton;
     Trigger launchAmpButton;
@@ -36,11 +36,11 @@ public class SK24IntakeBinder implements CommandBinder{
     Trigger stopButton;
 
 
-    public SK24IntakeBinder(Optional<SK24LauncherAngle> arm, Optional<SK24Intake> intake, Optional<SK24Launcher> launcher, SKCANLight light){
+    public SK24IntakeBinder(Optional<SK24Intake> intake, Optional<SK24Launcher> launcher, SKCANLight light){  //previously Optional<SK24LauncherAngle> arm
         this.m_intake = intake;
         this.m_launcher = launcher;
         this.light = light;
-        this.m_launcherAngle = arm;
+        //this.m_launcherAngle = arm;
 
         this.launchAmpButton = kLaunchAmp.button;
         this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
@@ -50,18 +50,18 @@ public class SK24IntakeBinder implements CommandBinder{
         this.ejectOperatorButton = Ports.OperatorPorts.kEject.button;
         this.driverPartyButton = Ports.DriverPorts.kPartyMode.button;
         this.operatorPartyButton = Ports.OperatorPorts.kPartyMode.button;
-        operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
+        //operatorTransferButton = Ports.OperatorPorts.kTransfer.button;
         lightsOffButton = Ports.DriverPorts.kLightsOff.button;
     }
 
     public void bindButtons()
     {
         // If subsystem is present then this method will bind the buttons
-        if (m_intake.isPresent() && m_launcher.isPresent() && m_launcherAngle.isPresent())
+        if (m_intake.isPresent() && m_launcher.isPresent()) //previously m_launcherAngle.isPresent() in addition to all others to be true
         {
             SK24Intake intake = m_intake.get();
             SK24Launcher launcher = m_launcher.get();
-            SK24LauncherAngle arm = m_launcherAngle.get();
+            //SK24LauncherAngle arm = m_launcherAngle.get();
 
             operatorPartyButton.onFalse(new InstantCommand(() -> light.setBrightness(kLightsOnBrightness)));
             operatorPartyButton.onFalse(new InstantCommand(() -> light.setPartyMode()));
@@ -74,13 +74,14 @@ public class SK24IntakeBinder implements CommandBinder{
 
             // Eject Buttons
             ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
-            ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(-kTransferSpeed)));
+            //ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(-kTransferSpeed)));
 
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
-            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopTransfer()));
+            //ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopTransfer()));
             ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> light.setTeamColor()));
 
             // Transfer Button
+            /**
             operatorTransferButton.and(launchAmpButton.negate()).onTrue(new InstantCommand(() -> intake.setTransferSpeed(kTransferSpeed)));
 
             operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(0.25)));
@@ -91,7 +92,8 @@ public class SK24IntakeBinder implements CommandBinder{
             operatorTransferButton.onFalse(new StopIntakingCommand(intake));
 
             intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommandGroup(arm, intake, launcher, light));
-           
+           */
+
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
         }
     }

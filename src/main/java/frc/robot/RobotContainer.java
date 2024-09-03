@@ -46,7 +46,7 @@ import frc.robot.bindings.SK24IntakeBinder;
 import frc.robot.bindings.SK24LauncherBinder;
 import frc.robot.commands.DoNothingCommand;
 import frc.robot.commands.IntakeAutoCommand;
-import frc.robot.commands.LaunchCommandAuto;
+//import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.commands.StopCommand;
 import frc.robot.commands.ZeroPositionCommandIntake;
 import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
@@ -63,7 +63,7 @@ import frc.robot.subsystems.SK24Climb;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.SK24AutoBuilder;
 import frc.robot.utils.SKCANLight;
@@ -82,7 +82,7 @@ public class RobotContainer {
   private Optional<SK24Launcher>  m_launcher  = Optional.empty();
   private SKCANLight  m_light  = new SKCANLight();
   private Optional<SK24Intake>  m_intake  = Optional.empty();
-  private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
+  //private Optional<SK24LauncherAngle>  m_launcher_angle  = Optional.empty();
   private Optional<SK24Churro>  m_churro  = Optional.empty();
   private Optional<SK24Vision>  m_vision  = Optional.empty();
   private Optional<SK24Climb> m_climb = Optional.empty();
@@ -158,7 +158,7 @@ public class RobotContainer {
             }
             if(subsystems.isLauncherArmPresent())
             {
-                m_launcher_angle = Optional.of(new SK24LauncherAngle());
+                //m_launcher_angle = Optional.of(new SK24LauncherAngle());
             }
             if(subsystems.isVisionPresent())
             {
@@ -185,9 +185,9 @@ public class RobotContainer {
     {
 
         // Adding all the binding classes to the list
-        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_launcher_angle, m_vision, m_churro, m_light));
-        buttonBinders.add(new SK24DriveBinder(m_drive,m_launcher_angle, m_vision, m_launcher));
-        buttonBinders.add(new SK24IntakeBinder(m_launcher_angle, m_intake, m_launcher, m_light));
+        buttonBinders.add(new SK24LauncherBinder(m_launcher, m_vision, m_churro, m_light)); //previously m_launcher_angle
+        buttonBinders.add(new SK24DriveBinder(m_drive, m_vision, m_launcher)); //previously m_launcher_angle
+        buttonBinders.add(new SK24IntakeBinder(m_intake, m_launcher, m_light)); //previously m_launcher_angle
         buttonBinders.add(new SK24ClimbBinder(m_climb, m_churro));
 
 
@@ -206,17 +206,18 @@ public class RobotContainer {
             SK24Launcher launcher = m_launcher.get();
             SK24Intake intake = m_intake.get();
             
-            if(m_launcher_angle.isPresent())
+
+            if(false)  //previously m_launcher_angle.isPresent()
             {
-                SK24LauncherAngle launcherAngle = m_launcher_angle.get();
+                //SK24LauncherAngle launcherAngle = m_launcher_angle.get();
                 
-                NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher, launcherAngle));
-                NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher, launcherAngle));
-                NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher, launcherAngle));
-                NamedCommands.registerCommand("ZeroPositionCommand", new ZeroPositionCommandIntake(launcherAngle, launcher, intake));
-                NamedCommands.registerCommand("AngleFloorCommand", new AngleFloorCommand(launcher, launcherAngle));
-                NamedCommands.registerCommand("StageAngleCommand", new StageAngleCommand(launcher, launcherAngle));
-                NamedCommands.registerCommand("Score2AngleCommand", new Score2AngleCommand(launcher, launcherAngle));
+                NamedCommands.registerCommand("Pos1CommandGroup", new Pos1CommandGroup(launcher)); //previously launcherAngle
+                NamedCommands.registerCommand("Pos2CommandGroup", new Pos2CommandGroup(launcher)); //previously launcherAngle
+                NamedCommands.registerCommand("Pos3CommandGroup", new Pos3CommandGroup(launcher)); //previously launcherAngle
+                NamedCommands.registerCommand("ZeroPositionCommand", new ZeroPositionCommandIntake(launcher, intake)); //previously launcherAngle
+                NamedCommands.registerCommand("AngleFloorCommand", new AngleFloorCommand(launcher)); //previously launcherAngle
+                NamedCommands.registerCommand("StageAngleCommand", new StageAngleCommand(launcher)); //previously launcherAngle
+                NamedCommands.registerCommand("Score2AngleCommand", new Score2AngleCommand(launcher)); //previously launcherAngle
 
 
 
@@ -226,17 +227,17 @@ public class RobotContainer {
                 // NamedCommands.registerCommand("GP456Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP456Angle)));
                 // NamedCommands.registerCommand("GP78Command", new InstantCommand(() -> launcherAngle.setTargetAngle(GP78Angle)));
             }else{
-                NamedCommands.registerCommand("Pos1CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
-                NamedCommands.registerCommand("Pos2CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
-                NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)); //Switched values since it's on other side              
+                //NamedCommands.registerCommand("Pos1CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                //NamedCommands.registerCommand("Pos2CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                //NamedCommands.registerCommand("Pos3CommandGroup", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher)); //Switched values since it's on other side              
                 NamedCommands.registerCommand("ZeroPositionCommand", new StopCommand(intake, launcher));
-                NamedCommands.registerCommand("AngleFloorCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
-                NamedCommands.registerCommand("StageAngleCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
-                NamedCommands.registerCommand("Score2AngleCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                // NamedCommands.registerCommand("AngleFloorCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                //NamedCommands.registerCommand("StageAngleCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+                //NamedCommands.registerCommand("Score2AngleCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
             }
 
             //Register commands for use in auto
-            NamedCommands.registerCommand("StartLauncherCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
+            //NamedCommands.registerCommand("StartLauncherCommand", new LaunchCommandAuto(kLauncherLeftSpeed, kLauncherRightSpeed, launcher));
             NamedCommands.registerCommand("GP1Command", new DoNothingCommand());
             NamedCommands.registerCommand("GP2Command", new DoNothingCommand());
             NamedCommands.registerCommand("GP3Command", new DoNothingCommand());
@@ -253,7 +254,7 @@ public class RobotContainer {
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));
             NamedCommands.registerCommand("StopLauncherCommand", new InstantCommand(() -> launcher.stopLauncher()));
-            NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> intake.stopTransfer()));
+            //NamedCommands.registerCommand("StopTransferCommand", new InstantCommand(() -> intake.stopTransfer()));
             
             if(m_churro.isPresent())
             {
@@ -316,14 +317,18 @@ public class RobotContainer {
 
     public void teleopInit()
     {
+        /*
         if(m_launcher_angle.isPresent()){
             m_launcher_angle.get().resetPID();
         }
+        */
     }
     public void autonomousInit()
     {
+        /*
         if(m_launcher_angle.isPresent()){
             m_launcher_angle.get().resetPID();
         }
+        */
     }
 }

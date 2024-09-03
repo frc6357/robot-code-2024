@@ -10,7 +10,7 @@ import frc.robot.preferences.SKPreferences;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.subsystems.SK24Launcher.LaunchConfig;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import static frc.robot.Constants.DriveConstants.*;
 import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
@@ -20,7 +20,7 @@ import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 public class ReadyScoreCommand extends Command{
 
-    private SK24LauncherAngle arm;
+    //private SK24LauncherAngle arm;
     private Supplier<Double> ySpeed;
     private Supplier<Double> xSpeed;
     
@@ -56,11 +56,11 @@ public class ReadyScoreCommand extends Command{
      * @param vision
      *            The subsystem to control vision
      */
-    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> rotation, SK24Drive drive, SK24LauncherAngle arm, SK24Launcher launcher, SK24Vision vision)
+    public ReadyScoreCommand(Supplier<Double> xSpeed, Supplier<Double> ySpeed, Supplier<Double> rotation, SK24Drive drive, SK24Launcher launcher, SK24Vision vision) // previously had SK24LauncherAngle arm
     {
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
-        this.arm = arm;
+        //this.arm = arm;
         this.vision = vision;
         this.rotation = rotation;
 
@@ -76,7 +76,7 @@ public class ReadyScoreCommand extends Command{
         PID.setTolerance(0.1);
         PID.setIZone(5.0);
         
-        addRequirements(drive, arm, vision, launcher);
+        addRequirements(drive, vision, launcher); //previously had arm
     }
     
     // Called every time the scheduler runs while the command is scheduled.
@@ -86,7 +86,7 @@ public class ReadyScoreCommand extends Command{
         vision.setSpeakerMode();
 
         launcher.setRestingRampRate();
-        arm.setTargetAngle(kSpeakerAngle);
+        //arm.setTargetAngle(kSpeakerAngle);
         launcher.setLauncherSpeed(kLauncherLeftSpeed, kLauncherRightSpeed);
 
         PID.setP(driveRotationP.get());
@@ -114,7 +114,7 @@ public class ReadyScoreCommand extends Command{
             SmartDashboard.putNumber("Distance", distance);
     
             SmartDashboard.putNumber("Vison angle", config.angle());
-            arm.setTargetAngle(config.angle());
+            //arm.setTargetAngle(config.angle());
     
             SmartDashboard.putNumber("Vision Launcher Speed Left", config.speedLeft());
             SmartDashboard.putNumber("Vision Launcher Speed Right", config.speedRight());
@@ -133,7 +133,7 @@ public class ReadyScoreCommand extends Command{
     public void end(boolean interrupted)
     {
         drive.drive(0, 0, 0, false);
-        arm.zeroPosition();
+        //arm.zeroPosition();
         launcher.rampDown();
         launcher.setLauncherSpeed(0.0, 0.0);
         vision.setAllTagMode();

@@ -1,7 +1,7 @@
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
-
+/**
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 
-/** An example command that uses an example subsystem. */
+// An example command that uses an example subsystem.
 public class AutoLaunchAngle extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24LauncherAngle arm;
@@ -17,11 +17,11 @@ public class AutoLaunchAngle extends Command {
   double speedTop;
   double speedBottom;
 
-  /**
-     * Command to set the target angle of the launcher to score in speaker based on vision 
-     * @param arm Launcher angle subsysystem to use
-     * @param vision Vision subsystem to use
-     */
+  
+     // Command to set the target angle of the launcher to score in speaker based on vision 
+     // @param arm Launcher angle subsysystem to use
+     // @param vision Vision subsystem to use
+     
   public AutoLaunchAngle(SK24LauncherAngle arm, SK24Vision vision) {
     this.arm = arm;
     this.vision = vision;
@@ -54,3 +54,4 @@ public class AutoLaunchAngle extends Command {
     return arm.isAtTargetAngle();
   }
 }
+*/

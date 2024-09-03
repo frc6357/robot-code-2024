@@ -10,7 +10,7 @@ public class IntakeAutoCommand extends Command
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
   double intakeSpeed;
-  double transferSpeed;
+  //double transferSpeed;
 
   /**
    * Command to intake the note using intake and transfer
@@ -22,7 +22,7 @@ public class IntakeAutoCommand extends Command
   {
     this.intake = intake;
     this.intakeSpeed = Constants.IntakeConstants.kIntakeSpeed;
-    this.transferSpeed = Constants.IntakeConstants.kTransferSpeed;
+    //this.transferSpeed = Constants.IntakeConstants.kTransferSpeed;
 
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
@@ -33,7 +33,7 @@ public class IntakeAutoCommand extends Command
   public void initialize() 
   {
       intake.setIntakeSpeed(intakeSpeed);
-      intake.setTransferSpeed(transferSpeed);
+      //intake.setTransferSpeed(transferSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

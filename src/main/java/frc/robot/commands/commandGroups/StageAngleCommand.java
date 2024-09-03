@@ -11,10 +11,10 @@ import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AngleCommandAuto;
-import frc.robot.commands.LaunchCommandAuto;
+//import frc.robot.commands.AngleCommandAuto;
+//import frc.robot.commands.LaunchCommandAuto;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 
 public class StageAngleCommand extends ParallelCommandGroup {
     
@@ -23,11 +23,11 @@ public class StageAngleCommand extends ParallelCommandGroup {
      * @param launcher Launcher subsystem to use
      * @param arm Launcher angle subsystem to use
      */
-    public StageAngleCommand(SK24Launcher launcher, SK24LauncherAngle arm)
+    public StageAngleCommand(SK24Launcher launcher) //previously had SK24LauncherAngle arm
     {
-        addCommands(
-            new AngleCommandAuto(kAngleStage, arm)
-        );
+        //addCommands(
+           // new AngleCommandAuto(kAngleStage, arm)
+        //);
     }
 
 }

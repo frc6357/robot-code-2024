@@ -5,7 +5,7 @@ import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
 import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
 import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
-import static frc.robot.Ports.launcherPorts.kTransferMotor;
+//import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -33,8 +33,8 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
-        transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
-        transferMotor.setInverted(true);
+        //transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
+        //transferMotor.setInverted(true);
 
         laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
         laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
@@ -76,19 +76,19 @@ public class SK24Intake extends SubsystemBase
      * Sets the speed of the transfer
      * @param speed The speed to set for left. Value should be between -1.0 and 1.0.
      */    
-    public void setTransferSpeed (double speed)
+    /**public void setTransferSpeed (double speed)
     {
         transferMotor.set(speed);
-    }
+    }*/
 
     //Return motor speeds
-    public double getTransferMotorSpeed()
+    /**public double getTransferMotorSpeed()
     {
         return transferMotor.get();
     }
     public void stopTransfer(){
         transferMotor.stopMotor();
-    }
+    }*/
 
     //Set motor speeds
     public void setIntakeSpeed (double speed)

@@ -6,10 +6,10 @@ import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AngleCommandAuto;
+//import frc.robot.commands.AngleCommandAuto;
 import frc.robot.commands.ChurroRaiseCommand;
 import frc.robot.subsystems.SK24Churro;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 
 public class ChurroRaiseCommandGroup extends SequentialCommandGroup{
 
@@ -19,9 +19,9 @@ public class ChurroRaiseCommandGroup extends SequentialCommandGroup{
    * @param arm Launcher angle subsystem to use
    * @param launcher Launcher subsystem to use
    */
-  public ChurroRaiseCommandGroup(SK24LauncherAngle arm, SK24Churro churro) {
+  public ChurroRaiseCommandGroup(SK24Churro churro) {  //previously had SK24LauncherAngle
     addCommands(
-            new AngleCommandAuto(kAmpAngle, arm),
+            //new AngleCommandAuto(kAmpAngle, arm),
             new WaitCommand(1.0),
             new ChurroRaiseCommand(churro));
   }

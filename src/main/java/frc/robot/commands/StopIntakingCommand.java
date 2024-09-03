@@ -22,7 +22,7 @@ public class StopIntakingCommand extends Command{
     public void execute()
     {
         intake.stopIntake();
-        intake.stopTransfer();
+       //intake.stopTransfer();
     }
 
     @Override

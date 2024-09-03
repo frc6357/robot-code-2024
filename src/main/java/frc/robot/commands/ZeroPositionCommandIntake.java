@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 /** An example command that uses an example subsystem. */
 public class ZeroPositionCommandIntake extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
-    private final SK24LauncherAngle arm;
+    //private final SK24LauncherAngle arm;
     private final SK24Launcher launcher;
     private final SK24Intake intake;
 
@@ -23,22 +23,22 @@ public class ZeroPositionCommandIntake extends Command {
      * @param launcher
      *            Launcher Subsystem used for this command
      */
-    public ZeroPositionCommandIntake(SK24LauncherAngle arm, SK24Launcher launcher, SK24Intake intake)
+    public ZeroPositionCommandIntake(SK24Launcher launcher, SK24Intake intake) //previously SK24LauncherAngle arm
     {
         this.intake = intake;
-        this.arm = arm;
+        //this.arm = arm;
         this.launcher = launcher;
         
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(arm, launcher);
+        addRequirements(launcher);  // previously arm
     }
 
     @Override
     public void initialize()
     {
 
-        arm.zeroPosition();
-        intake.stopTransfer();
+        //arm.zeroPosition();
+        //intake.stopTransfer();
         launcher.stopLauncher();
         intake.stopIntake();
     }

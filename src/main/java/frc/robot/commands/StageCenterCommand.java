@@ -1,3 +1,4 @@
+/**
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -18,13 +19,13 @@ public class StageCenterCommand extends Command
     private double currentRotation;
     private double currentTranslation;
 
-    /**
-     * Command that will center the robot with the stage april tags
-     * @param drive
-     *            Drive subsystem to use 
-     * @param vision
-     *            Vision subsystem to use
-     */
+
+     // Command that will center the robot with the stage april tags
+     // @param drive
+     //            Drive subsystem to use 
+     // @param vision
+     //            Vision subsystem to use
+     
     public StageCenterCommand(SK24Drive drive, SK24Vision vision)
     {
         this.drive = drive;
@@ -78,3 +79,4 @@ public class StageCenterCommand extends Command
         return false;
     }
 }
+*/

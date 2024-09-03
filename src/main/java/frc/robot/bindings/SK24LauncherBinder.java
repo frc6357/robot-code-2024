@@ -17,19 +17,19 @@ import static frc.robot.Constants.LauncherConstants.kSpeakerRestingRightSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.DriverPorts.kDriverShoot;
 import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
-import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
+//import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
-import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
-import static frc.robot.Ports.OperatorPorts.kReadyShoot;
+//import static frc.robot.Ports.OperatorPorts.kLauncherOverride;
+//import static frc.robot.Ports.OperatorPorts.kReadyShoot;
 
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
-import frc.robot.commands.LaunchAngleCommand;
+//import frc.robot.commands.LaunchAngleCommand;
 import frc.robot.commands.ZeroPositionCommand;
 import frc.robot.commands.commandGroups.ChurroLowerCommandGroup;
 import frc.robot.commands.commandGroups.ChurroRaiseCommandGroup;
@@ -39,14 +39,14 @@ import frc.robot.preferences.Pref;
 import frc.robot.preferences.SKPreferences;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
-import frc.robot.subsystems.SK24LauncherAngle;
+//import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.SKCANLight;
 import frc.robot.utils.filters.DeadbandFilter;
 public class SK24LauncherBinder implements CommandBinder
 {
     Optional<SK24Launcher> launcher;
-    Optional<SK24LauncherAngle> launcherAngle;
+    //Optional<SK24LauncherAngle> launcherAngle;
     Optional<SK24Vision> vision;
     Optional<SK24Churro> churro;
     SKCANLight light;
@@ -78,10 +78,10 @@ public class SK24LauncherBinder implements CommandBinder
      *            The required drive subsystem for the commands
      * @return 
      */
-    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24LauncherAngle> launcherAngle, Optional<SK24Vision> vision, Optional<SK24Churro> churro, SKCANLight light)
+    public  SK24LauncherBinder(Optional<SK24Launcher> launcher, Optional<SK24Vision> vision, Optional<SK24Churro> churro, SKCANLight light)  //previously Optional<SK24LauncherAngle> launcherAngle
     {
         this.launcher = launcher;
-        this.launcherAngle = launcherAngle;
+        //this.launcherAngle = launcherAngle;
         this.vision = vision;
         this.churro = churro;
         this.light = light;
@@ -95,17 +95,17 @@ public class SK24LauncherBinder implements CommandBinder
 
         readyShoot = kDriverShoot.button;
 
-        angleOverrideButton = kLauncherOverride.button;
+       // angleOverrideButton = kLauncherOverride.button;
 
-        floorAngleDriver = Ports.OperatorPorts.kAngleFloor.button;
-        floorAngleOperator = Ports.DriverPorts.kAngleFloor.button;
-        defaultFloorAngleButton = Ports.OperatorPorts.kAngleFloor.button;
+        //floorAngleDriver = Ports.OperatorPorts.kAngleFloor.button;
+        //floorAngleOperator = Ports.DriverPorts.kAngleFloor.button;
+        //defaultFloorAngleButton = Ports.OperatorPorts.kAngleFloor.button;
         // resetAngleButton = Ports.OperatorPorts.kResetLauncherEncoder.button;
 
-        ampAngleButton = Ports.OperatorPorts.kAngleAmp.button;
-        wingAngleButton = Ports.OperatorPorts.kAngleWing.button;
+        //ampAngleButton = Ports.OperatorPorts.kAngleAmp.button;
+        //wingAngleButton = Ports.OperatorPorts.kAngleWing.button;
 
-        defaultLauncherAngleButton = kAngleSpeaker.button;
+        //defaultLauncherAngleButton = kAngleSpeaker.button;
     }
 
     public void bindButtons()
@@ -127,6 +127,7 @@ public class SK24LauncherBinder implements CommandBinder
             }, m_launcher));
             
             
+            /*
             if(churro.isPresent())
             {
                 SK24Churro m_churro = churro.get();
@@ -163,6 +164,9 @@ public class SK24LauncherBinder implements CommandBinder
 
                 //SmartDashboard.putNumber("Churro Angle", m_churro.getChurroPosition());
             }
+            */
+
+            /*
             if(launcherAngle.isPresent())
             {
                 SK24LauncherAngle m_launcherAngle = launcherAngle.get();
@@ -207,7 +211,7 @@ public class SK24LauncherBinder implements CommandBinder
                 
                 //launchAmp.onTrue(new AmpScoreCommandGroup(m_launcherAngle, m_launcher));
                 
-            }
+            } */
         }
     }
 }

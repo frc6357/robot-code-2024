@@ -20,7 +20,7 @@ public class IntakeTransferCommandGroupAuto extends SequentialCommandGroup {
 
         addCommands(
             new ParallelRaceGroup(
-                new IntakeTransferCommand(kIntakeSpeed, kTransferSpeed, intake, light)
+                new IntakeTransferCommand(kIntakeSpeed, intake, light) //previously used a kTransferSpeed parameter
             )
         );
     }

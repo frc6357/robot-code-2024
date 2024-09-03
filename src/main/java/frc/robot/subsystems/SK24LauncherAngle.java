@@ -1,8 +1,10 @@
+
+/*
 package frc.robot.subsystems;
 
 import static frc.robot.Constants.LauncherAngleConstants.*;
-import static frc.robot.Ports.launcherPorts.kLauncherAngleFollowerMotor;
-import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
+//import static frc.robot.Ports.launcherPorts.kLauncherAngleFollowerMotor;
+//import static frc.robot.Ports.launcherPorts.kLauncherAngleMotor;
 
 import java.util.function.Supplier;
 
@@ -92,21 +94,21 @@ public class SK24LauncherAngle extends SubsystemBase
     }
 
     
-    /**
-     * {@inheritDoc}
-     */
+    
+    // {@inheritDoc}
+     
     public boolean isAtTargetAngle()
     {
         return Math.abs(getCurrentAngle() - getTargetAngle()) < kAngleTolerance;
         
     }
 
-    /**
-     * Gets the current angle of the encoder in degrees. 
-     * Wrapped in between -180 and 180, and limited to minimum and maximum angle constants. 
-     * Upward movement of the launcheris positive.
-     * @return Current angle of the encoder in degrees.
-     */
+    
+     // Gets the current angle of the encoder in degrees. 
+     // Wrapped in between -180 and 180, and limited to minimum and maximum angle constants. 
+     // Upward movement of the launcheris positive.
+     // @return Current angle of the encoder in degrees.
+     
     public double getCurrentAngle()
     {
         //Gets absolute position of encoder an converts it into degrees
@@ -117,17 +119,17 @@ public class SK24LauncherAngle extends SubsystemBase
         return MathUtil.clamp(wrappedPosition, kMinAngle, kMaxAngle);
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
+    // {@inheritDoc}
+     
     public double getTargetAngle()
     {
         return targetAngle;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    
+     // {@inheritDoc}
+     
     public void resetAngle()
     {
         lEncoder.reset();
@@ -149,11 +151,11 @@ public class SK24LauncherAngle extends SubsystemBase
    // }
 
     /**
-     * Calculates feedforward value of arm by multiplying cosine of angle degrees by feed forward constant
-     * @param angle Target angle of the launcher arm in degrees
-     * @return feed forward value to be used in PID control loop
-     * 
-     */
+     // Calculates feedforward value of arm by multiplying cosine of angle degrees by feed forward constant
+     // @param angle Target angle of the launcher arm in degrees
+     // @return feed forward value to be used in PID control loop
+      
+     
     public double calculateFF(double angle)
     {
         return Math.cos(Math.toRadians(angle)) * launcherAngleFF.get();
@@ -181,3 +183,4 @@ public class SK24LauncherAngle extends SubsystemBase
     }
 
 }
+*/

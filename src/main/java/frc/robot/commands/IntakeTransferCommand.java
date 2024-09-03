@@ -16,7 +16,7 @@ public class IntakeTransferCommand extends Command
   private final SK24Intake intake;
   private final SKCANLight light;
   double intakeSpeed;
-  double transferSpeed;
+ // double transferSpeed;
 
   /**
    * Command to intake the note using intake and transfer
@@ -24,12 +24,12 @@ public class IntakeTransferCommand extends Command
    * @param intake The intake subsystem used by this command.
    * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeTransferCommand(double intakeSpeed, double transferSpeed, SK24Intake intake, SKCANLight light) 
+  public IntakeTransferCommand(double intakeSpeed, SK24Intake intake, SKCANLight light) //previously had a double transferSpeed parameter
   {
     this.intake = intake;
     this.light = light;
     this.intakeSpeed = intakeSpeed;
-    this.transferSpeed = transferSpeed;
+   // this.transferSpeed = transferSpeed;
 
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -41,7 +41,7 @@ public class IntakeTransferCommand extends Command
   public void initialize() 
   {
       intake.setIntakeSpeed(intakeSpeed); 
-      intake.setTransferSpeed(kIntakeTransferSpeed);
+      //intake.setTransferSpeed(kIntakeTransferSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -51,7 +51,7 @@ public class IntakeTransferCommand extends Command
     {
       light.setOrange();
       intake.setIntakeSpeed(kSlowIntakeSpeed);
-      intake.setTransferSpeed(kSlowTransferSpeed);
+      //intake.setTransferSpeed(kSlowTransferSpeed);
     }
   }
 
@@ -60,7 +60,7 @@ public class IntakeTransferCommand extends Command
   public void end(boolean interrupted) 
   {
     intake.stopIntake();
-    intake.stopTransfer();
+    //intake.stopTransfer();
   }
 
   // Returns true when the command should end.

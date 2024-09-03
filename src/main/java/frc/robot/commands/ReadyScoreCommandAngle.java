@@ -1,4 +1,5 @@
-package frc.robot.commands;
+/**
+ * package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -12,29 +13,29 @@ public class ReadyScoreCommandAngle extends Command{
     
     private SK24Vision              vision;
     
-    /**
-     * Creates a command that turns the robot to the speaker using the field
-     * coordinate system and brings the launcher angle to score in speaker
-     * 
-     * @param xSpeed
-     *            The supplier for the robot x axis speed
-     * @param ySpeed
-     *            The supplier for the robot y axis speed
-     * @param drive
-     *            The subsystem required to control the drivetrain
-     * @param arm
-     *            The subsystem to control launcher angle
-     * @param vision
-     *            The subsystem to control vision
-     */
-    public ReadyScoreCommandAngle(SK24LauncherAngle arm, SK24Vision vision)
+    
+     // Creates a command that turns the robot to the speaker using the field
+     // coordinate system and brings the launcher angle to score in speaker
+     // 
+     // @param xSpeed
+     //            The supplier for the robot x axis speed
+     // @param ySpeed
+     //            The supplier for the robot y axis speed
+     // @param drive
+     //            The subsystem required to control the drivetrain
+     // @param arm
+     //            The subsystem to control launcher angle
+     // @param vision
+     //            The subsystem to control vision
+     //
+    public ReadyScoreCommandAngle(SK24Vision vision) //previously had SK24LauncherAngle arm
     {
-        this.arm = arm;
+        //this.arm = arm;
         this.vision = vision;
 
         vision.setSpeakerMode();
         
-        addRequirements(arm, vision);
+        addRequirements(vision); // previoulsy had arm
     }
     
     // Called every time the scheduler runs while the command is scheduled.
@@ -43,7 +44,7 @@ public class ReadyScoreCommandAngle extends Command{
     {
         double launcherAngle = vision.returnTargetAngle(vision.getTargetPose());
         SmartDashboard.putNumber("Vison angle", launcherAngle);
-        arm.setTargetAngle(launcherAngle);
+        //arm.setTargetAngle(launcherAngle);
         
     }
 
@@ -51,7 +52,7 @@ public class ReadyScoreCommandAngle extends Command{
     @Override
     public void end(boolean interrupted)
     {
-        arm.zeroPosition();
+        //arm.zeroPosition();
         vision.setAllTagMode();
     }
 
@@ -63,3 +64,4 @@ public class ReadyScoreCommandAngle extends Command{
     }
 
 }
+*/

@@ -25,7 +25,7 @@ public class StopCommand extends Command{
     public void execute()
     {
         intake.stopIntake();
-        intake.stopTransfer();
+        //intake.stopTransfer();
         launcher.stopLauncher();
     }
 

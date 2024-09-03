@@ -11,9 +11,9 @@ public class TransferCommandGroup extends SequentialCommandGroup {
     public TransferCommandGroup(SK24Intake intake)
     {
         addCommands(
-            new InstantCommand(() -> intake.setTransferSpeed(kTransferSpeed)),
-            new WaitCommand(1.0),
-            new InstantCommand(() -> intake.stopTransfer())
+           //new InstantCommand(() -> intake.setTransferSpeed(kTransferSpeed)),
+           // new WaitCommand(1.0),
+           // new InstantCommand(() -> intake.stopTransfer())
             );
     }
 }
