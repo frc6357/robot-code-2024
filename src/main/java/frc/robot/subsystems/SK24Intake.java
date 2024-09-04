@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -20,8 +21,9 @@ public class SK24Intake extends SubsystemBase
     CANSparkFlex bottomIntakeMotor;
     CANSparkFlex transferMotor;
 
-    private LaserCan laserCanLower;
-    private LaserCan laserCanHigher;
+    //private LaserCan laserCanLower;
+    //private LaserCan laserCanHigher;
+    DigitalInput beamBreakSensor;
 
 
     public SK24Intake()
@@ -36,12 +38,15 @@ public class SK24Intake extends SubsystemBase
         //transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
         //transferMotor.setInverted(true);
 
-        laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
-        laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
+       // laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
+       // laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
+
+       beamBreakSensor = new DigitalInput(1);
+
 
 
     }
-
+    /*
      public boolean haveLowerNote()
     {
         LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
@@ -69,7 +74,7 @@ public class SK24Intake extends SubsystemBase
           }
         } 
         return false;
-    }
+    }*/
 
 
     /**
@@ -91,6 +96,16 @@ public class SK24Intake extends SubsystemBase
     }*/
 
     //Set motor speeds
+
+    public Boolean beamBreak()
+    {
+        //interrupted(input);
+        if(beamBreakSensor.get())
+            return true;
+        else
+            return false;
+    }
+
     public void setIntakeSpeed (double speed)
     {
         topIntakeMotor.set(speed);
@@ -110,8 +125,9 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
-        SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
-        SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
+        //SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
+        //SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
+        SmartDashboard.putBoolean("Sensor detected",beamBreak());
     }
 
     public void testInit()
