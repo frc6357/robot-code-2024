@@ -7,6 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Launcher;
 import frc.robot.utils.SKCANLight;
+import frc.robot.Constants;
+import frc.robot.subsystems.SK24Intake;
 /** An example command that uses an example subsystem. */
 public class LaunchCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
@@ -15,6 +17,8 @@ public class LaunchCommand extends Command {
     private final SKCANLight light;
     private double LeftSpeed;
     private double RightSpeed;
+    private final SK24Intake intake;
+    double intakeSpeed;
 
     
 
@@ -26,20 +30,24 @@ public class LaunchCommand extends Command {
      *            Speed for the right side of the launchers
      * @param launcher
      *            Launcher angle used for this command
+     * @param intake The intake subsystem used by this command.
      */
-    public LaunchCommand(double LeftSpeed, double RightSpeed, SK24Launcher launcher, SKCANLight light)
+    public LaunchCommand(double LeftSpeed, double RightSpeed, SK24Launcher launcher, SK24Intake intake, SKCANLight light)
     {
         this.LeftSpeed = LeftSpeed;
         this.RightSpeed = RightSpeed;
         this.launcher = launcher;
         this.light = light;
+        this.intake = intake;
+        this.intakeSpeed = Constants.IntakeConstants.kIntakeSpeed;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(launcher);
+        addRequirements(launcher, intake);
     }
 
     @Override
     public void initialize()
     {
+        intake.setIntakeSpeed(intakeSpeed);
         launcher.setLauncherSpeed(LeftSpeed, RightSpeed);
     }
 
@@ -57,6 +65,7 @@ public class LaunchCommand extends Command {
     {
         launcher.stopLauncher();
         light.setTeamColor();
+        intake.stopIntake();
     }
 
     // Returns true when the command should end.

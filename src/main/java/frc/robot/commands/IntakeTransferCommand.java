@@ -47,14 +47,16 @@ public class IntakeTransferCommand extends Command
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     if (intake.beamBreak() || intake.beamBreak())
     {
       light.setOrange();
       intake.setIntakeSpeed(kSlowIntakeSpeed);
       //intake.setTransferSpeed(kSlowTransferSpeed);
+      
     }
-  }
-
+  } 
+   
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
@@ -66,6 +68,7 @@ public class IntakeTransferCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.beamBreak();
+    return false;
+    //return intake.beamBreak();
   }
 }

@@ -1,16 +1,16 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.IntakeConstants.noteMeasurement;
+//import static frc.robot.Constants.IntakeConstants.noteMeasurement;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
-import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
+//import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
+//import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
 //import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import au.grapplerobotics.LaserCan;
+//import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
