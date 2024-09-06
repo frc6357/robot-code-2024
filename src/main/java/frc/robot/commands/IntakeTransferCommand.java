@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import static frc.robot.Constants.IntakeConstants.kIntakeTransferSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowTransferSpeed;
@@ -48,15 +48,14 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() {
     
-    if (intake.beamBreak() || intake.beamBreak())
+    if (intake.beamBreak())
     {
       light.setOrange();
-      intake.setIntakeSpeed(kSlowIntakeSpeed);
-      //intake.setTransferSpeed(kSlowTransferSpeed);
-      
+      new WaitCommand(0.5);
+      intake.setIntakeSpeed(0.0);
     }
   } 
-   
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 

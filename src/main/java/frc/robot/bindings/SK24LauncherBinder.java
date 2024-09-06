@@ -12,12 +12,18 @@ import static frc.robot.Constants.LauncherAngleConstants.kSpeakerAngle;
 import static frc.robot.Constants.LauncherAngleConstants.kWingAngle;
 import static frc.robot.Constants.LauncherConstants.ampSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.ampSpeedRight;
+import static frc.robot.Constants.LauncherConstants.kLauncherLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kLauncherRightSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultLeftSpeed;
+import static frc.robot.Constants.LauncherConstants.kSpeakerDefaultRightSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerRestingLeftSpeed;
 import static frc.robot.Constants.LauncherConstants.kSpeakerRestingRightSpeed;
 import static frc.robot.Constants.OIConstants.kJoystickDeadband;
 import static frc.robot.Ports.DriverPorts.kDriverShoot;
 import static frc.robot.Ports.DriverPorts.kRotateSpeaker;
 //import static frc.robot.Ports.OperatorPorts.kAngleSpeaker;
+import frc.robot.subsystems.SK24Launcher;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import static frc.robot.Ports.OperatorPorts.kLaunchSpeaker;
 import static frc.robot.Ports.OperatorPorts.kLauncherAxis;
@@ -35,10 +41,12 @@ import frc.robot.commands.commandGroups.ChurroLowerCommandGroup;
 import frc.robot.commands.commandGroups.ChurroRaiseCommandGroup;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
 import frc.robot.commands.commandGroups.LightLauncherCommandGroup;
+import frc.robot.commands.LaunchCommand;
 import frc.robot.preferences.Pref;
 import frc.robot.preferences.SKPreferences;
 import frc.robot.subsystems.SK24Churro;
 import frc.robot.subsystems.SK24Launcher;
+import frc.robot.subsystems.SK24Intake;
 //import frc.robot.subsystems.SK24LauncherAngle;
 import frc.robot.subsystems.SK24Vision;
 import frc.robot.utils.SKCANLight;
@@ -50,6 +58,7 @@ public class SK24LauncherBinder implements CommandBinder
     Optional<SK24Vision> vision;
     Optional<SK24Churro> churro;
     SKCANLight light;
+    Optional<SK24Intake> intake;
 
     Trigger intakeDriverButton;
     Trigger intakeOperatorButton;
@@ -85,6 +94,7 @@ public class SK24LauncherBinder implements CommandBinder
         this.vision = vision;
         this.churro = churro;
         this.light = light;
+        
 
         this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
         this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
@@ -169,7 +179,15 @@ public class SK24LauncherBinder implements CommandBinder
             if (launcher.isPresent())
             {
                 launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setRunning(true)));
+                launchSpeakerButton.onTrue(new InstantCommand(() -> light.setPurple()));
+                launchSpeakerButton.onTrue(new WaitCommand(1.0));
+                launchSpeakerButton.onTrue(new InstantCommand(() -> light.setGreen()));
+
                 launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setRunning(false)));
+                launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
+
+                //launchSpeakerButton.onTure(new LaunchSpeakerCommandGroup(launcher, light));
+                 
             }
             
             /*
