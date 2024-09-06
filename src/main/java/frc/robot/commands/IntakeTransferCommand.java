@@ -48,12 +48,12 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() {
     
-    if (intake.beamBreak())
+    /*if (intake.beamBreak())
     {
       light.setOrange();
       new WaitCommand(0.5);
       intake.setIntakeSpeed(0.0);
-    }
+    }*/
   } 
   
   // Called once the command ends or is interrupted.

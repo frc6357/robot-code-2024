@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.IntakeTransferCommand;
+import frc.robot.commands.StopIntakingCommand;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
 //import frc.robot.commands.IntakeAutoCommand;
 //import frc.robot.commands.StopIntakingCommand;
@@ -89,19 +90,15 @@ public class SK24IntakeBinder implements CommandBinder{
 
             //operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(0.25)));
             //operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
-            intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
-            intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
+            //intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
+            intakeOperatorButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
+            intakeOperatorButton.onFalse(new StopIntakingCommand(intake));
+            //intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
             
-            if (intake.beamBreak())
-            {
-                light.setOrange();
-                new WaitCommand(1);
-                intake.setIntakeSpeed(0.0);
-            }
-            //not originaly here
-            intakeDriverButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
-            intakeDriverButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
-            //operatorTransferButton.onFalse(new StopIntakingCommand(intake));
+        
+            //intakeDriverButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
+            intakeDriverButton.onFalse(new StopIntakingCommand(intake));
+            intakeDriverButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
 
 

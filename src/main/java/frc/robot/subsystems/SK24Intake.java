@@ -42,8 +42,8 @@ public class SK24Intake extends SubsystemBase
        // laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
        // laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
 
-       beamBreakLeft = new DigitalInput(0);
-       beamBreakRight = new DigitalInput(1);
+      // beamBreakLeft = new DigitalInput(0);
+      // beamBreakRight = new DigitalInput(1);
 
 
 
@@ -99,7 +99,7 @@ public class SK24Intake extends SubsystemBase
 
     //Set motor speeds
 
-    public Boolean beamBreak()
+    /*public Boolean beamBreak()
     {
         //interrupted(input);
         if(beamBreakLeft.get() || beamBreakRight.get())
@@ -110,7 +110,7 @@ public class SK24Intake extends SubsystemBase
         {
             return false;
         }
-    }
+    } */
 
     public void setIntakeSpeed (double speed)
     {
@@ -133,7 +133,7 @@ public class SK24Intake extends SubsystemBase
     {
         //SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
         //SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
-        SmartDashboard.putBoolean("Beam broken",beamBreak());
+       // SmartDashboard.putBoolean("Beam broken",beamBreak());
     }
 
     public void testInit()

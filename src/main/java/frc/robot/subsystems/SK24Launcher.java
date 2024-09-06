@@ -55,8 +55,8 @@ public class SK24Launcher extends SubsystemBase
         leftMotor = new CANSparkFlex(kLeftLauncherMotor.ID, MotorType.kBrushless);
         rightMotor = new CANSparkFlex(kRightLauncherMotor.ID, MotorType.kBrushless);
 
-        leftMotor.setInverted(true);
-        rightMotor.setInverted(false);
+        leftMotor.setInverted(false);
+        rightMotor.setInverted(true);
 
         
         encoderL = leftMotor.getEncoder();
