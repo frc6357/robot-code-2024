@@ -180,7 +180,7 @@ public class SK24LauncherBinder implements CommandBinder
             {
                 launchSpeakerButton.onTrue(new InstantCommand(() -> m_launcher.setRunning(true)));
                 launchSpeakerButton.onTrue(new InstantCommand(() -> light.setPurple()));
-                launchSpeakerButton.onTrue(new WaitCommand(1.0));
+                //launchSpeakerButton.onTrue(new WaitCommand(1.0));
                 launchSpeakerButton.onTrue(new InstantCommand(() -> light.setGreen()));
 
                 launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setRunning(false)));
