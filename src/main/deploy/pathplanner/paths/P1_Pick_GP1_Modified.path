@@ -3,45 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6887664017838722,
-        "y": 6.75715268691593
+        "x": 0.7426336086361384,
+        "y": 6.641447399146282
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9112722961537207,
-        "y": 6.850839379282182
-      },
-      "isLocked": false,
-      "linkedName": "Score1"
-    },
-    {
-      "anchor": {
-        "x": 2.649054998537956,
-        "y": 6.956236908194216
-      },
-      "prevControl": {
-        "x": 2.707609181266863,
-        "y": 6.89768272546531
-      },
-      "nextControl": {
-        "x": 2.596031930932043,
-        "y": 7.009259975800129
+        "x": 0.9651395030059869,
+        "y": 6.735134091512534
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.6887664017838722,
-        "y": 6.75715268691593
+        "x": 2.85582141745541,
+        "y": 6.962807757169489
       },
       "prevControl": {
-        "x": 1.9464048057910655,
-        "y": 6.897682725465309
+        "x": 2.914375600184317,
+        "y": 6.904253574440582
+      },
+      "nextControl": {
+        "x": 2.802798349849497,
+        "y": 7.015830824775401
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.7426336086361384,
+        "y": 6.641447399146282
+      },
+      "prevControl": {
+        "x": 0.6389239405073929,
+        "y": 6.536522193416402
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Score1"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -59,25 +59,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Angle",
-      "waypointRelativePos": 0.0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "GP1Command"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
       "name": "Intake",
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.8,
       "command": {
         "type": "parallel",
         "data": {
@@ -101,13 +84,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -131.18592516570962,
+    "rotation": -121.42956561483855,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Position 1",
   "previewStartingState": {
-    "rotation": -131.18592516570962,
+    "rotation": -119.47588900324575,
     "velocity": 0
   },
   "useDefaultConstraints": true

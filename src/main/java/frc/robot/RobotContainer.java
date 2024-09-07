@@ -9,6 +9,7 @@ import static frc.robot.Constants.DriveConstants.BackRight;
 import static frc.robot.Constants.DriveConstants.DrivetrainConstants;
 import static frc.robot.Constants.DriveConstants.FrontLeft;
 import static frc.robot.Constants.DriveConstants.FrontRight;
+import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
 import static frc.robot.Constants.LauncherAngleConstants.GP1Angle;
 import static frc.robot.Constants.LauncherAngleConstants.GP2Angle;
 import static frc.robot.Constants.LauncherAngleConstants.GP3Angle;
@@ -52,6 +53,8 @@ import frc.robot.commands.ZeroPositionCommandIntake;
 import frc.robot.commands.commandGroups.AmpScoreCommandGroup;
 import frc.robot.commands.commandGroups.AngleFloorCommand;
 import frc.robot.commands.commandGroups.IntakeTransferCommandGroupAuto;
+import frc.robot.commands.IntakeTransferCommand;
+import frc.robot.commands.LaunchCommand;
 import frc.robot.commands.commandGroups.Pos1CommandGroup;
 import frc.robot.commands.commandGroups.Pos2CommandGroup;
 import frc.robot.commands.commandGroups.Pos3CommandGroup;
@@ -206,6 +209,7 @@ public class RobotContainer {
             SK24Launcher launcher = m_launcher.get();
             SK24Intake intake = m_intake.get();
             
+            
 
             if(false)  //previously m_launcher_angle.isPresent()
             {
@@ -246,10 +250,10 @@ public class RobotContainer {
             
             NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake));
             NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
-            NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake));
+            NamedCommands.registerCommand("ShootCommand", new LaunchCommand(kLauncherLeftSpeed, kLauncherRightSpeed, launcher, intake, m_light));
             
 
-            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommandGroupAuto(intake, m_light));
+            NamedCommands.registerCommand("IntakeCommand", new IntakeTransferCommand(kIntakeSpeed, intake, m_light));
             NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake));
             NamedCommands.registerCommand("StopCommand", new StopCommand(intake, launcher));
             NamedCommands.registerCommand("StopIntakeCommand", new InstantCommand(() -> intake.stopIntake()));

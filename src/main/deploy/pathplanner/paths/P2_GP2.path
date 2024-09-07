@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.309440738710292,
-        "y": 5.574358195791997
+        "x": 1.3171869760109631,
+        "y": 5.539225686154654
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6724766716295187,
-        "y": 5.586069032337777
+        "x": 1.6802229089301897,
+        "y": 5.550936522700434
       },
       "isLocked": false,
       "linkedName": "Score2"
@@ -23,9 +23,25 @@
         "x": 2.613556525258558,
         "y": 5.515804013063089
       },
-      "nextControl": null,
+      "nextControl": {
+        "x": 3.152255006364508,
+        "y": 5.562647359246219
+      },
       "isLocked": false,
       "linkedName": "PickGP2"
+    },
+    {
+      "anchor": {
+        "x": 1.3171869760109631,
+        "y": 5.539225686154654
+      },
+      "prevControl": {
+        "x": 2.028075040728967,
+        "y": 5.560508013068222
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -33,32 +49,15 @@
   "eventMarkers": [
     {
       "name": "New Event Marker",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.8,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "Score2AngleCommand"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.5,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeAutoCommand"
+                "name": "IntakeCommand"
               }
             }
           ]

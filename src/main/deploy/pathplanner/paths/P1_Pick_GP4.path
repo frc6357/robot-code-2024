@@ -3,41 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.6887664017838722,
-        "y": 6.75715268691593
+        "x": 0.7426336086361384,
+        "y": 6.641447399146282
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.1008160289719306,
-        "y": 6.75715268691593
-      },
-      "isLocked": false,
-      "linkedName": "Score1"
-    },
-    {
-      "anchor": {
-        "x": 8.281967377058862,
-        "y": 7.284140331476098
-      },
-      "prevControl": {
-        "x": 7.912179250095222,
-        "y": 7.273574956419994
-      },
-      "nextControl": {
-        "x": 8.620580889789801,
-        "y": 7.293815003268411
+        "x": 1.1546832358241967,
+        "y": 6.641447399146282
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.4662605074140238,
-        "y": 6.417538427088266
+        "x": 8.367638467186781,
+        "y": 7.420502812535874
       },
       "prevControl": {
-        "x": 2.7467654768871355,
-        "y": 6.641830698811266
+        "x": 7.99785034022314,
+        "y": 7.40993743747977
+      },
+      "nextControl": {
+        "x": 8.70625197991772,
+        "y": 7.430177484328187
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.7426336086361384,
+        "y": 6.641447399146282
+      },
+      "prevControl": {
+        "x": 2.02313857810925,
+        "y": 6.865739670869282
       },
       "nextControl": null,
       "isLocked": false,
@@ -60,7 +60,7 @@
   "eventMarkers": [
     {
       "name": "Pick Up",
-      "waypointRelativePos": 0.7,
+      "waypointRelativePos": 0.8,
       "command": {
         "type": "parallel",
         "data": {
@@ -69,23 +69,6 @@
               "type": "named",
               "data": {
                 "name": "IntakeCommand"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "SetAngle",
-      "waypointRelativePos": 0.15,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "GP456Command"
               }
             }
           ]
@@ -101,13 +84,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -133.87669728592473,
+    "rotation": -120.22505182727971,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "Position 1",
   "previewStartingState": {
-    "rotation": -126.38435181583588,
+    "rotation": -120.76271953423885,
     "velocity": 0
   },
   "useDefaultConstraints": true

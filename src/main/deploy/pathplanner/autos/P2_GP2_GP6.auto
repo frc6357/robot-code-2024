@@ -12,12 +12,6 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "Pos2"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "ShootCommand"
@@ -30,15 +24,15 @@
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 1.0
+            "name": "ShootCommand"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "AngleFloorCommand"
+            "waitTime": 0.5
           }
         },
         {
@@ -48,33 +42,15 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AngleFloorCommand"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Driftless_P2_GP6_Shuttle"
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "ShootCommand"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 1.0
           }
         },
         {

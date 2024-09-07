@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.883271729453586,
-        "y": 5.539225686154654
+        "x": 1.2654128783161045,
+        "y": 5.5785180296229315
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.8832717294535875,
-        "y": 5.539225686154654
+        "x": 2.2654128783161065,
+        "y": 5.5785180296229315
       },
       "isLocked": false,
       "linkedName": null
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 8.58599871045896,
-        "y": 4.262519294269358
+        "x": 8.29138729062529,
+        "y": 4.109930896824471
       },
       "prevControl": {
-        "x": 6.946481594049547,
-        "y": 3.676977466980283
+        "x": 6.651870174215877,
+        "y": 3.5243890695353954
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,46 +58,6 @@
               "type": "named",
               "data": {
                 "name": "IntakeCommand"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakeCommand"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 1.45,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Pos1CommandGroup"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 2.0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 2.0
               }
             }
           ]
