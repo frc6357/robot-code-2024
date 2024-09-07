@@ -20,12 +20,6 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Pos3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "P3_GP3_P2"
           }
         },

@@ -37,20 +37,7 @@
       "command": {
         "type": "sequential",
         "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Pos3CommandGroup"
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "StartLauncherCommand"
-              }
-            }
-          ]
+          "commands": []
         }
       }
     }
