@@ -20,7 +20,26 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootCommand"
+            "name": "RevLauncher"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RevLauncher"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCommand"
+                }
+              }
+            ]
           }
         },
         {
@@ -32,7 +51,26 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootCommand"
+            "name": "RevLauncher"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RevLauncher"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCommand"
+                }
+              }
+            ]
           }
         },
         {
@@ -44,7 +82,26 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootCommand"
+            "name": "RevLauncher"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "RevLauncher"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakeCommand"
+                }
+              }
+            ]
           }
         }
       ]

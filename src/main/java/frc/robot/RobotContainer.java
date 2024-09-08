@@ -29,6 +29,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.wpilibj2.command.*;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -246,6 +247,7 @@ public class RobotContainer {
             
             NamedCommands.registerCommand("IntakeAutoCommand", new IntakeAutoCommand(intake));
             NamedCommands.registerCommand("Dump", new InstantCommand(() -> launcher.setLauncherSpeed(0.1, 0.1)));
+            NamedCommands.registerCommand("RevLauncher", new InstantCommand(() -> launcher.setLauncherSpeed(0.6, 0.7)));
             NamedCommands.registerCommand("ShootCommand", new ShootCommandGroup(intake));
             
 

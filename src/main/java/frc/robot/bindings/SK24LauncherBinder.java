@@ -186,7 +186,7 @@ public class SK24LauncherBinder implements CommandBinder
                 launchSpeakerButton.onFalse(new InstantCommand(() -> m_launcher.setRunning(false)));
                 launchSpeakerButton.onFalse(new InstantCommand(() -> light.setTeamColor()));
 
-                //launchSpeakerButton.onTure(new LaunchSpeakerCommandGroup(launcher, light));
+                //launchSpeakerButton.onTrue(new LaunchSpeakerCommandGroup(launcher, light));
                  
             }
             

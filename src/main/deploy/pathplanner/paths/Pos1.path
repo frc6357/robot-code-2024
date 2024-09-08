@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.6887664017838722,
-        "y": 6.75715268691593
+        "x": 1.3374413054104268,
+        "y": 6.522935956000301
       },
       "prevControl": {
-        "x": 1.59507970941762,
-        "y": 6.780574360007493
+        "x": 1.2437546130441746,
+        "y": 6.5463576290918635
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "StartLauncherCommand"
+                "name": "RevLauncher"
               }
             }
           ]
@@ -63,7 +63,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -137.82980759288716,
+    "rotation": -136.0416266760099,
     "rotateFast": false
   },
   "reversed": false,

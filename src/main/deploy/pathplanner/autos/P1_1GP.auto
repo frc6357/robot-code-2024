@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "ShootCommand"
+            "name": "LaunchCommandAuto"
           }
         },
         {
@@ -33,12 +33,6 @@
           "type": "named",
           "data": {
             "name": "ZeroPositionCommand"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "OutOfWay"
           }
         }
       ]

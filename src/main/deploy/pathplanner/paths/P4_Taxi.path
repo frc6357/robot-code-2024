@@ -16,12 +16,28 @@
     },
     {
       "anchor": {
-        "x": 7.438787145762593,
-        "y": 0.8197585582047061
+        "x": 8.246834867421518,
+        "y": 0.772915212021579
       },
       "prevControl": {
-        "x": 5.4658955202719195,
-        "y": 1.2934747075640183
+        "x": 6.273943241930844,
+        "y": 1.246631361380891
+      },
+      "nextControl": {
+        "x": 10.21972649291219,
+        "y": 0.2991990626622669
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3140196323188638,
+        "y": 2.1079505782406716
+      },
+      "prevControl": {
+        "x": 5.22817458150958,
+        "y": 0.8639605606238057
       },
       "nextControl": null,
       "isLocked": false,
@@ -38,28 +54,16 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "Dump",
-      "waypointRelativePos": 0.25,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.9,
       "command": {
-        "type": "sequential",
+        "type": "parallel",
         "data": {
           "commands": [
             {
               "type": "named",
               "data": {
-                "name": "Dump"
-              }
-            },
-            {
-              "type": "wait",
-              "data": {
-                "waitTime": 1.0
-              }
-            },
-            {
-              "type": "named",
-              "data": {
-                "name": "StopLauncherCommand"
+                "name": "IntakeCommand"
               }
             }
           ]
