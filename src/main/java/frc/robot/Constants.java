@@ -348,7 +348,7 @@ public final class Constants
     
     public static final class IntakeConstants
     {
-        public static final double kIntakeSpeed = 0.3; 
+        public static final double kIntakeSpeed = 0.6; //0.3
         public static final double kSlowIntakeSpeed = 0.03;
         public static final double kIntakeAngle = 40.0; 
         public static final double kIntakeLauncherLeftSpeed = -0.1;
@@ -384,8 +384,8 @@ public final class Constants
         
         public static final String kSpeakerDefaultLeftSpeedKey = "kSpeakerDefaultLeftSpeedKey";
         public static final String kSpeakerDefaultRightSpeedKey = "kSpeakerDefaultRightSpeedKey";
-        public static final double kSpeakerDefaultLeftSpeed = 0.4;
-        public static final double kSpeakerDefaultRightSpeed = 0.5;
+        public static final double kSpeakerDefaultLeftSpeed = 0.5; //0.4
+        public static final double kSpeakerDefaultRightSpeed = 0.6; //0.5
         public static final Pref<Double> speakerSpeedLeft = SKPreferences.attach(kSpeakerDefaultLeftSpeedKey, kSpeakerDefaultLeftSpeed);
         public static final Pref<Double> speakerSpeedRight = SKPreferences.attach(kSpeakerDefaultRightSpeedKey, kSpeakerDefaultRightSpeed);
         
