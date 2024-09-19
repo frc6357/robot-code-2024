@@ -1,19 +1,21 @@
 package frc.robot.subsystems;
 
-//import static frc.robot.Constants.IntakeConstants.noteMeasurement;
+import static frc.robot.Constants.IntakeConstants.noteMeasurement;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
-//import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
-//import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
 //import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-//import au.grapplerobotics.LaserCan;
+import au.grapplerobotics.LaserCan;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.utils.SKCANLight;
 
 public class SK24Intake extends SubsystemBase
 {
@@ -23,10 +25,13 @@ public class SK24Intake extends SubsystemBase
 
     //private LaserCan laserCanLower;
     //private LaserCan laserCanHigher;
-    DigitalInput beamBreakSensor;
+    DigitalInput beamBreakSensorLeft;
+    DigitalInput beamBreakSensorRight;
+
+    private final SKCANLight light;
 
 
-    public SK24Intake()
+    public SK24Intake(SKCANLight light)
     {
 
         //Initialize motor objects, assuming intake has 2 motors.
@@ -35,13 +40,18 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
+        this.light = light;
+
+
         //transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
         //transferMotor.setInverted(true);
 
        // laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
        // laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
-
-       beamBreakSensor = new DigitalInput(1);
+    
+       //DONT USE CHANNEL 0 
+       beamBreakSensorLeft = new DigitalInput(6);
+       beamBreakSensorRight =new DigitalInput(1);
 
 
 
@@ -97,16 +107,35 @@ public class SK24Intake extends SubsystemBase
 
     //Set motor speeds
 
-    public Boolean beamBreak()
+
+    //checks if the left beam is broken
+    public Boolean isRightBeamBroken()
     {
-        //interrupted(input);
-        if(beamBreakSensor.get())
+        if(beamBreakSensorLeft.get())
+            return false;
+        else
+            return true;
+    }
+
+    //checks if the right beam is broken
+    public boolean isLeftBeamBroken()
+    {
+        if(beamBreakSensorRight.get())
+            return false;
+        else   
+            return true;
+    }
+
+    public boolean haveNote()
+    {
+        if(isRightBeamBroken()||isLeftBeamBroken())
             return true;
         else
             return false;
     }
 
-    public void setIntakeSpeed (double speed)
+
+    public void setIntakeSpeed(double speed)
     {
         topIntakeMotor.set(speed);
     }
@@ -127,7 +156,17 @@ public class SK24Intake extends SubsystemBase
     {
         //SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
         //SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
-        SmartDashboard.putBoolean("Sensor detected",beamBreak());
+        SmartDashboard.putBoolean("Has Note",haveNote());
+
+        if (haveNote())
+        {
+          light.setOrange();
+          new WaitCommand(0.5);
+          setIntakeSpeed(0);
+          //intake.setTransferSpeed(kSlowTransferSpeed);
+        }
+        else
+            light.setTeamColor();
     }
 
     public void testInit()

@@ -5,6 +5,7 @@ import static frc.robot.Constants.IntakeConstants.kIntakeTransferSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowTransferSpeed;
 
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.utils.SKCANLight;
@@ -14,7 +15,6 @@ public class IntakeTransferCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
-  private final SKCANLight light;
   double intakeSpeed;
  // double transferSpeed;
 
@@ -27,7 +27,6 @@ public class IntakeTransferCommand extends Command
   public IntakeTransferCommand(double intakeSpeed, SK24Intake intake, SKCANLight light) //previously had a double transferSpeed parameter
   {
     this.intake = intake;
-    this.light = light;
     this.intakeSpeed = intakeSpeed;
    // this.transferSpeed = transferSpeed;
 
@@ -46,17 +45,10 @@ public class IntakeTransferCommand extends Command
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    
-    if (intake.beamBreak() || intake.beamBreak())
-    {
-      light.setOrange();
-      intake.setIntakeSpeed(kSlowIntakeSpeed);
-      //intake.setTransferSpeed(kSlowTransferSpeed);
-      
-    }
-  } 
-   
+  public void execute() 
+  {
+  }
+
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
@@ -68,7 +60,6 @@ public class IntakeTransferCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-    //return intake.beamBreak();
+    return intake.haveNote();
   }
 }

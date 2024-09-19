@@ -88,12 +88,14 @@ public class SK24IntakeBinder implements CommandBinder{
 
             //operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(0.25)));
             //operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
-            intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
+            //intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
             intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
+            //intakeOperatorButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
             
             //not originaly here
-            intakeDriverButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
+           // intakeDriverButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             intakeDriverButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
+            //intakeDriverButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
             //operatorTransferButton.onFalse(new StopIntakingCommand(intake));
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
 

@@ -137,7 +137,7 @@ public class RobotContainer {
             }
             if(subsystems.isIntakePresent())
             {
-              m_intake = Optional.of(new SK24Intake());
+              m_intake = Optional.of(new SK24Intake(m_light));
             }
             if (subsystems.isDrivePresent())
             {

@@ -18,7 +18,7 @@
   {
     "name": "/Preferences/kSpeakerRestingLeftSpeedKey",
     "type": "double",
-    "value": 0.4,
+    "value": 0.2,
     "properties": {
       "persistent": true
     }
@@ -26,7 +26,7 @@
   {
     "name": "/Preferences/kSpeakerRestingRightSpeedKey",
     "type": "double",
-    "value": 0.5,
+    "value": 0.2,
     "properties": {
       "persistent": true
     }
@@ -50,7 +50,7 @@
   {
     "name": "/Preferences/kSpeakerRampSpeedKey",
     "type": "double",
-    "value": 2.0,
+    "value": 1.2,
     "properties": {
       "persistent": true
     }
@@ -59,6 +59,70 @@
     "name": "/Preferences/kRestingRampSpeedKey",
     "type": "double",
     "value": 1.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/supplyCurrentKey",
+    "type": "double",
+    "value": 60.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/supplyCurrentThresholdKey",
+    "type": "double",
+    "value": 80.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/supplyTimeThresholdKey",
+    "type": "double",
+    "value": 0.5,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/statorCurrentLimitKey",
+    "type": "double",
+    "value": 60.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kChurroPKey",
+    "type": "double",
+    "value": 0.003,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kChurroIKey",
+    "type": "double",
+    "value": 0.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kChurroDKey",
+    "type": "double",
+    "value": 0.0,
+    "properties": {
+      "persistent": true
+    }
+  },
+  {
+    "name": "/Preferences/kLauncherAngleWingKey",
+    "type": "double",
+    "value": 23.0,
     "properties": {
       "persistent": true
     }
