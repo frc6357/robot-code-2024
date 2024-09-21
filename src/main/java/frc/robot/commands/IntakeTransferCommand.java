@@ -37,8 +37,7 @@ public class IntakeTransferCommand extends Command
     this.intakeSpeed = intakeSpeed;
     this.light = light;
 
-    beamBreakSensorLeft = new DigitalInput(6);
-    beamBreakSensorRight =new DigitalInput(1);
+    
 
    // this.transferSpeed = transferSpeed;
 
@@ -90,7 +89,7 @@ public class IntakeTransferCommand extends Command
         if (intake.haveNote())
         {
           light.setOrange();
-          new WaitCommand(0.5);
+          //new WaitCommand(2);
           intake.setIntakeSpeed(0);
           //intake.setTransferSpeed(kSlowTransferSpeed);
         }
@@ -109,6 +108,6 @@ public class IntakeTransferCommand extends Command
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.haveNote();
+    return false;
   }
 }
