@@ -73,7 +73,7 @@ public class Ports
         public static final SKTrigger kEject = new SKTrigger(kOperator, kLeftTrigger.value, AXIS);
 
         // Transfer
-        //public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
+        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
 
         // Launch at Target
         public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);

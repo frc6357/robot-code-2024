@@ -6,9 +6,13 @@ import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowTransferSpeed;
 
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.utils.SKCANLight;
+
+
 
 
 public class IntakeTransferCommand extends Command
@@ -16,7 +20,10 @@ public class IntakeTransferCommand extends Command
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
   double intakeSpeed;
- // double transferSpeed;
+  // double transferSpeed;
+
+  DigitalInput beamBreakSensorLeft;
+  DigitalInput beamBreakSensorRight;
 
   /**
    * Command to intake the note using intake and transfer
@@ -28,7 +35,10 @@ public class IntakeTransferCommand extends Command
   {
     this.intake = intake;
     this.intakeSpeed = intakeSpeed;
-   // this.transferSpeed = transferSpeed;
+ 
+    //this.transferSpeed = transferSpeed;
+    
+
 
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,10 +46,37 @@ public class IntakeTransferCommand extends Command
   }
 
   // Called when the command is initially scheduled.
+  //checks if the left beam is broken
+  public Boolean isRightBeamBroken()
+  {
+      if(beamBreakSensorLeft.get())
+          return false;
+      else
+          return true;
+  }
+
+  //checks if the right beam is broken
+  public boolean isLeftBeamBroken()
+  {
+      if(beamBreakSensorRight.get())
+          return false;
+      else   
+          return true;
+  }
+
+  public boolean haveNote()
+  {
+      if(isRightBeamBroken()||isLeftBeamBroken())
+          return true;
+      else
+          return false;
+  }
+
   @Override
   public void initialize() 
   {
-      intake.setIntakeSpeed(intakeSpeed); 
+      intake.setIntakeSpeed(intakeSpeed);
+      
       //intake.setTransferSpeed(kIntakeTransferSpeed);
   }
 
@@ -47,6 +84,12 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() 
   {
+    SmartDashboard.putBoolean("Has Note",haveNote());
+        if (haveNote())
+        {
+          new WaitCommand(0.5);
+          intake.setIntakeSpeed(0);
+        }
   }
 
   // Called once the command ends or is interrupted.

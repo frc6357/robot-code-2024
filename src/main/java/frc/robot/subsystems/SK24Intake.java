@@ -50,8 +50,7 @@ public class SK24Intake extends SubsystemBase
        // laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
     
        //DONT USE CHANNEL 0 
-       beamBreakSensorLeft = new DigitalInput(6);
-       beamBreakSensorRight =new DigitalInput(1);
+       
 
 
 
@@ -154,19 +153,7 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
-        //SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
-        //SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
-        SmartDashboard.putBoolean("Has Note",haveNote());
 
-        if (haveNote())
-        {
-          light.setOrange();
-          new WaitCommand(0.5);
-          setIntakeSpeed(0);
-          //intake.setTransferSpeed(kSlowTransferSpeed);
-        }
-        else
-            light.setTeamColor();
     }
 
     public void testInit()
