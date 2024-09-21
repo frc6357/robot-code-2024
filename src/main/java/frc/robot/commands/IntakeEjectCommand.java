@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-
 import static frc.robot.Constants.IntakeConstants.kIntakeTransferSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowTransferSpeed;
@@ -13,7 +12,7 @@ import frc.robot.subsystems.SK24Intake;
 import frc.robot.utils.SKCANLight;
 
 
-public class IntakeTransferCommand extends Command
+public class IntakeEjectCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
@@ -31,7 +30,7 @@ public class IntakeTransferCommand extends Command
    * @param intake The intake subsystem used by this command.
    * @param launcher The launcher subsystem used by this command.
    */
-  public IntakeTransferCommand(double intakeSpeed, SK24Intake intake, SKCANLight light) //previously had a double transferSpeed parameter
+  public IntakeEjectCommand(double intakeSpeed, SK24Intake intake, SKCANLight light) //previously had a double transferSpeed parameter
   {
     this.intake = intake;
     this.intakeSpeed = intakeSpeed;
@@ -76,7 +75,7 @@ public class IntakeTransferCommand extends Command
   @Override
   public void initialize() 
   {
-      intake.setIntakeSpeed(intakeSpeed); 
+      intake.setIntakeSpeed(-intakeSpeed); 
       //intake.setTransferSpeed(kIntakeTransferSpeed);
   }
 
@@ -84,21 +83,7 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() 
   {
-    SmartDashboard.putBoolean("Has Note",intake.haveNote());
-    
-    if (intake.haveNote())
-    {
-      light.setOrange();
-      //new WaitCommand(2);
-      intake.setIntakeSpeed(0);
-      //intake.setTransferSpeed(kSlowTransferSpeed);
-    }
-    else
-    {
-      light.setTeamColor();
-      intake.setIntakeSpeed(intakeSpeed);
-    }
-        
+    intake.setIntakeSpeed(-intakeSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -113,6 +98,6 @@ public class IntakeTransferCommand extends Command
   @Override
   public boolean isFinished()
   {
-    return intake.haveNote();
+    return false;
   }
 }

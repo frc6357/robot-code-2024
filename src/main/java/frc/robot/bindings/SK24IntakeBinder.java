@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.IntakeTransferCommand;
+import frc.robot.commands.IntakeEjectCommand;
+import frc.robot.commands.StopCommand;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
 //import frc.robot.commands.IntakeAutoCommand;
 //import frc.robot.commands.StopIntakingCommand;
@@ -75,12 +77,12 @@ public class SK24IntakeBinder implements CommandBinder{
             lightsOffButton.onTrue(new InstantCommand(() -> light.setBrightness(kLightsOffBrightness)));
 
             // Eject Buttons
-            ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
+            //ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(-kIntakeSpeed)));
             //ejectDriverButton.or(ejectOperatorButton).onTrue(new InstantCommand(() -> intake.setTransferSpeed(-kTransferSpeed)));
 
-            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
+            //ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopIntake()));
             //ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> intake.stopTransfer()));
-            ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> light.setTeamColor()));
+            //ejectDriverButton.or(ejectOperatorButton).onFalse(new InstantCommand(() -> light.setTeamColor()));
 
             // Transfer Button
             
@@ -91,11 +93,19 @@ public class SK24IntakeBinder implements CommandBinder{
             //intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
             //intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
             intakeOperatorButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
+            intakeOperatorButton.onFalse(new IntakeTransferCommand(0, intake, light));
+
+            ejectDriverButton.onTrue(new IntakeEjectCommand(kIntakeSpeed, intake, light));
+            ejectDriverButton.onFalse(new IntakeEjectCommand(0, intake, light));
+
+            ejectOperatorButton.onTrue(new IntakeEjectCommand(kIntakeSpeed, intake, light));
+            ejectOperatorButton.onFalse(new IntakeEjectCommand(0, intake, light));
             
             //not originaly here
             //intakeDriverButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             //intakeDriverButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
             intakeDriverButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
+            intakeDriverButton.onFalse(new IntakeTransferCommand(0, intake, light));
             //operatorTransferButton.onFalse(new StopIntakingCommand(intake));
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
 
