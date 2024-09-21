@@ -6,6 +6,8 @@ import static frc.robot.Constants.IntakeConstants.kSlowIntakeSpeed;
 import static frc.robot.Constants.IntakeConstants.kSlowTransferSpeed;
 
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Intake;
 import frc.robot.utils.SKCANLight;
@@ -15,6 +17,11 @@ public class IntakeTransferCommand extends Command
 {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final SK24Intake intake;
+  private final SKCANLight light;
+
+  DigitalInput beamBreakSensorLeft;
+  DigitalInput beamBreakSensorRight;
+  
   double intakeSpeed;
  // double transferSpeed;
 
@@ -28,6 +35,11 @@ public class IntakeTransferCommand extends Command
   {
     this.intake = intake;
     this.intakeSpeed = intakeSpeed;
+    this.light = light;
+
+    beamBreakSensorLeft = new DigitalInput(6);
+    beamBreakSensorRight =new DigitalInput(1);
+
    // this.transferSpeed = transferSpeed;
 
 
@@ -35,6 +47,31 @@ public class IntakeTransferCommand extends Command
     addRequirements(intake);
   }
 
+  //checks if the left beam is broken
+  public Boolean isRightBeamBroken()
+  {
+      if(beamBreakSensorLeft.get())
+          return false;
+      else
+          return true;
+  }
+
+  //checks if the right beam is broken
+  public boolean isLeftBeamBroken()
+  {
+      if(beamBreakSensorRight.get())
+          return false;
+      else   
+          return true;
+  }
+
+  public boolean haveNote()
+  {
+      if(isRightBeamBroken()||isLeftBeamBroken())
+          return true;
+      else
+          return false;
+  }
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
@@ -47,6 +84,17 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() 
   {
+    SmartDashboard.putBoolean("Has Note",haveNote());
+
+        if (haveNote())
+        {
+          light.setOrange();
+          new WaitCommand(0.5);
+          intake.setIntakeSpeed(0);
+          //intake.setTransferSpeed(kSlowTransferSpeed);
+        }
+        else
+            light.setTeamColor();
   }
 
   // Called once the command ends or is interrupted.

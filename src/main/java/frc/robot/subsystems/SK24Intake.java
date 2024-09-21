@@ -109,6 +109,8 @@ public class SK24Intake extends SubsystemBase
 
 
     //checks if the left beam is broken
+
+    
     public Boolean isRightBeamBroken()
     {
         if(beamBreakSensorLeft.get())
@@ -125,7 +127,7 @@ public class SK24Intake extends SubsystemBase
         else   
             return true;
     }
-
+    
     public boolean haveNote()
     {
         if(isRightBeamBroken()||isLeftBeamBroken())
@@ -133,6 +135,7 @@ public class SK24Intake extends SubsystemBase
         else
             return false;
     }
+    
 
 
     public void setIntakeSpeed(double speed)
@@ -156,6 +159,7 @@ public class SK24Intake extends SubsystemBase
     {
         //SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
         //SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
+        /**
         SmartDashboard.putBoolean("Has Note",haveNote());
 
         if (haveNote())
@@ -167,6 +171,7 @@ public class SK24Intake extends SubsystemBase
         }
         else
             light.setTeamColor();
+        */
     }
 
     public void testInit()
