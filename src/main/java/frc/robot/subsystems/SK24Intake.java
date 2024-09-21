@@ -50,8 +50,8 @@ public class SK24Intake extends SubsystemBase
        // laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
     
        //DONT USE CHANNEL 0 
-       beamBreakSensorLeft = new DigitalInput(6);
-       beamBreakSensorRight =new DigitalInput(1);
+       //beamBreakSensorLeft = new DigitalInput(6);
+       //beamBreakSensorRight =new DigitalInput(1);
 
 
 

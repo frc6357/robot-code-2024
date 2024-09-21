@@ -46,7 +46,7 @@ public class IntakeTransferCommand extends Command
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
-
+  /**
   //checks if the left beam is broken
   public Boolean isRightBeamBroken()
   {
@@ -72,6 +72,7 @@ public class IntakeTransferCommand extends Command
       else
           return false;
   }
+  */
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
@@ -84,9 +85,9 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() 
   {
-    SmartDashboard.putBoolean("Has Note",haveNote());
+    SmartDashboard.putBoolean("Has Note",intake.haveNote());
 
-        if (haveNote())
+        if (intake.haveNote())
         {
           light.setOrange();
           new WaitCommand(0.5);
