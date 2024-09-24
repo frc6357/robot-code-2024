@@ -88,8 +88,8 @@ public class IntakeTransferCommand extends Command
     
     if (intake.haveNote())
     {
+      new WaitCommand(10.0);
       light.setOrange();
-      //new WaitCommand(2);
       intake.setIntakeSpeed(0);
       //intake.setTransferSpeed(kSlowTransferSpeed);
     }

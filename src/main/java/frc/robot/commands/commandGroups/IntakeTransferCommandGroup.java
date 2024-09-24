@@ -10,6 +10,9 @@ import static frc.robot.Constants.IntakeConstants.kTransferSpeed;
 import static frc.robot.Constants.LauncherConstants.speakerRestingSpeedLeft;
 import static frc.robot.Constants.LauncherConstants.speakerRestingSpeedRight;
 
+import java.util.List;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -24,10 +27,20 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
     
     public IntakeTransferCommandGroup(SK24Intake intake, SK24Launcher launcher, SKCANLight light) //previously had SK24LauncherAngle arm
     {
-        addCommands(  
-                //new AngleCommand(kSpeakerAngle, arm),
-                // new InstantCommand(() -> launcher.setRestingRampRate()),
-                new IntakeTransferCommand(kIntakeSpeed, intake, light) //previously used a kTransferSpeed parameter
-        );
+        List<Command> myCommandGroup = List.of(new IntakeTransferCommand(kIntakeSpeed, intake, light),
+         new WaitCommand(2));
+        if (intake.haveNote())
+        {
+            myCommandGroup.add(new WaitCommand(10.0));
+            myCommandGroup.add(new InstantCommand(() -> light.setOrange()));
+            myCommandGroup.add(new InstantCommand(() -> intake.setIntakeSpeed(0)));
+        }
+        else
+        {
+            myCommandGroup.add(new InstantCommand(() -> light.setTeamColor()));
+            myCommandGroup.add(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
+        } 
+        addCommands(myCommandGroup.toArray(new Command[0]));
+        s
     }
 }
