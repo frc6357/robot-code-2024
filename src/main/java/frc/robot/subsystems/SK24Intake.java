@@ -136,8 +136,6 @@ public class SK24Intake extends SubsystemBase
             return false;
     }
     
-
-
     public void setIntakeSpeed(double speed)
     {
         topIntakeMotor.set(speed);
@@ -157,21 +155,6 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
-        //SmartDashboard.putBoolean("HaveLauncherNote", haveHigherNote());
-        //SmartDashboard.putBoolean("HaveLauncherLowerNote", haveLowerNote());
-        /**
-        SmartDashboard.putBoolean("Has Note",haveNote());
-
-        if (haveNote())
-        {
-          light.setOrange();
-          new WaitCommand(0.5);
-          setIntakeSpeed(0);
-          //intake.setTransferSpeed(kSlowTransferSpeed);
-        }
-        else
-            light.setTeamColor();
-        */
     }
 
     public void testInit()
