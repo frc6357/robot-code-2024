@@ -45,33 +45,6 @@ public class IntakeTransferCommand extends Command
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
-  /**
-  //checks if the left beam is broken
-  public Boolean isRightBeamBroken()
-  {
-      if(beamBreakSensorLeft.get())
-          return false;
-      else
-          return true;
-  }
-
-  //checks if the right beam is broken
-  public boolean isLeftBeamBroken()
-  {
-      if(beamBreakSensorRight.get())
-          return false;
-      else   
-          return true;
-  }
-
-  public boolean haveNote()
-  {
-      if(isRightBeamBroken()||isLeftBeamBroken())
-          return true;
-      else
-          return false;
-  }
-  */
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
@@ -89,7 +62,7 @@ public class IntakeTransferCommand extends Command
     if (intake.haveNote())
     {
       light.setOrange();
-      //new WaitCommand(2);
+      //new WaitCommand(2);   /TODO Find a way to stop intake slightly after the button is pressed.
       intake.setIntakeSpeed(0);
       //intake.setTransferSpeed(kSlowTransferSpeed);
     }

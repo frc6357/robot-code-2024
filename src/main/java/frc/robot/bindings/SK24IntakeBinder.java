@@ -39,7 +39,6 @@ public class SK24IntakeBinder implements CommandBinder{
     Trigger lightsOffButton;
     Trigger stopButton;
 
-
     public SK24IntakeBinder(Optional<SK24Intake> intake, Optional<SK24Launcher> launcher, SKCANLight light){  //previously Optional<SK24LauncherAngle> arm
         this.m_intake = intake;
         this.m_launcher = launcher;
@@ -92,28 +91,27 @@ public class SK24IntakeBinder implements CommandBinder{
             //operatorTransferButton.and(launchAmpButton).onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             //intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
             //intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
+
             intakeOperatorButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
             intakeOperatorButton.onFalse(new IntakeTransferCommand(0, intake, light));
+
+            intakeDriverButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
+            intakeDriverButton.onFalse(new IntakeTransferCommand(0, intake, light));
+
+            ejectOperatorButton.onTrue(new IntakeEjectCommand(kIntakeSpeed, intake, light));
+            ejectOperatorButton.onFalse(new IntakeEjectCommand(0, intake, light));
 
             ejectDriverButton.onTrue(new IntakeEjectCommand(kIntakeSpeed, intake, light));
             ejectDriverButton.onFalse(new IntakeEjectCommand(0, intake, light));
 
-            ejectOperatorButton.onTrue(new IntakeEjectCommand(kIntakeSpeed, intake, light));
-            ejectOperatorButton.onFalse(new IntakeEjectCommand(0, intake, light));
-            
             //not originaly here
             //intakeDriverButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
             //intakeDriverButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
-            intakeDriverButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
-            intakeDriverButton.onFalse(new IntakeTransferCommand(0, intake, light));
+            
             //operatorTransferButton.onFalse(new StopIntakingCommand(intake));
             //stopButton.onTrue(new StopIntakingCommand(intake, launcher));
 
-
-
-            
-            //currently tseting below
-
+            //currently testing below
 
             //intakeDriverButton.or(intakeOperatorButton).whileTrue(new IntakeTransferCommand(kIntakeSpeed, launcher, light)); //previously arm
             
