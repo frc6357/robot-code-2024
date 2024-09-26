@@ -141,10 +141,6 @@ public class SK24Intake extends SubsystemBase
         topIntakeMotor.set(speed);
     }
 
-    public void setEjectSpeed(double speed)
-    {
-        topIntakeMotor.set(speed);
-    }
         
     //Return motor speeds
     public double getMotorSpeed ()
