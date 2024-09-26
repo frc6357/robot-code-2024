@@ -25,9 +25,9 @@ import frc.robot.utils.SKCANLight;
 
 public class IntakeTransferCommandGroup extends SequentialCommandGroup {
     
-    public IntakeTransferCommandGroup(SK24Intake intake, SK24Launcher launcher, SKCANLight light) //previously had SK24LauncherAngle arm
+    public IntakeTransferCommandGroup(double intakeSpeed, SK24Intake intake, SKCANLight light) //previously had SK24LauncherAngle arm
     {
-        List<Command> myCommandGroup = List.of(new IntakeTransferCommand(kIntakeSpeed, intake, light),
+        /*List<Command> myCommandGroup = List.of(new IntakeTransferCommand(kIntakeSpeed, intake, light),
          new WaitCommand(2));
         if (intake.haveNote())
         {
@@ -40,7 +40,29 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
             myCommandGroup.add(new InstantCommand(() -> light.setTeamColor()));
             myCommandGroup.add(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));
         } 
-        addCommands(myCommandGroup.toArray(new Command[0]));
-        s
+        addCommands(myCommandGroup.toArray(new Command[0]));*/
+
+        /*addCommands(
+            new InstantCommand(() -> launcher.setSpeakerRampRate(), launcher),
+            new InstantCommand(() -> light.setPurple()),
+            new InstantCommand(() -> launcher.setLauncherSpeed(speakerSpeedLeft.get(), speakerSpeedRight.get()), launcher),
+            new WaitCommand(launcher.getCurrentRampRate()),
+            new InstantCommand(() -> light.setGreen()),
+            new WaitCommand(10.0),
+            new InstantCommand(() -> light.setOrange(),
+            new InstantCommand(() -> intake.setIntakeSpeed(0)),
+            new InstantCommand(() -> light.setTeamColor()))
+            //new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed))
+            
+        );*/
+        addCommands(
+            new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)),
+            new InstantCommand(() -> light.setOrange()),
+           
+            new WaitCommand(1.0),
+            new InstantCommand(() -> light.setTeamColor()),
+            new InstantCommand(() -> intake.setIntakeSpeed(0))
+        );
+        
     }
 }

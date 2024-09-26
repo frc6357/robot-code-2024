@@ -9,11 +9,13 @@ import static frc.robot.Ports.OperatorPorts.kLaunchAmp;
 import java.util.Optional;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
 import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.commands.IntakeEjectCommand;
 import frc.robot.commands.StopCommand;
+import frc.robot.commands.commandGroups.IntakeTransferCommandGroup;
 import frc.robot.commands.commandGroups.LaunchSpeakerCommandGroup;
 //import frc.robot.commands.IntakeAutoCommand;
 //import frc.robot.commands.StopIntakingCommand;
@@ -93,7 +95,7 @@ public class SK24IntakeBinder implements CommandBinder{
             //intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
 
             intakeOperatorButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
-            intakeOperatorButton.onFalse(new IntakeTransferCommand(0, intake, light));
+            intakeOperatorButton.onFalse(new IntakeTransferCommand(0.0, intake, light));
 
             intakeDriverButton.onTrue(new IntakeTransferCommand(kIntakeSpeed, intake, light));
             intakeDriverButton.onFalse(new IntakeTransferCommand(0, intake, light));
