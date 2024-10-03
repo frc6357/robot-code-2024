@@ -156,6 +156,7 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
+        SmartDashboard.putBoolean("Has Note",haveNote());
     }
 
     public void testInit()

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 //import frc.robot.commands.AngleCommand;
 import frc.robot.commands.IntakeTransferCommand;
 import frc.robot.subsystems.SK24Intake;
@@ -57,12 +58,16 @@ public class IntakeTransferCommandGroup extends SequentialCommandGroup {
         );*/
         addCommands(
             new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)),
+
+            new WaitUntilCommand(intake::haveNote),
+
             new InstantCommand(() -> light.setOrange()),
-           
-            new WaitCommand(1.0),
-            new InstantCommand(() -> light.setTeamColor()),
+            
+            new WaitCommand(1),
+
             new InstantCommand(() -> intake.setIntakeSpeed(0))
         );
+        
         
     }
 }

@@ -84,6 +84,7 @@ public class IntakeTransferCommand extends Command
   @Override
   public void execute() 
   {
+    /*
     SmartDashboard.putBoolean("Has Note",intake.haveNote());
     
     if (intake.haveNote())
@@ -97,7 +98,7 @@ public class IntakeTransferCommand extends Command
       light.setTeamColor();
       intake.setIntakeSpeed(intakeSpeed);
     }
-        
+        */
   }
 
   // Called once the command ends or is interrupted.
@@ -112,6 +113,6 @@ public class IntakeTransferCommand extends Command
   @Override
   public boolean isFinished()
   {
-    return intake.haveNote();
+    return false;
   }
 }

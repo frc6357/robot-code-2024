@@ -384,8 +384,8 @@ public final class Constants
         
         public static final String kSpeakerDefaultLeftSpeedKey = "kSpeakerDefaultLeftSpeedKey";
         public static final String kSpeakerDefaultRightSpeedKey = "kSpeakerDefaultRightSpeedKey";
-        public static final double kSpeakerDefaultLeftSpeed = 0.4;
-        public static final double kSpeakerDefaultRightSpeed = 0.5;
+        public static final double kSpeakerDefaultLeftSpeed = -0.4;
+        public static final double kSpeakerDefaultRightSpeed = -0.5;
         public static final Pref<Double> speakerSpeedLeft = SKPreferences.attach(kSpeakerDefaultLeftSpeedKey, kSpeakerDefaultLeftSpeed);
         public static final Pref<Double> speakerSpeedRight = SKPreferences.attach(kSpeakerDefaultRightSpeedKey, kSpeakerDefaultRightSpeed);
         
