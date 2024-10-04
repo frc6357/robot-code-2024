@@ -113,19 +113,13 @@ public class SK24Intake extends SubsystemBase
     
     public Boolean isRightBeamBroken()
     {
-        if(beamBreakSensorLeft.get())
-            return false;
-        else
-            return true;
+        return !beamBreakSensorRight.get();
     }
 
     //checks if the right beam is broken
     public boolean isLeftBeamBroken()
     {
-        if(beamBreakSensorRight.get())
-            return false;
-        else   
-            return true;
+        return !beamBreakSensorLeft.get();
     }
     
     public boolean haveNote()

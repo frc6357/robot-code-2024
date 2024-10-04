@@ -96,20 +96,20 @@ public class SK24IntakeBinder implements CommandBinder{
             //intakeOperatorButton.onTrue(new InstantCommand(() -> intake.setIntakeSpeed(kIntakeSpeed)));  //perviously operatorIntakeButton
             //intakeOperatorButton.onFalse(new InstantCommand(() -> intake.setIntakeSpeed(0.0)));
 
-                intakeOperatorButton.onTrue(new WaitUntilCommand(intake::haveNote)
+                intakeOperatorButton.whileTrue(new WaitUntilCommand(intake::haveNote)
                     .beforeStarting(() -> intake.setIntakeSpeed(kIntakeSpeed), intake)
                     .finallyDo(() -> light.setOrange())
                     .andThen(new WaitCommand(.23))
                     .finallyDo(() -> intake.setIntakeSpeed(0)));
-                intakeOperatorButton.onFalse(new IntakeTransferCommand(0.0, intake, light));
+                //intakeOperatorButton.onFalse(new IntakeTransferCommand(0.0, intake, light));
 
 
-                intakeDriverButton.onTrue(new WaitUntilCommand(intake::haveNote)
+                intakeDriverButton.whileTrue(new WaitUntilCommand(intake::haveNote)
                     .beforeStarting(() -> intake.setIntakeSpeed(kIntakeSpeed), intake)
                     .finallyDo(() -> light.setOrange())
                     .andThen(new WaitCommand(.23))
                     .finallyDo(() -> intake.setIntakeSpeed(0)));
-                intakeDriverButton.onFalse(new IntakeTransferCommand(0, intake, light));
+                //intakeDriverButton.onFalse(new IntakeTransferCommand(0, intake, light));
             
             ejectOperatorButton.onTrue(new IntakeEjectCommand(kIntakeSpeed, intake, light));
             ejectOperatorButton.onFalse(new IntakeEjectCommand(0, intake, light));
