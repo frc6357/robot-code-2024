@@ -198,8 +198,8 @@ public final class Constants
         public static final double kWheelBase  = 0.5842;
         
         /** The max speed the drive wheels should be allowed to go */
-        public static final double kMaxSpeedMetersPerSecond = 4.5;
-        public static final double kMaxRotationDegreesPerSecond = 360.0;
+        public static final double kMaxSpeedMetersPerSecond = 7.0; //4.5
+        public static final double kMaxRotationDegreesPerSecond = 90.0; //360.0
         public static final double kStartAutoLength = 4;
 
         public static final double kAmpRedFacing = 270.0;

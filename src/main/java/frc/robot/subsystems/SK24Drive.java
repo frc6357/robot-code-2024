@@ -50,10 +50,10 @@ public class SK24Drive extends SwerveDrivetrain implements Subsystem
     /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
     private final Rotation2d RedAlliancePerspectiveRotation = Rotation2d.fromDegrees(180);
 
-    Pref<Double> supplyCurrent = SKPreferences.attach("supplyCurrentKey", 60.0).onChange((unused) -> updateCurrentLimit());
+    Pref<Double> supplyCurrent = SKPreferences.attach("supplyCurrentKey", 120.0).onChange((unused) -> updateCurrentLimit()); //60.0
     Pref<Double> supplyCurrentThreshold = SKPreferences.attach("supplyCurrentThresholdKey", 80.0).onChange((unused) -> updateCurrentLimit());
     Pref<Double> supplyTimeThreshold = SKPreferences.attach("supplyTimeThresholdKey", 0.5).onChange((unused) -> updateCurrentLimit());
-    Pref<Double> statorCurrentLimit = SKPreferences.attach("statorCurrentLimitKey", 60.0).onChange((unused) -> updateCurrentLimit());
+    Pref<Double> statorCurrentLimit = SKPreferences.attach("statorCurrentLimitKey", 120.0).onChange((unused) -> updateCurrentLimit());  //60.0
 
 
     StructArrayPublisher<SwerveModuleState> currentPublisher = NetworkTableInstance.getDefault()
