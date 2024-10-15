@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 1.044670391765889,
-        "y": 6.722020177278586
+        "x": 1.6887664017838722,
+        "y": 6.75715268691593
       },
       "prevControl": {
-        "x": 0.9509836993996368,
-        "y": 6.745441850370149
+        "x": 1.59507970941762,
+        "y": 6.780574360007493
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,6 +43,12 @@
               "data": {
                 "name": "Pos1CommandGroup"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "StartLauncherCommand"
+              }
             }
           ]
         }
@@ -50,18 +56,18 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.2,
     "maxAcceleration": 2.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -124.77783136636387,
+    "rotation": -137.82980759288716,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Position 1",
   "previewStartingState": {
     "rotation": -121.34958086524304,
     "velocity": 0

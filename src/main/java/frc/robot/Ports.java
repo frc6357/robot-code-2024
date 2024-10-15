@@ -29,10 +29,11 @@ public class Ports
         public static final SKTrigger kSlowMode = new SKTrigger(kDriver, kLeftBumper.value, BUTTON);
 
         // Rotate to specified position
+        public static final SKTrigger kDriverShoot = new SKTrigger(kDriver, kB.value, BUTTON);
         public static final SKTrigger kRotateSpeaker = new SKTrigger(kDriver, kA.value, BUTTON);
         public static final SKTrigger kRotateLeft = new SKTrigger(kDriver, kX.value, BUTTON);
-        public static final SKTrigger kRotateRight = new SKTrigger(kDriver, kB.value, BUTTON);
         public static final SKTrigger kRotateSource = new SKTrigger(kDriver, kY.value, BUTTON);
+        public static final SKTrigger kRotateRight = new SKTrigger(kDriver, kB.value, BUTTON);
 
         // Reset gyro
         public static final SKTrigger kResetGyroPos = new SKTrigger(kDriver, kLeftStick.value, BUTTON);
@@ -44,11 +45,14 @@ public class Ports
         // Climb
         public static final SKTrigger kClimbUp = new SKTrigger(kDriver, 0, POV);
         public static final SKTrigger kClimbDown = new SKTrigger(kDriver, 180, POV);
+        public static final SKTrigger kClimbRight = new SKTrigger(kDriver, 90, POV);
+        public static final SKTrigger kClimbLeft = new SKTrigger(kDriver, 270, POV);
+
         public static final SKTrigger kStop = new SKTrigger(kDriver, 270, POV);
         public static final SKTrigger kClimbOverride = new SKTrigger(kDriver, kRightStick.value, BUTTON);
 
         // Launcher Zero Position
-        public static final SKTrigger kAngleFloor = new SKTrigger(kDriver, kStart.value, BUTTON); 
+        //public static final SKTrigger kAngleFloor = new SKTrigger(kDriver, kStart.value, BUTTON); 
         
         // Party mode
         public static final SKTrigger kPartyMode = new SKTrigger(kDriver, kBack.value, BUTTON);
@@ -69,23 +73,23 @@ public class Ports
         public static final SKTrigger kEject = new SKTrigger(kOperator, kLeftTrigger.value, AXIS);
 
         // Transfer
-        public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
+        //public static final SKTrigger kTransfer  = new SKTrigger(kOperator, kLeftBumper.value, BUTTON);
 
         // Launch at Target
         public static final SKTrigger kLaunchSpeaker = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
         public static final SKTrigger kLaunchAmp = new SKTrigger(kOperator, kA.value, BUTTON);
 
         // Launcher Angle 
-        public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, POV);
-        public static final SKTrigger kAngleAmp = new SKTrigger(kOperator, 270, POV);
-        public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
-        public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
+        //public static final SKTrigger kAngleSpeaker = new SKTrigger(kOperator, 0, POV);
+        //public static final SKTrigger kAngleAmp = new SKTrigger(kOperator, 270, POV);
+        //public static final SKTrigger kAngleFloor = new SKTrigger(kOperator, 180, POV);
+        //public static final SKTrigger kAngleWing = new SKTrigger(kOperator, 90, POV);
         public static final FilteredAxis kLauncherAxis = new FilteredAxis(() -> kOperator.getRawAxis(kLeftY.value));
-        public static final SKTrigger kVisionAngle = new SKTrigger(kOperator, kB.value, BUTTON);
+        //public static final SKTrigger kReadyShoot = new SKTrigger(kOperator, kB.value, BUTTON);
 
         // Reset launcher encoder
-        public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
-        public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
+        //public static final SKTrigger kResetLauncherEncoder = new SKTrigger(kOperator, kStart.value, BUTTON);
+        //public static final SKTrigger kLauncherOverride = new SKTrigger(kOperator, kLeftStick.value, BUTTON);
 
         // Churro 
         //public static final FilteredAxis kChurroAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
@@ -105,9 +109,9 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kLeftLauncherMotor = new CANPort(40, busName);
         public static final CANPort kRightLauncherMotor = new CANPort(41, busName);
-        public static final CANPort kTransferMotor = new CANPort(42, busName);
-        public static final CANPort kLauncherAngleMotor = new CANPort(43, busName);
-        public static final CANPort kLauncherAngleFollowerMotor = new CANPort(44, busName);
+        //public static final CANPort kTransferMotor = new CANPort(42, busName);
+        //public static final CANPort kLauncherAngleMotor = new CANPort(43, busName);
+        //public static final CANPort kLauncherAngleFollowerMotor = new CANPort(44, busName);
         public static final CANPort kLaserCanLauncherLower = new CANPort(46, busName);
         public static final CANPort kLaserCanLauncherHigher = new CANPort(47, busName);
     }
@@ -153,8 +157,8 @@ public class Ports
     public static class intakePorts 
     {
         private static final String busName = "";
-        public static final CANPort kTopIntakeMotor = new CANPort(50, busName);
-        public static final CANPort kBottomIntakeMotor = new CANPort(51, busName);
+        public static final CANPort kBottomIntakeMotor = new CANPort(50, busName);
+        public static final CANPort kTopIntakeMotor = new CANPort(51, busName);
         public static final CANPort kCandle = new CANPort(48, busName);
 
         

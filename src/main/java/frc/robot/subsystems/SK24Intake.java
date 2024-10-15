@@ -1,27 +1,37 @@
 package frc.robot.subsystems;
 
-import static frc.robot.Constants.IntakeConstants.kIntakeAngle;
-import static frc.robot.Constants.IntakeConstants.kIntakeSpeed;
+import static frc.robot.Constants.IntakeConstants.noteMeasurement;
 import static frc.robot.Ports.intakePorts.kBottomIntakeMotor;
 import static frc.robot.Ports.intakePorts.kTopIntakeMotor;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherHigher;
+import static frc.robot.Ports.launcherPorts.kLaserCanLauncherLower;
+//import static frc.robot.Ports.launcherPorts.kTransferMotor;
 
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.Preferences;
+import au.grapplerobotics.LaserCan;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.utils.SKCANLight;
 
 public class SK24Intake extends SubsystemBase
 {
     CANSparkFlex topIntakeMotor;
     CANSparkFlex bottomIntakeMotor;
-    private boolean pastIntakeState;
-    private boolean currIntakeState;
-    double shuffleSpeed;
-    boolean isTest = false;
+    CANSparkFlex transferMotor;
 
-    public SK24Intake()
+    //private LaserCan laserCanLower;
+    //private LaserCan laserCanHigher;
+    DigitalInput beamBreakSensorLeft;
+    DigitalInput beamBreakSensorRight;
+
+    private final SKCANLight light;
+
+
+    public SK24Intake(SKCANLight light)
     {
 
         //Initialize motor objects, assuming intake has 2 motors.
@@ -30,20 +40,101 @@ public class SK24Intake extends SubsystemBase
         bottomIntakeMotor = new CANSparkFlex(kBottomIntakeMotor.ID, MotorType.kBrushless);
         bottomIntakeMotor.follow(topIntakeMotor, true);
 
-        currIntakeState = false;
-        pastIntakeState = false;
+        this.light = light;
+
+
+        //transferMotor = new CANSparkFlex(kTransferMotor.ID, MotorType.kBrushless);
+        //transferMotor.setInverted(true);
+
+       // laserCanLower = new LaserCan(kLaserCanLauncherLower.ID);
+       // laserCanHigher = new LaserCan(kLaserCanLauncherHigher.ID);
+    
+       //DONT USE CHANNEL 0 
+       beamBreakSensorLeft = new DigitalInput(6);
+       beamBreakSensorRight =new DigitalInput(1);
+
+
+
+    }
+    /*
+     public boolean haveLowerNote()
+    {
+        LaserCan.Measurement measurementLower = laserCanLower.getMeasurement();
+
+        if ((measurementLower != null && measurementLower.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance lower", measurementLower.distance_mm);
+          if(measurementLower.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
+
+        return false;
     }
 
-    //Set motor speeds
-    public void setIntakeSpeed (double speed)
+    public boolean haveHigherNote()
     {
-        if(!isTest)
-        {
-            topIntakeMotor.set(speed);
-        }else{
-            topIntakeMotor.set(shuffleSpeed);
-        }
+         LaserCan.Measurement measurementHigher = laserCanHigher.getMeasurement();
+        
+        if ((measurementHigher != null && measurementHigher.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT)) {
+            SmartDashboard.putNumber("LaserCan distance higher", measurementHigher.distance_mm);
+          if(measurementHigher.distance_mm < noteMeasurement)
+          {
+            return true;
+          }
+        } 
+        return false;
+    }*/
+
+
+    /**
+     * Sets the speed of the transfer
+     * @param speed The speed to set for left. Value should be between -1.0 and 1.0.
+     */    
+    /**public void setTransferSpeed (double speed)
+    {
+        transferMotor.set(speed);
+    }*/
+
+    //Return motor speeds
+    /**public double getTransferMotorSpeed()
+    {
+        return transferMotor.get();
     }
+    public void stopTransfer(){
+        transferMotor.stopMotor();
+    }*/
+
+    //Set motor speeds
+
+
+    //checks if the left beam is broken
+
+    
+    public Boolean isRightBeamBroken()
+    {
+        return !beamBreakSensorRight.get();
+    }
+
+    //checks if the right beam is broken
+    public boolean isLeftBeamBroken()
+    {
+        return !beamBreakSensorLeft.get();
+    }
+    
+    public boolean haveNote()
+    {
+        if(isRightBeamBroken()||isLeftBeamBroken())
+            return true;
+        else
+            return false;
+    }
+    
+    public void setIntakeSpeed(double speed)
+    {
+        topIntakeMotor.set(speed);
+    }
+
         
     //Return motor speeds
     public double getMotorSpeed ()
@@ -59,16 +150,14 @@ public class SK24Intake extends SubsystemBase
 
     public void periodic()
     {
+        SmartDashboard.putBoolean("Has Note",haveNote());
     }
 
     public void testInit()
     {
-        isTest = true;
-        Preferences.initDouble("Intake Speed", kIntakeSpeed);
     }
     
     public void testPeriodic()
     {
-        shuffleSpeed = Preferences.getDouble("Intake Speed", kIntakeSpeed);
     }
 }

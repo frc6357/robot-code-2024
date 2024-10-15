@@ -3,7 +3,6 @@ package frc.robot.commands;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SK24Drive;
 import frc.robot.subsystems.SK24Vision;
@@ -19,7 +18,6 @@ public class AmpCenterCommand extends Command
     // Meters per second
     private double transDeadband = 0.005;
 
-    private double currentTranslation;
     private double currentRotation;
     public double maxRot = 4.0;
     public Supplier<Double> manualSpeed;
@@ -63,7 +61,6 @@ public class AmpCenterCommand extends Command
         {
             double translation = transPID.calculate(vision.returnXOffset(vision.getTargetPose()));
             translation = Math.abs(translation) < transDeadband ? 0.0 : translation;
-            currentTranslation = translation;
             drive.drive(manualSpeed.get(), translation, currentRotation, false);
         }
         else

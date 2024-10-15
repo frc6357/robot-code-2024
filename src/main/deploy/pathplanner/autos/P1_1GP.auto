@@ -24,14 +24,26 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "ZeroPositionCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "OutOfWay"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Position 1",
   "choreoAuto": false
 }

@@ -1,0 +1,136 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.290439811648857,
+        "y": 6.19
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.702489438836914,
+        "y": 6.19
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 6.888884546999863,
+        "y": 5.436685488755594
+      },
+      "prevControl": {
+        "x": 6.478438932956967,
+        "y": 5.989764829721968
+      },
+      "nextControl": {
+        "x": 7.299330161042759,
+        "y": 4.88360614778922
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.027252914222688,
+        "y": 4.1
+      },
+      "prevControl": {
+        "x": 7.45130028721596,
+        "y": 4.124382094918037
+      },
+      "nextControl": {
+        "x": 8.3657014729013,
+        "y": 4.085672285365792
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.152302612297534,
+        "y": 7.307562004567661
+      },
+      "prevControl": {
+        "x": 6.380791642711889,
+        "y": 7.911098165642557
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Score456"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.1,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 3.0,
+      "rotationDegrees": -163.38557551087362,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Pick UP",
+      "waypointRelativePos": 1.6,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "IntakeCommand"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "LauncherCommand"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "SetAngle",
+      "waypointRelativePos": 0.6000000000000001,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "GP456Command"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.2,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -165.20256438207045,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Position 1",
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

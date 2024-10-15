@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.882905765811533,
+        "y": 5.539225686154654
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.6252673618043394,
+        "y": 5.527514849608872
+      },
+      "isLocked": false,
+      "linkedName": "PickGP2"
+    },
+    {
+      "anchor": {
+        "x": 2.309440738710292,
+        "y": 5.574358195791997
+      },
+      "prevControl": {
+        "x": 2.4616816138054514,
+        "y": 5.574358195791997
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Score2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.2,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 179.72716501693196,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Position 2",
+  "previewStartingState": {
+    "rotation": 179.49520443144422,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

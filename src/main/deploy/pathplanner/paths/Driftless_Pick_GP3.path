@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.7824530941501242,
+        "y": 3.9582627524741496
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1806215367066955,
+        "y": 4.005106098657276
+      },
+      "isLocked": false,
+      "linkedName": "Score3"
+    },
+    {
+      "anchor": {
+        "x": 2.4733924503512332,
+        "y": 4.227611993027124
+      },
+      "prevControl": {
+        "x": 1.8995322368676093,
+        "y": 4.184958966779559
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "PickGP3"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.2,
+    "maxAcceleration": 2.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.2623268625678,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Driftless",
+  "previewStartingState": {
+    "rotation": 117.48661962428797,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
