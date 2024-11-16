@@ -274,7 +274,7 @@ public class RobotContainer {
             
             //SK24AutoBuilder.setAutoNames(autoList);
             autoCommandSelector = SK24AutoBuilder.buildAutoChooser("P4_Taxi");
-            SmartDashboard.putData("Auto Chooser", autoCommandSelector);
+            SmartDashboard.putData("Auto Chooser", autoCommandSelector);  
         }
     }
 
