@@ -11,7 +11,7 @@
         "vgap": 16.0,
         "titleType": 0,
         "tiles": {
-          "6,2": {
+          "5,1": {
             "size": [
               2,
               1
@@ -26,7 +26,7 @@
               "Colors/Color when false": "#F55D3EFF"
             }
           },
-          "5,0": {
+          "7,0": {
             "size": [
               1,
               1
@@ -41,7 +41,7 @@
               "Colors/Color when false": "#FF0000FF"
             }
           },
-          "5,1": {
+          "8,0": {
             "size": [
               1,
               1
@@ -56,9 +56,9 @@
               "Colors/Color when false": "#FF0000FF"
             }
           },
-          "3,1": {
+          "5,0": {
             "size": [
-              2,
+              1,
               1
             ],
             "content": {
@@ -71,76 +71,20 @@
               "Colors/Color when false": "#16AEBBFF"
             }
           },
-          "8,1": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Current Churro Position",
-              "_title": "Current Churro Position",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,0": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Current Churro Speed",
-              "_title": "Current Churro Speed",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "8,2": {
+          "7,1": {
             "size": [
               1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Churro at Lower",
-              "_title": "Churro at Lower",
-              "_glyph": 14,
-              "_showGlyph": false,
-              "Colors/Color when true": "#16AEBBFF",
-              "Colors/Color when false": "#FF0000FF"
-            }
-          },
-          "9,2": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Churro at Upper",
-              "_title": "Churro at Upper",
-              "_glyph": 148,
-              "_showGlyph": false,
-              "Colors/Color when true": "#16AEBBFF",
-              "Colors/Color when false": "#FF0000FF"
-            }
-          },
-          "6,0": {
-            "size": [
-              2,
               1
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Current Launcher Angle",
-              "_title": "Current Launcher Angle",
+              "_title": "Launcher Angle",
               "_glyph": 148,
               "_showGlyph": false
             }
           },
-          "6,1": {
+          "8,1": {
             "size": [
               2,
               1
@@ -153,7 +97,7 @@
               "_showGlyph": false
             }
           },
-          "4,2": {
+          "3,1": {
             "size": [
               2,
               1
@@ -168,7 +112,7 @@
               "Colors/Color when false": "#FFFFFFFF"
             }
           },
-          "3,3": {
+          "6,0": {
             "size": [
               1,
               1
@@ -176,7 +120,7 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/HaveIntakeNote",
-              "_title": "HaveIntakeNote",
+              "_title": "Have Note",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#FC8700FF",
@@ -196,7 +140,7 @@
               "_showGlyph": true
             }
           },
-          "4,3": {
+          "8,2": {
             "size": [
               1,
               1
@@ -209,7 +153,7 @@
               "_showGlyph": false
             }
           },
-          "5,3": {
+          "7,3": {
             "size": [
               1,
               1
@@ -222,7 +166,7 @@
               "_showGlyph": false
             }
           },
-          "6,3": {
+          "7,2": {
             "size": [
               1,
               1
@@ -235,7 +179,7 @@
               "_showGlyph": false
             }
           },
-          "7,3": {
+          "9,2": {
             "size": [
               1,
               1
@@ -248,7 +192,7 @@
               "_showGlyph": false
             }
           },
-          "3,2": {
+          "9,0": {
             "size": [
               1,
               1
@@ -256,7 +200,7 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/HaveLauncherLowerNote",
-              "_title": "/SmartDashboard/HaveLauncherLowerNote",
+              "_title": "Lower Note",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
@@ -314,11 +258,26 @@
               "_type": "Simple Dial",
               "_source0": "network_table:///SmartDashboard/Auton Timer",
               "_title": "Auto Timer",
-              "_glyph": 148,
-              "_showGlyph": false,
+              "_glyph": 122,
+              "_showGlyph": true,
               "Range/Min": 0.0,
               "Range/Max": 15.0,
               "Visuals/Show value": true
+            }
+          },
+          "3,2": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Field",
+              "_title": "Field Image",
+              "_glyph": 56,
+              "_showGlyph": true,
+              "Game/Game": "k2024Crescendo",
+              "Visuals/Robot Icon Size": 50.0,
+              "Visuals/Show Outside Circles": false
             }
           }
         }
@@ -334,7 +293,23 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "3,2": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "Field",
+              "_title": "Field",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Game/Game": "k2024Crescendo",
+              "Visuals/Robot Icon Size": 50.0,
+              "Visuals/Show Outside Circles": false
+            }
+          }
+        }
       }
     }
   ],
